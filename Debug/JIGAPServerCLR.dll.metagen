@@ -16,4 +16,6 @@ Class JIGAPServerCLR.JIGAPServerWrap: AutoLayout, AnsiClass, Class, Public, Befo
   Methods:
     JIGAPWrapServerOpen(String, String): PrivateScope, Public, HideBySig
     JIGAPWrapServerClose(): PrivateScope, Public, HideBySig
+    JIGAPGetSystemMsg(): PrivateScope, Public, HideBySig
+    JIGAPCheckSystemMsg(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

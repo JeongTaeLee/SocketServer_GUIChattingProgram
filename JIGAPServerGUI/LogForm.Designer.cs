@@ -30,6 +30,7 @@
         {
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.ServerCloseButton = new System.Windows.Forms.Button();
+            this.LogFormCloseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LogTextBox
@@ -45,11 +46,21 @@
             // 
             this.ServerCloseButton.Location = new System.Drawing.Point(14, 410);
             this.ServerCloseButton.Name = "ServerCloseButton";
-            this.ServerCloseButton.Size = new System.Drawing.Size(328, 28);
+            this.ServerCloseButton.Size = new System.Drawing.Size(159, 28);
             this.ServerCloseButton.TabIndex = 1;
             this.ServerCloseButton.Text = "서버 종료";
             this.ServerCloseButton.UseVisualStyleBackColor = true;
             this.ServerCloseButton.Click += new System.EventHandler(this.ServerCloseButton_Click);
+            // 
+            // LogFormCloseButton
+            // 
+            this.LogFormCloseButton.Location = new System.Drawing.Point(180, 410);
+            this.LogFormCloseButton.Name = "LogFormCloseButton";
+            this.LogFormCloseButton.Size = new System.Drawing.Size(163, 28);
+            this.LogFormCloseButton.TabIndex = 2;
+            this.LogFormCloseButton.Text = "로그 창 닫기";
+            this.LogFormCloseButton.UseVisualStyleBackColor = true;
+            this.LogFormCloseButton.Click += new System.EventHandler(this.LogFormCloseButton_Click);
             // 
             // LogForm
             // 
@@ -57,6 +68,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.LogFormCloseButton);
             this.Controls.Add(this.ServerCloseButton);
             this.Controls.Add(this.LogTextBox);
             this.Name = "LogForm";
@@ -70,5 +82,6 @@
 
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.Button ServerCloseButton;
+        private System.Windows.Forms.Button LogFormCloseButton;
     }
 }

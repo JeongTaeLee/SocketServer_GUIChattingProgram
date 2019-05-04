@@ -1,5 +1,5 @@
 #pragma once
-
+#define MAXBUFFERSIZE 2048
 
 typedef struct HANDLE_DATA
 {
@@ -11,3 +11,13 @@ typedef struct HANDLE_DATA
 
 	
 } *LPHANDLE_DATA;
+
+typedef struct IO_DATA
+{
+	OVERLAPPED overlapped;
+	char szBuffer[MAXBUFFERSIZE];
+	WSABUF wsaBuf;
+
+	IO_DATA();
+	~IO_DATA();
+} *LPIO_DATA;

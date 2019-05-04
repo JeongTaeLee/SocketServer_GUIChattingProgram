@@ -3,18 +3,16 @@
 
 #include <msclr/marshal_cppstd.h>
 #include <msclr/marshal.h>
+#include <mutex>
 
 JIGAPServerCLR::JIGAPServerWrap::JIGAPServerWrap()
 	:lpJIGAPServer(new JIGAPServer)
 {
-	//throw gcnew System::NotImplementedException();
 }
 
 JIGAPServerCLR::JIGAPServerWrap::~JIGAPServerWrap()
 {
 	delete lpJIGAPServer;
-
-	//throw gcnew System::NotImplementedException();
 }
 
 bool JIGAPServerCLR::JIGAPServerWrap::JIGAPWrapServerOpen(System::String^ szIpAddr, System::String^ szPortAddr)
@@ -33,4 +31,15 @@ bool JIGAPServerCLR::JIGAPServerWrap::JIGAPWrapServerOpen(System::String^ szIpAd
 void JIGAPServerCLR::JIGAPServerWrap::JIGAPWrapServerClose()
 {
 	lpJIGAPServer->JIGAPServerClose();
+}
+
+String^ JIGAPServerCLR::JIGAPServerWrap::JIGAPGetSystemMsg()
+{
+	String^ strSystemMsg = msclr::interop::marshal_as<String^>(lpJIGAPServer->JIGAPGetSystemMsg());
+	return strSystemMsg;
+}
+
+bool JIGAPServerCLR::JIGAPServerWrap::JIGAPCheckSystemMsg()
+{
+	return lpJIGAPServer->JIGAPCheckSystemMsg();
 }

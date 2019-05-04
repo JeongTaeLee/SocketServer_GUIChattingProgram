@@ -12,8 +12,10 @@
 #include <WinSock2.h>
 #include <Windows.h>
 
+#include <mutex>
 #include <string>
 #include <thread>
+#include <queue>
 
 #pragma comment(lib, "ws2_32.lib")
 

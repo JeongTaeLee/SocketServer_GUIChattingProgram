@@ -28,7 +28,6 @@ namespace JIGAPServerGUI
             m_JigapServer = new JIGAPServerCLR.JIGAPServerWrap();
             m_bOnServer = false;
         }
-
         public static ServerManager GetInst()
         {
             if (instance == null)
@@ -36,7 +35,6 @@ namespace JIGAPServerGUI
 
             return instance;
         }
-
         public bool ServerOpen(string strIpAddr, string strPortAddr)
         {
             /*Server Open합니다*/
@@ -55,5 +53,7 @@ namespace JIGAPServerGUI
             m_JigapServer.JIGAPWrapServerClose();
             m_bOnServer = false;
         }
+        public bool CheckSystemMsg() { return m_JigapServer.JIGAPCheckSystemMsg(); }
+        public string GetSystemMsg() { return m_JigapServer.JIGAPGetSystemMsg(); }
     }
 }

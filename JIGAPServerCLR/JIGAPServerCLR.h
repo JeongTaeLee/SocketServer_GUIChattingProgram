@@ -15,5 +15,9 @@ namespace JIGAPServerCLR {
 
 		bool JIGAPWrapServerOpen(String ^ szIpAddr, String^ szPortAddr);
 		void JIGAPWrapServerClose();
+
+	public:
+		String^ JIGAPGetSystemMsg();
+		bool JIGAPCheckSystemMsg();
 	};
 }

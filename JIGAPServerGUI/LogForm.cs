@@ -19,8 +19,11 @@ namespace JIGAPServerGUI
         {
             InitializeComponent();
 
-            /*Form 이벤트를 추가합니다*/
+            /*Form Shown이벤트를 추가합니다*/
             this.Shown += new EventHandler(LogFormShown);
+            this.FormClosing += new FormClosingEventHandler(LogFormClosing);
+
+            this.LogFormCloseButton.Enabled = false;
         }
 
         /*Form 생성시 가장 마지막에 호출되는 이벤트입니다(폼이 생성되고 호출됩니다.)*/
@@ -34,13 +37,15 @@ namespace JIGAPServerGUI
                     if (bPrintLogThreadExit)
                         break;
 
-                    // /r 커서 위치를 맨앞으로 옮깁니다(현재라인)
-                    string log = "system : LogText \r\n";
-
-                    this.Invoke(new Action(delegate ()
+                    /*SystemLog가 있다면 Log를 띄웁니다.*/
+                    if (ServerManager.GetInst().CheckSystemMsg())
                     {
-                        LogTextBox.AppendText(log);
-                    }));
+                        string log = "System : " + ServerManager.GetInst().GetSystemMsg() + "\r\n";
+                        this.Invoke(new Action(delegate ()
+                        {
+                            LogTextBox.AppendText(log);
+                        }));
+                    }
 
                     Thread.Sleep(100);
                 }
@@ -48,17 +53,20 @@ namespace JIGAPServerGUI
             ));
             printLogThread.Start();
         }
-
-        public void PrintSystemLog(string str)
+        /*Form 삭제시 가장 먼저 호출되는 이벤트입니다*/
+        private void LogFormClosing(object obj, EventArgs args)
         {
-            LogTextBox.AppendText("System : " + str + "\r\n");
         }
 
         private void ServerCloseButton_Click(object sender, EventArgs e)
         {
             ServerManager.GetInst().ServerClose();
-            bPrintLogThreadExit = true;
+            this.LogFormCloseButton.Enabled = true;
+        }
 
+        private void LogFormCloseButton_Click(object sender, EventArgs e)
+        {
+            bPrintLogThreadExit = true;
             printLogThread.Join();
             this.Close();
         }

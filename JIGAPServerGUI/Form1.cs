@@ -29,10 +29,7 @@ namespace JIGAPServerGUI
                 logForm.Show();
 
                 /*사용자가 입력한 정보로 서버를 생성 합니다*/
-                if (ServerManager.GetInst().ServerOpen(IPTextBox.Text, PortTextBox.Text))
-                    logForm.PrintSystemLog("서버를 성공적으로 열었습니다.");
-                else
-                    logForm.PrintSystemLog("서버를 열지 못했습니다.");
+                ServerManager.GetInst().ServerOpen(IPTextBox.Text, PortTextBox.Text);
             }
         } 
 
