@@ -53,6 +53,11 @@ HRESULT JIGAPServer::InitializeServer()
 		return E_FAIL;
 	
 	PrintSystemLog("서버의 CompletionPort가 생성되었습니다.");
+
+	
+	/*메모리 동시접근 버그를 잡기위한 WinAPI 뮤텍스 생성입니다.*/
+	hSystemLogMutex = CreateMutex(0, FALSE, NULL);
+	hThreadMutex = CreateMutex(0, FALSE, NULL);
 	return S_OK;
 }
 
@@ -61,7 +66,10 @@ void JIGAPServer::ReleaseServer()
 	closesocket(lpServData->hSock);
 	WSACleanup();
 
-	bServerOn;
+	/*현재 서버에 작동 여부를 확인하는 bool 변수를 여러 쓰레드에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
+	WaitForSingleObject(hThreadMutex, INFINITE);
+	bServerOn = false;
+	ReleaseMutex(hThreadMutex);
 
 	Sleep(100);
 	if (chattingThread.joinable())
@@ -69,6 +77,10 @@ void JIGAPServer::ReleaseServer()
 	Sleep(100);
 	if (connectThread.joinable())
 		connectThread.join();
+	
+	/*생성한 WInAPI Mutex를 해제합니다.*/
+	CloseHandle(hSystemLogMutex);
+	CloseHandle(hThreadMutex);
 
 	delete lpServData;
 	lpServData = nullptr;
@@ -77,38 +89,52 @@ void JIGAPServer::ReleaseServer()
 void JIGAPServer::ConnectThread()
 {
 	PrintSystemLog("서버의 연결 담당 Thread가 작동되었습니다.");
-	while (bServerOn)
+	
+
+	while (true)
 	{
-	/*	LPHANDLE_DATA lpClntData = new HANDLE_DATA;
+		/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
+		WaitForSingleObject(hThreadMutex, INFINITE);
+		
+		LPHANDLE_DATA lpClntData = new HANDLE_DATA;
 		int iAddrSize = sizeof(lpClntData->SockAddr);
 		lpClntData->hSock = accept(lpServData->hSock, (SOCKADDR*)& lpClntData->SockAddr, &iAddrSize);
-
+		
+		if (!bServerOn)
+			break;
+		
+		/*소켓에 연결을 실패 했을 경우*/
 		if (lpClntData->hSock == INVALID_SOCKET)
 		{
 			closesocket(lpClntData->hSock);
 			delete lpClntData;
-			qSystemMsg.push("연결을 시도하던 소켓과의 연결이 실패하였습니다");
+			PrintSystemLog("연결을 시도하던 소켓과의 연결이 실패하였습니다");
 			continue;
 		}
-
+		
+		/*CompletionPort에 해당 소켓을 연결합니다*/
 		if (CreateIoCompletionPort((HANDLE)lpClntData->hSock, hCompletionHandle, (DWORD_PTR)lpClntData, 0) == NULL)
 		{
 			closesocket(lpClntData->hSock);
 			delete lpClntData;
-			qSystemMsg.push("CompletionPort에 연결을 시도하던 소켓을 할당하지 못했습니다.");
+			PrintSystemLog("CompletionPort에 연결을 시도하던 소켓을 할당하지 못했습니다.");
 			continue;
 		}
 		
 		char message[128];
 		sprintf(message, "%d 소켓과 연결되었습니다.", lpClntData->hSock);
-		qSystemMsg.push(message);
-
+		PrintSystemLog(message);
+			
 		LPIO_DATA  lpIOData = new IO_DATA;
 		DWORD Flag = 0;
 		DWORD dwRecvBytes = 0;
 
-		WSARecv(lpClntData->hSock, &lpIOData->wsaBuf, 1, &dwRecvBytes, &Flag, &lpIOData->overlapped, NULL);*/
+		/*Message를 받기 위한 부분입니다.*/
+		WSARecv(lpClntData->hSock, &lpIOData->wsaBuf, 1, &dwRecvBytes, &Flag, &lpIOData->overlapped, NULL);
+		
+		ReleaseMutex(hThreadMutex);
 	}
+
 
 	PrintSystemLog("서버의 연결 Thread가 해제되었습니다.");
 }
@@ -116,31 +142,41 @@ void JIGAPServer::ConnectThread()
 void JIGAPServer::ChattingThread()
 {
 	PrintSystemLog("서버의 채팅 담당 Thread가 작동되었습니다.");
-	while (bServerOn)
+
+	while (true)
 	{
-		//LPHANDLE_DATA lpHandle = nullptr;
-		//LPIO_DATA lpIO = nullptr;
+		/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
+		WaitForSingleObject(hThreadMutex, INFINITE);
 
-		//DWORD dwByte = 0;
-		//DWORD dwFlag = 0;
+		if (!bServerOn)
+			break;
 
-		//GetQueuedCompletionStatus(hCompletionHandle,
-		//	&dwByte,
-		//	(LPDWORD)& lpHandle,
-		//	(LPOVERLAPPED*)& lpIO,
-		//	INFINITE);
+		LPHANDLE_DATA lpHandle = nullptr;
+		LPIO_DATA lpIO = nullptr;
 
-		//if (dwByte == 0)
-		//{
-		//	closesocket(lpHandle->hSock);
-		//	delete lpHandle;
-		//	delete lpIO;
-		//	continue;
-		//}
+		DWORD dwByte = 0;
+		DWORD dwFlag = 0;
 
-		//lpIO->wsaBuf.len = dwByte;
-		//WSASend(lpHandle->hSock, &(lpIO->wsaBuf), 1, &dwByte, dwFlag, NULL, NULL);
+		/*메시지 입출력이 완료된 소켓을 얻어옵니다. 없을 경우 대기합니다.*/
+		GetQueuedCompletionStatus(hCompletionHandle,
+			&dwByte,
+			(LPDWORD)& lpHandle, // 입출력이 완려된 소켓의 데이터입니다.
+			(LPOVERLAPPED*)& lpIO, 
+			INFINITE);
 
+		if (dwByte == 0)
+		{
+			closesocket(lpHandle->hSock);
+			delete lpHandle;
+			delete lpIO;
+			continue;
+		}
+
+		/*메시지를 에코합니다.*/
+		lpIO->wsaBuf.len = dwByte;
+		WSASend(lpHandle->hSock, &(lpIO->wsaBuf), 1, &dwByte, dwFlag, NULL, NULL);
+
+		ReleaseMutex(hThreadMutex);
 	}
 
 	PrintSystemLog("서버의 채팅 Thread가 해제되었습니다.");
@@ -158,7 +194,10 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 		return false;
 	}
 
+	/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
+	WaitForSingleObject(hThreadMutex, INFINITE);
 	bServerOn = true;
+	ReleaseMutex(hThreadMutex);
 
 	connectThread = std::thread([&]() { ConnectThread(); });
 	Sleep(100);
@@ -179,18 +218,21 @@ void JIGAPServer::JIGAPServerClose()
 
 void JIGAPServer::PrintSystemLog(const std::string& key)
 {
-	systemLogMutex.lock();	
+	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */
+	WaitForSingleObject(hSystemLogMutex, INFINITE);
 	qSystemMsg.push(key);
-	systemLogMutex.unlock();
+	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
+	ReleaseMutex(hSystemLogMutex);
 }
 
 std::string JIGAPServer::JIGAPGetSystemMsg()
 {
 	/*가장 오래된 메시지를 가져옵니다.*/
-	systemLogMutex.lock();
+	WaitForSingleObject(hSystemLogMutex, INFINITE);
 	std::string strSystemMessage = qSystemMsg.front();
+
 	/*가장 오래된 메시지를 Queue에서 지웁니다.*/
 	qSystemMsg.pop();
-	systemLogMutex.unlock();
+	ReleaseMutex(hSystemLogMutex);
 	return strSystemMessage;
 }

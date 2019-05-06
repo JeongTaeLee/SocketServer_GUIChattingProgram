@@ -132,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="JIGAPServer.h" />
     <ClInclude Include="JIGAPServerCLR.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />

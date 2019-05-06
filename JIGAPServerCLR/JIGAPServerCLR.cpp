@@ -3,7 +3,7 @@
 
 #include <msclr/marshal_cppstd.h>
 #include <msclr/marshal.h>
-#include <mutex>
+
 
 JIGAPServerCLR::JIGAPServerWrap::JIGAPServerWrap()
 	:lpJIGAPServer(new JIGAPServer)

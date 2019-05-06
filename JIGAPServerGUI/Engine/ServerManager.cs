@@ -50,8 +50,11 @@ namespace JIGAPServerGUI
         public void ServerClose()
         {
             /*Server Close합니다*/
-            m_JigapServer.JIGAPWrapServerClose();
-            m_bOnServer = false;
+            if (m_bOnServer)
+            {
+                m_JigapServer.JIGAPWrapServerClose();
+                m_bOnServer = false;
+            }
         }
         public bool CheckSystemMsg() { return m_JigapServer.JIGAPCheckSystemMsg(); }
         public string GetSystemMsg() { return m_JigapServer.JIGAPGetSystemMsg(); }

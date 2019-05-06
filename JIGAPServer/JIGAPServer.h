@@ -3,10 +3,11 @@
 class JIGAPServer
 {
 private:
-	std::mutex systemLogMutex;
-
 	LPHANDLE_DATA lpServData;
-	
+
+	HANDLE hSystemLogMutex;	
+	HANDLE hThreadMutex;
+
 	std::string szIpAddr;
 	std::string szPortAddr;
 
@@ -16,7 +17,6 @@ private:
 	std::queue < std::string > qSystemMsg;
 
 	bool bServerOn;
-
 public:
 	HANDLE hCompletionHandle;
 
