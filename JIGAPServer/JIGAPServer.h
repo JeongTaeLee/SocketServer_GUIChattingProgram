@@ -14,6 +14,7 @@ private:
 	std::thread connectThread;
 	std::thread chattingThread;
 
+	std::list  < LPHANDLE_DATA > liHandleData;
 	std::queue < std::string > qSystemMsg;
 
 	bool bServerOn;

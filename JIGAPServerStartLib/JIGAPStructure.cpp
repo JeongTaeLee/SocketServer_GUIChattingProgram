@@ -2,7 +2,7 @@
 #include "JIGAPStructure.h"
 
 HANDLE_DATA::HANDLE_DATA()
-	:hSock(INVALID_SOCKET)
+	:lpIOData(nullptr), hSock(INVALID_SOCKET)
 {
 	memset(&SockAddr, 0, sizeof(SockAddr));
 }
@@ -13,7 +13,8 @@ HANDLE_DATA::~HANDLE_DATA()
 
 IO_DATA::IO_DATA()
 {
-	memset(&overlapped, 0, sizeof(overlapped));
+	eOvlmode = E_OVLMODE_RECV;
+
 	memset(szBuffer, 0, sizeof(szBuffer));
 
 	wsaBuf.len = MAXBUFFERSIZE;

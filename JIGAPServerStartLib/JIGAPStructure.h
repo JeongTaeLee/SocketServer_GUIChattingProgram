@@ -1,23 +1,31 @@
 #pragma once
 #define MAXBUFFERSIZE 2048
 
-typedef struct HANDLE_DATA
+enum OVLMODE
 {
-	SOCKET hSock;
-	SOCKADDR_IN SockAddr;
-
-	HANDLE_DATA();
-	~HANDLE_DATA();
-
+	E_OVLMODE_RECV = 0,
+	E_OVLMODE_SEND,
+};
+typedef struct IO_DATA : public OVERLAPPED
+{
+	OVLMODE eOvlmode;
 	
-} *LPHANDLE_DATA;
-
-typedef struct IO_DATA
-{
-	OVERLAPPED overlapped;
 	char szBuffer[MAXBUFFERSIZE];
 	WSABUF wsaBuf;
 
 	IO_DATA();
 	~IO_DATA();
 } *LPIO_DATA;
+
+typedef struct HANDLE_DATA
+{
+	LPIO_DATA lpIOData;
+	
+	SOCKET hSock;
+	SOCKADDR_IN SockAddr;
+
+	HANDLE_DATA();
+	~HANDLE_DATA();
+
+
+} *LPHANDLE_DATA;

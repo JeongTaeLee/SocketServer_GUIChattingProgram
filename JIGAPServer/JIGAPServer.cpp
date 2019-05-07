@@ -63,9 +63,6 @@ HRESULT JIGAPServer::InitializeServer()
 
 void JIGAPServer::ReleaseServer()
 {
-	closesocket(lpServData->hSock);
-	WSACleanup();
-
 	/*현재 서버에 작동 여부를 확인하는 bool 변수를 여러 쓰레드에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
 	WaitForSingleObject(hThreadMutex, INFINITE);
 	bServerOn = false;
@@ -82,6 +79,17 @@ void JIGAPServer::ReleaseServer()
 	CloseHandle(hSystemLogMutex);
 	CloseHandle(hThreadMutex);
 
+	for (auto Iter : liHandleData)
+	{
+		shutdown(Iter->hSock, SD_BOTH);
+		closesocket(Iter->hSock);
+
+		delete Iter->lpIOData;
+		delete Iter;
+	}
+
+	WSACleanup();
+
 	delete lpServData;
 	lpServData = nullptr;
 }
@@ -95,11 +103,15 @@ void JIGAPServer::ConnectThread()
 	{
 		/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
 		WaitForSingleObject(hThreadMutex, INFINITE);
+	
+		LPIO_DATA  lpIOData = new IO_DATA;
 		
 		LPHANDLE_DATA lpClntData = new HANDLE_DATA;
+		
 		int iAddrSize = sizeof(lpClntData->SockAddr);
 		lpClntData->hSock = accept(lpServData->hSock, (SOCKADDR*)& lpClntData->SockAddr, &iAddrSize);
-		
+		lpClntData->lpIOData = lpIOData;
+
 		if (!bServerOn)
 			break;
 		
@@ -124,13 +136,11 @@ void JIGAPServer::ConnectThread()
 		char message[128];
 		sprintf(message, "%d 소켓과 연결되었습니다.", lpClntData->hSock);
 		PrintSystemLog(message);
-			
-		LPIO_DATA  lpIOData = new IO_DATA;
+		
+		/*Message를 받기 위한 부분입니다.*/
 		DWORD Flag = 0;
 		DWORD dwRecvBytes = 0;
-
-		/*Message를 받기 위한 부분입니다.*/
-		WSARecv(lpClntData->hSock, &lpIOData->wsaBuf, 1, &dwRecvBytes, &Flag, &lpIOData->overlapped, NULL);
+		WSARecv(lpClntData->hSock, &lpIOData->wsaBuf, 1, &dwRecvBytes, &Flag, (OVERLAPPED*)&lpIOData, NULL);
 		
 		ReleaseMutex(hThreadMutex);
 	}
@@ -166,15 +176,48 @@ void JIGAPServer::ChattingThread()
 
 		if (dwByte == 0)
 		{
+			shutdown(lpHandle->hSock, SD_BOTH);
 			closesocket(lpHandle->hSock);
+
 			delete lpHandle;
 			delete lpIO;
 			continue;
 		}
+		
+		/*소켓에서 보낸 데이터를 모두 받았다.*/
+		if (lpIO->eOvlmode == E_OVLMODE_RECV)
+		{
+			/*모든 유저에게 메시지를 보냅니다 서버에 먼저 수신된 메시지를 전송합니다.*/
+			for (auto Iter : liHandleData)
+			{
+				DWORD dwSendbyte = 0;
 
-		/*메시지를 에코합니다.*/
-		lpIO->wsaBuf.len = dwByte;
-		WSASend(lpHandle->hSock, &(lpIO->wsaBuf), 1, &dwByte, dwFlag, NULL, NULL);
+				memcpy(Iter->lpIOData->szBuffer, lpHandle->lpIOData->szBuffer, sizeof(MAXBUFFERSIZE));
+				Iter->lpIOData->eOvlmode = E_OVLMODE_SEND;
+
+				WSASend(Iter->hSock,
+					&Iter->lpIOData->wsaBuf,
+					1,
+					&dwSendbyte,
+					dwFlag,
+					(OVERLAPPED*)Iter->lpIOData,
+					nullptr);
+			}
+		}
+		else
+		{
+			DWORD dwRecvByte = 0;
+
+			lpHandle->lpIOData->eOvlmode = E_OVLMODE_RECV;
+			WSARecv(lpHandle->hSock,
+				&lpHandle->lpIOData->wsaBuf,
+				1,
+				&dwRecvByte,
+				&dwFlag,
+				(OVERLAPPED*)lpHandle->lpIOData,
+				nullptr);
+		}
+
 
 		ReleaseMutex(hThreadMutex);
 	}

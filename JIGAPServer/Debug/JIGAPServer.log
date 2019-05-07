@@ -1,2 +1,3 @@
-﻿  JIGAPServer.cpp
-  JIGAPServer.vcxproj -> E:\ServerDevelopment\JIGAPServerEngine\Debug\JIGAPServer.lib
+﻿  pch.cpp
+  JIGAPServer.cpp
+  JIGAPServer.vcxproj -> E:\ServerDevelopment\SocketServer_GUIChattingProgram\Debug\JIGAPServer.lib
