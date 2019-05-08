@@ -266,6 +266,8 @@ void JIGAPServer::PrintSystemLog(const std::string& key)
 	qSystemMsg.push(key);
 	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
 	ReleaseMutex(hSystemLogMutex);
+
+	
 }
 
 std::string JIGAPServer::JIGAPGetSystemMsg()

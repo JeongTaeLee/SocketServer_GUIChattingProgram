@@ -13,4 +13,6 @@
 #include <WinSock2.h>
 #include <Windows.h>
 
+#include <iostream>
+
 #endif //PCH_H

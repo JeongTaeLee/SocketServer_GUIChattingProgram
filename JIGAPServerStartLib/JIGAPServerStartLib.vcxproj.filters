@@ -11,6 +11,12 @@
     <Filter Include="JIGAPStructure">
       <UniqueIdentifier>{b4634270-770f-4a42-8b8b-e13991570a37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SocketAddress">
+      <UniqueIdentifier>{489440c3-752d-4c68-b987-43632d979b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TCPSocket">
+      <UniqueIdentifier>{246970fd-1435-4824-9ba6-14329e07ad0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -22,6 +28,12 @@
     <ClInclude Include="JIGAPStructure.h">
       <Filter>JIGAPStructure</Filter>
     </ClInclude>
+    <ClInclude Include="SocketAddress.h">
+      <Filter>SocketAddress</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPSocket.h">
+      <Filter>TCPSocket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JIGAPServerStartLib.cpp" />
@@ -30,6 +42,12 @@
     </ClCompile>
     <ClCompile Include="JIGAPStructure.cpp">
       <Filter>JIGAPStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketAddress.cpp">
+      <Filter>SocketAddress</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSocket.cpp">
+      <Filter>TCPSocket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,7 +33,6 @@ private:
 
 	void ConnectThread();
 	void ChattingThread();
-
 public:
 	/*JIGAPServer::Intialize함수를 호출하고 초기 작업들을 수행합니다.*/
 	bool JIGAPServerOpen(std::string szIpAddr, std::string szPortAddr);
@@ -47,8 +46,5 @@ public:
 
 	/*System Message Queue 에 메시지가 있는지 확인 합니다 (TRUE : Message 있음, FALSE : Message 없음)*/
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
-
-
-
 };
 
