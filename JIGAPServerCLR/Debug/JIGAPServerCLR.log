@@ -1,9 +1,4 @@
-﻿  pch.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\WinSock2.h(17): warning C4005: '_WINSOCKAPI_': 매크로 재정의
-  E:\ServerDevelopment\SocketServer_GUIChattingProgram\JIGAPServerCLR\pch.cpp: note: '_WINSOCKAPI_'의 이전 정의를 참조하십시오.
-  AssemblyInfo.cpp
-  JIGAPServerCLR.cpp
-  코드를 생성하고 있습니다...
+﻿  JIGAPServerCLR.cpp
   AssemblyInfo.obj : MSIL 모듈이 발견되었습니다. MSIL에 증분 링크를 사용할 수 없습니다. 전체 링크를 수행하고 있습니다.
 JIGAPServer.lib(JIGAPServer.obj) : warning LNK4075: '/EDITANDCONTINUE'이(가) '/INCREMENTAL:NO' 사양으로 인해 무시됩니다.
   JIGAPServerCLR.vcxproj -> E:\ServerDevelopment\SocketServer_GUIChattingProgram\Debug\JIGAPServerCLR.dll

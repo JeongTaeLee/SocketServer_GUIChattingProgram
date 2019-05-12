@@ -8,7 +8,7 @@
 
 
 JIGAPServer::JIGAPServer()
-	:lpServData(nullptr), bServerOn(false)
+	:lpServSock(nullptr), bServerOn(false)
 {
 }
 
@@ -16,9 +16,11 @@ JIGAPServer::~JIGAPServer()
 {
 }
 
-HRESULT JIGAPServer::InitializeServer()
+HRESULT JIGAPServer::JIGAPInitializeServer()
 {
-	lpServData = new HANDLE_DATA;
+	int iErrorCode = 0;
+
+	lpServSock = new TCPSocket;
 
 	/*Winsock을 시작합니다*/
 	WSADATA wsa;
@@ -26,203 +28,170 @@ HRESULT JIGAPServer::InitializeServer()
 		return E_FAIL;
 
 	/*WSASocket을 생성합니다.*/
-	lpServData->hSock = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
-	if (lpServData->hSock == INVALID_SOCKET)
+	if ( (iErrorCode = lpServSock->IOCPSocket()) ) 
+	{
+		JIGAPPrintSystemLog("socket Error! Code : %d, Faild Create Socket", iErrorCode);
 		return E_FAIL;
+	}
 
-	PrintSystemLog("소켓이 성공적으로 생성되었습니다.");
+	JIGAPPrintSystemLog("Socket Created");
 
 	/*Socket을 Bind 합니다*/
-	lpServData->SockAddr.sin_family = PF_INET;
-	lpServData->SockAddr.sin_addr.s_addr = inet_addr(szIpAddr.c_str());
-	lpServData->SockAddr.sin_port = atoi(szPortAddr.c_str());
-	if (bind(lpServData->hSock, (SOCKADDR*)& lpServData->SockAddr, sizeof(lpServData->SockAddr)) == SOCKET_ERROR)
+	if ( (iErrorCode = lpServSock->Bind(szIpAddr.c_str(), szPortAddr.c_str())) )
+	{
+		JIGAPPrintSystemLog("bind Error! Code : %d, Faild Bind Socket", iErrorCode);
 		return E_FAIL;
+	}
 
-	PrintSystemLog("소켓이 성공적으로 할당되었습니다.");
+	JIGAPPrintSystemLog("Socket Binded");
 
 	/*연결 대기열을 생성합니다*/
-	if (listen(lpServData->hSock, 10) == SOCKET_ERROR)
+	if ( (iErrorCode = lpServSock->Listen(10)) )
+	{
+		JIGAPPrintSystemLog("listen Error! Code : %d", iErrorCode);
 		return E_FAIL;
+	}
 	
-	PrintSystemLog("서버의 연결대기열이 생성되었습니다.");
+	JIGAPPrintSystemLog("Socket Listen");
 
 	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 1);
-
 	if (hCompletionHandle == nullptr)
+	{
+		JIGAPPrintSystemLog("CreateioCompletionPort Error! Code : %d, Failed Create CompletionPort", iErrorCode);
 		return E_FAIL;
+	}
 	
-	PrintSystemLog("서버의 CompletionPort가 생성되었습니다.");
+	JIGAPPrintSystemLog("CompletionPort Created!");
 
-	
 	/*메모리 동시접근 버그를 잡기위한 WinAPI 뮤텍스 생성입니다.*/
-	hSystemLogMutex = CreateMutex(0, FALSE, NULL);
-	hThreadMutex = CreateMutex(0, FALSE, NULL);
 	return S_OK;
 }
 
-void JIGAPServer::ReleaseServer()
+void JIGAPServer::JIGAPReleaseServer()
 {
-	/*현재 서버에 작동 여부를 확인하는 bool 변수를 여러 쓰레드에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
-	WaitForSingleObject(hThreadMutex, INFINITE);
-	bServerOn = false;
-	ReleaseMutex(hThreadMutex);
+	lpServSock->Closesocket();
+	CloseHandle(hCompletionHandle);
 
-	Sleep(100);
-	if (chattingThread.joinable())
-		chattingThread.join();
-	Sleep(100);
-	if (connectThread.joinable())
-		connectThread.join();
-	
-	/*생성한 WInAPI Mutex를 해제합니다.*/
-	CloseHandle(hSystemLogMutex);
-	CloseHandle(hThreadMutex);
-
-	for (auto Iter : liHandleData)
+	for (auto Iter : liClientData)
 	{
-		shutdown(Iter->hSock, SD_BOTH);
-		closesocket(Iter->hSock);
-
-		delete Iter->lpIOData;
+		Iter->Closesocket();
 		delete Iter;
 	}
+	liClientData.clear();
+
+	delete lpServSock;
+	lpServSock = nullptr;
 
 	WSACleanup();
-
-	delete lpServData;
-	lpServData = nullptr;
 }
 
-void JIGAPServer::ConnectThread()
+void JIGAPServer::JIGAPConnectThread()
 {
-	PrintSystemLog("서버의 연결 담당 Thread가 작동되었습니다.");
-	
+	int iErrorCode = 0;
+
+	JIGAPPrintSystemLog("Active Connect Thread!");	
 
 	while (true)
 	{
-		/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
-		WaitForSingleObject(hThreadMutex, INFINITE);
-	
-		LPIO_DATA  lpIOData = new IO_DATA;
-		
-		LPHANDLE_DATA lpClntData = new HANDLE_DATA;
-		
-		int iAddrSize = sizeof(lpClntData->SockAddr);
-		lpClntData->hSock = accept(lpServData->hSock, (SOCKADDR*)& lpClntData->SockAddr, &iAddrSize);
-		lpClntData->lpIOData = lpIOData;
+		/*연결 대기 합니다.*/
+		LPTCPSOCK lpClntData = lpServSock->Accept();
 
-		if (!bServerOn)
+		if (bServerOn == false)
 			break;
 		
 		/*소켓에 연결을 실패 했을 경우*/
-		if (lpClntData->hSock == INVALID_SOCKET)
+		if (lpClntData == nullptr)
 		{
-			closesocket(lpClntData->hSock);
-			delete lpClntData;
-			PrintSystemLog("연결을 시도하던 소켓과의 연결이 실패하였습니다");
+			JIGAPPrintSystemLog("Accept Error! Faild Connected");
 			continue;
 		}
 		
-		/*CompletionPort에 해당 소켓을 연결합니다*/
-		if (CreateIoCompletionPort((HANDLE)lpClntData->hSock, hCompletionHandle, (DWORD_PTR)lpClntData, 0) == NULL)
+		/*연결된 소켓에 CompletionPort 연결 합니다.*/
+		if (lpClntData->ConnectionCompletionPort(hCompletionHandle) == NULL)
 		{
-			closesocket(lpClntData->hSock);
+			JIGAPPrintSystemLog("CompletionPort Connection Error! Code : %d, Socket : %d", WSAGetLastError(), lpClntData->GetSocket());
+
+			lpClntData->Closesocket();
 			delete lpClntData;
-			PrintSystemLog("CompletionPort에 연결을 시도하던 소켓을 할당하지 못했습니다.");
 			continue;
 		}
+
+		JIGAPPrintSystemLog("Connected Socket : %d", lpClntData->GetSocket());
 		
-		char message[128];
-		sprintf(message, "%d 소켓과 연결되었습니다.", lpClntData->hSock);
-		PrintSystemLog(message);
-		
-		/*Message를 받기 위한 부분입니다.*/
-		DWORD Flag = 0;
-		DWORD dwRecvBytes = 0;
-		WSARecv(lpClntData->hSock, &lpIOData->wsaBuf, 1, &dwRecvBytes, &Flag, (OVERLAPPED*)&lpIOData, NULL);
-		
-		ReleaseMutex(hThreadMutex);
+		/*연결된 소켓을 Client list에 추가합니다.*/
+		liClientData.push_back(lpClntData);
+
+		/*연결된 소켓의 메시지를 받을 준비를 합니다.*/
+		if ((iErrorCode = lpClntData->IOCPRecv()))
+		{
+			JIGAPPrintSystemLog("WSARecv Error! Code : %d, Socket : %d", WSAGetLastError(), lpClntData->GetSocket());
+
+			lpClntData->Closesocket();
+			delete lpClntData;
+		}
+
+
 	}
 
-
-	PrintSystemLog("서버의 연결 Thread가 해제되었습니다.");
+	JIGAPPrintSystemLog("Unactive Connect Thread!");
 }
 
-void JIGAPServer::ChattingThread()
+void JIGAPServer::JIGAPChattingThread()
 {
-	PrintSystemLog("서버의 채팅 담당 Thread가 작동되었습니다.");
+	JIGAPPrintSystemLog("Active Chatting Thread!");
 
 	while (true)
 	{
-		/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
-		WaitForSingleObject(hThreadMutex, INFINITE);
-
-		if (!bServerOn)
-			break;
-
-		LPHANDLE_DATA lpHandle = nullptr;
-		LPIO_DATA lpIO = nullptr;
+		LPTCPSOCK lpClntSock = nullptr;
+		LPIODATA lpIOData = nullptr;
 
 		DWORD dwByte = 0;
-		DWORD dwFlag = 0;
 
 		/*메시지 입출력이 완료된 소켓을 얻어옵니다. 없을 경우 대기합니다.*/
 		GetQueuedCompletionStatus(hCompletionHandle,
 			&dwByte,
-			(LPDWORD)& lpHandle, // 입출력이 완려된 소켓의 데이터입니다.
-			(LPOVERLAPPED*)& lpIO, 
+			(LPDWORD)& lpClntSock, // 입출력이 완려된 소켓의 데이터입니다.
+			(LPOVERLAPPED*)& lpIOData,
 			INFINITE);
 
 		if (dwByte == 0)
 		{
-			shutdown(lpHandle->hSock, SD_BOTH);
-			closesocket(lpHandle->hSock);
-
-			delete lpHandle;
-			delete lpIO;
-			continue;
-		}
-		
-		/*소켓에서 보낸 데이터를 모두 받았다.*/
-		if (lpIO->eOvlmode == E_OVLMODE_RECV)
-		{
-			/*모든 유저에게 메시지를 보냅니다 서버에 먼저 수신된 메시지를 전송합니다.*/
-			for (auto Iter : liHandleData)
+			/*서버가 종료되어 0이 들어왔을때.*/
+			if (bServerOn == false)
+				break;
+			else
 			{
-				DWORD dwSendbyte = 0;
+				/*클라이언트가 종료 요청을 할때 실행되는 구문입니다*/
+				lpClntSock->Closesocket();
 
-				memcpy(Iter->lpIOData->szBuffer, lpHandle->lpIOData->szBuffer, sizeof(MAXBUFFERSIZE));
-				Iter->lpIOData->eOvlmode = E_OVLMODE_SEND;
+				JIGAPPrintSystemLog("unconnected Socket : %d", lpClntSock->GetSocket());
 
-				WSASend(Iter->hSock,
-					&Iter->lpIOData->wsaBuf,
-					1,
-					&dwSendbyte,
-					dwFlag,
-					(OVERLAPPED*)Iter->lpIOData,
-					nullptr);
+				liClientData.remove(lpClntSock);
+
+				delete lpClntSock;
+				delete lpIOData;
+				continue;
+			}
+		}
+
+		if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+		{
+			/*수신된 메시지를 모든 유저에게 발신합니다.*/
+			for (auto Iter : liClientData)
+			{
+				Iter->WriteBuffer(lpClntSock->GetBufferData());
+				Iter->IOCPSend();
 			}
 		}
 		else
 		{
+			/*모두 전송이 완료되면 해당 소켓을 Recv 모드로 전환합니다.*/
 			DWORD dwRecvByte = 0;
-
-			lpHandle->lpIOData->eOvlmode = E_OVLMODE_RECV;
-			WSARecv(lpHandle->hSock,
-				&lpHandle->lpIOData->wsaBuf,
-				1,
-				&dwRecvByte,
-				&dwFlag,
-				(OVERLAPPED*)lpHandle->lpIOData,
-				nullptr);
+			lpClntSock->IOCPRecv();
 		}
-
-
-		ReleaseMutex(hThreadMutex);
 	}
 
-	PrintSystemLog("서버의 채팅 Thread가 해제되었습니다.");
+	JIGAPPrintSystemLog("Unactive Chatting Thread!");
 }
 
 
@@ -231,43 +200,62 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 	szIpAddr = _szIpAddr;
 	szPortAddr = _szPortAddr;
 
-	if (FAILED(JIGAPServer::InitializeServer()))
+	bServerOn = true;
+
+	if (FAILED(JIGAPServer::JIGAPInitializeServer()))
 	{
-		PrintSystemLog("서버를 열 수 없습니다!");
+		JIGAPPrintSystemLog("Failed Open Server");
 		return false;
 	}
 
-	/*현재 서버에 작동 여부를 확인하는 bool 변수에 동시 접근을 막기 위해 Mutex를 사용한 부분입니다.*/
-	WaitForSingleObject(hThreadMutex, INFINITE);
-	bServerOn = true;
-	ReleaseMutex(hThreadMutex);
+	hSystemLogMutex = CreateMutex(0, FALSE, NULL);
 
-	connectThread = std::thread([&]() { ConnectThread(); });
-	Sleep(100);
-	chattingThread = std::thread([&]() { ChattingThread(); });
-	Sleep(100);
+	/*연결을 담당하는 Thread 입니다.*/
+	connectThread = std::thread([&]() { JIGAPConnectThread(); });
+	Sleep(10);
+	/*Chatting을 담당하는 Thread 입니다.*/
+	chattingThread = std::thread([&]() { JIGAPChattingThread(); });
+	Sleep(10);
 
-	PrintSystemLog("서버를 열었습니다!");
+	JIGAPPrintSystemLog("Opened Server!");
 	return true;
 }
 
 void JIGAPServer::JIGAPServerClose()
 {
+	/*서버를 종료합니다.*/
 	bServerOn = false;
-	ReleaseServer();
+	Sleep(10);
 
-	PrintSystemLog("서버가 닫혔습니다.");
+	JIGAPReleaseServer();
+
+	/*Thread를 해제합니다.*/
+	if (chattingThread.joinable())
+		chattingThread.join();
+	if (connectThread.joinable())
+		connectThread.join();
+
+	/*생성한 WInAPI Mutex를 해제합니다.*/
+	CloseHandle(hSystemLogMutex);
+
+	JIGAPPrintSystemLog("Closed Server");
 }
 
-void JIGAPServer::PrintSystemLog(const std::string& key)
+void JIGAPServer::JIGAPPrintSystemLog(const char* szInFormat, ...)
 {
 	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */
 	WaitForSingleObject(hSystemLogMutex, INFINITE);
-	qSystemMsg.push(key);
-	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
-	ReleaseMutex(hSystemLogMutex);
+	char buf[512] = { 0 };
+	va_list ap;
 
+	va_start(ap, szInFormat);
+	vsprintf(buf, szInFormat, ap);
+	va_end(ap);
 	
+	qSystemMsg.push(buf);
+	
+	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
+	ReleaseMutex(hSystemLogMutex);	
 }
 
 std::string JIGAPServer::JIGAPGetSystemMsg()

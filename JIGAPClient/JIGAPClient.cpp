@@ -11,52 +11,113 @@ JIGAPClient::~JIGAPClient()
 {
 }
 
-HRESULT JIGAPClient::InitializeClient()
+HRESULT JIGAPClient::JIGAPInitializeClient()
 {
+	int iErrorCode = 0;
+	lpSocket = new TCPSocket;
+
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
+	{
+		JIGAPPrintMessageLog("WSAStartup Error! Code : %d", iErrorCode);
 		return E_FAIL;
-
-	SOCKET sock = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
-	if (sock == INVALID_SOCKET)
+	}
+	
+	if ((iErrorCode = lpSocket->SYNCSocket()))
+	{
+		JIGAPPrintMessageLog("socket Error! Code : %d, Faild Create Socket", iErrorCode);
 		return E_FAIL;
-	
-	sockaddr_in tempSockAddrIn;
-	memset(&tempSockAddrIn, 0, sizeof(tempSockAddrIn));
-	
-	tempSockAddrIn.sin_family = PF_INET;
-	tempSockAddrIn.sin_addr.s_addr = inet_addr(strIpAddr.c_str());
-	tempSockAddrIn.sin_port = atoi(strPortAddr.c_str());
-	
-	if (connect(sock, (sockaddr*)& tempSockAddrIn, sizeof(tempSockAddrIn) == SOCKET_ERROR))
+	}
+	if ((iErrorCode = lpSocket->Connect(szIpAddr.c_str(), szPortAddr.c_str())))
+	{
+		JIGAPPrintMessageLog("connect Error! Code : %d, Faild to Connect to Server", iErrorCode);
 		return E_FAIL;
-
-	lpHandleData = new HANDLE_DATA;
-	lpHandleData->hSock = sock;
-	memcpy(&lpHandleData->SockAddr, &tempSockAddrIn, sizeof(lpHandleData->SockAddr));
+	}
 
 	return S_OK;
 }
 
-HRESULT JIGAPClient::ReleaseClient()
+void JIGAPClient::JIGAPReleaseClient()
 {
-	return E_NOTIMPL;
+	lpSocket->Closesocket();
+	WSACleanup();
 }
 
 bool JIGAPClient::JIGAPClientStart(const std::string& InIpAddr, const std::string& InPortAddr)
 {
-	strIpAddr = InIpAddr;
-	strPortAddr = InPortAddr;
+	szIpAddr = InIpAddr;
+	szPortAddr = InPortAddr;
 
-	if (FAILED(InitializeClient()))
+	if (FAILED(JIGAPInitializeClient()))
 	{
-		MessageBoxA(nullptr, "서버에 연결 할 수 없습니다!", "Error!", MB_OK);
+		JIGAPPrintMessageLog("Failed to connect to server");
 		return false;
 	}
+
+	/*크리티컬 섹션에 동시 접근하지 않기 위해 Mutex를 생성합니다.*/
+	hMessageMutex = CreateMutex(NULL, false, NULL);
+
+	/*수신을 담당하는 쓰레드를 생성합니다.*/
+	recvThread = std::thread([&]() { JIGAPRecvThread(); });
+	/*발신을 담당하는 쓰레드를 생성합니다.*/
+	sendThread = std::thread([&]() { JIGAPSendThread(); });
 
 	return true;
 }
 
 void JIGAPClient::JIGAPClientEnd()
 {
+	JIGAPReleaseClient();
+
+	if (recvThread.joinable())
+		recvThread.join();
+	if (sendThread.joinable())
+		sendThread.join();
+
+	CloseHandle(hMessageMutex);
+
+	delete lpSocket;
 }
+
+void JIGAPClient::JIGAPRecvThread()
+{
+	while (true)
+	{
+		char message[MAXBUFFERSIZE];
+		
+		int iRecvLen = lpSocket->SYNCRecv(message);
+	
+		if (iRecvLen == 0)
+		{
+			JIGAPPrintMessageLog("Disconnected from server");
+			break;
+		}
+		else if (iRecvLen == -1)
+		{
+			JIGAPPrintMessageLog("recv Error! Code : %d, Socket : %d", WSAGetLastError(), lpSocket->GetSocket());
+			break;
+		}
+	}
+}
+
+void JIGAPClient::JIGAPSendThread()
+{
+}
+
+void JIGAPClient::JIGAPPrintMessageLog(const char* fmt, ...)
+{
+	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */
+	WaitForSingleObject(hMessageMutex, INFINITE);
+	char buf[512] = { 0 };
+	va_list ap;
+
+	va_start(ap, fmt);
+	vsprintf(buf, fmt, ap);
+	va_end(ap);
+
+	qMessage.push(buf);
+
+	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
+	ReleaseMutex(hMessageMutex);
+}
+

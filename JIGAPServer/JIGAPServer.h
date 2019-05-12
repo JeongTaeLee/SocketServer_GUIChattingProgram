@@ -3,10 +3,9 @@
 class JIGAPServer
 {
 private:
-	LPHANDLE_DATA lpServData;
+	LPTCPSOCK lpServSock;
 
 	HANDLE hSystemLogMutex;	
-	HANDLE hThreadMutex;
 
 	std::string szIpAddr;
 	std::string szPortAddr;
@@ -14,7 +13,7 @@ private:
 	std::thread connectThread;
 	std::thread chattingThread;
 
-	std::list  < LPHANDLE_DATA > liHandleData;
+	std::list  < LPTCPSOCK > liClientData;
 	std::queue < std::string > qSystemMsg;
 
 	bool bServerOn;
@@ -27,24 +26,26 @@ public:
 
 private:
 	/*Server를 Intialize합니다.*/
-	HRESULT InitializeServer();
-	/*Server를 Release 합니다*/
-	void ReleaseServer();
+	HRESULT JIGAPInitializeServer();
+	void JIGAPReleaseServer();
 
-	void ConnectThread();
-	void ChattingThread();
+	void JIGAPConnectThread();
+	void JIGAPChattingThread();
 public:
-	/*JIGAPServer::Intialize함수를 호출하고 초기 작업들을 수행합니다.*/
+	/*초기 작업들을 수행합니다.*/
 	bool JIGAPServerOpen(std::string szIpAddr, std::string szPortAddr);
-	/*JIGAPServer::ReleaseServer 함수를 호출하고 정리 작업들을 수행합니다.*/
+	/*정리 작업들을 수행합니다.*/
 	void JIGAPServerClose();
+public:
+	/*가변인자가 가능한 System Log 출력 함수 입니다.*/
+	void JIGAPPrintSystemLog(const char * szInFormat, ...);
 
-	void PrintSystemLog(const std::string & key);
 public:
 	/*System Message Queue 에서 메시지를 한개 빼옵니다.*/
 	std::string JIGAPGetSystemMsg();
-
 	/*System Message Queue 에 메시지가 있는지 확인 합니다 (TRUE : Message 있음, FALSE : Message 없음)*/
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
+public:
+
 };
 

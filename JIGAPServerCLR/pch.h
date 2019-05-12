@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
+#include <cstdarg>
 #include <thread>
 #include <mutex>
 #include <queue>

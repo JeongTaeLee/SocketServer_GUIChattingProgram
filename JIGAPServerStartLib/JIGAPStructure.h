@@ -1,31 +1,12 @@
 #pragma once
 #define MAXBUFFERSIZE 2048
 
-enum OVLMODE
+enum JIGAPSTATE
 {
-	E_OVLMODE_RECV = 0,
-	E_OVLMODE_SEND,
+	E_LOGIN,
+	E_CHATTING,
 };
-typedef struct IO_DATA : public OVERLAPPED
-{
-	OVLMODE eOvlmode;
-	
-	char szBuffer[MAXBUFFERSIZE];
-	WSABUF wsaBuf;
 
-	IO_DATA();
-	~IO_DATA();
-} *LPIO_DATA;
-
-typedef struct HANDLE_DATA
-{
-	LPIO_DATA lpIOData;
-	
-	SOCKET hSock;
-	SOCKADDR_IN SockAddr;
-
-	HANDLE_DATA();
-	~HANDLE_DATA();
-
-
-} *LPHANDLE_DATA;
+#include "SocketAddress.h"
+#include "TCPIOData.h"
+#include "TCPSocket.h"

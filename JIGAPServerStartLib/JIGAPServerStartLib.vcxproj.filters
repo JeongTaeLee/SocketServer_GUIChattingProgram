@@ -17,6 +17,9 @@
     <Filter Include="TCPSocket">
       <UniqueIdentifier>{246970fd-1435-4824-9ba6-14329e07ad0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TCPIOData">
+      <UniqueIdentifier>{4324243d-4092-4395-ad5e-db223c7e766c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -34,6 +37,9 @@
     <ClInclude Include="TCPSocket.h">
       <Filter>TCPSocket</Filter>
     </ClInclude>
+    <ClInclude Include="TCPIOData.h">
+      <Filter>TCPIOData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JIGAPServerStartLib.cpp" />
@@ -48,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="TCPSocket.cpp">
       <Filter>TCPSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPIOData.cpp">
+      <Filter>TCPIOData</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
