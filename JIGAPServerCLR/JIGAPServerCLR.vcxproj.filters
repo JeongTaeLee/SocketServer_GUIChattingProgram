@@ -19,14 +19,18 @@
     <ClInclude Include="Resource.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPServerCLR.h" />
+    <ClInclude Include="JIGAPServerCLR.h">
+      <Filter>JIGAPServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPServerCLR.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="JIGAPServerCLR.cpp">
+      <Filter>JIGAPServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">

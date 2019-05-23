@@ -22,17 +22,21 @@ HRESULT JIGAPClient::JIGAPInitializeClient()
 		JIGAPPrintMessageLog("WSAStartup Error! Code : %d", iErrorCode);
 		return E_FAIL;
 	}
+	JIGAPPrintMessageLog("WSAStartUp 호출을 성공했습니다!", iErrorCode);
 	
 	if ((iErrorCode = lpSocket->SYNCSocket()))
 	{
 		JIGAPPrintMessageLog("socket Error! Code : %d, Faild Create Socket", iErrorCode);
 		return E_FAIL;
 	}
+	JIGAPPrintMessageLog("socket 호출을 성공했습니다!", iErrorCode);
+
 	if ((iErrorCode = lpSocket->Connect(szIpAddr.c_str(), szPortAddr.c_str())))
 	{
 		JIGAPPrintMessageLog("connect Error! Code : %d, Faild to Connect to Server", iErrorCode);
 		return E_FAIL;
 	}
+	JIGAPPrintMessageLog("connect 호출을 성공했습니다.", iErrorCode);
 
 	return S_OK;
 }
@@ -50,7 +54,7 @@ bool JIGAPClient::JIGAPClientStart(const std::string& InIpAddr, const std::strin
 
 	if (FAILED(JIGAPInitializeClient()))
 	{
-		JIGAPPrintMessageLog("Failed to connect to server");
+		JIGAPPrintMessageLog("서버에 연결하지 못했습니다.");
 		return false;
 	}
 
@@ -59,8 +63,8 @@ bool JIGAPClient::JIGAPClientStart(const std::string& InIpAddr, const std::strin
 
 	/*수신을 담당하는 쓰레드를 생성합니다.*/
 	recvThread = std::thread([&]() { JIGAPRecvThread(); });
-	/*발신을 담당하는 쓰레드를 생성합니다.*/
-	sendThread = std::thread([&]() { JIGAPSendThread(); });
+
+
 
 	return true;
 }
@@ -71,8 +75,6 @@ void JIGAPClient::JIGAPClientEnd()
 
 	if (recvThread.joinable())
 		recvThread.join();
-	if (sendThread.joinable())
-		sendThread.join();
 
 	CloseHandle(hMessageMutex);
 
@@ -89,7 +91,7 @@ void JIGAPClient::JIGAPRecvThread()
 	
 		if (iRecvLen == 0)
 		{
-			JIGAPPrintMessageLog("Disconnected from server");
+			JIGAPPrintMessageLog("서버와 연결이 끊어졌습니다.");
 			break;
 		}
 		else if (iRecvLen == -1)
@@ -97,11 +99,22 @@ void JIGAPClient::JIGAPRecvThread()
 			JIGAPPrintMessageLog("recv Error! Code : %d, Socket : %d", WSAGetLastError(), lpSocket->GetSocket());
 			break;
 		}
+
+		JIGAPPrintMessageLog(message);
 	}
 }
 
-void JIGAPClient::JIGAPSendThread()
+bool JIGAPClient::JIGAPSend(const char* szInMessage)
 {
+	int iRecvLen = lpSocket->SYNCSend(szInMessage);
+	
+	if (iRecvLen == 0)
+	{
+		JIGAPPrintMessageLog("send Error! Code : %d, Socket : %d", WSAGetLastError(), lpSocket->GetSocket());
+		return false;
+	}
+
+	return true;
 }
 
 void JIGAPClient::JIGAPPrintMessageLog(const char* fmt, ...)
@@ -119,5 +132,17 @@ void JIGAPClient::JIGAPPrintMessageLog(const char* fmt, ...)
 
 	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
 	ReleaseMutex(hMessageMutex);
+}
+
+bool JIGAPClient::JIGAPCheckMessageLog()
+{
+	return 	!qMessage.empty();
+}
+
+std::string JIGAPClient::JIGAPGetMessageLog()
+{
+	std::string str = qMessage.front();
+	qMessage.pop();
+	return str;
 }
 

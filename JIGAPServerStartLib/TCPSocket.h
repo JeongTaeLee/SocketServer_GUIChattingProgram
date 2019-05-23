@@ -78,7 +78,7 @@ public:
 	성공 : 발신된 데이터 크기
 	실패 : -1
 	*/
-	int SYNCSend(char* szInBuf, int iInBufSize = MAXBUFFERSIZE);
+	int SYNCSend(const char* szInBuf, int iInBufSize = MAXBUFFERSIZE);
 
 public:
 	const IOMODE& GetIOMode();

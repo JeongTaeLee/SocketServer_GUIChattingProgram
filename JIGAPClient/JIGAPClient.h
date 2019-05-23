@@ -10,7 +10,6 @@ private:
 	HANDLE hMessageMutex;
 
 	std::thread recvThread;
-	std::thread sendThread;
 
 	std::string strIpAddr;
 	std::string strPortAddr;
@@ -31,9 +30,13 @@ public:
 	void JIGAPClientEnd();
 public:
 	void JIGAPRecvThread();
-	void JIGAPSendThread();
+	bool JIGAPSend(const char * message);
 
 public:
 	void JIGAPPrintMessageLog(const char * fmt, ...);
+
+public:
+	bool JIGAPCheckMessageLog();
+	std::string  JIGAPGetMessageLog();
 };
 

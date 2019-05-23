@@ -7,6 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <WinSock2.h>
 #include <Windows.h>

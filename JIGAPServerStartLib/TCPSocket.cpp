@@ -135,7 +135,7 @@ int TCPSocket::SYNCRecv(char* szInBuf, int iInBufSize)
 	return recv(hSock, szInBuf, iInBufSize, 0);
 }
 
-int TCPSocket::SYNCSend(char* szInBuf, int iInBufSize)
+int TCPSocket::SYNCSend(const char* szInBuf, int iInBufSize)
 {
 	return send(hSock, szInBuf, iInBufSize, 0);
 }

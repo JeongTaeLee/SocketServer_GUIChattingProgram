@@ -1,6 +1,10 @@
 #pragma once
 #define MAXBUFFERSIZE 2048
 
+const int iHelloLiteral = 'HLLO';
+const int iWelcomeLiteral = 'WECM';
+
+
 enum JIGAPSTATE
 {
 	E_LOGIN,

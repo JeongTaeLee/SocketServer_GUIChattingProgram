@@ -34,7 +34,7 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 		return E_FAIL;
 	}
 
-	JIGAPPrintSystemLog("Socket Created");
+	JIGAPPrintSystemLog("소켓을 생성했습니다!");
 
 	/*Socket을 Bind 합니다*/
 	if ( (iErrorCode = lpServSock->Bind(szIpAddr.c_str(), szPortAddr.c_str())) )
@@ -43,7 +43,7 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 		return E_FAIL;
 	}
 
-	JIGAPPrintSystemLog("Socket Binded");
+	JIGAPPrintSystemLog("소켓이 바인드 되었습니다.");
 
 	/*연결 대기열을 생성합니다*/
 	if ( (iErrorCode = lpServSock->Listen(10)) )
@@ -52,7 +52,7 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 		return E_FAIL;
 	}
 	
-	JIGAPPrintSystemLog("Socket Listen");
+	JIGAPPrintSystemLog("소켓이 연결 대기중입니다.");
 
 	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 1);
 	if (hCompletionHandle == nullptr)
@@ -61,9 +61,8 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 		return E_FAIL;
 	}
 	
-	JIGAPPrintSystemLog("CompletionPort Created!");
+	JIGAPPrintSystemLog("CompletionPortrk 만들어졌습니다.");
 
-	/*메모리 동시접근 버그를 잡기위한 WinAPI 뮤텍스 생성입니다.*/
 	return S_OK;
 }
 
@@ -89,7 +88,7 @@ void JIGAPServer::JIGAPConnectThread()
 {
 	int iErrorCode = 0;
 
-	JIGAPPrintSystemLog("Active Connect Thread!");	
+	JIGAPPrintSystemLog("연결 쓰레드가 활성화 되었습니다.");	
 
 	while (true)
 	{
@@ -102,7 +101,7 @@ void JIGAPServer::JIGAPConnectThread()
 		/*소켓에 연결을 실패 했을 경우*/
 		if (lpClntData == nullptr)
 		{
-			JIGAPPrintSystemLog("Accept Error! Faild Connected");
+			JIGAPPrintSystemLog("클라이언트 소켓과 연결에 실패했습니다");
 			continue;
 		}
 		
@@ -133,12 +132,12 @@ void JIGAPServer::JIGAPConnectThread()
 
 	}
 
-	JIGAPPrintSystemLog("Unactive Connect Thread!");
+	JIGAPPrintSystemLog("연결 쓰레드가 비활성화 되었습니다.");
 }
 
 void JIGAPServer::JIGAPChattingThread()
 {
-	JIGAPPrintSystemLog("Active Chatting Thread!");
+	JIGAPPrintSystemLog("채팅 쓰레드가 활성화 되었습니다.");
 
 	while (true)
 	{
@@ -164,7 +163,7 @@ void JIGAPServer::JIGAPChattingThread()
 				/*클라이언트가 종료 요청을 할때 실행되는 구문입니다*/
 				lpClntSock->Closesocket();
 
-				JIGAPPrintSystemLog("unconnected Socket : %d", lpClntSock->GetSocket());
+				JIGAPPrintSystemLog("소켓과 연결이 끊켰습니다. : %d", lpClntSock->GetSocket());
 
 				liClientData.remove(lpClntSock);
 
@@ -191,7 +190,7 @@ void JIGAPServer::JIGAPChattingThread()
 		}
 	}
 
-	JIGAPPrintSystemLog("Unactive Chatting Thread!");
+	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
 }
 
 
@@ -204,7 +203,7 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 
 	if (FAILED(JIGAPServer::JIGAPInitializeServer()))
 	{
-		JIGAPPrintSystemLog("Failed Open Server");
+		JIGAPPrintSystemLog("서버를 여는데 실패했습니다!");
 		return false;
 	}
 
@@ -217,7 +216,7 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 	chattingThread = std::thread([&]() { JIGAPChattingThread(); });
 	Sleep(10);
 
-	JIGAPPrintSystemLog("Opened Server!");
+	JIGAPPrintSystemLog("서버가 열렸습니다!");
 	return true;
 }
 
@@ -238,7 +237,7 @@ void JIGAPServer::JIGAPServerClose()
 	/*생성한 WInAPI Mutex를 해제합니다.*/
 	CloseHandle(hSystemLogMutex);
 
-	JIGAPPrintSystemLog("Closed Server");
+	JIGAPPrintSystemLog("서버가 닫혔습니다!");
 }
 
 void JIGAPServer::JIGAPPrintSystemLog(const char* szInFormat, ...)
