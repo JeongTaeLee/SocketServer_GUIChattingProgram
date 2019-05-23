@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  JIGAPServerStartLib.cpp
+  JIGAPStructure.cpp
+  SocketAddress.cpp
+  TCPIOData.cpp
+  TCPSocket.cpp
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\JIGAPServerStartLib\TCPSocket.cpp(150): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+  JIGAPServerStartLib.vcxproj -> E:\ServerDevelopment\SocketServer_GUIChattingProgram\Debug\JIGAPServerStartLib.lib
