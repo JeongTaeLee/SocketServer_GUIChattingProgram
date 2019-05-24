@@ -111,7 +111,7 @@
             this.Controls.Add(this.PortLabel);
             this.Controls.Add(this.IpLabel);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "JIGAPServer";
             this.ResumeLayout(false);
             this.PerformLayout();
 

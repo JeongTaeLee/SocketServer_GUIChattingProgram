@@ -257,21 +257,21 @@ void JIGAPServer::OnLoginState(LPTCPSOCK lpClntSock)
 		lpClntSock->SetUserName(lpClntSock->GetBufferData());
 		lpClntSock->IOCPRecv();
 
-		JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName());
+		JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName().c_str());
 	}
 }
 
-void JIGAPServer::JIGAPPrintSystemLog(const char* szInFormat, ...)
+void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
 {
 	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */
 	WaitForSingleObject(hSystemLogMutex, INFINITE);
 	char buf[512] = { 0 };
 	va_list ap;
 
-	va_start(ap, szInFormat);
-	vsprintf(buf, szInFormat, ap);
+	va_start(ap, fmt);
+	vsprintf(buf, fmt, ap);
 	va_end(ap);
-	
+
 	qSystemMsg.push(buf);
 	
 	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/

@@ -1,0 +1,5 @@
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Release\JIGAPServerGUI.csprojAssemblyReference.cache
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Release\JIGAPServerGUI.Form1.resources
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Release\JIGAPServerGUI.Properties.Resources.resources
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Release\JIGAPServerGUI.csproj.GenerateResource.cache
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Release\JIGAPServerGUI.csproj.CoreCompileInputs.cache

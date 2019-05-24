@@ -45,7 +45,7 @@ public:
 
 public:
 	/*가변인자가 가능한 System Log 출력 함수 입니다.*/
-	void JIGAPPrintSystemLog(const char * szInFormat, ...);
+	void JIGAPPrintSystemLog(const char * fmt, ...);
 
 public:
 	/*System Message Queue 에서 메시지를 한개 빼옵니다.*/

@@ -1,0 +1,20 @@
+﻿  pch.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\WinSock2.h(17): warning C4005: '_WINSOCKAPI_': 매크로 재정의
+  E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerCLR\pch.cpp: note: '_WINSOCKAPI_'의 이전 정의를 참조하십시오.
+  AssemblyInfo.cpp
+  JIGAPServerCLR.cpp
+  코드를 생성하고 있습니다...
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
+  JIGAPServer.lib(JIGAPServer.obj) : /GL로 컴파일한 MSIL .netmodule 또는 모듈이 있습니다. /LTCG를 지정하여 링크를 다시 시작하십시오. /LTCG를 링크 명령줄에 추가하면 링커 성능이 향상됩니다.
+JIGAPServerStartLib.lib(TCPSocket.obj) : error LNK2038: '_ITERATOR_DEBUG_LEVEL'에 대해 불일치가 검색되었습니다. '2' 값이 '0'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(TCPSocket.obj) : error LNK2038: 'RuntimeLibrary'에 대해 불일치가 검색되었습니다. 'MDd_DynamicDebug' 값이 'MD_DynamicRelease'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(TCPSocket.obj) : warning LNK4075: '/EDITANDCONTINUE'이(가) '/INCREMENTAL:NO' 사양으로 인해 무시됩니다.
+JIGAPServerStartLib.lib(TCPIOData.obj) : error LNK2038: '_ITERATOR_DEBUG_LEVEL'에 대해 불일치가 검색되었습니다. '2' 값이 '0'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(TCPIOData.obj) : error LNK2038: 'RuntimeLibrary'에 대해 불일치가 검색되었습니다. 'MDd_DynamicDebug' 값이 'MD_DynamicRelease'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(SocketAddress.obj) : error LNK2038: '_ITERATOR_DEBUG_LEVEL'에 대해 불일치가 검색되었습니다. '2' 값이 '0'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(SocketAddress.obj) : error LNK2038: 'RuntimeLibrary'에 대해 불일치가 검색되었습니다. 'MDd_DynamicDebug' 값이 'MD_DynamicRelease'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(pch.obj) : error LNK2038: '_ITERATOR_DEBUG_LEVEL'에 대해 불일치가 검색되었습니다. '2' 값이 '0'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(pch.obj) : error LNK2038: 'RuntimeLibrary'에 대해 불일치가 검색되었습니다. 'MDd_DynamicDebug' 값이 'MD_DynamicRelease'(AssemblyInfo.obj에 위치) 값과 일치하지 않습니다.
+JIGAPServerStartLib.lib(TCPSocket.obj) : error LNK2001: __imp___invalid_parameter 외부 기호를 확인할 수 없습니다.
+JIGAPServerStartLib.lib(TCPSocket.obj) : error LNK2001: __imp___CrtDbgReport 외부 기호를 확인할 수 없습니다.
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\Release\JIGAPServerCLR.dll : fatal error LNK1120: 2개의 확인할 수 없는 외부 참조입니다.
