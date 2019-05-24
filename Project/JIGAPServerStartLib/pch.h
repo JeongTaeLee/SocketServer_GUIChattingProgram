@@ -15,6 +15,9 @@
 #include <Windows.h>
 
 #include <iostream>
+#include <string>
+#include <list>
+#include <map>
 
 
 #include "JIGAPStructure.h"

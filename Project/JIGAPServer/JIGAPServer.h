@@ -4,6 +4,7 @@ class JIGAPServer
 {
 private:
 	LPTCPSOCK lpServSock;
+	SerializeObject* lpSerializeObject;
 
 	HANDLE hSystemLogMutex;	
 	HANDLE hClientDataMutex;
@@ -14,7 +15,9 @@ private:
 	std::thread connectThread;
 	std::thread chattingThread;
 
-	std::map  < SOCKET, LPTCPSOCK > mClientData;
+	std::map < std::string, LPROOM> mRooms;
+	std::map < SOCKET, LPTCPSOCK > mClientData;
+	
 	std::queue < std::string > qSystemMsg;
 
 	bool bServerOn;
@@ -41,7 +44,8 @@ public:
 public:
 	void OnChattingState(LPTCPSOCK lpClntData);
 	void OnLoginState(LPTCPSOCK lpClntData);
-
+	void OnJoinedRoom(LPTCPSOCK lpClntData);
+	void OnRoomState(LPTCPSOCK lpClntData);
 
 public:
 	/*가변인자가 가능한 System Log 출력 함수 입니다.*/

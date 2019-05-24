@@ -4,7 +4,7 @@
 #include "TCPIOData.h" 
 
 TCPSocket::TCPSocket()
-	:hSock(NULL), lpIOData(new TCPIOData)
+	:jigapState(JIGAPSTATE::E_LOGIN), hSock(NULL), lpIOData(new TCPIOData), lpRoom(nullptr)
 {
 }
 
@@ -172,5 +172,27 @@ void TCPSocket::WriteBuffer(const char* message)
 void TCPSocket::ClearBuffer()
 {
 	memset(lpIOData->szBuffer, NULL, sizeof(lpIOData->szBuffer));
+}
+
+void TCPSocket::SetUserName(const std::string& name)
+{
+	strUserName = name;
+	jigapState = JIGAPSTATE::E_NOTROOM;
+}
+
+void TCPSocket::UnJoinedRoom()
+{
+	lpRoom->DeleteUser(this);
+	lpRoom = nullptr;
+
+	jigapState = JIGAPSTATE::E_NOTROOM;
+}
+
+void TCPSocket::JoinedRoom(Room* inRoom)
+{
+	lpRoom = inRoom;
+	lpRoom->AddUser(this);
+	
+	jigapState = JIGAPSTATE::E_ROOM;
 }
 

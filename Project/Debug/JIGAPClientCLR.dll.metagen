@@ -16,7 +16,7 @@ Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, Befo
   Methods:
     JIGAPWrapClientStart(String, String): PrivateScope, Public, HideBySig
     JIGAPWrapClientEnd(): PrivateScope, Public, HideBySig
-    JIGAPWrapSend(String): PrivateScope, Public, HideBySig
+    JIGAPWrapSend(Int32, String): PrivateScope, Public, HideBySig
     JIGAPGetMessageLog(): PrivateScope, Public, HideBySig
     JIGAPCheckMessage(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

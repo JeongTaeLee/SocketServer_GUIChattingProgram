@@ -3,6 +3,8 @@
 
 
 JIGAPClient::JIGAPClient()
+	:lpSocket(nullptr), lpSerializeObject(new SerializeObject),
+	hMessageMutex(nullptr)
 {
 }
 
@@ -66,8 +68,6 @@ bool JIGAPClient::JIGAPClientStart(const std::string& InIpAddr, const std::strin
 	/*수신을 담당하는 쓰레드를 생성합니다.*/
 	recvThread = std::thread([&]() { JIGAPRecvThread(); });
 
-
-
 	return true;
 }
 
@@ -106,15 +106,20 @@ void JIGAPClient::JIGAPRecvThread()
 	}
 }
 
-bool JIGAPClient::JIGAPSend(std::string szInMessage)
+bool JIGAPClient::JIGAPSend(int literal, std::string szInMessage)
 {
-	int iRecvLen = lpSocket->SYNCSend(szInMessage.c_str());
+	/*
+	lpSerializeObject->ClearSendStreamBuffer();
+	lpSerializeObject->SerializeDataSendBuffer(loginLiteral);
+
+	int iSendLen = lpSocket->SYNCSend(szInMessage.c_str());
 	
-	if (iRecvLen == 0)
+	if (iSendLen == 0)
 	{
 		JIGAPPrintMessageLog("send Error! Code : %d, Socket : %d", WSAGetLastError(), lpSocket->GetSocket());
 		return false;
 	}
+	*/
 
 	return true;
 }

@@ -8,7 +8,9 @@
 
 
 JIGAPServer::JIGAPServer()
-	:lpServSock(nullptr), bServerOn(false)
+	:lpServSock(nullptr), lpSerializeObject(new SerializeObject), 
+	hSystemLogMutex(nullptr), hClientDataMutex(nullptr),
+	bServerOn(false)
 {
 }
 
@@ -163,12 +165,28 @@ void JIGAPServer::JIGAPChattingThread()
 			}
 		}
 
+		lpSerializeObject->SetRecvStreamBuffer(lpClntSock->GetBufferData());
+
+		int literal = 0;
+		lpSerializeObject->DeserializeRecvBuffer(literal);
+
+		
 		WaitForSingleObject(hClientDataMutex, INFINITE);
-		if (lpClntSock->GetInitName())
-			OnChattingState(lpClntSock);
-		else
+
+		switch (literal)
+		{
+		case loginLiteral:
 			OnLoginState(lpClntSock);
+			break;
+
+		case joinedRoomLiteral:
+			OnJoinedRoom(lpClntSock);
+			break;
+
+		}
 		ReleaseMutex(hClientDataMutex);
+
+		lpSerializeObject->ClearRecvStreamBuffer();
 	}
 
 	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
@@ -224,41 +242,56 @@ void JIGAPServer::JIGAPServerClose()
 
 void JIGAPServer::OnChattingState(LPTCPSOCK lpClntSock)
 {
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		char szOriginMessage[MAXBUFFERSIZE];
-		strcpy(szOriginMessage, lpClntSock->GetBufferData());
-
-		/*수신된 메시지를 모든 유저에게 발신합니다.*/
-		for (auto Iter : mClientData)
-		{
-			if (!Iter.second->GetInitName())
-				continue;
-
-			char buffer[MAXBUFFERSIZE];
-			sprintf(buffer, "%s : %s", lpClntSock->GetMyUserName().c_str(), szOriginMessage);
-
-			Iter.second->WriteBuffer(buffer);
-			Iter.second->IOCPSend();
-		}
-	}
-	else
-	{
-		/*모두 전송이 완료되면 해당 소켓을 Recv 모드로 전환합니다.*/
-		lpClntSock->IOCPRecv();
-	}
 }
 
 void JIGAPServer::OnLoginState(LPTCPSOCK lpClntSock)
 {
-	/*User의 닉네임을 초기화 합니다.*/
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
-		lpClntSock->SetUserName(lpClntSock->GetBufferData());
+		char name[MAXNAMESIZE];
+		lpSerializeObject->DeserializeRecvBuffer(name, sizeof(name));
+
+		lpClntSock->SetUserName(name);
 		lpClntSock->IOCPRecv();
 
 		JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName().c_str());
 	}
+}
+
+void JIGAPServer::OnJoinedRoom(LPTCPSOCK lpClntSock)
+{
+	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	{
+		char str[MAXROOMNAMESIZE];
+		lpSerializeObject->DeserializeRecvBuffer(str, sizeof(str));
+	}
+}
+
+void JIGAPServer::OnRoomState(LPTCPSOCK lpClntSock)
+{
+	//if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	//{
+	//	char szOriginMessage[MAXBUFFERSIZE];
+	//	strcpy(szOriginMessage, lpClntSock->GetBufferData());
+	//
+	//	/*수신된 메시지를 모든 유저에게 발신합니다.*/
+	//	for (auto Iter : mClientData)
+	//	{
+	//		if (!Iter.second->GetState() == JIGAPSTATE::E_ROOM)
+	//			continue;
+	//
+	//		char buffer[MAXBUFFERSIZE];
+	//		sprintf(buffer, "%s : %s", lpClntSock->GetMyUserName().c_str(), szOriginMessage);
+	//
+	//		Iter.second->WriteBuffer(buffer);
+	//		Iter.second->IOCPSend();
+	//	}
+	//}
+	//else
+	//{
+	//	/*모두 전송이 완료되면 해당 소켓을 Recv 모드로 전환합니다.*/
+	//	lpClntSock->IOCPRecv();
+	//}
 }
 
 void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)

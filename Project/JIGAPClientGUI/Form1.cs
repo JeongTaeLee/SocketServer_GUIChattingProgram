@@ -103,7 +103,7 @@ namespace JIGAPClientGUI
             {
                 if (sendingTextBox.Text.Length != 0)
                 {
-                    NetworkManager.GetInst().SendMessage(sendingTextBox.Text);
+                    NetworkManager.GetInst().SendMessage(lsendingTextBox.Text);
                     sendingTextBox.Clear();
                 }
             }

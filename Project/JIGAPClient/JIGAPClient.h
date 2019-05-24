@@ -3,6 +3,7 @@ class JIGAPClient
 {
 private:
 	LPTCPSOCK lpSocket;
+	SerializeObject* lpSerializeObject;
 
 	HANDLE hMessageMutex;
 
@@ -27,7 +28,7 @@ public:
 	void JIGAPClientEnd();
 public:
 	void JIGAPRecvThread();
-	bool JIGAPSend(std::string szInMessage);
+	bool JIGAPSend(int literal, std::string szInMessage);
 
 public:
 	void JIGAPPrintMessageLog(const char * fmt, ...);

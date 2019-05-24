@@ -43,9 +43,9 @@ namespace JIGAPClientGUI
             }
         }
 
-        public bool SendMessage(string strInMessage)
+        public bool SendMessage(int literal, string strInMessage)
         {
-            return jigapClientWrap.JIGAPWrapSend(strInMessage);
+            return jigapClientWrap.JIGAPWrapSend(literal, strInMessage);
         }
 
         public bool CheckMessageLog()

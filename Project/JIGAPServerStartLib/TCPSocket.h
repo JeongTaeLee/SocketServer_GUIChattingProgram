@@ -3,17 +3,21 @@
 #include "SocketAddress.h"
 
 class TCPIOData;
+class Room;
 
 class TCPSocket
 {
 protected:
+	JIGAPSTATE jigapState;
+	 
 	SOCKET hSock;
 	SocketAddress sockAddr;
 
 	LPIODATA lpIOData;
+	
+	Room * lpRoom;
 
 	std::string strUserName;
-	bool bInitName = false;
 public:	
 	TCPSocket();
 	TCPSocket(SOCKET InSocket);
@@ -51,7 +55,6 @@ public:
 	int Connect(const char* szInIpAddr, const char* szInPortAddr);
 
 	void Closesocket();
-
 public:
 	/*IOCP Socket을 Completion Port에 연결합니다.
 	성공 : Handle
@@ -92,12 +95,15 @@ public:
 	void WriteBuffer(const char * message);
 	void ClearBuffer();
 
-	bool GetInitName() { return bInitName; }
-	void SetUserName(const std::string& name) { bInitName = true; strUserName = name; };
-	// GetUersName 이라는 define이 이미 있다.
+	void SetUserName(const std::string& name);
 	const std::string& GetMyUserName() { return strUserName; }
-
 	
+public:
+	JIGAPSTATE GetState() { return jigapState; }
+
+	void UnJoinedRoom();
+	void JoinedRoom(Room* inRoom);
+
 public:
 	const SOCKET& GetSocket() { return hSock; }
 	const LPIODATA GetIOData() { return lpIOData; }

@@ -38,3 +38,5 @@ E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Debug\JIGAPServerGUI.csproj.CopyComplete
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Debug\JIGAPServerGUI.exe
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\obj\Debug\JIGAPServerGUI.pdb
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\bin\Debug\JIGAPServerGUI.exe.CodeAnalysisLog.xml
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerGUI\bin\Debug\JIGAPServerGUI.exe.lastcodeanalysissucceeded

@@ -6,6 +6,12 @@ using namespace System;
 
 namespace JIGAPClientCLR 
 {
+	public enum LITERAL
+	{
+		LiteralLogin,
+		LiteralJoinedRoom,
+	};
+
 	public ref class JIGAPClientWrap
 	{
 	protected:
@@ -17,7 +23,7 @@ namespace JIGAPClientCLR
 		bool JIGAPWrapClientStart(String^ szIpAddr, String^ szPortAddr);
 		void JIGAPWrapClientEnd();
 
-		bool JIGAPWrapSend(String^ szInMessage);
+		bool JIGAPWrapSend(LITERAL literal, String^ szInMessage);
 	public:
 		String^ JIGAPGetMessageLog();
 		bool JIGAPCheckMessage();

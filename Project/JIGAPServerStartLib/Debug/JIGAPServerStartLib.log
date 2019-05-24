@@ -1,6 +1,8 @@
 ﻿  pch.cpp
   JIGAPServerStartLib.cpp
   JIGAPStructure.cpp
+  Room.cpp
+  SerializeObject.cpp
   SocketAddress.cpp
   TCPIOData.cpp
   TCPSocket.cpp

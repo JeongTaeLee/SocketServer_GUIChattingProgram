@@ -28,9 +28,20 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientEnd()
 	lpJigapClient->JIGAPClientEnd();
 }
 
-bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSend(String^ szInMessage)
+bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSend(LITERAL literal, String^ szInMessage)
 {
-	return lpJigapClient->JIGAPSend(msclr::interop::marshal_as<std::string>(szInMessage));
+	switch (literal)
+	{
+	case JIGAPClientCLR::LiteralLogin:
+		lpJigapClient->JIGAPSend(loginLiteral, msclr::interop::marshal_as<std::string>(szInMessage));
+		break;
+	case JIGAPClientCLR::LiteralJoinedRoom:
+		lpJigapClient->JIGAPSend(joinedRoomLiteral, msclr::interop::marshal_as<std::string>(szInMessage));
+		break;
+	default:
+		break;
+	}
+	return lpJigapClient->JIGAPSend(literal, msclr::interop::marshal_as<std::string>(szInMessage));
 }
 
 String^ JIGAPClientCLR::JIGAPClientWrap::JIGAPGetMessageLog()

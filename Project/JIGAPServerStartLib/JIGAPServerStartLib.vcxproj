@@ -154,6 +154,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="JIGAPStructure.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="SerializeObject.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
@@ -167,6 +169,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="SerializeObject.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />

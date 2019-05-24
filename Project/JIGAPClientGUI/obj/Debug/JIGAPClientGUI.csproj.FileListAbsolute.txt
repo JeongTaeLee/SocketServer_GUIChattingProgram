@@ -24,3 +24,5 @@ E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\obj\
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\obj\Debug\JIGAPClientGUI.csproj.CopyComplete
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\obj\Debug\JIGAPClientGUI.exe
 E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\obj\Debug\JIGAPClientGUI.pdb
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\bin\Debug\JIGAPClientGUI.exe.CodeAnalysisLog.xml
+E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPClientGUI\bin\Debug\JIGAPClientGUI.exe.lastcodeanalysissucceeded
