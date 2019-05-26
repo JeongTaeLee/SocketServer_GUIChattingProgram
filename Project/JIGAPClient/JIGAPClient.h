@@ -2,6 +2,9 @@
 class JIGAPClient
 {
 private:
+	JIGAPSTATE eClientState;
+	bool bLogin;
+
 	LPTCPSOCK lpSocket;
 	SerializeObject* lpSerializeObject;
 
@@ -13,6 +16,13 @@ private:
 	std::string strPortAddr;
 
 	std::queue<std::string> qMessage;
+
+	std::list<std::string> liRoomList;
+
+	void (*lpOnLoginCallBack)();
+	void (*lpOnRoomListCallBack)();
+	void (*lpOnJoinedRoomList)();
+	void (*lpOnExitRoomList)();
 public:
 	JIGAPClient();
 	virtual ~JIGAPClient();
@@ -21,17 +31,36 @@ private:
 	HRESULT JIGAPInitializeClient();
 	void JIGAPReleaseClient();
 public:
-	/*채팅 클라이언트를 시작합니다 initializeClient() 과 Thread 생성 등을 처리합니다.*/
 	bool JIGAPClientStart(const std::string & InIpAddr, const std::string & InPortAddr);
-	
-	/*채팅 클라이언트를 종료합니다 ReleaseClient() 과 여러 자원 해제 등을 처리합니다.*/
 	void JIGAPClientEnd();
-public:
-	void JIGAPRecvThread();
-	bool JIGAPSend(int literal, std::string szInMessage);
 
 public:
+	void JIGAPRecvThread();
+
+	bool JIGAPRequsetLogin(const std::string & strInNickName);
+	bool JIGAPRequestRoomList();
+	bool JIGAPRequestCreateRoom(const std::string & strInRoomName);
+	bool JIGAPRequestJoinedRoom(const std::string& strInRoomName);
+	bool JIGAPRequestExtiRoom();
+
+private:
+	void JIGAPOnAnswerLogin();
+	void JIGAPOnAnswerRoomList();
+	void JIGAPOnAnswerCreateRoom();
+	void JIGAPOnAnswerJoinedRoom();
+	void JIGAPOnAnswerExtiRoom();
+
+
+public:
+	void JIGAPSetOnLoginCallBack(void (*lpInCallBack)()) { lpOnLoginCallBack = lpInCallBack; }
+	void JIGAPSetOnRoomListCallBack(void (*lpInCallBack)()) { lpOnRoomListCallBack = lpInCallBack; }
+	void JIGAPSetOnJoinedRoomCallBack(void (*lpInCallBack)()) { lpOnJoinedRoomList = lpInCallBack; }
+	void JIGAPSetOnExitRoomCallBack(void (*lpInCallBack)()) { lpOnExitRoomList = lpInCallBack; }
+
+private:
 	void JIGAPPrintMessageLog(const char * fmt, ...);
+
+	bool JIGAPSendSerializeBuffer();
 
 public:
 	bool JIGAPCheckMessageLog();

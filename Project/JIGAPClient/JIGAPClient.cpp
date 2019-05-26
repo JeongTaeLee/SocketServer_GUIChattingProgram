@@ -3,8 +3,16 @@
 
 
 JIGAPClient::JIGAPClient()
-	:lpSocket(nullptr), lpSerializeObject(new SerializeObject),
-	hMessageMutex(nullptr)
+	:eClientState(JIGAPSTATE::E_REQUESTROOM), 
+	bLogin(false),
+	lpSocket(nullptr), 
+	lpSerializeObject(new SerializeObject),	
+	hMessageMutex(nullptr),
+
+	lpOnLoginCallBack(nullptr),
+	lpOnRoomListCallBack(nullptr),
+	lpOnJoinedRoomList(nullptr),
+	lpOnExitRoomList(nullptr)
 {
 }
 
@@ -102,26 +110,184 @@ void JIGAPClient::JIGAPRecvThread()
 			break;
 		}
 
-		JIGAPPrintMessageLog(message);
+		lpSerializeObject->ClearSendStreamBuffer();
+		lpSerializeObject->SetRecvStreamBuffer(message);
+
+		uint32_t literal = 0;
+		lpSerializeObject->DeserializeRecvBuffer(literal);
+
+		switch (literal)
+		{
+		case answerLoginLiteral:
+			JIGAPOnAnswerLogin();
+			break;
+
+		case answerRoomListLiteral:
+			JIGAPOnAnswerRoomList();
+			break;
+
+		case answerCreateRoomLiteral:
+		
+			break;
+
+		case answerJoinedRoomLiteral:
+			break;
+
+		case answerExitRoomLiteral:
+			break;
+		
+		default:
+			break;
+		}
 	}
 }
 
-bool JIGAPClient::JIGAPSend(int literal, std::string szInMessage)
+
+
+bool JIGAPClient::JIGAPRequsetLogin(const std::string & strInNickName)
 {
-	/*
-	lpSerializeObject->ClearSendStreamBuffer();
-	lpSerializeObject->SerializeDataSendBuffer(loginLiteral);
-
-	int iSendLen = lpSocket->SYNCSend(szInMessage.c_str());
-	
-	if (iSendLen == 0)
+	if (!bLogin)
 	{
-		JIGAPPrintMessageLog("send Error! Code : %d, Socket : %d", WSAGetLastError(), lpSocket->GetSocket());
-		return false;
-	}
-	*/
+		char nameBuffer[MAXNAMESIZE] = { 0 };
+		memcpy(nameBuffer, strInNickName.c_str(), strInNickName.length());
 
-	return true;
+		lpSerializeObject->SerializeDataSendBuffer(requestLoginLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(nameBuffer, sizeof(nameBuffer));
+
+		return JIGAPSendSerializeBuffer();
+	}
+	return false;
+}
+
+bool JIGAPClient::JIGAPRequestRoomList()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
+	{
+		lpSerializeObject->SerializeDataSendBuffer(requestRoomListLiteral);
+		return JIGAPSendSerializeBuffer();
+	}
+
+	return false;
+}
+
+bool JIGAPClient::JIGAPRequestCreateRoom(const std::string& strInRoomName)
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
+	{
+		char roomName[MAXROOMNAMESIZE];
+		memcpy(roomName, strInRoomName.c_str(), strInRoomName.length());
+
+		lpSerializeObject->SerializeDataSendBuffer(requestCreateRoomLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
+		return JIGAPSendSerializeBuffer();
+	}
+
+	return false;
+}
+
+bool JIGAPClient::JIGAPRequestJoinedRoom(const std::string& strInRoomName)
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
+	{
+		char roomName[MAXROOMNAMESIZE];
+		memcpy(roomName, strInRoomName.c_str(), strInRoomName.length());
+	
+		lpSerializeObject->SerializeDataSendBuffer(requestJoinedRoomLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
+		return JIGAPSendSerializeBuffer();
+	}
+
+	return false;
+}
+
+bool JIGAPClient::JIGAPRequestExtiRoom()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
+	{
+		lpSerializeObject->SerializeDataSendBuffer(requestExitRoomLiteral);
+		return JIGAPSendSerializeBuffer();
+	}
+
+	return false;
+}
+
+void JIGAPClient::JIGAPOnAnswerLogin()
+{
+	if (!bLogin)
+	{
+		bool loginSuccees = false;
+		lpSerializeObject->DeserializeRecvBuffer(loginSuccees);
+
+		if (loginSuccees)
+		{
+			JIGAPPrintMessageLog("로그인을 성공했습니다.");
+			eClientState = JIGAPSTATE::E_NOTROOM;
+			bLogin = true;
+		}
+		else
+			JIGAPPrintMessageLog("로그인을 실패했습니다");
+	}
+}
+
+void JIGAPClient::JIGAPOnAnswerRoomList()
+{
+	if (bLogin && eClientState == E_NOTROOM)
+	{
+		int iCount = 0;
+		lpSerializeObject->DeserializeRecvBuffer(iCount);
+
+		liRoomList.clear();
+		for (int i = 0; i < iCount; ++i)
+		{
+			char roomName[MAXROOMNAMESIZE];
+			lpSerializeObject->DeserializeRecvBuffer(roomName);
+			liRoomList.push_back(roomName);
+		}
+	}
+}
+
+void JIGAPClient::JIGAPOnAnswerCreateRoom()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
+	{
+		bool bSuccess = false;
+		lpSerializeObject->DeserializeRecvBuffer(bSuccess);
+
+		if (bSuccess)
+		{
+			JIGAPPrintMessageLog("방생성에 성공했습니다.");
+			JIGAPPrintMessageLog("생성한 방에 참가합니다.");
+			eClientState = JIGAPSTATE::E_ONROOM;
+		}
+		else
+			JIGAPPrintMessageLog("방생성에 성공했습니다.");
+	}
+}
+
+void JIGAPClient::JIGAPOnAnswerJoinedRoom()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
+	{
+		bool bSuccess = false;
+		lpSerializeObject->DeserializeRecvBuffer(bSuccess);
+
+		if (bSuccess)
+		{
+			JIGAPPrintMessageLog("방참가에 성공했습니다.");
+			eClientState = JIGAPSTATE::E_ONROOM;
+		}
+		else
+			JIGAPPrintMessageLog("방참가에 실패했습니다.");
+	}
+}
+
+void JIGAPClient::JIGAPOnAnswerExtiRoom()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
+	{
+		eClientState = JIGAPSTATE::E_NOTROOM;
+		JIGAPPrintMessageLog("방에서 나왔습니다.");
+	}
 }
 
 void JIGAPClient::JIGAPPrintMessageLog(const char* fmt, ...)
@@ -139,6 +305,18 @@ void JIGAPClient::JIGAPPrintMessageLog(const char* fmt, ...)
 
 	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
 	ReleaseMutex(hMessageMutex);
+}
+
+bool JIGAPClient::JIGAPSendSerializeBuffer()
+{
+	int iSendLen = lpSocket->SYNCSend(lpSerializeObject->GetSendStreamBuffer());
+
+	if (iSendLen == 0)
+	{
+		JIGAPPrintMessageLog("send Error! Code : % d, Socket : % d", WSAGetLastError(), lpSocket->GetSocket());
+		return false;
+	}
+	return true;
 }
 
 bool JIGAPClient::JIGAPCheckMessageLog()

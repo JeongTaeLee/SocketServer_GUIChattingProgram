@@ -17,10 +17,10 @@ JIGAPClientCLR::JIGAPClientWrap::~JIGAPClientWrap()
 
 bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientStart(String^ szIpAddr, String^ szPortAddr)
 {
-	std::string _szIpAddr = msclr::interop::marshal_as < std::string >(szIpAddr);
-	std::string _szPortAddr = msclr::interop::marshal_as< std::string >(szPortAddr);
+	std::string ipAddr = msclr::interop::marshal_as < std::string >(szIpAddr);
+	std::string portAddr = msclr::interop::marshal_as< std::string >(szPortAddr);
 
-	return lpJigapClient->JIGAPClientStart(_szIpAddr, _szPortAddr);
+	return lpJigapClient->JIGAPClientStart(ipAddr, portAddr);
 }
 
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientEnd()
@@ -28,20 +28,35 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientEnd()
 	lpJigapClient->JIGAPClientEnd();
 }
 
-bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSend(LITERAL literal, String^ szInMessage)
+bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapRequestLogin(String^ szNickName)
 {
-	switch (literal)
-	{
-	case JIGAPClientCLR::LiteralLogin:
-		lpJigapClient->JIGAPSend(loginLiteral, msclr::interop::marshal_as<std::string>(szInMessage));
-		break;
-	case JIGAPClientCLR::LiteralJoinedRoom:
-		lpJigapClient->JIGAPSend(joinedRoomLiteral, msclr::interop::marshal_as<std::string>(szInMessage));
-		break;
-	default:
-		break;
-	}
-	return lpJigapClient->JIGAPSend(literal, msclr::interop::marshal_as<std::string>(szInMessage));
+	std::string nickName = msclr::interop::marshal_as<std::string>(szNickName);
+	return lpJigapClient->JIGAPRequsetLogin(nickName);
+}
+
+bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapRequestRoomList()
+{
+	return lpJigapClient->JIGAPRequestRoomList();
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnLoginCallBack(lpInCallBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnRoomListCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnRoomListCallBack(lpInCallBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnJoinedRoomCallBack(lpInCallBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnExitRoomCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnExitRoomCallBack(lpInCallBack);
 }
 
 String^ JIGAPClientCLR::JIGAPClientWrap::JIGAPGetMessageLog()

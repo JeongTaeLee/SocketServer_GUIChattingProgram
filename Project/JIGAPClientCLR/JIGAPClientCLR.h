@@ -6,10 +6,14 @@ using namespace System;
 
 namespace JIGAPClientCLR 
 {
-	public enum LITERAL
+	delegate void JIGAPEventCallBack();
+
+	public enum class LITERAL
 	{
 		LiteralLogin,
 		LiteralJoinedRoom,
+		LiteralExitRoom,
+		LiteralChatting,
 	};
 
 	public ref class JIGAPClientWrap
@@ -23,7 +27,16 @@ namespace JIGAPClientCLR
 		bool JIGAPWrapClientStart(String^ szIpAddr, String^ szPortAddr);
 		void JIGAPWrapClientEnd();
 
-		bool JIGAPWrapSend(LITERAL literal, String^ szInMessage);
+	public:
+		bool JIGAPWrapRequestLogin(String^ szNickName);
+		bool JIGAPWrapRequestRoomList();
+
+	public:
+		void JIGAPWrapOnLoginCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnRoomListCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnJoinedRoomCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnExitRoomCallBack(void (*lpInCallBack)());
+	
 	public:
 		String^ JIGAPGetMessageLog();
 		bool JIGAPCheckMessage();

@@ -8,8 +8,16 @@
 
 
 JIGAPServer::JIGAPServer()
-	:lpServSock(nullptr), lpSerializeObject(new SerializeObject), 
-	hSystemLogMutex(nullptr), hClientDataMutex(nullptr),
+	:lpServSock(nullptr), 
+	
+	lpSerializeObject(new SerializeObject), 
+	
+	hSystemLogMutex(nullptr), 
+	hClientDataMutex(nullptr), 
+	hRoomsMutex(nullptr),
+
+	hCompletionHandle(nullptr),
+	
 	bServerOn(false)
 {
 }
@@ -24,12 +32,10 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 
 	lpServSock = new TCPSocket;
 
-	/*Winsock을 시작합니다*/
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 		return E_FAIL;
 
-	/*WSASocket을 생성합니다.*/
 	if ( (iErrorCode = lpServSock->IOCPSocket()) ) 
 	{
 		JIGAPPrintSystemLog("socket Error! Code : %d, Faild Create Socket", iErrorCode);
@@ -38,7 +44,6 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 
 	JIGAPPrintSystemLog("소켓을 생성했습니다!");
 
-	/*Socket을 Bind 합니다*/
 	if ( (iErrorCode = lpServSock->Bind(szIpAddr.c_str(), szPortAddr.c_str())) )
 	{
 		JIGAPPrintSystemLog("bind Error! Code : %d, Faild Bind Socket", iErrorCode);
@@ -47,7 +52,6 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 
 	JIGAPPrintSystemLog("소켓이 바인드 되었습니다.");
 
-	/*연결 대기열을 생성합니다*/
 	if ( (iErrorCode = lpServSock->Listen(10)) )
 	{
 		JIGAPPrintSystemLog("listen Error! Code : %d", iErrorCode);
@@ -59,11 +63,11 @@ HRESULT JIGAPServer::JIGAPInitializeServer()
 	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 1);
 	if (hCompletionHandle == nullptr)
 	{
-		JIGAPPrintSystemLog("CreateioCompletionPort Error! Code : %d, Failed Create CompletionPort", iErrorCode);
+		JIGAPPrintSystemLog("CreateIOCompletionPort Error! Code : %d, Failed Create CompletionPort", iErrorCode);
 		return E_FAIL;
 	}
 	
-	JIGAPPrintSystemLog("CompletionPortrk 만들어졌습니다.");
+	JIGAPPrintSystemLog("CompletionPort 만들어졌습니다.");
 
 	return S_OK;
 }
@@ -84,115 +88,6 @@ void JIGAPServer::JIGAPReleaseServer()
 	WSACleanup();
 }
 
-void JIGAPServer::JIGAPConnectThread()
-{
-	int iErrorCode = 0;
-
-	JIGAPPrintSystemLog("연결 쓰레드가 활성화 되었습니다.");	
-
-	while (true)
-	{
-		/*연결 대기 합니다.*/
-		LPTCPSOCK lpClntData = lpServSock->Accept();
-
-		if (bServerOn == false)
-			break;
-		
-		/*소켓에 연결을 실패 했을 경우*/
-		if (lpClntData == nullptr)
-		{
-			JIGAPPrintSystemLog("클라이언트 소켓과 연결에 실패했습니다");
-			continue;
-		}
-		
-		/*연결된 소켓에 CompletionPort 연결 합니다.*/
-		if (lpClntData->ConnectionCompletionPort(hCompletionHandle) == NULL)
-		{
-			JIGAPPrintSystemLog("CompletionPort Connection Error! Code : %d, Socket : %d", WSAGetLastError(), lpClntData->GetSocket());
-
-			lpClntData->Closesocket();
-			delete lpClntData;
-			continue;
-		}
-
-		JIGAPPrintSystemLog("Connected Socket : %d", lpClntData->GetSocket());
-		
-		/*연결된 소켓을 Client list에 추가합니다.*/
-		mClientData.insert(std::make_pair(lpClntData->GetSocket(), lpClntData));
-
-		/*연결된 소켓의 메시지를 받을 준비를 합니다.*/
-		if ((iErrorCode = lpClntData->IOCPRecv()))
-		{
-			JIGAPPrintSystemLog("WSARecv Error! Code : %d, Socket : %d", WSAGetLastError(), lpClntData->GetSocket());
-
-			lpClntData->Closesocket();
-			delete lpClntData;
-		}
-
-
-	}
-
-	JIGAPPrintSystemLog("연결 쓰레드가 비활성화 되었습니다.");
-}
-
-void JIGAPServer::JIGAPChattingThread()
-{
-	JIGAPPrintSystemLog("채팅 쓰레드가 활성화 되었습니다.");
-
-	while (true)
-	{
-		LPTCPSOCK lpClntSock = nullptr;
-		LPIODATA lpIOData = nullptr;
-
-		DWORD dwByte = 0;
-
-		/*메시지 입출력이 완료된 소켓을 얻어옵니다. 없을 경우 대기합니다.*/
-		GetQueuedCompletionStatus(hCompletionHandle,
-			&dwByte,
-			(LPDWORD)& lpClntSock, // 입출력이 완려된 소켓의 데이터입니다.
-			(LPOVERLAPPED*)& lpIOData,
-			INFINITE);
-
-		if (dwByte == 0)
-		{
-			/*서버가 종료되어 0이 들어왔을때.*/
-			if (bServerOn == false)
-				break;
-			else
-			{
-				RemoveClient(lpClntSock->GetSocket());
-				continue;
-			}
-		}
-
-		lpSerializeObject->SetRecvStreamBuffer(lpClntSock->GetBufferData());
-
-		int literal = 0;
-		lpSerializeObject->DeserializeRecvBuffer(literal);
-
-		
-		WaitForSingleObject(hClientDataMutex, INFINITE);
-
-		switch (literal)
-		{
-		case loginLiteral:
-			OnLoginState(lpClntSock);
-			break;
-
-		case joinedRoomLiteral:
-			OnJoinedRoom(lpClntSock);
-			break;
-
-		}
-		ReleaseMutex(hClientDataMutex);
-
-		lpSerializeObject->ClearRecvStreamBuffer();
-	}
-
-	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
-}
-
-
 bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr)
 {
 	szIpAddr = _szIpAddr;
@@ -208,6 +103,7 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 
 	hSystemLogMutex = CreateMutex(0, FALSE, NULL);
 	hClientDataMutex = CreateMutex(0, FALSE, NULL);
+	hRoomsMutex = CreateMutex(0, FALSE, NULL);
 
 	/*연결을 담당하는 Thread 입니다.*/
 	connectThread = std::thread([&]() { JIGAPConnectThread(); });
@@ -236,62 +132,276 @@ void JIGAPServer::JIGAPServerClose()
 
 	/*생성한 WInAPI Mutex를 해제합니다.*/
 	CloseHandle(hSystemLogMutex);
+	CloseHandle(hClientDataMutex);
+	CloseHandle(hRoomsMutex);
 
 	JIGAPPrintSystemLog("서버가 닫혔습니다!");
 }
 
-void JIGAPServer::OnChattingState(LPTCPSOCK lpClntSock)
+void JIGAPServer::JIGAPConnectThread()
 {
+	int iErrorCode = 0;
+
+	JIGAPPrintSystemLog("연결 쓰레드가 활성화 되었습니다.");	
+
+	while (true)
+	{
+		LPTCPSOCK lpClntData = lpServSock->Accept(); // 연결을 대기합니다.
+
+		if (bServerOn == false) // 서버가 종료되었습니다.
+			break;
+		
+		if (lpClntData == nullptr) 
+		{
+			JIGAPPrintSystemLog("클라이언트 소켓과 연결에 실패했습니다");
+			continue;
+		}
+		
+		if (lpClntData->ConnectionCompletionPort(hCompletionHandle) == NULL)
+		{
+			JIGAPPrintSystemLog("에러! 컴플렉션 포트에 연결하지 못했습니다 code : %d, socket : %d", WSAGetLastError(), lpClntData->GetSocket());
+
+			lpClntData->Closesocket();
+			delete lpClntData;
+			continue;
+		}
+
+		JIGAPPrintSystemLog("클라이언트 소켓이 연결되었습니다 : %d", lpClntData->GetSocket());
+		
+		mClientData.insert(std::make_pair(lpClntData->GetSocket(), lpClntData));
+
+		if ((iErrorCode = lpClntData->IOCPRecv()))
+		{
+			JIGAPPrintSystemLog("에러! IOCP 수신에 실패했습니다. code : %d, socket : %d", WSAGetLastError(), lpClntData->GetSocket());
+
+			lpClntData->Closesocket();
+			delete lpClntData;
+		}
+	}
+
+	JIGAPPrintSystemLog("연결 쓰레드가 비활성화 되었습니다.");
 }
 
-void JIGAPServer::OnLoginState(LPTCPSOCK lpClntSock)
+void JIGAPServer::JIGAPChattingThread()
+{
+	JIGAPPrintSystemLog("채팅 쓰레드가 활성화 되었습니다.");
+
+	while (true)
+	{
+		LPTCPSOCK lpClntSock = nullptr;
+		LPIODATA lpIOData = nullptr;
+
+		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
+
+		if (iCheckIOResult == 0) // 클라이언트가 종료를 요청했습니다.
+			RemoveClient(lpClntSock->GetSocket());
+
+		else if (iCheckIOResult == -1) // 서버가 종료되었습니다.
+			break;
+
+		else // 성공적으로 IO가 끝났습니다.
+		{
+			int literal = 0;
+			
+			lpSerializeObject->ClearSendStreamBuffer();
+			lpSerializeObject->SetRecvStreamBuffer(lpClntSock->GetBufferData());
+			lpSerializeObject->DeserializeRecvBuffer(literal);
+
+			WaitForSingleObject(hClientDataMutex, INFINITE);
+			switch (literal)
+			{
+			case requestLoginLiteral:
+				OnLogin(lpClntSock);
+				break;
+
+			case requestRoomListLiteral:
+				OnRequestRoomList(lpClntSock);
+				break;
+
+			case requestCreateRoomLiteral:
+				OnRequestCreateRoom(lpClntSock);
+				break;
+
+			case requestJoinedRoomLiteral:
+				OnRequestJoinedRoom(lpClntSock);
+				break;
+
+			case requestExitRoomLiteral:
+				OnRequestExtiRoom(lpClntSock);
+				break;
+
+			case chattingLiteral:
+				OnChatting(lpClntSock);
+				break;
+
+			default:
+				if (lpClntSock->GetIOMode() == IOMODE::E_IOMODE_SEND)
+					lpClntSock->IOCPRecv();
+				break;
+			}
+			ReleaseMutex(hClientDataMutex);
+
+			lpSerializeObject->ClearRecvStreamBuffer();
+		}
+	}
+
+	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
+}
+
+void JIGAPServer::OnLogin(LPTCPSOCK & lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
 		char name[MAXNAMESIZE];
 		lpSerializeObject->DeserializeRecvBuffer(name, sizeof(name));
 
-		lpClntSock->SetUserName(name);
-		lpClntSock->IOCPRecv();
+		bool loginSuccess = true;
+		WaitForSingleObject(hClientDataMutex, INFINITE);
+		for (auto Iter : mClientData)
+		{
+			if (Iter.second->GetMyUserName() == name)
+				loginSuccess = false;
+		}
+		ReleaseMutex(hClientDataMutex);
 
-		JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName().c_str());
+		if (loginSuccess)
+		{
+			lpClntSock->SetUserName(name);
+			
+			lpSerializeObject->SerializeDataSendBuffer(answerLoginLiteral);
+			lpSerializeObject->SerializeDataSendBuffer(true);
+
+			JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName().c_str());
+		}
+		else
+		{
+			lpSerializeObject->SerializeDataSendBuffer(answerLoginLiteral);
+			lpSerializeObject->SerializeDataSendBuffer(false);
+		
+			JIGAPPrintSystemLog("%d 소켓의 로그인 요청이 거부되었습니다.");
+		}
+
+		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+		lpClntSock->IOCPSend();
 	}
 }
 
-void JIGAPServer::OnJoinedRoom(LPTCPSOCK lpClntSock)
+void JIGAPServer::OnRequestRoomList(LPTCPSOCK& lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
-		char str[MAXROOMNAMESIZE];
-		lpSerializeObject->DeserializeRecvBuffer(str, sizeof(str));
+		WaitForSingleObject(hRoomsMutex, INFINITE);
+		
+		int roomCount = mRooms.size();
+		
+		lpSerializeObject->SerializeDataSendBuffer(answerRoomListLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(roomCount);
+
+		for (auto& Iter : mRooms)
+		{
+			char roomName[MAXROOMNAMESIZE] = { 0 };
+			memcpy(roomName, Iter.second, sizeof(roomName));
+			lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
+		}
+
+		ReleaseMutex(hRoomsMutex);
+
+		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+		lpClntSock->IOCPSend();
 	}
 }
 
-void JIGAPServer::OnRoomState(LPTCPSOCK lpClntSock)
+void JIGAPServer::OnRequestCreateRoom(LPTCPSOCK& lpClntSock)
 {
-	//if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	//{
-	//	char szOriginMessage[MAXBUFFERSIZE];
-	//	strcpy(szOriginMessage, lpClntSock->GetBufferData());
-	//
-	//	/*수신된 메시지를 모든 유저에게 발신합니다.*/
-	//	for (auto Iter : mClientData)
-	//	{
-	//		if (!Iter.second->GetState() == JIGAPSTATE::E_ROOM)
-	//			continue;
-	//
-	//		char buffer[MAXBUFFERSIZE];
-	//		sprintf(buffer, "%s : %s", lpClntSock->GetMyUserName().c_str(), szOriginMessage);
-	//
-	//		Iter.second->WriteBuffer(buffer);
-	//		Iter.second->IOCPSend();
-	//	}
-	//}
-	//else
-	//{
-	//	/*모두 전송이 완료되면 해당 소켓을 Recv 모드로 전환합니다.*/
-	//	lpClntSock->IOCPRecv();
-	//}
+	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	{
+		char roomName[MAXROOMNAMESIZE] = { 0 };
+		lpSerializeObject->DeserializeRecvBuffer(roomName, sizeof(roomName));
+		lpSerializeObject->SerializeDataSendBuffer(answerCreateRoomLiteral);
+		
+		WaitForSingleObject(hRoomsMutex, INFINITE);
+
+		auto find = mRooms.find(roomName);
+		if (find != mRooms.end())
+			lpSerializeObject->SerializeDataSendBuffer(false);
+		else
+		{
+			lpSerializeObject->SerializeDataSendBuffer(true);
+			
+			Room* lpRoom = new Room;
+			mRooms.insert(std::make_pair(roomName, lpRoom));
+			lpRoom->AddUser(lpClntSock);
+		}
+
+		ReleaseMutex(hRoomsMutex);
+
+		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+		lpClntSock->IOCPSend();
+	}
+}
+
+void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
+{
+	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	{
+		char buffer[MAXROOMNAMESIZE];
+		lpSerializeObject->DeserializeRecvBuffer(buffer, sizeof(buffer));
+		lpSerializeObject->SerializeDataSendBuffer(answerJoinedRoomLiteral);
+
+		WaitForSingleObject(hRoomsMutex, INFINITE);
+
+		auto find = mRooms.find(buffer);
+		if (find != mRooms.end())
+		{
+			find->second->AddUser(lpClntSock);
+			lpSerializeObject->SerializeDataSendBuffer(true);
+		}
+		else
+			lpSerializeObject->SerializeDataSendBuffer(false);
+
+		ReleaseMutex(hRoomsMutex);
+
+		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+	}
+}
+
+void JIGAPServer::OnRequestExtiRoom(LPTCPSOCK& lpClntSock)
+{
+	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	{
+		lpSerializeObject->SerializeDataSendBuffer(answerExitRoomLiteral);
+
+		Room* lpRoom = lpClntSock->GetRoom();
+		if (lpRoom)
+			lpRoom->DeleteUser(lpClntSock);	
+
+		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+	}
+}
+
+void JIGAPServer::OnChatting(LPTCPSOCK & lpClntSock)
+{
+}
+
+int JIGAPServer::CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIOData)
+{
+	DWORD dwByte = 0;
+
+	GetQueuedCompletionStatus(hCompletionHandle,
+		&dwByte,
+		(LPDWORD)& inSocket,
+		(LPOVERLAPPED*)& inIOData,
+		INFINITE);
+
+	if (dwByte == 0)
+	{
+		if (bServerOn == false)
+			return -1;
+		else
+			return 0;
+	}
+
+	return 1;
 }
 
 void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
@@ -332,7 +442,6 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 
 	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
 	
-	delete find->second->GetIOData();
 	delete find->second;
 
 	WaitForSingleObject(hClientDataMutex, INFINITE);

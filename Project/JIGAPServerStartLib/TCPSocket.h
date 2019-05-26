@@ -7,9 +7,7 @@ class Room;
 
 class TCPSocket
 {
-protected:
-	JIGAPSTATE jigapState;
-	 
+protected:	 
 	SOCKET hSock;
 	SocketAddress sockAddr;
 
@@ -87,28 +85,18 @@ public:
 	int SYNCSend(const char* szInBuf, int iInBufSize = MAXBUFFERSIZE);
 
 public:
-	void ReadBufferClear();
-
-public:
-	const IOMODE& GetIOMode();
-	char* GetBufferData();
-	void WriteBuffer(const char * message);
-	void ClearBuffer();
-
-	void SetUserName(const std::string& name);
-	const std::string& GetMyUserName() { return strUserName; }
-	
-public:
-	JIGAPSTATE GetState() { return jigapState; }
-
-	void UnJoinedRoom();
-	void JoinedRoom(Room* inRoom);
-
-public:
 	const SOCKET& GetSocket() { return hSock; }
-	const LPIODATA GetIOData() { return lpIOData; }
-public:
 
+	const IOMODE& GetIOMode() {	return lpIOData->eIOMode; }
+	char* GetBufferData() { return lpIOData->szBuffer; }
+	void SetBufferData(const char* copy, int size);
+
+	const std::string& GetMyUserName() { return strUserName; }
+	void SetUserName(const std::string& name);
+
+public:
+	Room*& GetRoom() { return lpRoom; }
+	void SetRoom(Room* room) { lpRoom = room; }
 };
 
 using LPTCPSOCK = TCPSocket*;

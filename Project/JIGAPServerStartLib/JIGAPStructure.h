@@ -1,20 +1,38 @@
 #pragma once
-#define MAXBUFFERSIZE 1024 // 이름 바이트
+#define MAXBUFFERSIZE 2048 // 
 
-#define MAXNAMESIZE 64
 #define MAXSTRSIZE 512
-#define MAXROOMNAMESIZE 512
+#define MAXNAMESIZE 64
+#define MAXROOMNAMESIZE 16
 
-const uint32_t loginLiteral = 'LGIN';
-const uint32_t joinedRoomLiteral = 'JNRM';
+// 서버 통신에서 패킷 판별을 위한 4글자 리터럴 입니다.
+//const uint32_t requestLoginLiteral = 'RLIL';
+const uint32_t requestLoginLiteral = 'RLIL'; // 클라에서 로그인 요청시 필요한 메시지 입니다.
+const uint32_t answerLoginLiteral = 'ALIL';
 
+// 룸 목록 요청과 답변시 필요한 리터럴 입니다.
+const uint32_t requestRoomListLiteral = 'RRLL'; 
+const uint32_t answerRoomListLiteral = 'ARLL';
+
+// 룸 생성 요청과 답변시 필요한 리터럴 입니다.
+const uint32_t requestCreateRoomLiteral = 'RCRL';
+const uint32_t answerCreateRoomLiteral = 'ACRL';
+
+// 룸 참가 요청과 답션시 필요한 리터럴 입니다.
+const uint32_t requestJoinedRoomLiteral = 'RJRL'; 
+const uint32_t answerJoinedRoomLiteral = 'AJRL';
+
+// 룸 탈퇴 요청과 답변시 필요한 리터럴 입니다.
+const uint32_t requestExitRoomLiteral = 'RERL'; 
+const uint32_t answerExitRoomLiteral = 'AERL';
+
+const uint32_t chattingLiteral = 'CHAT'; // 클라에서 채팅 요청시 필요한 메시지입니다.
 
 enum JIGAPSTATE
 {
-	E_LOGIN,
 	E_NOTROOM,
-	E_ROOM,
-	E_CHATTING,
+	E_REQUESTROOM,
+	E_ONROOM,
 };
 
 #include "SocketAddress.h"

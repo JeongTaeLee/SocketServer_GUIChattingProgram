@@ -4,7 +4,7 @@
 #include "TCPIOData.h" 
 
 TCPSocket::TCPSocket()
-	:jigapState(JIGAPSTATE::E_LOGIN), hSock(NULL), lpIOData(new TCPIOData), lpRoom(nullptr)
+	:hSock(NULL), lpIOData(new TCPIOData), lpRoom(nullptr)
 {
 }
 
@@ -21,6 +21,7 @@ TCPSocket::TCPSocket(SOCKET hInSock, const SocketAddress& InAddr)
 
 TCPSocket::~TCPSocket()
 {
+	delete lpIOData;
 }
 
 int TCPSocket::IOCPSocket()
@@ -139,60 +140,14 @@ int TCPSocket::SYNCSend(const char* szInBuf, int iInBufSize)
 	return send(hSock, szInBuf, iInBufSize, 0);
 }
 
-void TCPSocket::ReadBufferClear()
-{
-	char temp_char;
-	unsigned long temp_long = 0;
-	long i;
-
-	if (ioctlsocket(hSock, FIONREAD, &temp_long) != SOCKET_ERROR)
-	{
-		for (i = 0; i < temp_long; i++)
-		{
-			recv(hSock, &temp_char, sizeof(char), 0);
-		}
-	}
-}
-
-const IOMODE& TCPSocket::GetIOMode()
-{
-	return lpIOData->eIOMode;
-}
-
-char* TCPSocket::GetBufferData()
-{
-	return lpIOData->szBuffer;
-}
-
-void TCPSocket::WriteBuffer(const char* message)
-{
-	memcpy(lpIOData->szBuffer, message, sizeof(lpIOData->szBuffer));
-}
-
-void TCPSocket::ClearBuffer()
+void TCPSocket::SetBufferData(const char* copy, int size)
 {
 	memset(lpIOData->szBuffer, NULL, sizeof(lpIOData->szBuffer));
+	memcpy(lpIOData->szBuffer, copy, size);
 }
 
 void TCPSocket::SetUserName(const std::string& name)
 {
 	strUserName = name;
-	jigapState = JIGAPSTATE::E_NOTROOM;
-}
-
-void TCPSocket::UnJoinedRoom()
-{
-	lpRoom->DeleteUser(this);
-	lpRoom = nullptr;
-
-	jigapState = JIGAPSTATE::E_NOTROOM;
-}
-
-void TCPSocket::JoinedRoom(Room* inRoom)
-{
-	lpRoom = inRoom;
-	lpRoom->AddUser(this);
-	
-	jigapState = JIGAPSTATE::E_ROOM;
 }
 

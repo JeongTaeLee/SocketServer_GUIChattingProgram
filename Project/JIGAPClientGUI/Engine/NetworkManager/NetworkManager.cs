@@ -43,10 +43,11 @@ namespace JIGAPClientGUI
             }
         }
 
-        public bool SendMessage(int literal, string strInMessage)
+        public void RequestLogin(string strInNickName)
         {
-            return jigapClientWrap.JIGAPWrapSend(literal, strInMessage);
+            jigapClientWrap.JIGAPWrapRequestLogin(strInNickName);
         }
+
 
         public bool CheckMessageLog()
         {

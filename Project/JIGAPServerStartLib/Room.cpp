@@ -14,18 +14,17 @@ Room::~Room()
 void Room::SendRoomMessage(const char* inMessage)
 {
 	for (auto& Iter : liUserList)
-	{
-		Iter->WriteBuffer(inMessage);
 		Iter->IOCPSend();
-	}
 }
 
-void Room::AddUser(LPTCPSOCK lpSocket)
+void Room::AddUser(TCPSocket* lpSocket)
 {
 	liUserList.push_back(lpSocket);
+	lpSocket->SetRoom(this);
 }
 
-void Room::DeleteUser(LPTCPSOCK lpSocket)
+void Room::DeleteUser(TCPSocket* lpSocket)
 {
 	liUserList.remove(lpSocket);
+	lpSocket->SetRoom(nullptr);
 }

@@ -6,15 +6,15 @@ class Lobby;
 class Room
 {
 protected:
-	std::list<LPTCPSOCK> liUserList;
+	std::list<TCPSocket*> liUserList;
 public:
 	Room();
 	virtual ~Room();
 
 	void SendRoomMessage(const char * inMessage);
 
-	void AddUser(LPTCPSOCK lpSocket);
-	void DeleteUser(LPTCPSOCK lpSocket);
+	void AddUser(TCPSocket* lpSocket);
+	void DeleteUser(TCPSocket* lpSocket);
 
 };
 

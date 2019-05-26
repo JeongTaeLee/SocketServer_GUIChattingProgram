@@ -20,8 +20,7 @@ namespace JIGAPClientGUI
         {
             InitializeComponent();
 
-            sendingTextBox.Enabled = false;
-            sendingButton.Enabled = false;
+            OnDisconnect();
 
             this.Shown += new EventHandler(ClientFormShown);
             this.FormClosing += new FormClosingEventHandler(ClientFormClosing);
@@ -39,17 +38,7 @@ namespace JIGAPClientGUI
             if (!NetworkManager.GetInst().bOnConnect)
             {
                 if (NetworkManager.GetInst().ClientStart(ipAddrTextBox.Text, portAddrTextBox.Text))
-                {
-                    NetworkManager.GetInst().SendMessage(nickNameTextbox.Text);
-
-                    sendingTextBox.Enabled = true;
-                    sendingButton.Enabled = true;
-
-                    button1.Enabled = false;
-                    ipAddrTextBox.Enabled = false;
-                    portAddrTextBox.Enabled = false;
-                    nickNameTextbox.Enabled = false;
-                }
+                    NetworkManager.GetInst().RequestLogin(nickNameTextbox.Text);
             }
         }
 
@@ -103,10 +92,30 @@ namespace JIGAPClientGUI
             {
                 if (sendingTextBox.Text.Length != 0)
                 {
-                    NetworkManager.GetInst().SendMessage(lsendingTextBox.Text);
                     sendingTextBox.Clear();
                 }
             }
+        }
+
+        private void OnConnect()
+        {
+            sendingTextBox.Enabled = true;
+            sendingButton.Enabled = true;
+
+            button1.Enabled = false;
+            ipAddrTextBox.Enabled = false;
+            portAddrTextBox.Enabled = false;
+            nickNameTextbox.Enabled = false;
+        }
+        private void OnDisconnect()
+        {
+            sendingTextBox.Enabled = false;
+            sendingButton.Enabled = false;
+
+            button1.Enabled = true;
+            ipAddrTextBox.Enabled = true;
+            portAddrTextBox.Enabled = true;
+            nickNameTextbox.Enabled = true;
         }
 
     }
