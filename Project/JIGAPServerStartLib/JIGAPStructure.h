@@ -2,8 +2,8 @@
 #define MAXBUFFERSIZE 2048 // 
 
 #define MAXSTRSIZE 512
-#define MAXNAMESIZE 64
-#define MAXROOMNAMESIZE 16
+#define MAXNAMESIZE 32
+#define MAXROOMNAMESIZE 32
 
 // 서버 통신에서 패킷 판별을 위한 4글자 리터럴 입니다.
 //const uint32_t requestLoginLiteral = 'RLIL';

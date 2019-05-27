@@ -25,6 +25,7 @@ bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientStart(String^ szIpAddr, Str
 
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientEnd()
 {
+	
 	lpJigapClient->JIGAPClientEnd();
 }
 
@@ -44,14 +45,34 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginCallBack(void(*lpInCallBac
 	lpJigapClient->JIGAPSetOnLoginCallBack(lpInCallBack);
 }
 
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginFailedCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnLoginFailedCallBack(lpInCallBack);
+}
+
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnRoomListCallBack(void(*lpInCallBack)())
 {
 	lpJigapClient->JIGAPSetOnRoomListCallBack(lpInCallBack);
 }
 
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnCreateRoomCallBack(lpInCallBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomFailedCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnCreateRoomFailedCallBack(lpInCallBack);
+}
+
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomCallBack(void(*lpInCallBack)())
 {
 	lpJigapClient->JIGAPSetOnJoinedRoomCallBack(lpInCallBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomFaileCallBack(void(*lpInCallBack)())
+{
+	lpJigapClient->JIGAPSetOnJoinedRoomFailedCallBack(lpInCallBack);
 }
 
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnExitRoomCallBack(void(*lpInCallBack)())

@@ -80,11 +80,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JIGAPClientCLR\JIGAPClientCLR.vcxproj">
-      <Project>{577bbe6f-7e33-4302-b0ec-cf30d064d4f2}</Project>
-      <Name>JIGAPClientCLR</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

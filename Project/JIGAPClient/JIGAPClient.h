@@ -20,9 +20,13 @@ private:
 	std::list<std::string> liRoomList;
 
 	void (*lpOnLoginCallBack)();
+	void (*lpOnLoginFailedCallBack)();
 	void (*lpOnRoomListCallBack)();
-	void (*lpOnJoinedRoomList)();
-	void (*lpOnExitRoomList)();
+	void (*lpOnCreateRoomCallBack)();
+	void (*lpOnCreateRoomFailedCallBack)();
+	void (*lpOnJoinedRoomCallBack)();
+	void (*lpOnJoinedRoomFailedCallBack)();
+	void (*lpOnExitRoomCallBack)();
 public:
 	JIGAPClient();
 	virtual ~JIGAPClient();
@@ -53,9 +57,13 @@ private:
 
 public:
 	void JIGAPSetOnLoginCallBack(void (*lpInCallBack)()) { lpOnLoginCallBack = lpInCallBack; }
+	void JIGAPSetOnLoginFailedCallBack(void(*lpInCallBack)()) { lpOnLoginFailedCallBack = lpInCallBack; }
 	void JIGAPSetOnRoomListCallBack(void (*lpInCallBack)()) { lpOnRoomListCallBack = lpInCallBack; }
-	void JIGAPSetOnJoinedRoomCallBack(void (*lpInCallBack)()) { lpOnJoinedRoomList = lpInCallBack; }
-	void JIGAPSetOnExitRoomCallBack(void (*lpInCallBack)()) { lpOnExitRoomList = lpInCallBack; }
+	void JIGAPSetOnCreateRoomCallBack(void (*lpInCallBack)()) { lpOnCreateRoomCallBack = lpInCallBack; }
+	void JIGAPSetOnCreateRoomFailedCallBack(void (*lpInCallBack)()) { lpOnCreateRoomFailedCallBack = lpInCallBack; }
+	void JIGAPSetOnJoinedRoomCallBack(void (*lpInCallBack)()) { lpOnJoinedRoomCallBack = lpInCallBack; }
+	void JIGAPSetOnJoinedRoomFailedCallBack(void(*lpInCallBack)()) { lpOnJoinedRoomFailedCallBack = lpInCallBack; }
+	void JIGAPSetOnExitRoomCallBack(void (*lpInCallBack)()) { lpOnExitRoomCallBack = lpInCallBack; }
 
 private:
 	void JIGAPPrintMessageLog(const char * fmt, ...);

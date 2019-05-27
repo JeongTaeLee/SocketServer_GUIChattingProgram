@@ -32,7 +32,7 @@ namespace JIGAPClientDXGUI.Engine
             {
                 Update();
 
-                DXManager.GetInst().d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Blue, 1f, 0);
+                DXManager.GetInst().d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, new Color(172, 103, 32, 255), 1f, 0);
                 DXManager.GetInst().d3dDevice.BeginScene();
                 DXManager.GetInst().d3dSprite.Begin(SpriteFlags.AlphaBlend);
 

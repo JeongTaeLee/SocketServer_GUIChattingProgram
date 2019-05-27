@@ -10,6 +10,11 @@ using SharpDX.Windows;
 
 namespace JIGAPClientDXGUI.Engine
 {
+    public class MsgType
+    {
+        public const int WM_CHAR = 0x0102;
+    }
+
     class RenderMsgForm : RenderForm
     {
         public event EventHandler<Message> OnMessage;

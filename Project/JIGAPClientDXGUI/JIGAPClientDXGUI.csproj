@@ -5,32 +5,38 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E944187B-A758-4AB7-A315-05BC25B628EF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>JIGAPClientDXGUI</RootNamespace>
     <AssemblyName>JIGAPClientDXGUI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Exe\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -59,15 +65,16 @@
   <ItemGroup>
     <Compile Include="Engine\GameObject\GameObject.cs" />
     <Compile Include="Engine\GameObject\InputLine.cs" />
+    <Compile Include="Engine\GameObject\LoginInputLine.cs" />
     <Compile Include="Engine\GameObject\LoginTextBox.cs" />
+    <Compile Include="Engine\GameObject\ServerGameObject\NetworkObject.cs" />
     <Compile Include="Engine\GameObject\Transform.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
+    <Compile Include="Engine\Manager\NetworkManager.cs" />
     <Compile Include="Engine\Manager\ObjectManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
-    <Compile Include="Engine\RenderMsgForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Engine\RenderMsgForm.cs" />
     <Compile Include="Engine\Scene\LoginScene.cs" />
     <Compile Include="Engine\Scene\Scene.cs" />
     <Compile Include="Engine\Manager\DXManager.cs" />
@@ -78,6 +85,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\JIGAPClientCLR\JIGAPClientCLR.vcxproj">
+      <Project>{577bbe6f-7e33-4302-b0ec-cf30d064d4f2}</Project>
+      <Name>JIGAPClientCLR</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

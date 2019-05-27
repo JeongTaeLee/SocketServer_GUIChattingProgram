@@ -9,11 +9,13 @@ using SharpDX.Direct3D9;
 using SharpDX.Windows;
 using SharpDX.Multimedia;
 using JIGAPClientDXGUI.Engine;
+using System.Runtime.InteropServices;
 
 namespace JIGAPClientDXGUI
 {
     class Program
     {
+
         public static void Main(string[] args)
         {
 

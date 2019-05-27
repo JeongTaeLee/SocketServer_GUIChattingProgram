@@ -33,8 +33,12 @@ namespace JIGAPClientCLR
 
 	public:
 		void JIGAPWrapOnLoginCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnLoginFailedCallBack(void (*lpInCallBack)());
 		void JIGAPWrapOnRoomListCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnCreateRoomCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnCreateRoomFailedCallBack(void (*lpInCallBack)());
 		void JIGAPWrapOnJoinedRoomCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnJoinedRoomFaileCallBack(void (*lpInCallBack)());
 		void JIGAPWrapOnExitRoomCallBack(void (*lpInCallBack)());
 	
 	public:

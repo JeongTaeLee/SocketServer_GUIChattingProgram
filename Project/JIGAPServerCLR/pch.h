@@ -26,7 +26,7 @@
 
 
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../Debug/JIGAPServerStartLib.lib")
+#pragma comment(lib, "../../Exe/JIGAPServerStartLib.lib")
 
 
 #endif

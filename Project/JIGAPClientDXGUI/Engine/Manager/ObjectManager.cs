@@ -23,13 +23,19 @@ namespace JIGAPClientDXGUI.Engine
 
         private List<GameObject> objects = new List<GameObject>();
 
-        public T AddObject<T>() where T : new()
+        public T AddObject<T>() where T : GameObject, new()
         {
             T createObject = new T();
             GameObject obj = createObject as GameObject;
             objects.Add(obj);
             obj.Init();
             return createObject;
+        }
+        public GameObject AddObject(GameObject gameObject)
+        {
+            objects.Add(gameObject);
+            gameObject.Init();
+            return gameObject;
         }
         public void DeleteObject(GameObject inObject)
         {

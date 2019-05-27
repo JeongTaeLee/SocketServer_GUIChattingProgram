@@ -37,6 +37,8 @@ namespace JIGAPClientDXGUI.Engine
         public bool Initialize(string name, int width, int height)
         {
             renderForm = new RenderMsgForm(name);
+            renderForm.Width = width;
+            renderForm.Height = height;
  
             d3dObject = new Direct3D();
             if (d3dObject == null)

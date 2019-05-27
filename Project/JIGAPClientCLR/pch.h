@@ -22,8 +22,10 @@
 #include <list>
 #include <crtdbg.h>
 
+#pragma comment(lib, "ws2_32.lib")
+
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../Debug/JIGAPServerStartLib.lib")
+#pragma comment(lib, "../../Exe/JIGAPServerStartLib.lib")
 
 
 #endif //PCH_H

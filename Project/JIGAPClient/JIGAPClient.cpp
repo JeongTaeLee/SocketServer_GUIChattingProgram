@@ -10,9 +10,13 @@ JIGAPClient::JIGAPClient()
 	hMessageMutex(nullptr),
 
 	lpOnLoginCallBack(nullptr),
+	lpOnLoginFailedCallBack(nullptr),
 	lpOnRoomListCallBack(nullptr),
-	lpOnJoinedRoomList(nullptr),
-	lpOnExitRoomList(nullptr)
+	lpOnCreateRoomCallBack(nullptr),
+	lpOnCreateRoomFailedCallBack(nullptr),
+	lpOnJoinedRoomCallBack(nullptr),
+	lpOnJoinedRoomFailedCallBack(nullptr),
+	lpOnExitRoomCallBack(nullptr)
 {
 }
 
@@ -127,7 +131,7 @@ void JIGAPClient::JIGAPRecvThread()
 			break;
 
 		case answerCreateRoomLiteral:
-		
+			JIGAPOnAnswerCreateRoom();
 			break;
 
 		case answerJoinedRoomLiteral:
@@ -221,11 +225,20 @@ void JIGAPClient::JIGAPOnAnswerLogin()
 		if (loginSuccees)
 		{
 			JIGAPPrintMessageLog("로그인을 성공했습니다.");
+
+			if (lpOnLoginCallBack)
+				lpOnLoginCallBack();
+
 			eClientState = JIGAPSTATE::E_NOTROOM;
 			bLogin = true;
 		}
 		else
+		{
+			if (lpOnLoginFailedCallBack)
+				lpOnLoginFailedCallBack();
+
 			JIGAPPrintMessageLog("로그인을 실패했습니다");
+		}
 	}
 }
 
@@ -257,10 +270,19 @@ void JIGAPClient::JIGAPOnAnswerCreateRoom()
 		{
 			JIGAPPrintMessageLog("방생성에 성공했습니다.");
 			JIGAPPrintMessageLog("생성한 방에 참가합니다.");
+			
+			if (lpOnCreateRoomCallBack)
+				lpOnCreateRoomCallBack();
+			
 			eClientState = JIGAPSTATE::E_ONROOM;
 		}
 		else
+		{
+			if (lpOnCreateRoomFailedCallBack)
+				lpOnCreateRoomFailedCallBack();
+
 			JIGAPPrintMessageLog("방생성에 성공했습니다.");
+		}
 	}
 }
 
@@ -274,10 +296,19 @@ void JIGAPClient::JIGAPOnAnswerJoinedRoom()
 		if (bSuccess)
 		{
 			JIGAPPrintMessageLog("방참가에 성공했습니다.");
+
+			if (lpOnJoinedRoomCallBack)
+				lpOnJoinedRoomCallBack();
+			
 			eClientState = JIGAPSTATE::E_ONROOM;
 		}
 		else
+		{
+			if (lpOnJoinedRoomFailedCallBack)
+				lpOnJoinedRoomFailedCallBack();
+
 			JIGAPPrintMessageLog("방참가에 실패했습니다.");
+		}
 	}
 }
 
@@ -287,6 +318,9 @@ void JIGAPClient::JIGAPOnAnswerExtiRoom()
 	{
 		eClientState = JIGAPSTATE::E_NOTROOM;
 		JIGAPPrintMessageLog("방에서 나왔습니다.");
+
+		if (lpOnExitRoomCallBack)
+			lpOnExitRoomCallBack();
 	}
 }
 
