@@ -70,8 +70,11 @@ namespace JIGAPClientDXGUI.Engine
 
         public void Dispose()
         {
+            if(nowScene != null)
+                nowScene.Release();
             nowScene = null;
             nextScene = null;
+
             scenes.Clear();
 
             GC.SuppressFinalize(true);

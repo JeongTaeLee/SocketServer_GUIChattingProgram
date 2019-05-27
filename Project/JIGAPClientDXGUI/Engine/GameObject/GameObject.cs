@@ -7,17 +7,18 @@ using SharpDX;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    public abstract class GameObject : IDisposable
+    public class GameObject : IDisposable
     {
         public Transform transform { get; private set; } = null;
+        public bool Active { get; set; } = true;
 
         public GameObject()
         {
             transform = new Transform();
         }
-        public abstract void Init();
-        public abstract void Update();
-        public abstract void Render();
+        public virtual void Init() { }
+        public virtual void Update() { }
+        public virtual void Render() { }
 
         public void Dispose()
         {

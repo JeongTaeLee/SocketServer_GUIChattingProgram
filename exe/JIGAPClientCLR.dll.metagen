@@ -25,6 +25,9 @@ Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, Befo
     JIGAPWrapClientEnd(): PrivateScope, Public, HideBySig
     JIGAPWrapRequestLogin(String): PrivateScope, Public, HideBySig
     JIGAPWrapRequestRoomList(): PrivateScope, Public, HideBySig
+    JIGAPWrapRequsetCreateRoom(String): PrivateScope, Public, HideBySig
+    JIGAPWrapRequestJoeindRoom(String): PrivateScope, Public, HideBySig
+    JIGAPWrapRequestExitRoom(): PrivateScope, Public, HideBySig
     JIGAPWrapOnLoginCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapOnLoginFailedCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapOnRoomListCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
@@ -33,6 +36,8 @@ Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, Befo
     JIGAPWrapOnJoinedRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapOnJoinedRoomFaileCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapOnExitRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPGetRoomList(String[]&): PrivateScope, Public, HideBySig
+    JIGAPWrapGetRoomList(List`1 IsByValue): PrivateScope, Public, HideBySig
     JIGAPGetMessageLog(): PrivateScope, Public, HideBySig
     JIGAPCheckMessage(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

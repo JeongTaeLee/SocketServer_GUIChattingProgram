@@ -4,6 +4,7 @@
 public delegate void PROGRESS_CSHARP(void);
 using namespace System;
 
+
 namespace JIGAPClientCLR 
 {
 	public ref class JIGAPClientWrap
@@ -20,6 +21,10 @@ namespace JIGAPClientCLR
 	public:
 		bool JIGAPWrapRequestLogin(String^ szNickName);
 		bool JIGAPWrapRequestRoomList();
+		bool JIGAPWrapRequsetCreateRoom(String ^ szRoomName);
+		bool JIGAPWrapRequestJoeindRoom(String ^ szRoomName);
+		bool JIGAPWrapRequestExitRoom();
+
 	public:
 		void JIGAPWrapOnLoginCallBack			(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapOnLoginFailedCallBack		(PROGRESS_CSHARP ^fucn);
@@ -30,6 +35,9 @@ namespace JIGAPClientCLR
 		void JIGAPWrapOnJoinedRoomFaileCallBack	(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapOnExitRoomCallBack		(PROGRESS_CSHARP ^fucn);
 	
+
+		void JIGAPGetRoomList(cli::array<String^>^% arr);
+		void JIGAPWrapGetRoomList(System::Collections::Generic::List<String^> liStr);
 	public:
 		String^ JIGAPGetMessageLog();
 		bool JIGAPCheckMessage();

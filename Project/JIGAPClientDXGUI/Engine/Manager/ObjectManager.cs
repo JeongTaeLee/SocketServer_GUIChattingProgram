@@ -54,8 +54,11 @@ namespace JIGAPClientDXGUI.Engine
         {
             for (int i = 0; i < objects.Count(); ++i)
             {
-                objects[i].Update();
-                objects[i].transform.TransformUpdate();
+                if (objects[i].Active)
+                {
+                    objects[i].Update();
+                    objects[i].transform.TransformUpdate();
+                }
             }
         }
 
@@ -63,9 +66,11 @@ namespace JIGAPClientDXGUI.Engine
         {
             for (int i = 0; i < objects.Count(); ++i)
             {
-                DXManager.GetInst().d3dSprite.Transform = objects[i].transform.matWorld;
-
-                objects[i].Render();
+                if (objects[i].Active)
+                {
+                    DXManager.GetInst().d3dSprite.Transform = objects[i].transform.matWorld;
+                    objects[i].Render();
+                }
             }
         }
 

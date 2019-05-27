@@ -8,33 +8,34 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
 
-namespace JIGAPClientDXGUI.Engine
+using JIGAPClientDXGUI.Engine;
+
+namespace JIGAPClientDXGUI
 {
-    abstract class InputLine : NetworkObject
+    class InputLine : GameObject
     {
-        protected StringBuilder text = new StringBuilder();
+        public delegate void OnEnter();
 
-        public int fontSize { get; set; } = 11;
-        public Color fontColor { get; set; } = Color.White;
-        public int maxTextLength { get; set; } = 11;
+        public StringBuilder InputText { get; private set; } = new StringBuilder();
+        public int FontSize { get; set; } = 11;
+        public Color FontColor { get; set; } = Color.White;
+        public int MaxTextLength { get; set; } = 11;
+        public OnEnter OnEnterCallBack { get; set; } = null;
 
-        public override void Init()
+        public InputLine()
         {
             DXManager.GetInst().RegisterWndProc(WndProc);
-            base.Init();
         }
-        public override void Update()
-        {
-        }
+
         public override void Render()
         {
-            if (text.Length == 0)
+            if (InputText.Length == 0)
                 return;
 
-            Font font = new Font(DXManager.GetInst().d3dDevice, fontSize, 0, FontWeight.Bold, 0, false, FontCharacterSet.Hangul, FontPrecision.Default
+            Font font = new Font(DXManager.GetInst().d3dDevice, FontSize, 0, FontWeight.Bold, 0, false, FontCharacterSet.Hangul, FontPrecision.Default
                 , FontQuality.Default, FontPitchAndFamily.Default, "돋움");
 
-            font.DrawText(DXManager.GetInst().d3dSprite, text.ToString(), 0, 0, fontColor);
+            font.DrawText(DXManager.GetInst().d3dSprite, InputText.ToString(), 0, 0, FontColor);
 
             font.Dispose();
         }
@@ -46,7 +47,6 @@ namespace JIGAPClientDXGUI.Engine
                     AddText((char)message.WParam);
                     break;
             }
-
         }
 
         public void AddText(char ch)
@@ -58,14 +58,20 @@ namespace JIGAPClientDXGUI.Engine
                     break;
 
                 case (char)8: // BackSpace
-                    if (text.Length > 0)
-                        text.Remove(text.Length - 1, 1);
+                    if (InputText.Length > 0)
+                        InputText.Remove(InputText.Length - 1, 1);
                     break;
                 default:
-                    if (text.Length < maxTextLength)
-                    text.Append(ch);
+                    if (InputText.Length < MaxTextLength)
+                    InputText.Append(ch);
                     break;
             }
+        }
+
+        public void InputEnter()
+        {
+            if (OnEnterCallBack != null)
+                OnEnterCallBack();
         }
 
         public new void Dispose()
@@ -73,9 +79,6 @@ namespace JIGAPClientDXGUI.Engine
             DXManager.GetInst().UnRegisterwndProc(WndProc);
             base.Dispose();
         }
-
-        public abstract void InputEnter();
-        
-        
+      
     }
 }

@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Input;
+using System.Drawing;
 
-using SharpDX;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    
+
     class InputManager : IDisposable
     {
         private static InputManager Instance = null;
@@ -21,8 +20,8 @@ namespace JIGAPClientDXGUI.Engine
                 Instance = new InputManager();
             return Instance;
         }
-        public Vector2 mousePos { get => new Vector2(Cursor.Position.X, Cursor.Position.Y); }
 
+        public Point MousePoint{ get => new Point(Cursor.Position.X, Cursor.Position.Y); }
         public event EventHandler LeftMouseDown;
         public event EventHandler LeftMouseUp;
         public event EventHandler RightMouseDown;

@@ -194,7 +194,10 @@ void JIGAPServer::JIGAPChattingThread()
 		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
 
 		if (iCheckIOResult == 0) // 클라이언트가 종료를 요청했습니다.
+		{
+			
 			RemoveClient(lpClntSock->GetSocket());
+		}
 
 		else if (iCheckIOResult == -1) // 서버가 종료되었습니다.
 			break;
@@ -300,7 +303,7 @@ void JIGAPServer::OnRequestRoomList(LPTCPSOCK& lpClntSock)
 		for (auto& Iter : mRooms)
 		{
 			char roomName[MAXROOMNAMESIZE] = { 0 };
-			memcpy(roomName, Iter.second, sizeof(roomName));
+			memcpy(roomName, Iter.second->GetRoomName().c_str() , Iter.second->GetRoomName().size());
 			lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
 		}
 
@@ -329,6 +332,7 @@ void JIGAPServer::OnRequestCreateRoom(LPTCPSOCK& lpClntSock)
 			lpSerializeObject->SerializeDataSendBuffer(true);
 			
 			Room* lpRoom = new Room;
+			lpRoom->SetRoomName(roomName);
 			mRooms.insert(std::make_pair(roomName, lpRoom));
 			lpRoom->AddUser(lpClntSock);
 		}
@@ -439,6 +443,23 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 
 	if (find == mClientData.end())
 		return;
+
+	Room* lpRoom = find->second->GetRoom();
+	if (lpRoom)
+	{
+		lpRoom->DeleteUser(find->second);
+		WaitForSingleObject(hRoomsMutex, INFINITE);
+		if (lpRoom->GetUserCount() <= 0)
+		{
+			auto find = mRooms.find(lpRoom->GetRoomName());
+
+			if (find != mRooms.end())
+				mRooms.erase(find);
+		}
+			
+		ReleaseMutex(hRoomsMutex);
+		delete lpRoom;
+	}
 
 	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
 	

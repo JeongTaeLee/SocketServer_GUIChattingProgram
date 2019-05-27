@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JIGAPClientDXGUI.Engine
+using JIGAPClientDXGUI.Engine;
+
+namespace JIGAPClientDXGUI
 {
     class LobbyScene : Scene
     {
         public override void Init()
         {
+            ObjectManager.GetInst().AddObject<LobbyLauncher>();
+
         }
 
         public override void Release()

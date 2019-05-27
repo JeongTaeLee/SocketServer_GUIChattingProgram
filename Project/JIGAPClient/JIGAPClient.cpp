@@ -114,6 +114,7 @@ void JIGAPClient::JIGAPRecvThread()
 		}
 
 		lpSerializeObject->ClearSendStreamBuffer();
+		lpSerializeObject->ClearRecvStreamBuffer();
 		lpSerializeObject->SetRecvStreamBuffer(message);
 
 		uint32_t literal = 0;
@@ -177,7 +178,7 @@ bool JIGAPClient::JIGAPRequestCreateRoom(const std::string& strInRoomName)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
 	{
-		char roomName[MAXROOMNAMESIZE];
+		char roomName[MAXROOMNAMESIZE] = {0};
 		memcpy(roomName, strInRoomName.c_str(), strInRoomName.length());
 
 		lpSerializeObject->SerializeDataSendBuffer(requestCreateRoomLiteral);
@@ -192,7 +193,7 @@ bool JIGAPClient::JIGAPRequestJoinedRoom(const std::string& strInRoomName)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
 	{
-		char roomName[MAXROOMNAMESIZE];
+		char roomName[MAXROOMNAMESIZE] = {0};
 		memcpy(roomName, strInRoomName.c_str(), strInRoomName.length());
 	
 		lpSerializeObject->SerializeDataSendBuffer(requestJoinedRoomLiteral);
@@ -243,7 +244,7 @@ void JIGAPClient::JIGAPOnAnswerLogin()
 
 void JIGAPClient::JIGAPOnAnswerRoomList()
 {
-	if (bLogin && eClientState == E_NOTROOM)
+	if (bLogin )
 	{
 		int iCount = 0;
 		lpSerializeObject->DeserializeRecvBuffer(iCount);
@@ -251,10 +252,13 @@ void JIGAPClient::JIGAPOnAnswerRoomList()
 		liRoomList.clear();
 		for (int i = 0; i < iCount; ++i)
 		{
-			char roomName[MAXROOMNAMESIZE];
+			char roomName[MAXROOMNAMESIZE] = {0};
 			lpSerializeObject->DeserializeRecvBuffer(roomName);
 			liRoomList.push_back(roomName);
 		}
+
+		if (lpOnRoomListCallBack)
+			lpOnRoomListCallBack();
 	}
 }
 

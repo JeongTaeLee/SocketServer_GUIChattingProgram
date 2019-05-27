@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharpDX;
 using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI.Engine
@@ -17,6 +18,22 @@ namespace JIGAPClientDXGUI.Engine
             d3dTex = inTex;
             d3dInfo = inInfo;
         }
+
+        public void Draw()
+        {
+            if (d3dTex != null)
+                DXManager.GetInst().d3dSprite.Draw(d3dTex, Color.White);
+
+        }
+
+        public void Draw(Color color)
+        {
+            if (d3dTex != null)
+                DXManager.GetInst().d3dSprite.Draw(d3dTex, color);
+
+        }
+
+
         public void Dispose()
         {
             d3dTex.Dispose();

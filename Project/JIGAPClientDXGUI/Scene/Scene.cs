@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JIGAPClientDXGUI.Engine
+using JIGAPClientDXGUI.Engine;
+
+namespace JIGAPClientDXGUI
 { 
     public abstract class Scene
     {

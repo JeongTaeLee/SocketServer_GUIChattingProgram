@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E944187B-A758-4AB7-A315-05BC25B628EF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>JIGAPClientDXGUI</RootNamespace>
     <AssemblyName>JIGAPClientDXGUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -13,6 +13,21 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,13 +96,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\GameObject\Button.cs" />
+    <Compile Include="GameObject\Button.cs" />
     <Compile Include="Engine\GameObject\GameObject.cs" />
-    <Compile Include="Engine\GameObject\InputLine.cs" />
-    <Compile Include="Engine\GameObject\LoginInputLine.cs" />
-    <Compile Include="Engine\GameObject\LoginTextBox.cs" />
-    <Compile Include="Engine\GameObject\Logo.cs" />
-    <Compile Include="Engine\GameObject\ServerGameObject\NetworkObject.cs" />
+    <Compile Include="GameObject\ChattingLauncher.cs" />
+    <Compile Include="GameObject\StandardInputField.cs" />
+    <Compile Include="GameObject\InputLine.cs" />
+    <Compile Include="GameObject\InputField.cs" />
+    <Compile Include="GameObject\LobbyLauncher.cs" />
+    <Compile Include="GameObject\LoginField.cs" />
+    <Compile Include="GameObject\LoginLauncher.cs" />
+    <Compile Include="GameObject\Logo.cs" />
+    <Compile Include="Engine\GameObject\NetworkObject.cs" />
     <Compile Include="Engine\GameObject\Transform.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
@@ -96,9 +115,12 @@
     <Compile Include="Engine\Manager\ObjectManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\RenderMsgForm.cs" />
-    <Compile Include="Engine\Scene\LobbyScene.cs" />
-    <Compile Include="Engine\Scene\LoginScene.cs" />
-    <Compile Include="Engine\Scene\Scene.cs" />
+    <Compile Include="GameObject\RoomButton.cs" />
+    <Compile Include="GameObject\RoomListView.cs" />
+    <Compile Include="Scene\ChattingScene.cs" />
+    <Compile Include="Scene\LobbyScene.cs" />
+    <Compile Include="Scene\LoginScene.cs" />
+    <Compile Include="Scene\Scene.cs" />
     <Compile Include="Engine\Manager\DXManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +134,18 @@
       <Project>{577bbe6f-7e33-4302-b0ec-cf30d064d4f2}</Project>
       <Name>JIGAPClientCLR</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

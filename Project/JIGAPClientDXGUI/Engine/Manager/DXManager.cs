@@ -64,17 +64,6 @@ namespace JIGAPClientDXGUI.Engine
             GC.SuppressFinalize(true);
         }
 
-        public void Draw(texture tex)
-        {
-            if (tex != null)
-                d3dSprite.Draw(tex.d3dTex, Color.White);
-        }
-        public void Draw(texture tex, Color color)
-        {
-            if (tex != null)
-                d3dSprite.Draw(tex.d3dTex, color);
-        }
-
         public void RegisterWndProc(EventHandler<Message> eventHandler)
         {
             renderForm.OnMessage += eventHandler;

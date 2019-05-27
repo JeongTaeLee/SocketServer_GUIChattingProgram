@@ -9,14 +9,14 @@ namespace JIGAPClientDXGUI.Engine
 {
     public partial class NetworkManager
     {
-        public event EventHandler OnLogin;
-        public event EventHandler OnLoginFailed;
-        public event EventHandler OnRoomList;
-        public event EventHandler OnCreateRoom;
-        public event EventHandler OnCreateRoomFailed;
-        public event EventHandler OnJoinedRoom;
-        public event EventHandler OnJoinedRoomFailed;
-        public event EventHandler OnExitRoom;
+        public event EventHandler OnLoginSuccessEvent;
+        public event EventHandler OnLoginFailedEvent;
+        public event EventHandler OnRoomListEvent;
+        public event EventHandler OnCreateRoomSuccessEvent;
+        public event EventHandler OnCreateRoomFailedEvent;
+        public event EventHandler OnJoinedRoomSuccessEvent;
+        public event EventHandler OnJoinedRoomFailedEvent;
+        public event EventHandler OnExitRoomEvent;
 
     }
 
@@ -48,45 +48,65 @@ namespace JIGAPClientDXGUI.Engine
 
         public void OnLoginCallBack()
         {
-            OnLogin?.Invoke(this, default);
+            OnLoginSuccessEvent?.Invoke(this, default);
         }
         public void OnLoginFailedCallBack()
         {
-            OnLoginFailed?.Invoke(this, default);
+            OnLoginFailedEvent?.Invoke(this, default);
         }
         public void OnRoomListCallBack()
         {
-            OnRoomList?.Invoke(this, default);
+            OnRoomListEvent?.Invoke(this, default);
         }
         public void OnCreateRoomCallBack()
         {
-            OnCreateRoom?.Invoke(this, default);
+            OnCreateRoomSuccessEvent?.Invoke(this, default);
         }
         public void OnCreateRoomFailedCallBack()
         {
-            OnCreateRoomFailed?.Invoke(this, default);
+            OnCreateRoomFailedEvent?.Invoke(this, default);
         }
         public void OnJoinedRoomCallBack()
         {
-            OnJoinedRoom?.Invoke(this, default);
+            OnJoinedRoomSuccessEvent?.Invoke(this, default);
         }
         public void OnJoinedRoomFailedCallBack()
         {
-            OnJoinedRoomFailed?.Invoke(this, default);
+            OnJoinedRoomFailedEvent?.Invoke(this, default);
         }
         public void OnExitRoomCallBack()
         {
-            OnExitRoom?.Invoke(this, default);
+            OnExitRoomEvent?.Invoke(this, default);
         }
-        public bool ConnecServer()
+        public bool StartClient()
         {
             return jigapClientWrap.JIGAPWrapClientStart("127.0.0.1", "9199");
         }
 
-        public void Login(string str)
+        public void RequestLogin(string str)
         {
             jigapClientWrap.JIGAPWrapRequestLogin(str);
         }
 
+        public void RequestCreateRoom(string roomName)
+        {
+            jigapClientWrap.JIGAPWrapRequsetCreateRoom(roomName);
+        }
+        public void RequestRoomList()
+        {
+            jigapClientWrap.JIGAPWrapRequestRoomList();
+        }
+        public void RequestJoinedRoom(string roomName)
+        {
+            jigapClientWrap.JIGAPWrapRequestJoeindRoom(roomName);
+        }
+        public void RequestExitRoom()
+        {
+            jigapClientWrap.JIGAPWrapRequestExitRoom();
+        }
+        public void GetRoomList(ref string[] strList)
+        {
+            jigapClientWrap.JIGAPGetRoomList(ref strList);
+        }
     }
 }

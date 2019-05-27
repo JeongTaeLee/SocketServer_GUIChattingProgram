@@ -19,7 +19,7 @@ private:
 
 	std::queue<std::string> qMessage;
 
-	std::list<std::string> liRoomList;
+	std::vector<std::string> liRoomList;
 
 	std::function<void()> lpOnLoginCallBack;
 	std::function<void()> lpOnLoginFailedCallBack;
@@ -48,14 +48,12 @@ public:
 	bool JIGAPRequestCreateRoom(const std::string& strInRoomName);
 	bool JIGAPRequestJoinedRoom(const std::string& strInRoomName);
 	bool JIGAPRequestExtiRoom();
-
 private:
 	void JIGAPOnAnswerLogin();
 	void JIGAPOnAnswerRoomList();
 	void JIGAPOnAnswerCreateRoom();
 	void JIGAPOnAnswerJoinedRoom();
 	void JIGAPOnAnswerExtiRoom();
-
 
 public:
 	void JIGAPSetOnLoginCallBack(PROGRESS lpInCallBack) { lpOnLoginCallBack = lpInCallBack; }
@@ -69,10 +67,10 @@ public:
 
 private:
 	void JIGAPPrintMessageLog(const char* fmt, ...);
-
 	bool JIGAPSendSerializeBuffer();
 
 public:
 	bool JIGAPCheckMessageLog();
 	std::string  JIGAPGetMessageLog();
+	std::vector<std::string>& JIGAPGetRoomList() { return liRoomList; }
 };
