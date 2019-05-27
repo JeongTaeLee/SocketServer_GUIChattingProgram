@@ -44,8 +44,8 @@ namespace JIGAPClientDXGUI.Engine
 
         public void ClearObjects()
         {
-            foreach (GameObject obj in objects)
-                obj.Dispose();
+            for (int i = 0; i < objects.Count; ++i)
+                objects[i].Dispose();
 
             objects.Clear();
         }

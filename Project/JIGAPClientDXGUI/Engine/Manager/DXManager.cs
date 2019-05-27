@@ -57,9 +57,9 @@ namespace JIGAPClientDXGUI.Engine
 
         public void Dispose()
         {
-            d3dSprite.Dispose();
-            d3dDevice.Dispose();
-            d3dObject.Dispose();
+            d3dSprite?.Dispose();
+            d3dDevice?.Dispose();
+            d3dObject?.Dispose();
 
             GC.SuppressFinalize(true);
         }
@@ -67,9 +67,12 @@ namespace JIGAPClientDXGUI.Engine
         public void Draw(texture tex)
         {
             if (tex != null)
-            {
-                d3dSprite.Draw(tex.d3dTex, new ColorBGRA(0xFFFFFFFF));
-            }
+                d3dSprite.Draw(tex.d3dTex, Color.White);
+        }
+        public void Draw(texture tex, Color color)
+        {
+            if (tex != null)
+                d3dSprite.Draw(tex.d3dTex, color);
         }
 
         public void RegisterWndProc(EventHandler<Message> eventHandler)

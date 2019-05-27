@@ -21,8 +21,8 @@ namespace JIGAPClientDXGUI
 
             using (MainGame mainGame = new MainGame())
             {
-                mainGame.Initialize();
-                mainGame.Run();
+                if(mainGame.Initialize())
+                    mainGame.Run();
             }
 
             Console.WriteLine();

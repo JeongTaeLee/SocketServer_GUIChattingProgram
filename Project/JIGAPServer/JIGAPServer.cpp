@@ -389,7 +389,7 @@ int JIGAPServer::CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIODa
 
 	GetQueuedCompletionStatus(hCompletionHandle,
 		&dwByte,
-		(LPDWORD)& inSocket,
+		(PULONG_PTR)& inSocket,
 		(LPOVERLAPPED*)& inIOData,
 		INFINITE);
 

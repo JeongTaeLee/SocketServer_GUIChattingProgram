@@ -26,6 +26,18 @@ namespace JIGAPClientDXGUI.Engine
         public override void Update()
         {
         }
+
+        public new void Dispose()
+        {
+            NetworkManager.GetInst().OnLogin -= OnLoginSuccess;
+            NetworkManager.GetInst().OnLoginFailed -= OnLoginFailed;
+            NetworkManager.GetInst().OnCreateRoom -= OnCreateRoom;
+            NetworkManager.GetInst().OnCreateRoomFailed += OnCreateRoomFailed;
+            NetworkManager.GetInst().OnJoinedRoom -= OnJoinedRoom;
+            NetworkManager.GetInst().OnJoinedRoomFailed -= OnJoinedRoomFailed;
+            NetworkManager.GetInst().OnExitRoom -= OnExitRoom;
+            base.Dispose();
+        }
         
         public virtual void OnLoginSuccess(object sender, EventArgs e)
         {

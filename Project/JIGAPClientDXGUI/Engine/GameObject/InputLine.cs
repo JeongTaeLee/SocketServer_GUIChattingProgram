@@ -21,6 +21,7 @@ namespace JIGAPClientDXGUI.Engine
         public override void Init()
         {
             DXManager.GetInst().RegisterWndProc(WndProc);
+            base.Init();
         }
         public override void Update()
         {

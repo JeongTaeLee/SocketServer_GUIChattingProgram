@@ -8,19 +8,27 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using SharpDX.Mathematics.Interop;
 using SharpDX.Windows;
+using System.Windows.Forms;
 
 namespace JIGAPClientDXGUI.Engine
 {
     class MainGame : IDisposable
     {
-        public void Initialize()
+        public bool Initialize()
         {
+            if (!NetworkManager.GetInst().ConnecServer())
+            {
+                MessageBox.Show("서버에 연결 할 수 없습니다.");
+                    return false;
+            }
+
             DXManager.GetInst().Initialize("JIGAPChattingGame", 1280, 720);
 
             SceneManager.GetInst().AddScene("LoginScene", new LoginScene());
             SceneManager.GetInst().AddScene("LobbyScene", new LobbyScene());
             SceneManager.GetInst().ChanageScene("LoginScene");
 
+            return true;
         }
         public void Update()
         {
@@ -50,7 +58,8 @@ namespace JIGAPClientDXGUI.Engine
             ObjectManager.GetInst().Dispose();
             ImageManager.GetInst().Dispose();
             SceneManager.GetInst().Dispose();
-            DXManager.GetInst().Dispose();
+            InputManager.GetInst().Dispose();
+            DXManager.GetInst()?.Dispose();
         }
     }
 }

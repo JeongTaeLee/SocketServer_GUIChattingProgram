@@ -6,17 +6,6 @@ using namespace System;
 
 namespace JIGAPClientCLR 
 {
-	public delegate void JIGAPEventCallBack();
-
-
-	public enum class LITERAL
-	{
-		LiteralLogin,
-		LiteralJoinedRoom,
-		LiteralExitRoom,
-		LiteralChatting,
-	};
-
 	public ref class JIGAPClientWrap
 	{
 	protected:

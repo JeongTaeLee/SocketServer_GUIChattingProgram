@@ -18,6 +18,7 @@ namespace JIGAPClientGUI
         {
             jigapClientWrap = new JIGAPClientCLR.JIGAPClientWrap();
             bOnConnect = false;
+            
         }
 
         public static NetworkManager GetInst()

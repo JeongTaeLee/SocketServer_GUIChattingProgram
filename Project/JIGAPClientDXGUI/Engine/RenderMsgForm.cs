@@ -13,6 +13,11 @@ namespace JIGAPClientDXGUI.Engine
     public class MsgType
     {
         public const int WM_CHAR = 0x0102;
+        public const int WM_LDOWN = 0x0201;
+        public const int WM_LUP = 0x0202;
+        public const int WM_RDOWN = 0x0204;
+        public const int WM_RUP = 0x0205;
+
     }
 
     class RenderMsgForm : RenderForm

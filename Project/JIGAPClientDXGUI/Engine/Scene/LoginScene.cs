@@ -11,7 +11,9 @@ namespace JIGAPClientDXGUI.Engine
 
         public override void Init()
         {
-            LoginTextBox obj = ObjectManager.GetInst().AddObject<LoginTextBox>();
+            ObjectManager.GetInst().AddObject<Logo>();
+            ObjectManager.GetInst().AddObject<LoginTextBox>();
+
   
         }
         public override void Release()

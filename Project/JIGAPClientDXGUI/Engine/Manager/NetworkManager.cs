@@ -31,10 +31,11 @@ namespace JIGAPClientDXGUI.Engine
             return Instance;
         }
 
-        JIGAPClientWrap jigapClientWrap = new JIGAPClientWrap();
+        private JIGAPClientWrap jigapClientWrap = null;
 
         public NetworkManager()
         {
+            jigapClientWrap = new JIGAPClientWrap();
             jigapClientWrap.JIGAPWrapOnLoginCallBack(OnLoginCallBack);
             jigapClientWrap.JIGAPWrapOnLoginFailedCallBack(OnLoginFailedCallBack);
             jigapClientWrap.JIGAPWrapOnRoomListCallBack(OnRoomListCallBack);
@@ -76,6 +77,10 @@ namespace JIGAPClientDXGUI.Engine
         public void OnExitRoomCallBack()
         {
             OnExitRoom?.Invoke(this, default);
+        }
+        public bool ConnecServer()
+        {
+            return jigapClientWrap.JIGAPWrapClientStart("127.0.0.1", "9199");
         }
 
         public void Login(string str)

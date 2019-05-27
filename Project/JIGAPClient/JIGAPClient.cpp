@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "JIGAPClient.h"
 
-
 JIGAPClient::JIGAPClient()
 	:eClientState(JIGAPSTATE::E_REQUESTROOM), 
 	bLogin(false),
