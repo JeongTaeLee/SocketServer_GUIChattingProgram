@@ -18,6 +18,7 @@ namespace JIGAPClientDXGUI.Engine
             DXManager.GetInst().Initialize("JIGAPChattingGame", 1280, 720);
 
             SceneManager.GetInst().AddScene("LoginScene", new LoginScene());
+            SceneManager.GetInst().AddScene("LobbyScene", new LobbyScene());
             SceneManager.GetInst().ChanageScene("LoginScene");
 
         }

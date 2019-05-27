@@ -20,6 +20,7 @@
 #include <thread>
 #include <queue>
 #include <list>
+#include <functional>
 #include <crtdbg.h>
 
 #pragma comment(lib, "ws2_32.lib")

@@ -9,6 +9,20 @@ Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e0
 	hash=None, flags=None
 Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
+Class PROGRESS_CSHARP: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class JIGAPClientCLR.JIGAPEventCallBack: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -18,14 +32,14 @@ Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, Befo
     JIGAPWrapClientEnd(): PrivateScope, Public, HideBySig
     JIGAPWrapRequestLogin(String): PrivateScope, Public, HideBySig
     JIGAPWrapRequestRoomList(): PrivateScope, Public, HideBySig
-    JIGAPWrapOnLoginCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnLoginFailedCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnRoomListCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnCreateRoomCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnCreateRoomFailedCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnJoinedRoomCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnJoinedRoomFaileCallBack(IntPtr): PrivateScope, Public, HideBySig
-    JIGAPWrapOnExitRoomCallBack(IntPtr): PrivateScope, Public, HideBySig
+    JIGAPWrapOnLoginCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnLoginFailedCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnRoomListCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnCreateRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnCreateRoomFailedCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnJoinedRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnJoinedRoomFaileCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapOnExitRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPGetMessageLog(): PrivateScope, Public, HideBySig
     JIGAPCheckMessage(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

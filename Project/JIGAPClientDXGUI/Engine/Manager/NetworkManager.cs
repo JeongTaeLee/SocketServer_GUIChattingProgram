@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JIGAPClientCLR;
 
-namespace JIGAPClientDXGUI.Engine.Manager
+namespace JIGAPClientDXGUI.Engine
 {
     public partial class NetworkManager
     {
-        private event EventHandler OnLogin;
-        private event EventHandler OnLoginFailed;
-        private event EventHandler OnRoomList;
-        private event EventHandler OnCreateRoom;
-        private event EventHandler OnCreateRoomFailed;
-        private event EventHandler OnJoinedRoom;
-        private event EventHandler OnJoinedRoomFailed;
-        private event EventHandler OnExitRoom;
+        public event EventHandler OnLogin;
+        public event EventHandler OnLoginFailed;
+        public event EventHandler OnRoomList;
+        public event EventHandler OnCreateRoom;
+        public event EventHandler OnCreateRoomFailed;
+        public event EventHandler OnJoinedRoom;
+        public event EventHandler OnJoinedRoomFailed;
+        public event EventHandler OnExitRoom;
 
     }
 
@@ -30,11 +31,18 @@ namespace JIGAPClientDXGUI.Engine.Manager
             return Instance;
         }
 
-        JIGAPClientCLR.JIGAPClientWrap jigapClientWrap = new JIGAPClientCLR.JIGAPClientWrap();
+        JIGAPClientWrap jigapClientWrap = new JIGAPClientWrap();
 
         public NetworkManager()
         {
-              jigapClientWrap.
+            jigapClientWrap.JIGAPWrapOnLoginCallBack(OnLoginCallBack);
+            jigapClientWrap.JIGAPWrapOnLoginFailedCallBack(OnLoginFailedCallBack);
+            jigapClientWrap.JIGAPWrapOnRoomListCallBack(OnRoomListCallBack);
+            jigapClientWrap.JIGAPWrapOnCreateRoomCallBack(OnCreateRoomCallBack);
+            jigapClientWrap.JIGAPWrapOnCreateRoomFailedCallBack(OnCreateRoomFailedCallBack);
+            jigapClientWrap.JIGAPWrapOnJoinedRoomCallBack(OnJoinedRoomCallBack);
+            jigapClientWrap.JIGAPWrapOnJoinedRoomFaileCallBack(OnJoinedRoomFailedCallBack);
+            jigapClientWrap.JIGAPWrapOnExitRoomCallBack(OnExitRoomCallBack);
         }
 
         public void OnLoginCallBack()
@@ -44,6 +52,10 @@ namespace JIGAPClientDXGUI.Engine.Manager
         public void OnLoginFailedCallBack()
         {
             OnLoginFailed?.Invoke(this, default);
+        }
+        public void OnRoomListCallBack()
+        {
+            OnRoomList?.Invoke(this, default);
         }
         public void OnCreateRoomCallBack()
         {
@@ -65,5 +77,11 @@ namespace JIGAPClientDXGUI.Engine.Manager
         {
             OnExitRoom?.Invoke(this, default);
         }
+
+        public void Login(string str)
+        {
+            jigapClientWrap.JIGAPWrapRequestLogin(str);
+        }
+
     }
 }

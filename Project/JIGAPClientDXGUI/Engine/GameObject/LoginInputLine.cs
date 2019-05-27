@@ -11,6 +11,15 @@ namespace JIGAPClientDXGUI.Engine
         
         public override void InputEnter()
         {
+            if (text.Length > 0)
+            {
+                NetworkManager.GetInst().Login(text.ToString());
+            }
+        }
+
+        public override void OnLoginSuccess(object sender, EventArgs e)
+        {
+            SceneManager.GetInst().ChanageScene("LobbyScene");
         }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Engine\Manager\ObjectManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\RenderMsgForm.cs" />
+    <Compile Include="Engine\Scene\LobbyScene.cs" />
     <Compile Include="Engine\Scene\LoginScene.cs" />
     <Compile Include="Engine\Scene\Scene.cs" />
     <Compile Include="Engine\Manager\DXManager.cs" />

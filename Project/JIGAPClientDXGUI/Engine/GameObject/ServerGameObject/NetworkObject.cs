@@ -10,6 +10,13 @@ namespace JIGAPClientDXGUI.Engine
     {
         public override void Init()
         {
+            NetworkManager.GetInst().OnLogin += OnLoginSuccess;
+            NetworkManager.GetInst().OnLoginFailed += OnLoginFailed;
+            NetworkManager.GetInst().OnCreateRoom += OnCreateRoom;
+            NetworkManager.GetInst().OnCreateRoomFailed += OnCreateRoomFailed;
+            NetworkManager.GetInst().OnJoinedRoom += OnJoinedRoom;
+            NetworkManager.GetInst().OnJoinedRoomFailed += OnJoinedRoomFailed;
+            NetworkManager.GetInst().OnExitRoom += OnExitRoom;
         }
 
         public override void Render()
@@ -19,23 +26,27 @@ namespace JIGAPClientDXGUI.Engine
         public override void Update()
         {
         }
+        
+        public virtual void OnLoginSuccess(object sender, EventArgs e)
+        {
+        }
+        public virtual void OnLoginFailed(object sender, EventArgs e)
+        {
+        }
+        public virtual void OnCreateRoom(object send, EventArgs e)
+        {
+        }
+        public virtual void OnCreateRoomFailed(object send, EventArgs e)
+        {
+        }
 
-        public virtual void OnLoginSuccess()
+        public virtual void OnJoinedRoom(object sender, EventArgs e)
         {
         }
-        public virtual void OnLoginFailed()
+        public virtual void OnJoinedRoomFailed(object sender, EventArgs e)
         {
         }
-        public virtual void OnJoeindRoom()
-        {
-        }
-        public virtual void OnJoinedRoomFailed()
-        {
-        }
-        public virtual void OnExitRoomSuccesss()
-        {
-        }
-        public virtual void OnExitRoomFailed()
+        public virtual void OnExitRoom(object sender, EventArgs e)
         {
         }
     }

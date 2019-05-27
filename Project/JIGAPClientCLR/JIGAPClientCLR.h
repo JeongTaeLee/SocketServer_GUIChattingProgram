@@ -1,12 +1,13 @@
 ﻿#pragma once
 
 #include "../JIGAPClient/JIGAPClient.h"
-
+public delegate void PROGRESS_CSHARP(void);
 using namespace System;
 
 namespace JIGAPClientCLR 
 {
-	delegate void JIGAPEventCallBack();
+	public delegate void JIGAPEventCallBack();
+
 
 	public enum class LITERAL
 	{
@@ -30,16 +31,15 @@ namespace JIGAPClientCLR
 	public:
 		bool JIGAPWrapRequestLogin(String^ szNickName);
 		bool JIGAPWrapRequestRoomList();
-
 	public:
-		void JIGAPWrapOnLoginCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnLoginFailedCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnRoomListCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnCreateRoomCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnCreateRoomFailedCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnJoinedRoomCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnJoinedRoomFaileCallBack(void (*lpInCallBack)());
-		void JIGAPWrapOnExitRoomCallBack(void (*lpInCallBack)());
+		void JIGAPWrapOnLoginCallBack			(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnLoginFailedCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnRoomListCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnCreateRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnCreateRoomFailedCallBack(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnJoinedRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnJoinedRoomFaileCallBack	(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapOnExitRoomCallBack		(PROGRESS_CSHARP ^fucn);
 	
 	public:
 		String^ JIGAPGetMessageLog();

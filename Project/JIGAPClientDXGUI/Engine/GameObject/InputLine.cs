@@ -10,9 +10,9 @@ using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    abstract class InputLine : GameObject
+    abstract class InputLine : NetworkObject
     {
-        private StringBuilder text = new StringBuilder();
+        protected StringBuilder text = new StringBuilder();
 
         public int fontSize { get; set; } = 11;
         public Color fontColor { get; set; } = Color.White;
@@ -24,7 +24,6 @@ namespace JIGAPClientDXGUI.Engine
         }
         public override void Update()
         {
-            
         }
         public override void Render()
         {

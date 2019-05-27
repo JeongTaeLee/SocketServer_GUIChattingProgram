@@ -1,4 +1,6 @@
 #pragma once
+typedef void(__stdcall* PROGRESS)(void);
+
 class JIGAPClient
 {
 private:
@@ -19,14 +21,14 @@ private:
 
 	std::list<std::string> liRoomList;
 
-	void (*lpOnLoginCallBack)();
-	void (*lpOnLoginFailedCallBack)();
-	void (*lpOnRoomListCallBack)();
-	void (*lpOnCreateRoomCallBack)();
-	void (*lpOnCreateRoomFailedCallBack)();
-	void (*lpOnJoinedRoomCallBack)();
-	void (*lpOnJoinedRoomFailedCallBack)();
-	void (*lpOnExitRoomCallBack)();
+	std::function<void()> lpOnLoginCallBack;
+	std::function<void()> lpOnLoginFailedCallBack;
+	std::function<void()> lpOnRoomListCallBack;
+	std::function<void()> lpOnCreateRoomCallBack;
+	std::function<void()> lpOnCreateRoomFailedCallBack;
+	std::function<void()> lpOnJoinedRoomCallBack;
+	std::function<void()> lpOnJoinedRoomFailedCallBack;
+	std::function<void()> lpOnExitRoomCallBack;
 public:
 	JIGAPClient();
 	virtual ~JIGAPClient();
@@ -35,15 +37,15 @@ private:
 	HRESULT JIGAPInitializeClient();
 	void JIGAPReleaseClient();
 public:
-	bool JIGAPClientStart(const std::string & InIpAddr, const std::string & InPortAddr);
+	bool JIGAPClientStart(const std::string& InIpAddr, const std::string& InPortAddr);
 	void JIGAPClientEnd();
 
 public:
 	void JIGAPRecvThread();
 
-	bool JIGAPRequsetLogin(const std::string & strInNickName);
+	bool JIGAPRequsetLogin(const std::string& strInNickName);
 	bool JIGAPRequestRoomList();
-	bool JIGAPRequestCreateRoom(const std::string & strInRoomName);
+	bool JIGAPRequestCreateRoom(const std::string& strInRoomName);
 	bool JIGAPRequestJoinedRoom(const std::string& strInRoomName);
 	bool JIGAPRequestExtiRoom();
 
@@ -56,17 +58,17 @@ private:
 
 
 public:
-	void JIGAPSetOnLoginCallBack(void (*lpInCallBack)()) { lpOnLoginCallBack = lpInCallBack; }
-	void JIGAPSetOnLoginFailedCallBack(void(*lpInCallBack)()) { lpOnLoginFailedCallBack = lpInCallBack; }
-	void JIGAPSetOnRoomListCallBack(void (*lpInCallBack)()) { lpOnRoomListCallBack = lpInCallBack; }
-	void JIGAPSetOnCreateRoomCallBack(void (*lpInCallBack)()) { lpOnCreateRoomCallBack = lpInCallBack; }
-	void JIGAPSetOnCreateRoomFailedCallBack(void (*lpInCallBack)()) { lpOnCreateRoomFailedCallBack = lpInCallBack; }
-	void JIGAPSetOnJoinedRoomCallBack(void (*lpInCallBack)()) { lpOnJoinedRoomCallBack = lpInCallBack; }
-	void JIGAPSetOnJoinedRoomFailedCallBack(void(*lpInCallBack)()) { lpOnJoinedRoomFailedCallBack = lpInCallBack; }
-	void JIGAPSetOnExitRoomCallBack(void (*lpInCallBack)()) { lpOnExitRoomCallBack = lpInCallBack; }
+	void JIGAPSetOnLoginCallBack(PROGRESS lpInCallBack) { lpOnLoginCallBack = lpInCallBack; }
+	void JIGAPSetOnLoginFailedCallBack(PROGRESS lpInCallBack) { lpOnLoginFailedCallBack = lpInCallBack; }
+	void JIGAPSetOnRoomListCallBack(PROGRESS lpInCallBack) { lpOnRoomListCallBack = lpInCallBack; }
+	void JIGAPSetOnCreateRoomCallBack(PROGRESS lpInCallBack) { lpOnCreateRoomCallBack = lpInCallBack; }
+	void JIGAPSetOnCreateRoomFailedCallBack(PROGRESS lpInCallBack) { lpOnCreateRoomFailedCallBack = lpInCallBack; }
+	void JIGAPSetOnJoinedRoomCallBack(PROGRESS lpInCallBack) { lpOnJoinedRoomCallBack = lpInCallBack; }
+	void JIGAPSetOnJoinedRoomFailedCallBack(PROGRESS lpInCallBack) { lpOnJoinedRoomFailedCallBack = lpInCallBack; }
+	void JIGAPSetOnExitRoomCallBack(PROGRESS lpInCallBack) { lpOnExitRoomCallBack = lpInCallBack; }
 
 private:
-	void JIGAPPrintMessageLog(const char * fmt, ...);
+	void JIGAPPrintMessageLog(const char* fmt, ...);
 
 	bool JIGAPSendSerializeBuffer();
 
@@ -74,4 +76,3 @@ public:
 	bool JIGAPCheckMessageLog();
 	std::string  JIGAPGetMessageLog();
 };
-

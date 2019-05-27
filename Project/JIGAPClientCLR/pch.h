@@ -21,6 +21,8 @@
 #include <queue>
 #include <list>
 #include <crtdbg.h>
+#include <functional>
+#include <handleapi.h>
 
 #pragma comment(lib, "ws2_32.lib")
 
