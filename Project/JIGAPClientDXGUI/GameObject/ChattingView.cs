@@ -11,15 +11,22 @@ namespace JIGAPClientDXGUI
 {
     class ChattingView : NetworkObject 
     {
-        struct ChatBox
+        struct Chatting
         {
             public string Str;
-            public bool MyMessage;
+            public bool MyChatting;
         }
-        
 
-        private Queue<ChatBox> ChattingStringQueue = new Queue<ChatBox>();
-        private int FontSize = 25;
+        private Queue<Chatting> ChattingQueue = new Queue<Chatting>();
+
+        private int FontSize = 30;
+        private int MaxHeight = 11;
+
+
+        private float PivotRight = 925;
+        private float PivotLeft = 350;
+        private float PivotBottom = 590;
+
         public override void Init()
         {
             transform.position = new SharpDX.Vector3(200, 79f, 0f);
@@ -28,19 +35,32 @@ namespace JIGAPClientDXGUI
 
         public override void Render()
         {
-            if (ChattingStringQueue.Count == 0) return;
+            if (ChattingQueue.Count <= 0) return;
 
-            Font font = new Font(DXManager.GetInst().d3dDevice, FontSize, 0, FontWeight.Bold, 0, false, FontCharacterSet.Hangul, FontPrecision.Default,
-                FontQuality.Default, FontPitchAndFamily.Default, "돋움");
+            Font font = new Font(DXManager.GetInst().d3dDevice, FontSize, 0, FontWeight.Bold, 0, false,
+                FontCharacterSet.Default, FontPrecision.Default, FontQuality.Default, FontPitchAndFamily.Default, "맑은 고딕");
 
-            for(int i = 0; i < ChattingStringQueue.Count(); ++i)
+            int heightIndex = 0;
+            for (int i = ChattingQueue.Count; i > 0; --i, ++heightIndex)
             {
-                Vector3 DrawPos = new Vector3(DXManager.GetInst().Width / 2f, 0f, 0f);
-                DrawPos.X = 360f;
-                DrawPos.Y = (transform.position.Y + 500) - (FontSize * (ChattingStringQueue.Count - i));
+                Vector3 printPos = new Vector3();
+                printPos.Y = PivotBottom - heightIndex * 70;
 
-                DXManager.GetInst().d3dSprite.Transform = Matrix.Translation(DrawPos);
-                font.DrawText(DXManager.GetInst().d3dSprite, ChattingStringQueue.ToArray()[i].Str, 0,0, Color.Black);
+                FontDrawFlags drawFlags = FontDrawFlags.NoClip;
+
+                if (ChattingQueue.ToList()[i - 1].MyChatting)
+                {
+                    drawFlags = FontDrawFlags.NoClip | FontDrawFlags.Right;
+                    printPos.X = PivotRight;
+                }
+                else
+                {
+                    drawFlags = FontDrawFlags.NoClip | FontDrawFlags.Left;
+                    printPos.X = PivotLeft;
+                }
+
+                DXManager.GetInst().d3dSprite.Transform = Matrix.Translation(printPos);
+                font.DrawText(DXManager.GetInst().d3dSprite, ChattingQueue.ToList()[i - 1].Str, new Rectangle(), drawFlags, Color.Black);
             }
 
             font.Dispose();
@@ -48,18 +68,19 @@ namespace JIGAPClientDXGUI
 
         public override void OnRecvChatting(string sender, string message)
         {
-            base.OnRecvChatting(sender, message);
+            Chatting chat = new Chatting();
+            
+            if(sender == NetworkManager.GetInst().MyName)
+            {
+                chat.Str = message;// + " : [" + NetworkManager.GetInst().MyName + "]";
+                chat.MyChatting = true;
+            }
+            else
+                chat.Str = "[" + NetworkManager.GetInst().MyName + "] : " + message;
 
-            ChatBox Chatbox = new ChatBox();
-            Chatbox.Str = "[" + sender + "]" + " : " + message;
-            Chatbox.MyMessage = (sender == NetworkManager.GetInst().MyName);
-            Console.Write(NetworkManager.GetInst().MyName);
-
-            ChattingStringQueue.Enqueue(Chatbox);
-
-            if (ChattingStringQueue.Count == 10)
-                ChattingStringQueue.Dequeue();
-               
+            ChattingQueue.Enqueue(chat);
+            if (ChattingQueue.ToList().Count == MaxHeight)
+                ChattingQueue.Dequeue();
         }
     }
 }

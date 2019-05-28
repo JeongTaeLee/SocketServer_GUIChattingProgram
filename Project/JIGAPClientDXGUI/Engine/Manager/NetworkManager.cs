@@ -11,13 +11,14 @@ namespace JIGAPClientDXGUI.Engine
     public partial class NetworkManager
     {
         public delegate void ChattingEventHandler(string sender, string message);
+        public delegate void OnJoinedRoomHandler(string sender);
 
         public event EventHandler OnLoginSuccessEvent;
         public event EventHandler OnLoginFailedEvent;
         public event EventHandler OnRoomListEvent;
         public event EventHandler OnCreateRoomSuccessEvent;
         public event EventHandler OnCreateRoomFailedEvent;
-        public event EventHandler OnJoinedRoomSuccessEvent;
+        public event OnJoinedRoomHandler OnJoinedRoomSuccessEvent;
         public event EventHandler OnJoinedRoomFailedEvent;
         public event EventHandler OnExitRoomEvent;
         public event ChattingEventHandler OnChattingEvent;
@@ -35,6 +36,7 @@ namespace JIGAPClientDXGUI.Engine
         }
 
         public string MyName { get; set; } = null;
+        public string MyRoomName { get; set; } = null;
         private JIGAPClientWrap jigapClientWrap = null;
 
         public NetworkManager()
@@ -45,12 +47,12 @@ namespace JIGAPClientDXGUI.Engine
             jigapClientWrap.JIGAPWrapSetRoomListCallBack(OnRoomListCallBack);
             jigapClientWrap.JIGAPWrapSetCreateRoomCallBack(OnCreateRoomCallBack);
             jigapClientWrap.JIGAPWrapSetCreateRoomFailedCallBack(OnCreateRoomFailedCallBack);
-            jigapClientWrap.JIGAPWrapSetJoinedRoomCallBack(OnJoinedRoomCallBack);
             jigapClientWrap.JIGAPWrapSetJoinedRoomFaileCallBack(OnJoinedRoomFailedCallBack);
             jigapClientWrap.JIGAPWrapSetExitRoomCallBack(OnExitRoomCallBack);
 
             unsafe
             {
+                jigapClientWrap.JIGAPWrapSetJoinedRoomCallBack(OnJoinedRoomCallBack);
                 jigapClientWrap.JIGAPWrapSetChattingCallBack(OnChattingCallBack);
             }
 
@@ -76,9 +78,13 @@ namespace JIGAPClientDXGUI.Engine
         {
             OnCreateRoomFailedEvent?.Invoke(this, default);
         }
-        public void OnJoinedRoomCallBack()
+        public unsafe void OnJoinedRoomCallBack(byte* roomName, int iLen)
         {
-            OnJoinedRoomSuccessEvent?.Invoke(this, default);
+            byte[] newRoomName = new byte[iLen];
+            for (int i = 0; i < iLen; ++i)
+                newRoomName[i] = (byte)roomName[i];
+
+            OnJoinedRoomSuccessEvent?.Invoke(Encoding.ASCII.GetString(newRoomName));
         }
         public void OnJoinedRoomFailedCallBack()
         {

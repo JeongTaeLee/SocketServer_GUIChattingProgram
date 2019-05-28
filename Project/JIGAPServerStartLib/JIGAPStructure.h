@@ -2,7 +2,7 @@
 #define MAXBUFFERSIZE 2048 // 
 
 #define MAXSTRSIZE 512
-#define MAXNAMESIZE 32
+#define MAXNAMESIZE 6
 #define MAXROOMNAMESIZE 32
 
 // 서버 통신에서 패킷 판별을 위한 4글자 리터럴 입니다.

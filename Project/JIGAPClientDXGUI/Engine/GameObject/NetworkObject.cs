@@ -52,7 +52,7 @@ namespace JIGAPClientDXGUI.Engine
         public virtual void OnCreateRoomFailed(object send, EventArgs e)
         {
         }
-        public virtual void OnJoinedRoom(object sender, EventArgs e)
+        public virtual void OnJoinedRoom(string roomName)
         {
         }
         public virtual void OnJoinedRoomFailed(object sender, EventArgs e)

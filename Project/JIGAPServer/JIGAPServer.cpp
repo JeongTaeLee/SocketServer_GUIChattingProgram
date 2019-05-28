@@ -130,6 +130,10 @@ void JIGAPServer::JIGAPServerClose()
 	if (connectThread.joinable())
 		connectThread.join();
 
+	//ReleaseMutex(hSystemLogMutex);
+	//ReleaseMutex(hClientDataMutex);
+	//ReleaseMutex(hRoomsMutex);
+
 	/*생성한 WInAPI Mutex를 해제합니다.*/
 	CloseHandle(hSystemLogMutex);
 	CloseHandle(hClientDataMutex);
@@ -354,6 +358,7 @@ void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
 		lpSerializeObject->DeserializeRecvBuffer(buffer, sizeof(buffer));
 		lpSerializeObject->SerializeDataSendBuffer(answerJoinedRoomLiteral);
 
+
 		WaitForSingleObject(hRoomsMutex, INFINITE);
 
 		auto find = mRooms.find(buffer);
@@ -361,6 +366,7 @@ void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
 		{
 			find->second->AddUser(lpClntSock);
 			lpSerializeObject->SerializeDataSendBuffer(true);
+			lpSerializeObject->SerializeDataSendBuffer(find->first.c_str(), find->first.size());
 		}
 		else
 			lpSerializeObject->SerializeDataSendBuffer(false);

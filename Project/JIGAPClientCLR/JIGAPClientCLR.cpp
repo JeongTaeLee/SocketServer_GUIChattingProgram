@@ -105,12 +105,12 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetCreateRoomFailedCallBack(PROGR
 	lpJigapClient->JIGAPSetOnCreateRoomFailedCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetJoinedRoomCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetJoinedRoomCallBack(PROGRESS_CSHARP_JOINEDROOM^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
 	IntPtr ip = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(fucn);
-	PROGRESS callBack = static_cast<PROGRESS>(ip.ToPointer());
+	PROGRESS_JOINEDROOM callBack = static_cast<PROGRESS_JOINEDROOM>(ip.ToPointer());
 	lpJigapClient->JIGAPSetOnJoinedRoomCallBack(callBack);
 }
 

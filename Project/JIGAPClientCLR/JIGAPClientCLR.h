@@ -7,6 +7,7 @@ using namespace System;
 public delegate void PROGRESS_CSHARP(void);
 
 public delegate void PROGRESS_CSHARP_CHATTING(byte* sender, byte* message, int senderSize, int messageSize);
+public delegate void PROGRESS_CSHARP_JOINEDROOM(byte* lpInRoomName, int iLength);
 
 namespace JIGAPClientCLR 
 {
@@ -35,7 +36,7 @@ namespace JIGAPClientCLR
 		void JIGAPWrapSetRoomListCallBack		(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapSetCreateRoomCallBack		(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapSetCreateRoomFailedCallBack(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapSetJoinedRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetJoinedRoomCallBack		(PROGRESS_CSHARP_JOINEDROOM^fucn);
 		void JIGAPWrapSetJoinedRoomFaileCallBack	(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapSetExitRoomCallBack		(PROGRESS_CSHARP ^fucn);
 		void JIGAPWrapSetChattingCallBack(PROGRESS_CSHARP_CHATTING^ func);

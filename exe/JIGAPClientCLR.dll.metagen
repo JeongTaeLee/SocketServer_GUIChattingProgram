@@ -23,6 +23,13 @@ Class PROGRESS_CSHARP_CHATTING: AutoLayout, AnsiClass, Class, Public, Sealed, Be
     Invoke(Byte*, Byte*, Int32, Int32): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(Byte*, Byte*, Int32, Int32, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class PROGRESS_CSHARP_JOINEDROOM: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Byte*, Int32): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Byte*, Int32, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -41,7 +48,7 @@ Class JIGAPClientCLR.JIGAPClientWrap: AutoLayout, AnsiClass, Class, Public, Befo
     JIGAPWrapSetRoomListCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapSetCreateRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapSetCreateRoomFailedCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
-    JIGAPWrapSetJoinedRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
+    JIGAPWrapSetJoinedRoomCallBack(PROGRESS_CSHARP_JOINEDROOM): PrivateScope, Public, HideBySig
     JIGAPWrapSetJoinedRoomFaileCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapSetExitRoomCallBack(PROGRESS_CSHARP): PrivateScope, Public, HideBySig
     JIGAPWrapSetChattingCallBack(PROGRESS_CSHARP_CHATTING): PrivateScope, Public, HideBySig

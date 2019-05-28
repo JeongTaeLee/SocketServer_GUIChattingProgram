@@ -86,7 +86,7 @@ namespace JIGAPClientDXGUI
         {
             ListView.UpdateRoomList();
         }
-        public override void OnJoinedRoom(object sender, EventArgs e)
+        public override void OnJoinedRoom(string rommName)
         {
             SceneManager.GetInst().ChanageScene("ChattingScene");
         }

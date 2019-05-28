@@ -20,7 +20,9 @@ namespace JIGAPClientDXGUI
         public int FontSize { get; set; } = 11;
         public Color FontColor { get; set; } = Color.White;
         public int MaxTextLength { get; set; } = 11;
+        public FontDrawFlags FontFlag { get; set; } = FontDrawFlags.NoClip;
         public OnEnter OnEnterCallBack { get; set; } = null;
+        
 
         public InputLine()
         {
@@ -38,9 +40,9 @@ namespace JIGAPClientDXGUI
                 return;
 
             Font font = new Font(DXManager.GetInst().d3dDevice, FontSize, 0, FontWeight.Bold, 0, false, FontCharacterSet.Hangul, FontPrecision.Default
-                , FontQuality.Default, FontPitchAndFamily.Default, "돋움");
+                , FontQuality.Default, FontPitchAndFamily.Default, "맑은 고딕");
 
-            font.DrawText(DXManager.GetInst().d3dSprite, InputText.ToString(), 0, 0, FontColor);
+            font.DrawText(DXManager.GetInst().d3dSprite, InputText.ToString(), new Rectangle(), FontFlag, FontColor);
 
             font.Dispose();
         }

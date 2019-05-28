@@ -20,9 +20,11 @@ namespace JIGAPClientDXGUI
             ChattingBackGround = ImageManager.GetInst().LoadTexture("ChattingBackGround", "./Image/ChattingBackGround.png");
 
             ChatView = ObjectManager.GetInst().AddObject<ChattingView>();
+  
 
             ChattingField = ObjectManager.GetInst().AddObject<StandardInputField>();
             ChattingField.OnEnterCallBack = Send;
+
 
             ObjectManager.GetInst().AddObject(new Button
             {

@@ -323,8 +323,11 @@ void JIGAPClient::JIGAPOnAnswerJoinedRoom()
 		{
 			JIGAPPrintMessageLog("방참가에 성공했습니다.");
 
+			char roomName[MAXROOMNAMESIZE] = { 0 };
+			lpSerializeObject->DeserializeRecvBuffer(roomName, sizeof(roomName));
+
 			if (lpOnJoinedRoomCallBack)
-				lpOnJoinedRoomCallBack();
+				lpOnJoinedRoomCallBack(roomName, strlen(roomName));
 			
 			eClientState = JIGAPSTATE::E_ONROOM;
 		}
