@@ -31,14 +31,13 @@ namespace JIGAPClientDXGUI.Engine
         public Device d3dDevice { get; private set; } = null;
         public Sprite d3dSprite { get; private set; } = null;
 
-        public int Width { get => renderForm.Width; }
-        public int Height { get => renderForm.Height; }
+        public int Width { get => renderForm.ClientSize.Width; }
+        public int Height { get => renderForm.ClientSize.Height; }
 
         public bool Initialize(string name, int width, int height)
         {
             renderForm = new RenderMsgForm(name);
-            renderForm.Width = width;
-            renderForm.Height = height;
+            renderForm.ClientSize = new System.Drawing.Size(width, height);
  
             d3dObject = new Direct3D();
             if (d3dObject == null)

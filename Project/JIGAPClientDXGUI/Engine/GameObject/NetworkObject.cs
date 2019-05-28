@@ -19,21 +19,23 @@ namespace JIGAPClientDXGUI.Engine
             NetworkManager.GetInst().OnJoinedRoomSuccessEvent += OnJoinedRoom;
             NetworkManager.GetInst().OnJoinedRoomFailedEvent += OnJoinedRoomFailed;
             NetworkManager.GetInst().OnExitRoomEvent += OnExitRoom;
+            NetworkManager.GetInst().OnChattingEvent += OnRecvChatting;
+
         }
 
-        public new void Dispose()
+        public override void Release()
         {
             NetworkManager.GetInst().OnLoginSuccessEvent -= OnLoginSuccess;
             NetworkManager.GetInst().OnLoginFailedEvent -= OnLoginFailed;
             NetworkManager.GetInst().OnRoomListEvent -= OnRoomList;
             NetworkManager.GetInst().OnCreateRoomSuccessEvent -= OnCreateRoom;
-            NetworkManager.GetInst().OnCreateRoomFailedEvent += OnCreateRoomFailed;
+            NetworkManager.GetInst().OnCreateRoomFailedEvent -= OnCreateRoomFailed;
             NetworkManager.GetInst().OnJoinedRoomSuccessEvent -= OnJoinedRoom;
             NetworkManager.GetInst().OnJoinedRoomFailedEvent -= OnJoinedRoomFailed;
             NetworkManager.GetInst().OnExitRoomEvent -= OnExitRoom;
-            base.Dispose();
+            NetworkManager.GetInst().OnChattingEvent -= OnRecvChatting;
+            base.Release();
         }
-        
         public virtual void OnLoginSuccess(object sender, EventArgs e)
         {
         }
@@ -50,7 +52,6 @@ namespace JIGAPClientDXGUI.Engine
         public virtual void OnCreateRoomFailed(object send, EventArgs e)
         {
         }
-
         public virtual void OnJoinedRoom(object sender, EventArgs e)
         {
         }
@@ -59,6 +60,10 @@ namespace JIGAPClientDXGUI.Engine
         }
         public virtual void OnExitRoom(object sender, EventArgs e)
         {
+        }
+        public virtual void OnRecvChatting(string sender, string message)
+        {
+
         }
     }
 }

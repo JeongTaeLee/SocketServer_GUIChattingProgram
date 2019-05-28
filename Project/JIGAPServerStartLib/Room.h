@@ -22,6 +22,7 @@ public:
 
 	void SetRoomName(const std::string& name) { strRoomName = name; }
 	const std::string& GetRoomName() { return strRoomName; }
+	const std::list<TCPSocket*> GetUserList() { return liUserList; }
 };
 
 using LPROOM = Room *;

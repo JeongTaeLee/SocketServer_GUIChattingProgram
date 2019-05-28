@@ -233,8 +233,8 @@ void JIGAPServer::JIGAPChattingThread()
 				OnRequestExtiRoom(lpClntSock);
 				break;
 
-			case chattingLiteral:
-				OnChatting(lpClntSock);
+			case requestChattingLiteral:
+				OnRequestChatting(lpClntSock);
 				break;
 
 			default:
@@ -303,7 +303,7 @@ void JIGAPServer::OnRequestRoomList(LPTCPSOCK& lpClntSock)
 		for (auto& Iter : mRooms)
 		{
 			char roomName[MAXROOMNAMESIZE] = { 0 };
-			memcpy(roomName, Iter.second->GetRoomName().c_str() , Iter.second->GetRoomName().size());
+			memcpy(roomName, Iter.first.c_str() , Iter.first.size());
 			lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
 		}
 
@@ -335,6 +335,8 @@ void JIGAPServer::OnRequestCreateRoom(LPTCPSOCK& lpClntSock)
 			lpRoom->SetRoomName(roomName);
 			mRooms.insert(std::make_pair(roomName, lpRoom));
 			lpRoom->AddUser(lpClntSock);
+
+			JIGAPPrintSystemLog("%s 방이 생성되었습니다.", lpRoom->GetRoomName().c_str());
 		}
 
 		ReleaseMutex(hRoomsMutex);
@@ -366,6 +368,7 @@ void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
 		ReleaseMutex(hRoomsMutex);
 
 		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+		lpClntSock->IOCPSend();
 	}
 }
 
@@ -377,14 +380,50 @@ void JIGAPServer::OnRequestExtiRoom(LPTCPSOCK& lpClntSock)
 
 		Room* lpRoom = lpClntSock->GetRoom();
 		if (lpRoom)
+		{
 			lpRoom->DeleteUser(lpClntSock);	
+			WaitForSingleObject(hRoomsMutex, INFINITE);
+			if (lpRoom->GetUserCount() <= 0)
+			{
+				auto find = mRooms.find(lpRoom->GetRoomName());
+
+				if (find != mRooms.end())
+				{
+					JIGAPPrintSystemLog("%s 방이 삭제되었습니다.", lpRoom->GetRoomName().c_str());
+					mRooms.erase(find);
+				}
+				delete lpRoom;
+			}
+			ReleaseMutex(hRoomsMutex);
+		}
 
 		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+		lpClntSock->IOCPSend();
 	}
 }
 
-void JIGAPServer::OnChatting(LPTCPSOCK & lpClntSock)
+void JIGAPServer::OnRequestChatting(LPTCPSOCK & lpClntSock)
 {
+	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	{
+		char message[MAXSTRSIZE] = { 0 };
+		lpSerializeObject->DeserializeRecvBuffer(message);
+
+		char userName[MAXNAMESIZE] = { 0 };
+		memcpy(userName, lpClntSock->GetMyUserName().c_str(), lpClntSock->GetMyUserName().size());
+		lpSerializeObject->SerializeDataSendBuffer(anwserChattingLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(userName, sizeof(userName));
+		lpSerializeObject->SerializeDataSendBuffer(message, sizeof(message));
+
+		if (lpClntSock->GetRoom())
+		{
+			for (auto Iter : lpClntSock->GetRoom()->GetUserList())
+			{
+				Iter->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
+				Iter->IOCPSend();
+			}
+		}
+	}
 }
 
 int JIGAPServer::CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIOData)
@@ -454,11 +493,14 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 			auto find = mRooms.find(lpRoom->GetRoomName());
 
 			if (find != mRooms.end())
+			{
+				JIGAPPrintSystemLog("%s 방이 삭제되었습니다.", lpRoom->GetRoomName().c_str());
 				mRooms.erase(find);
+			}
+			delete lpRoom;
 		}
 			
 		ReleaseMutex(hRoomsMutex);
-		delete lpRoom;
 	}
 
 	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);

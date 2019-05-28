@@ -46,7 +46,7 @@ public:
 	void OnRequestCreateRoom(LPTCPSOCK & lpClntData);
 	void OnRequestJoinedRoom(LPTCPSOCK & lpClntData);
 	void OnRequestExtiRoom(LPTCPSOCK & lpClntData);
-	void OnChatting(LPTCPSOCK & lpClntData);
+	void OnRequestChatting(LPTCPSOCK & lpClntData);
 
 	int CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIOData);
 

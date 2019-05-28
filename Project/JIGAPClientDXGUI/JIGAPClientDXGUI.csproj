@@ -99,6 +99,7 @@
     <Compile Include="GameObject\Button.cs" />
     <Compile Include="Engine\GameObject\GameObject.cs" />
     <Compile Include="GameObject\ChattingLauncher.cs" />
+    <Compile Include="GameObject\ChattingView.cs" />
     <Compile Include="GameObject\StandardInputField.cs" />
     <Compile Include="GameObject\InputLine.cs" />
     <Compile Include="GameObject\InputField.cs" />

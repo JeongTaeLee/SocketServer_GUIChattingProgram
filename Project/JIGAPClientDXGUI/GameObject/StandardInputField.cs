@@ -19,7 +19,7 @@ namespace JIGAPClientDXGUI
             TextBoxInputLine.FontSize = 50;
             TextBoxInputLine.MaxTextLength = 18;
 
-            transform.position = new Vector3(358f, 620f, 0f);
+            transform.position = new Vector3(358f, 650f, 0f);
         }
     }
 }

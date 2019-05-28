@@ -17,6 +17,7 @@ namespace JIGAPClientDXGUI.Engine
             transform = new Transform();
         }
         public virtual void Init() { }
+        public virtual void Release() { }
         public virtual void Update() { }
         public virtual void Render() { }
 

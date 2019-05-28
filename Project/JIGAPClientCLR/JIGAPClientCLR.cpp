@@ -55,7 +55,12 @@ bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapRequestExitRoom()
 	return lpJigapClient->JIGAPRequestExtiRoom();
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginCallBack(PROGRESS_CSHARP^ fucn)
+bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapRequestChattingMessage(String^ szString)
+{
+	return lpJigapClient->JIGAPRequestChatting(msclr::interop::marshal_as <std::string>(szString));
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetLoginCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 	
@@ -64,16 +69,16 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginCallBack(PROGRESS_CSHARP^ 
 	lpJigapClient->JIGAPSetOnLoginCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnLoginFailedCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetLoginFailedCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
 	IntPtr ip = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(fucn);
 	PROGRESS callBack = static_cast<PROGRESS>(ip.ToPointer());
-	lpJigapClient->JIGAPSetOnJoinedRoomFailedCallBack(callBack);
+	lpJigapClient->JIGAPSetOnLoginFailedCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnRoomListCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetRoomListCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
@@ -82,7 +87,7 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnRoomListCallBack(PROGRESS_CSHAR
 	lpJigapClient->JIGAPSetOnRoomListCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetCreateRoomCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
@@ -91,7 +96,7 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomCallBack(PROGRESS_CSH
 	lpJigapClient->JIGAPSetOnCreateRoomCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomFailedCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetCreateRoomFailedCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
@@ -100,7 +105,7 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnCreateRoomFailedCallBack(PROGRE
 	lpJigapClient->JIGAPSetOnCreateRoomFailedCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetJoinedRoomCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
@@ -109,7 +114,7 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomCallBack(PROGRESS_CSH
 	lpJigapClient->JIGAPSetOnJoinedRoomCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomFaileCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetJoinedRoomFaileCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
@@ -118,13 +123,22 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnJoinedRoomFaileCallBack(PROGRES
 	lpJigapClient->JIGAPSetOnJoinedRoomFailedCallBack(callBack);
 }
 
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapOnExitRoomCallBack(PROGRESS_CSHARP^ fucn)
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetExitRoomCallBack(PROGRESS_CSHARP^ fucn)
 {
 	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(fucn);
 
 	IntPtr ip = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(fucn);
 	PROGRESS callBack = static_cast<PROGRESS>(ip.ToPointer());
 	lpJigapClient->JIGAPSetOnExitRoomCallBack(callBack);
+}
+
+void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetChattingCallBack(PROGRESS_CSHARP_CHATTING^ func)
+{
+	System::Runtime::InteropServices::GCHandle handle = System::Runtime::InteropServices::GCHandle::Alloc(func);
+
+	IntPtr ip = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(func);
+	PROGRESS_CHATTING callBack = static_cast<PROGRESS_CHATTING>(ip.ToPointer());
+	lpJigapClient->JIGAPSetOnChattingCallBack(callBack);
 }
 
 
@@ -141,16 +155,6 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPGetRoomList(cli::array<String^>^% arr
 			arr[i] = msclr::interop::marshal_as<String^>(liStr[i]);
 		else
 			break;
-	}
-}
-
-void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapGetRoomList(System::Collections::Generic::List<String^> strList)
-{
-	std::vector<std::string> & liStr = lpJigapClient->JIGAPGetRoomList();
-
-	for (auto Iter :liStr)
-	{
-		strList.Add(msclr::interop::marshal_as<String^>(Iter));
 	}
 }
 

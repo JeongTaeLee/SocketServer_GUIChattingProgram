@@ -20,22 +20,6 @@ namespace JIGAPClientDXGUI
         public override void Init()
         {
             transform.position = new Vector3(410f, 103f, 0f);
-
-            ObjectManager.GetInst().AddObject(new Button
-            {
-                ButtonTexture = ImageManager.GetInst().LoadTexture("NextPage", "./Image/NextPage.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
-                ButtonPos = new SharpDX.Vector3(884f, 301f, 0f),
-                ButtonEventCallBack = NextPage
-            });
-
-            ObjectManager.GetInst().AddObject(new Button
-            {
-                ButtonTexture = ImageManager.GetInst().LoadTexture("NextPage", "./Image/BackPage.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
-                ButtonPos = new SharpDX.Vector3(358f, 301f, 0f),
-                ButtonEventCallBack = BackPage
-            });
         }
 
         public void NextPage()
@@ -133,14 +117,6 @@ namespace JIGAPClientDXGUI
             }
 
             LoadPage(1);
-        }
-
-        public new void Dispose()
-        {
-            for (int i = 0; i < RoomList.Length; ++i)
-                RoomList[i].Dispose(); 
-
-            base.Dispose();
         }
     }
 }

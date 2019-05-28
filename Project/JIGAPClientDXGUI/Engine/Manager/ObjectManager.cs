@@ -45,7 +45,10 @@ namespace JIGAPClientDXGUI.Engine
         public void ClearObjects()
         {
             for (int i = 0; i < objects.Count; ++i)
+            {
+                objects[i].Release();
                 objects[i].Dispose();
+            }
 
             objects.Clear();
         }
@@ -77,7 +80,11 @@ namespace JIGAPClientDXGUI.Engine
         public void Dispose()
         {
             for (int i = 0; i < objects.Count(); ++i)
+            {
+                objects[i].Release();
                 objects[i].Dispose();
+
+            }
 
             objects.Clear();
             GC.SuppressFinalize(true);

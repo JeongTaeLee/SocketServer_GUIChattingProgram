@@ -27,17 +27,17 @@ namespace JIGAPClientDXGUI
             TextBoxInputLine.transform.position = new Vector3(13f, 5f, 0f);
         }
 
+        public override void Release()
+        {
+            TextBoxInputLine.transform.SetParent(null);
+            base.Release();
+        }
+
         public override void Render()
         {
             TextBoxTexture.Draw();
         }
 
-        public new void Dispose()
-        {
-            TextBoxInputLine.transform.SetParent(null);
-            TextBoxInputLine.Dispose();
-            base.Dispose();
-        }
 
     }
 }

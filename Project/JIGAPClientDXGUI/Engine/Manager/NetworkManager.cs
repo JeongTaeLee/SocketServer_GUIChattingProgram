@@ -9,6 +9,8 @@ namespace JIGAPClientDXGUI.Engine
 {
     public partial class NetworkManager
     {
+        public delegate void ChattingEventHandler(string sender, string message);
+
         public event EventHandler OnLoginSuccessEvent;
         public event EventHandler OnLoginFailedEvent;
         public event EventHandler OnRoomListEvent;
@@ -17,6 +19,7 @@ namespace JIGAPClientDXGUI.Engine
         public event EventHandler OnJoinedRoomSuccessEvent;
         public event EventHandler OnJoinedRoomFailedEvent;
         public event EventHandler OnExitRoomEvent;
+        public event ChattingEventHandler OnChattingEvent;
 
     }
 
@@ -36,14 +39,16 @@ namespace JIGAPClientDXGUI.Engine
         public NetworkManager()
         {
             jigapClientWrap = new JIGAPClientWrap();
-            jigapClientWrap.JIGAPWrapOnLoginCallBack(OnLoginCallBack);
-            jigapClientWrap.JIGAPWrapOnLoginFailedCallBack(OnLoginFailedCallBack);
-            jigapClientWrap.JIGAPWrapOnRoomListCallBack(OnRoomListCallBack);
-            jigapClientWrap.JIGAPWrapOnCreateRoomCallBack(OnCreateRoomCallBack);
-            jigapClientWrap.JIGAPWrapOnCreateRoomFailedCallBack(OnCreateRoomFailedCallBack);
-            jigapClientWrap.JIGAPWrapOnJoinedRoomCallBack(OnJoinedRoomCallBack);
-            jigapClientWrap.JIGAPWrapOnJoinedRoomFaileCallBack(OnJoinedRoomFailedCallBack);
-            jigapClientWrap.JIGAPWrapOnExitRoomCallBack(OnExitRoomCallBack);
+            jigapClientWrap.JIGAPWrapSetLoginCallBack(OnLoginCallBack);
+            jigapClientWrap.JIGAPWrapSetLoginFailedCallBack(OnLoginFailedCallBack);
+            jigapClientWrap.JIGAPWrapSetRoomListCallBack(OnRoomListCallBack);
+            jigapClientWrap.JIGAPWrapSetCreateRoomCallBack(OnCreateRoomCallBack);
+            jigapClientWrap.JIGAPWrapSetCreateRoomFailedCallBack(OnCreateRoomFailedCallBack);
+            jigapClientWrap.JIGAPWrapSetJoinedRoomCallBack(OnJoinedRoomCallBack);
+            jigapClientWrap.JIGAPWrapSetJoinedRoomFaileCallBack(OnJoinedRoomFailedCallBack);
+            jigapClientWrap.JIGAPWrapSetExitRoomCallBack(OnExitRoomCallBack);
+            jigapClientWrap.JIGAPWrapSetChattingCallBack(OnChattingCallBack);
+
         }
 
         public void OnLoginCallBack()
@@ -78,6 +83,16 @@ namespace JIGAPClientDXGUI.Engine
         {
             OnExitRoomEvent?.Invoke(this, default);
         }
+        public void OnChattingCallBack(string sender, string message)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(sender);
+            string newSedner = Encoding.Unicode.GetString(buffer);
+
+            buffer = Encoding.ASCII.GetBytes(message);
+            string newMessage = Encoding.Unicode.GetString(buffer);
+
+            OnChattingEvent?.Invoke(newSedner, newMessage);
+        }
         public bool StartClient()
         {
             return jigapClientWrap.JIGAPWrapClientStart("127.0.0.1", "9199");
@@ -95,6 +110,7 @@ namespace JIGAPClientDXGUI.Engine
         public void RequestRoomList()
         {
             jigapClientWrap.JIGAPWrapRequestRoomList();
+            System.Threading.Thread.Sleep(100);
         }
         public void RequestJoinedRoom(string roomName)
         {
@@ -103,6 +119,10 @@ namespace JIGAPClientDXGUI.Engine
         public void RequestExitRoom()
         {
             jigapClientWrap.JIGAPWrapRequestExitRoom();
+        }
+        public void RequestChatting(string message)
+        {
+            jigapClientWrap.JIGAPWrapRequestChattingMessage(message);
         }
         public void GetRoomList(ref string[] strList)
         {

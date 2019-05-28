@@ -15,7 +15,9 @@ JIGAPClient::JIGAPClient()
 	lpOnCreateRoomFailedCallBack(nullptr),
 	lpOnJoinedRoomCallBack(nullptr),
 	lpOnJoinedRoomFailedCallBack(nullptr),
-	lpOnExitRoomCallBack(nullptr)
+	lpOnExitRoomCallBack(nullptr),
+	lpOnChattingCallBack(nullptr)
+
 {
 }
 
@@ -135,9 +137,15 @@ void JIGAPClient::JIGAPRecvThread()
 			break;
 
 		case answerJoinedRoomLiteral:
+			JIGAPOnAnswerJoinedRoom();
+			break;
+
+		case anwserChattingLiteral:
+			JIGAPOnAnswerChatting();
 			break;
 
 		case answerExitRoomLiteral:
+			JIGAPOnAnswerExtiRoom();
 			break;
 		
 		default:
@@ -157,7 +165,7 @@ bool JIGAPClient::JIGAPRequsetLogin(const std::string & strInNickName)
 
 		lpSerializeObject->SerializeDataSendBuffer(requestLoginLiteral);
 		lpSerializeObject->SerializeDataSendBuffer(nameBuffer, sizeof(nameBuffer));
-
+		strMyName = strInNickName;
 		return JIGAPSendSerializeBuffer();
 	}
 	return false;
@@ -215,6 +223,20 @@ bool JIGAPClient::JIGAPRequestExtiRoom()
 	return false;
 }
 
+bool JIGAPClient::JIGAPRequestChatting(const std::string& strInMessage)
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
+	{
+		char message[MAXSTRSIZE] = { 0 };
+		memcpy(message, strInMessage.c_str(), strInMessage.size());
+	
+		lpSerializeObject->SerializeDataSendBuffer(requestChattingLiteral);
+		lpSerializeObject->SerializeDataSendBuffer(message, sizeof(message));
+		return JIGAPSendSerializeBuffer();
+	}
+	return false;
+}
+
 void JIGAPClient::JIGAPOnAnswerLogin()
 {
 	if (!bLogin)
@@ -230,6 +252,7 @@ void JIGAPClient::JIGAPOnAnswerLogin()
 				lpOnLoginCallBack();
 
 			eClientState = JIGAPSTATE::E_NOTROOM;
+			
 			bLogin = true;
 		}
 		else
@@ -324,6 +347,21 @@ void JIGAPClient::JIGAPOnAnswerExtiRoom()
 
 		if (lpOnExitRoomCallBack)
 			lpOnExitRoomCallBack();
+	}
+}
+
+void JIGAPClient::JIGAPOnAnswerChatting()
+{
+	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
+	{
+		char sender[MAXNAMESIZE] = {0};
+		lpSerializeObject->DeserializeRecvBuffer(sender, sizeof(sender));
+
+		char message[MAXSTRSIZE] = { 0 };
+		lpSerializeObject->DeserializeRecvBuffer(message, sizeof(message));
+
+		if (lpOnChattingCallBack)
+			lpOnChattingCallBack(sender, message);
 	}
 }
 

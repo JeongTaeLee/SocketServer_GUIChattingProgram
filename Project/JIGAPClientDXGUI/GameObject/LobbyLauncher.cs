@@ -28,7 +28,7 @@ namespace JIGAPClientDXGUI
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("CreateRoomButton", "./Image/CreateRoomButton.png"),
                 ButtonRange = new System.Drawing.Rectangle(0, 0, 90, 55),
-                ButtonPos = new SharpDX.Vector3(816, 620f, 0f),
+                ButtonPos = new SharpDX.Vector3(816, 650f, 0f),
                 ButtonEventCallBack = CreateRoom
             });
 
@@ -37,10 +37,27 @@ namespace JIGAPClientDXGUI
                 ButtonTexture = ImageManager.GetInst().LoadTexture("Refresh", "./Image/Refresh.png"),
                 ButtonRange = new System.Drawing.Rectangle(0, 0, 48, 48),
                 ButtonPos = new SharpDX.Vector3(876, 67, 0f),
-                ButtonEventCallBack = RefreshRoomList
+                ButtonEventCallBack = NetworkManager.GetInst().RequestRoomList
             });
 
-            RefreshRoomList();
+
+            ObjectManager.GetInst().AddObject(new Button
+            {
+                ButtonTexture = ImageManager.GetInst().LoadTexture("NextPage", "./Image/NextPage.png"),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
+                ButtonPos = new SharpDX.Vector3(884f, 301f, 0f),
+                ButtonEventCallBack = ListView.NextPage
+            });
+
+            ObjectManager.GetInst().AddObject(new Button
+            {
+                ButtonTexture = ImageManager.GetInst().LoadTexture("BackPage", "./Image/BackPage.png"),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
+                ButtonPos = new SharpDX.Vector3(358f, 301f, 0f),
+                ButtonEventCallBack = ListView.BackPage
+            });
+
+            NetworkManager.GetInst().RequestRoomList();
         }
 
         public override void Render()
@@ -48,15 +65,13 @@ namespace JIGAPClientDXGUI
             LobbyBackGround.Draw();
         }
 
-        public void RefreshRoomList()
-        {
-            NetworkManager.GetInst().RequestRoomList();
-        }
-
         public void CreateRoom()
         {
             if (RoomField.TextBoxInputLine.InputText.Length > 0)
+            {
                 NetworkManager.GetInst().RequestCreateRoom(RoomField.TextBoxInputLine.InputText.ToString());
+                RoomField.TextBoxInputLine.InputText.Clear();
+            }
         }
 
         public override void OnCreateRoom(object send, EventArgs e)
@@ -65,6 +80,7 @@ namespace JIGAPClientDXGUI
         }
         public override void OnCreateRoomFailed(object send, EventArgs e)
         {
+            System.Windows.Forms.MessageBox.Show("방 생성에 실패했습니다. 이름이 같은 방이 있는지 확인해 주세요. 방 목록을 갱신합니다.");
         }
         public override void OnRoomList(object sender, EventArgs e)
         {
@@ -76,7 +92,7 @@ namespace JIGAPClientDXGUI
         }
         public override void OnJoinedRoomFailed(object sender, EventArgs e)
         {
-            
+            System.Windows.Forms.MessageBox.Show("방 참가에 실패했습니다. 방 목록을 갱신합니다!");
         }
     }
 }

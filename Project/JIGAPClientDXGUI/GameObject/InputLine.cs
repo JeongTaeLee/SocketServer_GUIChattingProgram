@@ -27,6 +27,11 @@ namespace JIGAPClientDXGUI
             DXManager.GetInst().RegisterWndProc(WndProc);
         }
 
+        public override void Release()
+        {
+            DXManager.GetInst().UnRegisterwndProc(WndProc);
+            base.Release();
+        }
         public override void Render()
         {
             if (InputText.Length == 0)
@@ -74,11 +79,6 @@ namespace JIGAPClientDXGUI
                 OnEnterCallBack();
         }
 
-        public new void Dispose()
-        {
-            DXManager.GetInst().UnRegisterwndProc(WndProc);
-            base.Dispose();
-        }
-      
+
     }
 }

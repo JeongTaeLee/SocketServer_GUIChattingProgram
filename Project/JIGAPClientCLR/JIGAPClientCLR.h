@@ -1,9 +1,12 @@
 ﻿#pragma once
 
 #include "../JIGAPClient/JIGAPClient.h"
-public delegate void PROGRESS_CSHARP(void);
-using namespace System;
 
+
+using namespace System;
+public delegate void PROGRESS_CSHARP(void);
+
+public delegate void PROGRESS_CSHARP_CHATTING(String^ sender, String^ message);
 
 namespace JIGAPClientCLR 
 {
@@ -24,20 +27,21 @@ namespace JIGAPClientCLR
 		bool JIGAPWrapRequsetCreateRoom(String ^ szRoomName);
 		bool JIGAPWrapRequestJoeindRoom(String ^ szRoomName);
 		bool JIGAPWrapRequestExitRoom();
+		bool JIGAPWrapRequestChattingMessage(String ^ szString);
 
 	public:
-		void JIGAPWrapOnLoginCallBack			(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnLoginFailedCallBack		(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnRoomListCallBack		(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnCreateRoomCallBack		(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnCreateRoomFailedCallBack(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnJoinedRoomCallBack		(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnJoinedRoomFaileCallBack	(PROGRESS_CSHARP ^fucn);
-		void JIGAPWrapOnExitRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetLoginCallBack			(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetLoginFailedCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetRoomListCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetCreateRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetCreateRoomFailedCallBack(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetJoinedRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetJoinedRoomFaileCallBack	(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetExitRoomCallBack		(PROGRESS_CSHARP ^fucn);
+		void JIGAPWrapSetChattingCallBack(PROGRESS_CSHARP_CHATTING^ func);
 	
 
 		void JIGAPGetRoomList(cli::array<String^>^% arr);
-		void JIGAPWrapGetRoomList(System::Collections::Generic::List<String^> liStr);
 	public:
 		String^ JIGAPGetMessageLog();
 		bool JIGAPCheckMessage();

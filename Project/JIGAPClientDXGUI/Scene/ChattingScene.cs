@@ -12,7 +12,7 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
-            
+            ObjectManager.GetInst().AddObject<ChattingLauncher>();
         }
 
         public override void Release()

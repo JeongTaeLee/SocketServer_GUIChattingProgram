@@ -34,8 +34,16 @@ namespace JIGAPClientDXGUI
             InputManager.GetInst().LeftMouseUp += MouseUp;
         }
 
+        public override void Release()
+        {
+            InputManager.GetInst().LeftMouseUp -= MouseUp;
+            base.Release();
+        }
+
         public override void Update()
         {
+            OnButtonRange = false;
+
             Point MousePoint = DXManager.GetInst().renderForm.PointToClient(InputManager.GetInst().MousePoint);
             ButtonRange.X = (int)transform.worldPos.X;
             ButtonRange.Y = (int)transform.worldPos.Y;
@@ -64,12 +72,6 @@ namespace JIGAPClientDXGUI
                 if (OnButtonRange)
                     ButtonEventCallBack();
             }
-        }
-
-        public new void Dispose()
-        {
-            InputManager.GetInst().LeftMouseUp -= MouseUp;
-            base.Dispose();
         }
 
     }

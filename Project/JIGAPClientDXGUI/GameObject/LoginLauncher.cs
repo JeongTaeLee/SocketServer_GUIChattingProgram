@@ -37,5 +37,10 @@ namespace JIGAPClientDXGUI
             base.OnLoginSuccess(sender, e);
             SceneManager.GetInst().ChanageScene("LobbyScene");
         }
+        public override void OnLoginFailed(object sender, EventArgs e)
+        {
+            base.OnLoginFailed(sender, e);
+            System.Windows.Forms.MessageBox.Show("로그인에 실패했습니다. 닉네임이 중복됩니다.");
+        }
     }
 }
