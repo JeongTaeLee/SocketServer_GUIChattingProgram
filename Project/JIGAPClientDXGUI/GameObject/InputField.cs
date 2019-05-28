@@ -30,7 +30,6 @@ namespace JIGAPClientDXGUI
         public override void Release()
         {
             TextBoxInputLine.transform.SetParent(null);
-            base.Release();
         }
 
         public override void Render()

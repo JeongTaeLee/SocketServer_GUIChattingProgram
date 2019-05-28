@@ -6,7 +6,7 @@
 using namespace System;
 public delegate void PROGRESS_CSHARP(void);
 
-public delegate void PROGRESS_CSHARP_CHATTING(String^ sender, String^ message);
+public delegate void PROGRESS_CSHARP_CHATTING(byte* sender, byte* message, int senderSize, int messageSize);
 
 namespace JIGAPClientCLR 
 {

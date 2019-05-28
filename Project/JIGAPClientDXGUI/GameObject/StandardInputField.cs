@@ -16,7 +16,7 @@ namespace JIGAPClientDXGUI
             base.Init();
 
             TextBoxTexture = ImageManager.GetInst().LoadTexture("RoomNameTextBox", "./Image/RoomNameTextBox.png");
-            TextBoxInputLine.FontSize = 50;
+            TextBoxInputLine.FontSize = 40;
             TextBoxInputLine.MaxTextLength = 18;
 
             transform.position = new Vector3(358f, 650f, 0f);

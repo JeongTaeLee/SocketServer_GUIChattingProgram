@@ -22,5 +22,6 @@ namespace JIGAPClientDXGUI
             transform.position = new Vector3(((float)DXManager.GetInst().Width / 2f - (float)TextBoxTexture.d3dInfo.Width / 2f),
                 ((float)DXManager.GetInst().Height / 2f - (float)TextBoxTexture.d3dInfo.Height / 2f), 0f);
         }
+
     }
 }

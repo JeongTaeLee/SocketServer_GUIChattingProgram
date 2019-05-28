@@ -87,11 +87,7 @@ namespace JIGAPClientDXGUI
             if (RoomList != null)
             {
                 foreach (RoomButton obj in RoomList)
-                {
                     obj.transform.SetParent(null);
-
-                    obj.Dispose();
-                }
 
                 if (RoomList.Length != 0)
                     Array.Clear(RoomList, 0, RoomList.Length - 1);

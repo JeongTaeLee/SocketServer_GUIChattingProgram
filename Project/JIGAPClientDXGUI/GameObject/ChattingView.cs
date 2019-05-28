@@ -11,11 +11,18 @@ namespace JIGAPClientDXGUI
 {
     class ChattingView : NetworkObject 
     {
-        private Queue<string> ChattingStringQueue = new Queue<string>();
-        private int FontSize = 20;
+        struct ChatBox
+        {
+            public string Str;
+            public bool MyMessage;
+        }
+        
+
+        private Queue<ChatBox> ChattingStringQueue = new Queue<ChatBox>();
+        private int FontSize = 25;
         public override void Init()
         {
-            transform.position = new SharpDX.Vector3(379f, 79f, 0f);
+            transform.position = new SharpDX.Vector3(200, 79f, 0f);
             base.Init();    
         }
 
@@ -28,8 +35,12 @@ namespace JIGAPClientDXGUI
 
             for(int i = 0; i < ChattingStringQueue.Count(); ++i)
             {
-                Vector3 DrawPos = new Vector3(transform.position.X, (transform.position.Y + 390) - (FontSize * i), 0f);
-                font.DrawText(DXManager.GetInst().d3dSprite, ChattingStringQueue.ToList()[i], (int)DrawPos.X, (int)DrawPos.Y, Color.Black);
+                Vector3 DrawPos = new Vector3(DXManager.GetInst().Width / 2f, 0f, 0f);
+                DrawPos.X = 360f;
+                DrawPos.Y = (transform.position.Y + 500) - (FontSize * (ChattingStringQueue.Count - i));
+
+                DXManager.GetInst().d3dSprite.Transform = Matrix.Translation(DrawPos);
+                font.DrawText(DXManager.GetInst().d3dSprite, ChattingStringQueue.ToArray()[i].Str, 0,0, Color.Black);
             }
 
             font.Dispose();
@@ -38,10 +49,15 @@ namespace JIGAPClientDXGUI
         public override void OnRecvChatting(string sender, string message)
         {
             base.OnRecvChatting(sender, message);
-            string str = "[" + sender + "]" + " : " + message;
-            ChattingStringQueue.Enqueue(str);
 
-            if (ChattingStringQueue.Count == 6)
+            ChatBox Chatbox = new ChatBox();
+            Chatbox.Str = "[" + sender + "]" + " : " + message;
+            Chatbox.MyMessage = (sender == NetworkManager.GetInst().MyName);
+            Console.Write(NetworkManager.GetInst().MyName);
+
+            ChattingStringQueue.Enqueue(Chatbox);
+
+            if (ChattingStringQueue.Count == 10)
                 ChattingStringQueue.Dequeue();
                
         }

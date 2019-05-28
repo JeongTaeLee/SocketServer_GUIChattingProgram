@@ -44,30 +44,34 @@ namespace JIGAPClientDXGUI.Engine
 
         public void ClearObjects()
         {
-            for (int i = 0; i < objects.Count; ++i)
-            {
+            for(int i = 0; i < objects.Count; ++i)
                 objects[i].Release();
-                objects[i].Dispose();
-            }
-
-            objects.Clear();
         }
 
         public void Update()
         {
-            for (int i = 0; i < objects.Count(); ++i)
+            for (int i = 0; i < objects.Count;)
             {
-                if (objects[i].Active)
+                if (objects[i].Destroy)
                 {
-                    objects[i].Update();
-                    objects[i].transform.TransformUpdate();
+                    objects[i].Release();
+                    objects.RemoveAt(i);
+                }
+                else
+                {
+                    if(objects[i].Active)
+                    { 
+                        objects[i].Update();
+                        objects[i].transform.TransformUpdate();
+                    }
+                    ++i;
                 }
             }
         }
 
         public void Render()
         {
-            for (int i = 0; i < objects.Count(); ++i)
+            for (int i = 0; i < objects.Count; ++i)
             {
                 if (objects[i].Active)
                 {
@@ -79,12 +83,8 @@ namespace JIGAPClientDXGUI.Engine
 
         public void Dispose()
         {
-            for (int i = 0; i < objects.Count(); ++i)
-            {
+            for (int i = 0; i < objects.Count; ++i)
                 objects[i].Release();
-                objects[i].Dispose();
-
-            }
 
             objects.Clear();
             GC.SuppressFinalize(true);

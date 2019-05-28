@@ -142,7 +142,6 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapSetChattingCallBack(PROGRESS_CSHA
 }
 
 
-
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPGetRoomList(cli::array<String^>^% arr)
 {
 	std::vector<std::string> & liStr = lpJigapClient->JIGAPGetRoomList();

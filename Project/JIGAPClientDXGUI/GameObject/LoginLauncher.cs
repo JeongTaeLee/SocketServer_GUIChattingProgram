@@ -29,7 +29,10 @@ namespace JIGAPClientDXGUI
         public void RequestLogin()
         {
             if (field.TextBoxInputLine.InputText.Length > 0)
+            {
                 NetworkManager.GetInst().RequestLogin(field.TextBoxInputLine.InputText.ToString());
+                NetworkManager.GetInst().MyName = field.TextBoxInputLine.InputText.ToString();
+            }
         }
 
         public override void OnLoginSuccess(object sender, EventArgs e)

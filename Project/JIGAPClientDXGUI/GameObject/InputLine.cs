@@ -29,8 +29,8 @@ namespace JIGAPClientDXGUI
 
         public override void Release()
         {
-            DXManager.GetInst().UnRegisterwndProc(WndProc);
             base.Release();
+            DXManager.GetInst().UnRegisterwndProc(WndProc);
         }
         public override void Render()
         {

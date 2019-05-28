@@ -1,6 +1,6 @@
 #pragma once
 typedef void(__stdcall* PROGRESS)(void);
-typedef void(__stdcall* PROGRESS_CHATTING)(const std::string & sender, const std::string & msg);
+typedef void(__stdcall* PROGRESS_CHATTING)(char* sender,  char* message, int senderSize, int messageSize);
 
 class JIGAPClient
 {
@@ -31,7 +31,7 @@ private:
 	std::function<void()> lpOnJoinedRoomCallBack;
 	std::function<void()> lpOnJoinedRoomFailedCallBack;
 	std::function<void()> lpOnExitRoomCallBack;
-	std::function<void(const std::string& sender, const std::string& messag)> lpOnChattingCallBack;
+	std::function<void(char* sender, char* message, int senderSize, int messageSize)> lpOnChattingCallBack;
 public:
 	JIGAPClient();
 	virtual ~JIGAPClient();

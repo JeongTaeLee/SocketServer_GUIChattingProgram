@@ -354,14 +354,17 @@ void JIGAPClient::JIGAPOnAnswerChatting()
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
 	{
-		char sender[MAXNAMESIZE] = {0};
+		char sender[MAXNAMESIZE] = { 0 };
 		lpSerializeObject->DeserializeRecvBuffer(sender, sizeof(sender));
 
 		char message[MAXSTRSIZE] = { 0 };
 		lpSerializeObject->DeserializeRecvBuffer(message, sizeof(message));
 
+	
 		if (lpOnChattingCallBack)
-			lpOnChattingCallBack(sender, message);
+		{
+			lpOnChattingCallBack(sender, message, strlen(sender), strlen(message));
+		}
 	}
 }
 

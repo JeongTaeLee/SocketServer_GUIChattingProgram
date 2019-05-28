@@ -23,6 +23,7 @@
 #include <crtdbg.h>
 #include <functional>
 #include <handleapi.h>
+#include <atlstr.h>
 
 #pragma comment(lib, "ws2_32.lib")
 

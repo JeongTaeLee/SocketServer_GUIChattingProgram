@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using JIGAPClientCLR;
 
 namespace JIGAPClientDXGUI.Engine
@@ -20,7 +21,6 @@ namespace JIGAPClientDXGUI.Engine
         public event EventHandler OnJoinedRoomFailedEvent;
         public event EventHandler OnExitRoomEvent;
         public event ChattingEventHandler OnChattingEvent;
-
     }
 
     public partial class NetworkManager
@@ -34,6 +34,7 @@ namespace JIGAPClientDXGUI.Engine
             return Instance;
         }
 
+        public string MyName { get; set; } = null;
         private JIGAPClientWrap jigapClientWrap = null;
 
         public NetworkManager()
@@ -47,7 +48,11 @@ namespace JIGAPClientDXGUI.Engine
             jigapClientWrap.JIGAPWrapSetJoinedRoomCallBack(OnJoinedRoomCallBack);
             jigapClientWrap.JIGAPWrapSetJoinedRoomFaileCallBack(OnJoinedRoomFailedCallBack);
             jigapClientWrap.JIGAPWrapSetExitRoomCallBack(OnExitRoomCallBack);
-            jigapClientWrap.JIGAPWrapSetChattingCallBack(OnChattingCallBack);
+
+            unsafe
+            {
+                jigapClientWrap.JIGAPWrapSetChattingCallBack(OnChattingCallBack);
+            }
 
         }
 
@@ -83,16 +88,22 @@ namespace JIGAPClientDXGUI.Engine
         {
             OnExitRoomEvent?.Invoke(this, default);
         }
-        public void OnChattingCallBack(string sender, string message)
+
+        public unsafe void OnChattingCallBack(byte* sender, byte* message, int senderSize, int messageSize)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(sender);
-            string newSedner = Encoding.Unicode.GetString(buffer);
+            byte[] newSender = new byte[senderSize];
+            byte[] newMessage = new byte[messageSize];
 
-            buffer = Encoding.ASCII.GetBytes(message);
-            string newMessage = Encoding.Unicode.GetString(buffer);
+            for (int i = 0; i < senderSize; ++i)
+                newSender[i] = (byte)sender[i];
 
-            OnChattingEvent?.Invoke(newSedner, newMessage);
+            for (int i = 0; i < messageSize; ++i)
+                newMessage[i] = message[i];
+
+            OnChattingEvent?.Invoke(Encoding.ASCII.GetString(newSender), Encoding.ASCII.GetString(newMessage));
+            
         }
+
         public bool StartClient()
         {
             return jigapClientWrap.JIGAPWrapClientStart("127.0.0.1", "9199");
