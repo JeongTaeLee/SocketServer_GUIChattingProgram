@@ -30,6 +30,6 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../../Exe/JIGAPServerStartLib.lib")
+#pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
 
 #endif //PCH_H

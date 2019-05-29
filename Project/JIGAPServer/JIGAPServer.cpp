@@ -384,24 +384,7 @@ void JIGAPServer::OnRequestExtiRoom(LPTCPSOCK& lpClntSock)
 	{
 		lpSerializeObject->SerializeDataSendBuffer(answerExitRoomLiteral);
 
-		Room* lpRoom = lpClntSock->GetRoom();
-		if (lpRoom)
-		{
-			lpRoom->DeleteUser(lpClntSock);	
-			WaitForSingleObject(hRoomsMutex, INFINITE);
-			if (lpRoom->GetUserCount() <= 0)
-			{
-				auto find = mRooms.find(lpRoom->GetRoomName());
-
-				if (find != mRooms.end())
-				{
-					JIGAPPrintSystemLog("%s 방이 삭제되었습니다.", lpRoom->GetRoomName().c_str());
-					mRooms.erase(find);
-				}
-				delete lpRoom;
-			}
-			ReleaseMutex(hRoomsMutex);
-		}
+		RemoveClientToRoom(lpClntSock);
 
 		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
 		lpClntSock->IOCPSend();
@@ -423,11 +406,7 @@ void JIGAPServer::OnRequestChatting(LPTCPSOCK & lpClntSock)
 
 		if (lpClntSock->GetRoom())
 		{
-			for (auto Iter : lpClntSock->GetRoom()->GetUserList())
-			{
-				Iter->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-				Iter->IOCPSend();
-			}
+			lpClntSock->GetRoom()->SendToAllUser(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
 		}
 	}
 }
@@ -489,10 +468,34 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 	if (find == mClientData.end())
 		return;
 
-	Room* lpRoom = find->second->GetRoom();
+
+	LPTCPSOCK lpSock = find->second;
+	
+
+	RemoveClientToRoom(lpSock);
+	
+
+
+	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
+	
+	delete lpSock;
+
+	WaitForSingleObject(hClientDataMutex, INFINITE);
+	mClientData.erase(find);
+	ReleaseMutex(hClientDataMutex);
+
+}
+
+void JIGAPServer::RemoveClientToRoom(LPTCPSOCK& lpSock)
+{
+	if (!lpSock) return;
+
+	Room* lpRoom = lpSock->GetRoom();
+	if (!lpRoom) return;
+
 	if (lpRoom)
 	{
-		lpRoom->DeleteUser(find->second);
+		lpRoom->DeleteUser(lpSock);
 		WaitForSingleObject(hRoomsMutex, INFINITE);
 		if (lpRoom->GetUserCount() <= 0)
 		{
@@ -505,16 +508,7 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 			}
 			delete lpRoom;
 		}
-			
+
 		ReleaseMutex(hRoomsMutex);
 	}
-
-	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
-	
-	delete find->second;
-
-	WaitForSingleObject(hClientDataMutex, INFINITE);
-	mClientData.erase(find);
-	ReleaseMutex(hClientDataMutex);
-
 }

@@ -41,6 +41,8 @@ namespace JIGAPClientDXGUI
                 ButtonPos = new SharpDX.Vector3(368f, 5f, 0f),
                 ButtonEventCallBack = NetworkManager.GetInst().RequestExitRoom
             });
+
+            NetworkManager.GetInst().RequestChatting("Hello! Joined Room");
         }
 
         public override void Render()

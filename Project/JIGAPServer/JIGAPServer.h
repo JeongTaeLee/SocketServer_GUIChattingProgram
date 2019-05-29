@@ -57,6 +57,7 @@ public:
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
 public:
 	void RemoveClient(const SOCKET & hSock);
-
+	void RemoveClientToRoom(LPTCPSOCK & lpSock);
+	
 };
 

@@ -28,3 +28,12 @@ void Room::DeleteUser(TCPSocket* lpSocket)
 	liUserList.remove(lpSocket);
 	lpSocket->SetRoom(nullptr);
 }
+
+void Room::SendToAllUser(const char* lpBuffer, size_t tSize)
+{
+	for (auto Iter : liUserList)
+	{
+		Iter->SetBufferData(lpBuffer, tSize);
+		Iter->IOCPSend();
+	}
+}

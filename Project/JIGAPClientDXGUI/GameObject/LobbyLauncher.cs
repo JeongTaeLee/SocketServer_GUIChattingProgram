@@ -77,10 +77,12 @@ namespace JIGAPClientDXGUI
         public override void OnCreateRoom(object send, EventArgs e)
         {
             SceneManager.GetInst().ChanageScene("ChattingScene");
+            NetworkManager.GetInst().RequestChatting("방에 입장하였습니다");
         }
         public override void OnCreateRoomFailed(object send, EventArgs e)
         {
             System.Windows.Forms.MessageBox.Show("방 생성에 실패했습니다. 이름이 같은 방이 있는지 확인해 주세요. 방 목록을 갱신합니다.");
+            NetworkManager.GetInst().RequestRoomList();
         }
         public override void OnRoomList(object sender, EventArgs e)
         {
@@ -89,10 +91,12 @@ namespace JIGAPClientDXGUI
         public override void OnJoinedRoom(string rommName)
         {
             SceneManager.GetInst().ChanageScene("ChattingScene");
+
         }
         public override void OnJoinedRoomFailed(object sender, EventArgs e)
         {
             System.Windows.Forms.MessageBox.Show("방 참가에 실패했습니다. 방 목록을 갱신합니다!");
+            NetworkManager.GetInst().RequestRoomList();
         }
     }
 }

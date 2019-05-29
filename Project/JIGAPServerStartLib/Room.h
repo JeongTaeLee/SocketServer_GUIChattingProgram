@@ -17,6 +17,7 @@ public:
 
 	void AddUser(TCPSocket* lpSocket);
 	void DeleteUser(TCPSocket* lpSocket);
+	void SendToAllUser(const char* lpBuffer, size_t tSize);
 
 	int GetUserCount() { return liUserList.size(); }
 
