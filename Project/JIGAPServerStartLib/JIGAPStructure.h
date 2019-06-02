@@ -41,3 +41,4 @@ enum JIGAPSTATE
 #include "TCPSocket.h"
 #include "SerializeObject.h"
 #include "Room.h"
+#include "JIGAPPacket.pb.h"

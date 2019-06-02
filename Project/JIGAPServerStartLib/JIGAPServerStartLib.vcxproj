@@ -73,18 +73,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\Exe\</OutDir>
+    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\</OutDir>
+    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\Exe\</OutDir>
+    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\</OutDir>
+    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,7 +164,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPStructure.h" />
+    <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="SerializeObject.h" />
@@ -165,8 +175,10 @@
     <ClInclude Include="TCPSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServerStartLib.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
+    <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,0 +1,42 @@
+syntax = "proto2";
+
+package JIGAPPacket;
+
+enum PacketType
+{
+	LoginType = 0;
+	RoomListType = 1;
+	CreateRoomType = 2;
+	JoinedRoomType = 3;
+	ExitRoomType = 4;
+	ChattingType = 5;
+}
+
+message LoginPacket
+{
+	required string nickName = 1;
+}
+
+message RoomListPacket
+{
+	required int32 roomCount = 1;
+	required string roomListString = 2;
+}
+
+message CreateRoomPacket
+{
+	required string sender = 1;
+	required string roomName = 2;
+}
+
+message JoinedRoomPacket
+{
+	required string sender = 1;
+	required string roomName = 2;
+}
+
+message ChattingPacket
+{
+	required string sender = 1;
+	required string msg = 2;
+}

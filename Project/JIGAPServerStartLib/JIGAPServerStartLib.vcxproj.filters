@@ -26,6 +26,12 @@
     <Filter Include="SerializeObject">
       <UniqueIdentifier>{3c114ae9-9f76-48fa-b31b-a4bbff6c6c85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PacketHandler">
+      <UniqueIdentifier>{c6b557ef-9648-448e-ac2c-eb22021959c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPPacket">
+      <UniqueIdentifier>{07a52522-dd90-4d37-bc00-072423337ac0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -52,6 +58,12 @@
     <ClInclude Include="SerializeObject.h">
       <Filter>SerializeObject</Filter>
     </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>PacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JIGAPServerStartLib.cpp" />
@@ -75,6 +87,12 @@
     </ClCompile>
     <ClCompile Include="SerializeObject.cpp">
       <Filter>SerializeObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>PacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
