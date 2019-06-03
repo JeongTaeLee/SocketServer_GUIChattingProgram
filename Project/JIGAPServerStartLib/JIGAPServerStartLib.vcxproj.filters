@@ -32,6 +32,12 @@
     <Filter Include="JIGAPPacket">
       <UniqueIdentifier>{07a52522-dd90-4d37-bc00-072423337ac0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PacketHandler\ServerPacketHandler">
+      <UniqueIdentifier>{6f053f50-bba7-4480-87a7-ce316a8384e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\ClientPacketHandler">
+      <UniqueIdentifier>{a6371b2c-491b-48c7-a9cc-7b132bb06177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -60,6 +66,12 @@
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>PacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPacketHandler.h">
+      <Filter>PacketHandler\ServerPacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientPacketHandler.h">
+      <Filter>PacketHandler\ClientPacketHandler</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
@@ -90,6 +102,12 @@
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>PacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPacketHandler.cpp">
+      <Filter>PacketHandler\ServerPacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientPacketHandler.cpp">
+      <Filter>PacketHandler\ClientPacketHandler</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>

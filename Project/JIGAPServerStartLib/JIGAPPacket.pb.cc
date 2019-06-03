@@ -17,84 +17,292 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 namespace JIGAPPacket {
-class PacketDefaultTypeInternal {
+class LoginRequestPacketDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Packet> _instance;
-} _Packet_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LoginRequestPacket> _instance;
+} _LoginRequestPacket_default_instance_;
+class LoginAnswerPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LoginAnswerPacket> _instance;
+} _LoginAnswerPacket_default_instance_;
+class CreateRoomPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CreateRoomPacket> _instance;
+} _CreateRoomPacket_default_instance_;
+class JoinedRoomRequestPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<JoinedRoomRequestPacket> _instance;
+} _JoinedRoomRequestPacket_default_instance_;
+class JoinedRoomAnswerPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<JoinedRoomAnswerPacket> _instance;
+} _JoinedRoomAnswerPacket_default_instance_;
+class ChattingPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ChattingPacket> _instance;
+} _ChattingPacket_default_instance_;
+class RoomListAnswerPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RoomListAnswerPacket> _instance;
+} _RoomListAnswerPacket_default_instance_;
+class RoomElementPacketDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RoomElementPacket> _instance;
+} _RoomElementPacket_default_instance_;
 }  // namespace JIGAPPacket
-static void InitDefaultsscc_info_Packet_JIGAPPacket_2eproto() {
+static void InitDefaultsscc_info_ChattingPacket_JIGAPPacket_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::JIGAPPacket::_Packet_default_instance_;
-    new (ptr) ::JIGAPPacket::Packet();
+    void* ptr = &::JIGAPPacket::_ChattingPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::ChattingPacket();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::JIGAPPacket::Packet::InitAsDefaultInstance();
+  ::JIGAPPacket::ChattingPacket::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Packet_JIGAPPacket_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_Packet_JIGAPPacket_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ChattingPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_ChattingPacket_JIGAPPacket_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_JIGAPPacket_2eproto[1];
+static void InitDefaultsscc_info_CreateRoomPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_CreateRoomPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::CreateRoomPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::CreateRoomPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CreateRoomPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_CreateRoomPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_JoinedRoomAnswerPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::JoinedRoomAnswerPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::JoinedRoomAnswerPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_JoinedRoomRequestPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::JoinedRoomRequestPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::JoinedRoomRequestPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_LoginAnswerPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_LoginAnswerPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::LoginAnswerPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::LoginAnswerPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LoginAnswerPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_LoginAnswerPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_LoginRequestPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_LoginRequestPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::LoginRequestPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::LoginRequestPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LoginRequestPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_LoginRequestPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_RoomElementPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_RoomElementPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::RoomElementPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::RoomElementPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RoomElementPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_RoomElementPacket_JIGAPPacket_2eproto}, {}};
+
+static void InitDefaultsscc_info_RoomListAnswerPacket_JIGAPPacket_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::JIGAPPacket::_RoomListAnswerPacket_default_instance_;
+    new (ptr) ::JIGAPPacket::RoomListAnswerPacket();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::JIGAPPacket::RoomListAnswerPacket::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RoomListAnswerPacket_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_RoomListAnswerPacket_JIGAPPacket_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_JIGAPPacket_2eproto[8];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_JIGAPPacket_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_JIGAPPacket_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_JIGAPPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::Packet, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::Packet, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginRequestPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::Packet, packettype_),
-  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::Packet, sender_),
-  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::Packet, msg_),
-  2,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginRequestPacket, nickname_),
+  0,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswerPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswerPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswerPacket, loginsuccess_),
+  0,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::CreateRoomPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::CreateRoomPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::CreateRoomPacket, sender_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::CreateRoomPacket, roomname_),
   0,
   1,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomRequestPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomRequestPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomRequestPacket, sender_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomRequestPacket, roomname_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomAnswerPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomAnswerPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomAnswerPacket, joinedroomsuccess_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::JoinedRoomAnswerPacket, roomname_),
+  1,
+  0,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChattingPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChattingPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChattingPacket, sender_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChattingPacket, msg_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomListAnswerPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomListAnswerPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomListAnswerPacket, roomcount_),
+  0,
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomElementPacket, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomElementPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomElementPacket, roomname_),
+  0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, sizeof(::JIGAPPacket::Packet)},
+  { 0, 6, sizeof(::JIGAPPacket::LoginRequestPacket)},
+  { 7, 13, sizeof(::JIGAPPacket::LoginAnswerPacket)},
+  { 14, 21, sizeof(::JIGAPPacket::CreateRoomPacket)},
+  { 23, 30, sizeof(::JIGAPPacket::JoinedRoomRequestPacket)},
+  { 32, 39, sizeof(::JIGAPPacket::JoinedRoomAnswerPacket)},
+  { 41, 48, sizeof(::JIGAPPacket::ChattingPacket)},
+  { 50, 56, sizeof(::JIGAPPacket::RoomListAnswerPacket)},
+  { 57, 63, sizeof(::JIGAPPacket::RoomElementPacket)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_Packet_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_LoginRequestPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_LoginAnswerPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_CreateRoomPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_JoinedRoomRequestPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_JoinedRoomAnswerPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_ChattingPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_RoomListAnswerPacket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_RoomElementPacket_default_instance_),
 };
 
 const char descriptor_table_protodef_JIGAPPacket_2eproto[] =
-  "\n\021JIGAPPacket.proto\022\013JIGAPPacket\"\340\002\n\006Pac"
-  "ket\0222\n\npacketType\030\001 \002(\0162\036.JIGAPPacket.Pa"
-  "cket.PacketType\022\016\n\006sender\030\002 \002(\t\022\013\n\003msg\030\003"
-  " \002(\t\"\204\002\n\nPacketType\022\020\n\014RequestLogin\020\000\022\017\n"
-  "\013AnswerLogin\020\001\022\023\n\017RequestRoomList\020\002\022\022\n\016A"
-  "nswerRoomList\020\003\022\025\n\021RequestCreateRoom\020\004\022\024"
-  "\n\020AnswerCreateRoom\020\005\022\025\n\021RequestJoinedRoo"
-  "m\020\006\022\024\n\020AnswerJoinedRoom\020\007\022\023\n\017RequestExit"
-  "Room\020\010\022\022\n\016AnswerExitRoom\020\t\022\023\n\017RequestCha"
-  "tting\020\n\022\022\n\016AnswerChatting\020\013"
+  "\n\021JIGAPPacket.proto\022\013JIGAPPacket\"&\n\022Logi"
+  "nRequestPacket\022\020\n\010nickName\030\001 \002(\t\")\n\021Logi"
+  "nAnswerPacket\022\024\n\014loginSuccess\030\001 \002(\010\"4\n\020C"
+  "reateRoomPacket\022\016\n\006sender\030\001 \002(\t\022\020\n\010roomN"
+  "ame\030\002 \002(\t\";\n\027JoinedRoomRequestPacket\022\016\n\006"
+  "sender\030\001 \002(\t\022\020\n\010roomName\030\002 \002(\t\"E\n\026Joined"
+  "RoomAnswerPacket\022\031\n\021joinedRoomSuccess\030\001 "
+  "\002(\010\022\020\n\010roomName\030\002 \002(\t\"-\n\016ChattingPacket\022"
+  "\016\n\006sender\030\001 \002(\t\022\013\n\003msg\030\002 \002(\t\")\n\024RoomList"
+  "AnswerPacket\022\021\n\troomCount\030\001 \002(\005\"%\n\021RoomE"
+  "lementPacket\022\020\n\010roomName\030\001 \002(\t*\211\002\n\nPacke"
+  "tType\022\024\n\020LoginRequestType\020\000\022\023\n\017LoginAnsw"
+  "erType\020\001\022\031\n\025JoinedRoomRequestType\020\002\022\030\n\024J"
+  "oinedRoomAnswerType\020\003\022\022\n\016CreateRoomType\020"
+  "\004\022\027\n\023RoomListRequestType\020\005\022\026\n\022RoomListAn"
+  "swerType\020\006\022\023\n\017RoomElementType\020\007\022\027\n\023ExitR"
+  "oomRequestType\020\010\022\026\n\022ExitRoomAnswerType\020\t"
+  "\022\020\n\014ChattingType\020\n"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_JIGAPPacket_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_JIGAPPacket_2eproto_sccs[1] = {
-  &scc_info_Packet_JIGAPPacket_2eproto.base,
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_JIGAPPacket_2eproto_sccs[8] = {
+  &scc_info_ChattingPacket_JIGAPPacket_2eproto.base,
+  &scc_info_CreateRoomPacket_JIGAPPacket_2eproto.base,
+  &scc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto.base,
+  &scc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto.base,
+  &scc_info_LoginAnswerPacket_JIGAPPacket_2eproto.base,
+  &scc_info_LoginRequestPacket_JIGAPPacket_2eproto.base,
+  &scc_info_RoomElementPacket_JIGAPPacket_2eproto.base,
+  &scc_info_RoomListAnswerPacket_JIGAPPacket_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_JIGAPPacket_2eproto_once;
 static bool descriptor_table_JIGAPPacket_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto = {
-  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 387,
-  &descriptor_table_JIGAPPacket_2eproto_once, descriptor_table_JIGAPPacket_2eproto_sccs, descriptor_table_JIGAPPacket_2eproto_deps, 1, 0,
+  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 698,
+  &descriptor_table_JIGAPPacket_2eproto_once, descriptor_table_JIGAPPacket_2eproto_sccs, descriptor_table_JIGAPPacket_2eproto_deps, 8, 0,
   schemas, file_default_instances, TableStruct_JIGAPPacket_2eproto::offsets,
-  file_level_metadata_JIGAPPacket_2eproto, 1, file_level_enum_descriptors_JIGAPPacket_2eproto, file_level_service_descriptors_JIGAPPacket_2eproto,
+  file_level_metadata_JIGAPPacket_2eproto, 8, file_level_enum_descriptors_JIGAPPacket_2eproto, file_level_service_descriptors_JIGAPPacket_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_JIGAPPacket_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_JIGAPPacket_2eproto), true);
 namespace JIGAPPacket {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Packet_PacketType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PacketType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_JIGAPPacket_2eproto);
   return file_level_enum_descriptors_JIGAPPacket_2eproto[0];
 }
-bool Packet_PacketType_IsValid(int value) {
+bool PacketType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -107,125 +315,85 @@ bool Packet_PacketType_IsValid(int value) {
     case 8:
     case 9:
     case 10:
-    case 11:
       return true;
     default:
       return false;
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-constexpr Packet_PacketType Packet::RequestLogin;
-constexpr Packet_PacketType Packet::AnswerLogin;
-constexpr Packet_PacketType Packet::RequestRoomList;
-constexpr Packet_PacketType Packet::AnswerRoomList;
-constexpr Packet_PacketType Packet::RequestCreateRoom;
-constexpr Packet_PacketType Packet::AnswerCreateRoom;
-constexpr Packet_PacketType Packet::RequestJoinedRoom;
-constexpr Packet_PacketType Packet::AnswerJoinedRoom;
-constexpr Packet_PacketType Packet::RequestExitRoom;
-constexpr Packet_PacketType Packet::AnswerExitRoom;
-constexpr Packet_PacketType Packet::RequestChatting;
-constexpr Packet_PacketType Packet::AnswerChatting;
-constexpr Packet_PacketType Packet::PacketType_MIN;
-constexpr Packet_PacketType Packet::PacketType_MAX;
-constexpr int Packet::PacketType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
 // ===================================================================
 
-void Packet::InitAsDefaultInstance() {
+void LoginRequestPacket::InitAsDefaultInstance() {
 }
-class Packet::HasBitSetters {
+class LoginRequestPacket::HasBitSetters {
  public:
-  using HasBits = decltype(std::declval<Packet>()._has_bits_);
-  static void set_has_packettype(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_sender(HasBits* has_bits) {
+  using HasBits = decltype(std::declval<LoginRequestPacket>()._has_bits_);
+  static void set_has_nickname(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
-  }
-  static void set_has_msg(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
   }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Packet::kPacketTypeFieldNumber;
-const int Packet::kSenderFieldNumber;
-const int Packet::kMsgFieldNumber;
+const int LoginRequestPacket::kNickNameFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-Packet::Packet()
+LoginRequestPacket::LoginRequestPacket()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(constructor:JIGAPPacket.LoginRequestPacket)
 }
-Packet::Packet(const Packet& from)
+LoginRequestPacket::LoginRequestPacket(const LoginRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.has_sender()) {
-    sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+  nickname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_nickname()) {
+    nickname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.nickname_);
   }
-  msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.has_msg()) {
-    msg_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.msg_);
-  }
-  packettype_ = from.packettype_;
-  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.LoginRequestPacket)
 }
 
-void Packet::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Packet_JIGAPPacket_2eproto.base);
-  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  packettype_ = 0;
+void LoginRequestPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_LoginRequestPacket_JIGAPPacket_2eproto.base);
+  nickname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-Packet::~Packet() {
-  // @@protoc_insertion_point(destructor:JIGAPPacket.Packet)
+LoginRequestPacket::~LoginRequestPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.LoginRequestPacket)
   SharedDtor();
 }
 
-void Packet::SharedDtor() {
-  sender_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  msg_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void LoginRequestPacket::SharedDtor() {
+  nickname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void Packet::SetCachedSize(int size) const {
+void LoginRequestPacket::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Packet& Packet::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Packet_JIGAPPacket_2eproto.base);
+const LoginRequestPacket& LoginRequestPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LoginRequestPacket_JIGAPPacket_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void Packet::Clear() {
-// @@protoc_insertion_point(message_clear_start:JIGAPPacket.Packet)
+void LoginRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.LoginRequestPacket)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      sender_.ClearNonDefaultToEmptyNoArena();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      msg_.ClearNonDefaultToEmptyNoArena();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    nickname_.ClearNonDefaultToEmptyNoArena();
   }
-  packettype_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* Packet::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LoginRequestPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   HasBitSetters::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -233,29 +401,10 @@ const char* Packet::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // required .JIGAPPacket.Packet.PacketType packetType = 1;
+      // required string nickName = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::JIGAPPacket::Packet_PacketType_IsValid(val))) {
-            set_packettype(static_cast<::JIGAPPacket::Packet_PacketType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // required string sender = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_sender(), ptr, ctx, "JIGAPPacket.Packet.sender");
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // required string msg = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_msg(), ptr, ctx, "JIGAPPacket.Packet.msg");
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_nickname(), ptr, ctx, "JIGAPPacket.LoginRequestPacket.nickName");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -280,59 +429,25 @@ failure:
 #undef CHK_
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool Packet::MergePartialFromCodedStream(
+bool LoginRequestPacket::MergePartialFromCodedStream(
     ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-  // @@protoc_insertion_point(parse_start:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.LoginRequestPacket)
   for (;;) {
     ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .JIGAPPacket.Packet.PacketType packetType = 1;
+      // required string nickName = 1;
       case 1: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
-          int value = 0;
-          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
-                   int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::JIGAPPacket::Packet_PacketType_IsValid(value)) {
-            set_packettype(static_cast< ::JIGAPPacket::Packet_PacketType >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(
-                1, static_cast<::PROTOBUF_NAMESPACE_ID::uint64>(value));
-          }
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required string sender = 2;
-      case 2: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_sender()));
+                input, this->mutable_nickname()));
           ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->sender().data(), static_cast<int>(this->sender().length()),
+            this->nickname().data(), static_cast<int>(this->nickname().length()),
             ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
-            "JIGAPPacket.Packet.sender");
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required string msg = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_msg()));
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->msg().data(), static_cast<int>(this->msg().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
-            "JIGAPPacket.Packet.msg");
+            "JIGAPPacket.LoginRequestPacket.nickName");
         } else {
           goto handle_unusual;
         }
@@ -351,126 +466,67 @@ bool Packet::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.LoginRequestPacket)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.LoginRequestPacket)
   return false;
 #undef DO_
 }
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
-void Packet::SerializeWithCachedSizes(
+void LoginRequestPacket::SerializeWithCachedSizes(
     ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.LoginRequestPacket)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .JIGAPPacket.Packet.PacketType packetType = 1;
-  if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnum(
-      1, this->packettype(), output);
-  }
-
-  // required string sender = 2;
+  // required string nickName = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->sender().data(), static_cast<int>(this->sender().length()),
+      this->nickname().data(), static_cast<int>(this->nickname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "JIGAPPacket.Packet.sender");
+      "JIGAPPacket.LoginRequestPacket.nickName");
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->sender(), output);
-  }
-
-  // required string msg = 3;
-  if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->msg().data(), static_cast<int>(this->msg().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "JIGAPPacket.Packet.msg");
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->msg(), output);
+      1, this->nickname(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.LoginRequestPacket)
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Packet::InternalSerializeWithCachedSizesToArray(
+::PROTOBUF_NAMESPACE_ID::uint8* LoginRequestPacket::InternalSerializeWithCachedSizesToArray(
     ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.LoginRequestPacket)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .JIGAPPacket.Packet.PacketType packetType = 1;
-  if (cached_has_bits & 0x00000004u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->packettype(), target);
-  }
-
-  // required string sender = 2;
+  // required string nickName = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->sender().data(), static_cast<int>(this->sender().length()),
+      this->nickname().data(), static_cast<int>(this->nickname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "JIGAPPacket.Packet.sender");
+      "JIGAPPacket.LoginRequestPacket.nickName");
     target =
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        2, this->sender(), target);
-  }
-
-  // required string msg = 3;
-  if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->msg().data(), static_cast<int>(this->msg().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "JIGAPPacket.Packet.msg");
-    target =
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        3, this->msg(), target);
+        1, this->nickname(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.LoginRequestPacket)
   return target;
 }
 
-size_t Packet::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:JIGAPPacket.Packet)
-  size_t total_size = 0;
-
-  if (has_sender()) {
-    // required string sender = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->sender());
-  }
-
-  if (has_msg()) {
-    // required string msg = 3;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->msg());
-  }
-
-  if (has_packettype()) {
-    // required .JIGAPPacket.Packet.PacketType packetType = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->packettype());
-  }
-
-  return total_size;
-}
-size_t Packet::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.Packet)
+size_t LoginRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.LoginRequestPacket)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -478,20 +534,652 @@ size_t Packet::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
-    // required string sender = 2;
+  // required string nickName = 1;
+  if (has_nickname()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->nickname());
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LoginRequestPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.LoginRequestPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LoginRequestPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LoginRequestPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.LoginRequestPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.LoginRequestPacket)
+    MergeFrom(*source);
+  }
+}
+
+void LoginRequestPacket::MergeFrom(const LoginRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.LoginRequestPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_nickname()) {
+    _has_bits_[0] |= 0x00000001u;
+    nickname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.nickname_);
+  }
+}
+
+void LoginRequestPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.LoginRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void LoginRequestPacket::CopyFrom(const LoginRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.LoginRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LoginRequestPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  return true;
+}
+
+void LoginRequestPacket::Swap(LoginRequestPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void LoginRequestPacket::InternalSwap(LoginRequestPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  nickname_.Swap(&other->nickname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LoginRequestPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void LoginAnswerPacket::InitAsDefaultInstance() {
+}
+class LoginAnswerPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<LoginAnswerPacket>()._has_bits_);
+  static void set_has_loginsuccess(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int LoginAnswerPacket::kLoginSuccessFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+LoginAnswerPacket::LoginAnswerPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.LoginAnswerPacket)
+}
+LoginAnswerPacket::LoginAnswerPacket(const LoginAnswerPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  loginsuccess_ = from.loginsuccess_;
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.LoginAnswerPacket)
+}
+
+void LoginAnswerPacket::SharedCtor() {
+  loginsuccess_ = false;
+}
+
+LoginAnswerPacket::~LoginAnswerPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.LoginAnswerPacket)
+  SharedDtor();
+}
+
+void LoginAnswerPacket::SharedDtor() {
+}
+
+void LoginAnswerPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const LoginAnswerPacket& LoginAnswerPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LoginAnswerPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void LoginAnswerPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.LoginAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  loginsuccess_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* LoginAnswerPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required bool loginSuccess = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          HasBitSetters::set_has_loginsuccess(&has_bits);
+          loginsuccess_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool LoginAnswerPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.LoginAnswerPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required bool loginSuccess = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
+          HasBitSetters::set_has_loginsuccess(&_has_bits_);
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &loginsuccess_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.LoginAnswerPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.LoginAnswerPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void LoginAnswerPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.LoginAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required bool loginSuccess = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(1, this->loginsuccess(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.LoginAnswerPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* LoginAnswerPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.LoginAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required bool loginSuccess = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->loginsuccess(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.LoginAnswerPacket)
+  return target;
+}
+
+size_t LoginAnswerPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.LoginAnswerPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  // required bool loginSuccess = 1;
+  if (has_loginsuccess()) {
+    total_size += 1 + 1;
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LoginAnswerPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.LoginAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LoginAnswerPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LoginAnswerPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.LoginAnswerPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.LoginAnswerPacket)
+    MergeFrom(*source);
+  }
+}
+
+void LoginAnswerPacket::MergeFrom(const LoginAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.LoginAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_loginsuccess()) {
+    set_loginsuccess(from.loginsuccess());
+  }
+}
+
+void LoginAnswerPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.LoginAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void LoginAnswerPacket::CopyFrom(const LoginAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.LoginAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LoginAnswerPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  return true;
+}
+
+void LoginAnswerPacket::Swap(LoginAnswerPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void LoginAnswerPacket::InternalSwap(LoginAnswerPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(loginsuccess_, other->loginsuccess_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LoginAnswerPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void CreateRoomPacket::InitAsDefaultInstance() {
+}
+class CreateRoomPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<CreateRoomPacket>()._has_bits_);
+  static void set_has_sender(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_roomname(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CreateRoomPacket::kSenderFieldNumber;
+const int CreateRoomPacket::kRoomNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CreateRoomPacket::CreateRoomPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.CreateRoomPacket)
+}
+CreateRoomPacket::CreateRoomPacket(const CreateRoomPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_sender()) {
+    sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+  }
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_roomname()) {
+    roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.CreateRoomPacket)
+}
+
+void CreateRoomPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CreateRoomPacket_JIGAPPacket_2eproto.base);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+CreateRoomPacket::~CreateRoomPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.CreateRoomPacket)
+  SharedDtor();
+}
+
+void CreateRoomPacket::SharedDtor() {
+  sender_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  roomname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void CreateRoomPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const CreateRoomPacket& CreateRoomPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CreateRoomPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void CreateRoomPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.CreateRoomPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      sender_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      roomname_.ClearNonDefaultToEmptyNoArena();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CreateRoomPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required string sender = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_sender(), ptr, ctx, "JIGAPPacket.CreateRoomPacket.sender");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // required string roomName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_roomname(), ptr, ctx, "JIGAPPacket.CreateRoomPacket.roomName");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool CreateRoomPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.CreateRoomPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string sender = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_sender()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->sender().data(), static_cast<int>(this->sender().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.CreateRoomPacket.sender");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string roomName = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.CreateRoomPacket.roomName");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.CreateRoomPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.CreateRoomPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void CreateRoomPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.CreateRoomPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.CreateRoomPacket.sender");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->sender(), output);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.CreateRoomPacket.roomName");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->roomname(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.CreateRoomPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* CreateRoomPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.CreateRoomPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.CreateRoomPacket.sender");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        1, this->sender(), target);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.CreateRoomPacket.roomName");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->roomname(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.CreateRoomPacket)
+  return target;
+}
+
+size_t CreateRoomPacket::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:JIGAPPacket.CreateRoomPacket)
+  size_t total_size = 0;
+
+  if (has_sender()) {
+    // required string sender = 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->sender());
+  }
+
+  if (has_roomname()) {
+    // required string roomName = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+
+  return total_size;
+}
+size_t CreateRoomPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.CreateRoomPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required string sender = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->sender());
 
-    // required string msg = 3;
+    // required string roomName = 2;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->msg());
-
-    // required .JIGAPPacket.Packet.PacketType packetType = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->packettype());
+        this->roomname());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -505,30 +1193,1163 @@ size_t Packet::ByteSizeLong() const {
   return total_size;
 }
 
-void Packet::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.Packet)
+void CreateRoomPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.CreateRoomPacket)
   GOOGLE_DCHECK_NE(&from, this);
-  const Packet* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Packet>(
+  const CreateRoomPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CreateRoomPacket>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.CreateRoomPacket)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.Packet)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.CreateRoomPacket)
     MergeFrom(*source);
   }
 }
 
-void Packet::MergeFrom(const Packet& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.Packet)
+void CreateRoomPacket::MergeFrom(const CreateRoomPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.CreateRoomPacket)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _has_bits_[0] |= 0x00000001u;
+      sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _has_bits_[0] |= 0x00000002u;
+      roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+    }
+  }
+}
+
+void CreateRoomPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.CreateRoomPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CreateRoomPacket::CopyFrom(const CreateRoomPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.CreateRoomPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreateRoomPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  return true;
+}
+
+void CreateRoomPacket::Swap(CreateRoomPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CreateRoomPacket::InternalSwap(CreateRoomPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  sender_.Swap(&other->sender_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  roomname_.Swap(&other->roomname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CreateRoomPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void JoinedRoomRequestPacket::InitAsDefaultInstance() {
+}
+class JoinedRoomRequestPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<JoinedRoomRequestPacket>()._has_bits_);
+  static void set_has_sender(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_roomname(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int JoinedRoomRequestPacket::kSenderFieldNumber;
+const int JoinedRoomRequestPacket::kRoomNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+JoinedRoomRequestPacket::JoinedRoomRequestPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.JoinedRoomRequestPacket)
+}
+JoinedRoomRequestPacket::JoinedRoomRequestPacket(const JoinedRoomRequestPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_sender()) {
+    sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+  }
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_roomname()) {
+    roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.JoinedRoomRequestPacket)
+}
+
+void JoinedRoomRequestPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto.base);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+JoinedRoomRequestPacket::~JoinedRoomRequestPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.JoinedRoomRequestPacket)
+  SharedDtor();
+}
+
+void JoinedRoomRequestPacket::SharedDtor() {
+  sender_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  roomname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void JoinedRoomRequestPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const JoinedRoomRequestPacket& JoinedRoomRequestPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_JoinedRoomRequestPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void JoinedRoomRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.JoinedRoomRequestPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      sender_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      roomname_.ClearNonDefaultToEmptyNoArena();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* JoinedRoomRequestPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required string sender = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_sender(), ptr, ctx, "JIGAPPacket.JoinedRoomRequestPacket.sender");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // required string roomName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_roomname(), ptr, ctx, "JIGAPPacket.JoinedRoomRequestPacket.roomName");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool JoinedRoomRequestPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.JoinedRoomRequestPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string sender = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_sender()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->sender().data(), static_cast<int>(this->sender().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.JoinedRoomRequestPacket.sender");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string roomName = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.JoinedRoomRequestPacket.roomName");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.JoinedRoomRequestPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.JoinedRoomRequestPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void JoinedRoomRequestPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.JoinedRoomRequestPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomRequestPacket.sender");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->sender(), output);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomRequestPacket.roomName");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->roomname(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.JoinedRoomRequestPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* JoinedRoomRequestPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.JoinedRoomRequestPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomRequestPacket.sender");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        1, this->sender(), target);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomRequestPacket.roomName");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->roomname(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.JoinedRoomRequestPacket)
+  return target;
+}
+
+size_t JoinedRoomRequestPacket::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:JIGAPPacket.JoinedRoomRequestPacket)
+  size_t total_size = 0;
+
+  if (has_sender()) {
+    // required string sender = 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->sender());
+  }
+
+  if (has_roomname()) {
+    // required string roomName = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+
+  return total_size;
+}
+size_t JoinedRoomRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.JoinedRoomRequestPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required string sender = 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->sender());
+
+    // required string roomName = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void JoinedRoomRequestPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.JoinedRoomRequestPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const JoinedRoomRequestPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<JoinedRoomRequestPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.JoinedRoomRequestPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.JoinedRoomRequestPacket)
+    MergeFrom(*source);
+  }
+}
+
+void JoinedRoomRequestPacket::MergeFrom(const JoinedRoomRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.JoinedRoomRequestPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _has_bits_[0] |= 0x00000001u;
+      sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _has_bits_[0] |= 0x00000002u;
+      roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+    }
+  }
+}
+
+void JoinedRoomRequestPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.JoinedRoomRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void JoinedRoomRequestPacket::CopyFrom(const JoinedRoomRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.JoinedRoomRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool JoinedRoomRequestPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  return true;
+}
+
+void JoinedRoomRequestPacket::Swap(JoinedRoomRequestPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void JoinedRoomRequestPacket::InternalSwap(JoinedRoomRequestPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  sender_.Swap(&other->sender_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  roomname_.Swap(&other->roomname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata JoinedRoomRequestPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void JoinedRoomAnswerPacket::InitAsDefaultInstance() {
+}
+class JoinedRoomAnswerPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<JoinedRoomAnswerPacket>()._has_bits_);
+  static void set_has_joinedroomsuccess(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_roomname(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int JoinedRoomAnswerPacket::kJoinedRoomSuccessFieldNumber;
+const int JoinedRoomAnswerPacket::kRoomNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+JoinedRoomAnswerPacket::JoinedRoomAnswerPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.JoinedRoomAnswerPacket)
+}
+JoinedRoomAnswerPacket::JoinedRoomAnswerPacket(const JoinedRoomAnswerPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_roomname()) {
+    roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  joinedroomsuccess_ = from.joinedroomsuccess_;
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.JoinedRoomAnswerPacket)
+}
+
+void JoinedRoomAnswerPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto.base);
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  joinedroomsuccess_ = false;
+}
+
+JoinedRoomAnswerPacket::~JoinedRoomAnswerPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.JoinedRoomAnswerPacket)
+  SharedDtor();
+}
+
+void JoinedRoomAnswerPacket::SharedDtor() {
+  roomname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void JoinedRoomAnswerPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const JoinedRoomAnswerPacket& JoinedRoomAnswerPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_JoinedRoomAnswerPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void JoinedRoomAnswerPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    roomname_.ClearNonDefaultToEmptyNoArena();
+  }
+  joinedroomsuccess_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* JoinedRoomAnswerPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required bool joinedRoomSuccess = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          HasBitSetters::set_has_joinedroomsuccess(&has_bits);
+          joinedroomsuccess_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // required string roomName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_roomname(), ptr, ctx, "JIGAPPacket.JoinedRoomAnswerPacket.roomName");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool JoinedRoomAnswerPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required bool joinedRoomSuccess = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
+          HasBitSetters::set_has_joinedroomsuccess(&_has_bits_);
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &joinedroomsuccess_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string roomName = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.JoinedRoomAnswerPacket.roomName");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.JoinedRoomAnswerPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.JoinedRoomAnswerPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void JoinedRoomAnswerPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required bool joinedRoomSuccess = 1;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(1, this->joinedroomsuccess(), output);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomAnswerPacket.roomName");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->roomname(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.JoinedRoomAnswerPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* JoinedRoomAnswerPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required bool joinedRoomSuccess = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->joinedroomsuccess(), target);
+  }
+
+  // required string roomName = 2;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.JoinedRoomAnswerPacket.roomName");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->roomname(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.JoinedRoomAnswerPacket)
+  return target;
+}
+
+size_t JoinedRoomAnswerPacket::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  size_t total_size = 0;
+
+  if (has_roomname()) {
+    // required string roomName = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+
+  if (has_joinedroomsuccess()) {
+    // required bool joinedRoomSuccess = 1;
+    total_size += 1 + 1;
+  }
+
+  return total_size;
+}
+size_t JoinedRoomAnswerPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required string roomName = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+
+    // required bool joinedRoomSuccess = 1;
+    total_size += 1 + 1;
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void JoinedRoomAnswerPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const JoinedRoomAnswerPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<JoinedRoomAnswerPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.JoinedRoomAnswerPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.JoinedRoomAnswerPacket)
+    MergeFrom(*source);
+  }
+}
+
+void JoinedRoomAnswerPacket::MergeFrom(const JoinedRoomAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _has_bits_[0] |= 0x00000001u;
+      roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      joinedroomsuccess_ = from.joinedroomsuccess_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+}
+
+void JoinedRoomAnswerPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void JoinedRoomAnswerPacket::CopyFrom(const JoinedRoomAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.JoinedRoomAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool JoinedRoomAnswerPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  return true;
+}
+
+void JoinedRoomAnswerPacket::Swap(JoinedRoomAnswerPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void JoinedRoomAnswerPacket::InternalSwap(JoinedRoomAnswerPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  roomname_.Swap(&other->roomname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(joinedroomsuccess_, other->joinedroomsuccess_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata JoinedRoomAnswerPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void ChattingPacket::InitAsDefaultInstance() {
+}
+class ChattingPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<ChattingPacket>()._has_bits_);
+  static void set_has_sender(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_msg(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ChattingPacket::kSenderFieldNumber;
+const int ChattingPacket::kMsgFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ChattingPacket::ChattingPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.ChattingPacket)
+}
+ChattingPacket::ChattingPacket(const ChattingPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_sender()) {
+    sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
+  }
+  msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_msg()) {
+    msg_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.msg_);
+  }
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.ChattingPacket)
+}
+
+void ChattingPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ChattingPacket_JIGAPPacket_2eproto.base);
+  sender_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ChattingPacket::~ChattingPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.ChattingPacket)
+  SharedDtor();
+}
+
+void ChattingPacket::SharedDtor() {
+  sender_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  msg_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ChattingPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ChattingPacket& ChattingPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ChattingPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ChattingPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.ChattingPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      sender_.ClearNonDefaultToEmptyNoArena();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      msg_.ClearNonDefaultToEmptyNoArena();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* ChattingPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required string sender = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_sender(), ptr, ctx, "JIGAPPacket.ChattingPacket.sender");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // required string msg = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_msg(), ptr, ctx, "JIGAPPacket.ChattingPacket.msg");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool ChattingPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.ChattingPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string sender = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_sender()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->sender().data(), static_cast<int>(this->sender().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.ChattingPacket.sender");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string msg = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_msg()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->msg().data(), static_cast<int>(this->msg().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.ChattingPacket.msg");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.ChattingPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.ChattingPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void ChattingPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.ChattingPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.ChattingPacket.sender");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->sender(), output);
+  }
+
+  // required string msg = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.ChattingPacket.msg");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->msg(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.ChattingPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ChattingPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.ChattingPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string sender = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->sender().data(), static_cast<int>(this->sender().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.ChattingPacket.sender");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        1, this->sender(), target);
+  }
+
+  // required string msg = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.ChattingPacket.msg");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->msg(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.ChattingPacket)
+  return target;
+}
+
+size_t ChattingPacket::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:JIGAPPacket.ChattingPacket)
+  size_t total_size = 0;
+
+  if (has_sender()) {
+    // required string sender = 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->sender());
+  }
+
+  if (has_msg()) {
+    // required string msg = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->msg());
+  }
+
+  return total_size;
+}
+size_t ChattingPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.ChattingPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required string sender = 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->sender());
+
+    // required string msg = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->msg());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ChattingPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.ChattingPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ChattingPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ChattingPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.ChattingPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.ChattingPacket)
+    MergeFrom(*source);
+  }
+}
+
+void ChattingPacket::MergeFrom(const ChattingPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.ChattingPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       sender_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sender_);
@@ -537,37 +2358,33 @@ void Packet::MergeFrom(const Packet& from) {
       _has_bits_[0] |= 0x00000002u;
       msg_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.msg_);
     }
-    if (cached_has_bits & 0x00000004u) {
-      packettype_ = from.packettype_;
-    }
-    _has_bits_[0] |= cached_has_bits;
   }
 }
 
-void Packet::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.Packet)
+void ChattingPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.ChattingPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Packet::CopyFrom(const Packet& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.Packet)
+void ChattingPacket::CopyFrom(const ChattingPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.ChattingPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Packet::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+bool ChattingPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   return true;
 }
 
-void Packet::Swap(Packet* other) {
+void ChattingPacket::Swap(ChattingPacket* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void Packet::InternalSwap(Packet* other) {
+void ChattingPacket::InternalSwap(ChattingPacket* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
@@ -575,10 +2392,569 @@ void Packet::InternalSwap(Packet* other) {
     GetArenaNoVirtual());
   msg_.Swap(&other->msg_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  swap(packettype_, other->packettype_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Packet::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ChattingPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RoomListAnswerPacket::InitAsDefaultInstance() {
+}
+class RoomListAnswerPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<RoomListAnswerPacket>()._has_bits_);
+  static void set_has_roomcount(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RoomListAnswerPacket::kRoomCountFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RoomListAnswerPacket::RoomListAnswerPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.RoomListAnswerPacket)
+}
+RoomListAnswerPacket::RoomListAnswerPacket(const RoomListAnswerPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  roomcount_ = from.roomcount_;
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.RoomListAnswerPacket)
+}
+
+void RoomListAnswerPacket::SharedCtor() {
+  roomcount_ = 0;
+}
+
+RoomListAnswerPacket::~RoomListAnswerPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.RoomListAnswerPacket)
+  SharedDtor();
+}
+
+void RoomListAnswerPacket::SharedDtor() {
+}
+
+void RoomListAnswerPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RoomListAnswerPacket& RoomListAnswerPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RoomListAnswerPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RoomListAnswerPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.RoomListAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  roomcount_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* RoomListAnswerPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required int32 roomCount = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          HasBitSetters::set_has_roomcount(&has_bits);
+          roomcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool RoomListAnswerPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.RoomListAnswerPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 roomCount = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
+          HasBitSetters::set_has_roomcount(&_has_bits_);
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &roomcount_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.RoomListAnswerPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.RoomListAnswerPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void RoomListAnswerPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.RoomListAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 roomCount = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(1, this->roomcount(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.RoomListAnswerPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RoomListAnswerPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.RoomListAnswerPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 roomCount = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->roomcount(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.RoomListAnswerPacket)
+  return target;
+}
+
+size_t RoomListAnswerPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.RoomListAnswerPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  // required int32 roomCount = 1;
+  if (has_roomcount()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->roomcount());
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RoomListAnswerPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.RoomListAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RoomListAnswerPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RoomListAnswerPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.RoomListAnswerPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.RoomListAnswerPacket)
+    MergeFrom(*source);
+  }
+}
+
+void RoomListAnswerPacket::MergeFrom(const RoomListAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.RoomListAnswerPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_roomcount()) {
+    set_roomcount(from.roomcount());
+  }
+}
+
+void RoomListAnswerPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.RoomListAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RoomListAnswerPacket::CopyFrom(const RoomListAnswerPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.RoomListAnswerPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RoomListAnswerPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  return true;
+}
+
+void RoomListAnswerPacket::Swap(RoomListAnswerPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RoomListAnswerPacket::InternalSwap(RoomListAnswerPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(roomcount_, other->roomcount_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RoomListAnswerPacket::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RoomElementPacket::InitAsDefaultInstance() {
+}
+class RoomElementPacket::HasBitSetters {
+ public:
+  using HasBits = decltype(std::declval<RoomElementPacket>()._has_bits_);
+  static void set_has_roomname(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RoomElementPacket::kRoomNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RoomElementPacket::RoomElementPacket()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:JIGAPPacket.RoomElementPacket)
+}
+RoomElementPacket::RoomElementPacket(const RoomElementPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.has_roomname()) {
+    roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  // @@protoc_insertion_point(copy_constructor:JIGAPPacket.RoomElementPacket)
+}
+
+void RoomElementPacket::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RoomElementPacket_JIGAPPacket_2eproto.base);
+  roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+RoomElementPacket::~RoomElementPacket() {
+  // @@protoc_insertion_point(destructor:JIGAPPacket.RoomElementPacket)
+  SharedDtor();
+}
+
+void RoomElementPacket::SharedDtor() {
+  roomname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RoomElementPacket::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RoomElementPacket& RoomElementPacket::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RoomElementPacket_JIGAPPacket_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RoomElementPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:JIGAPPacket.RoomElementPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    roomname_.ClearNonDefaultToEmptyNoArena();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* RoomElementPacket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  HasBitSetters::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // required string roomName = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8Verify(mutable_roomname(), ptr, ctx, "JIGAPPacket.RoomElementPacket.roomName");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool RoomElementPacket::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:JIGAPPacket.RoomElementPacket)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string roomName = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::PARSE,
+            "JIGAPPacket.RoomElementPacket.roomName");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:JIGAPPacket.RoomElementPacket)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:JIGAPPacket.RoomElementPacket)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void RoomElementPacket::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:JIGAPPacket.RoomElementPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string roomName = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.RoomElementPacket.roomName");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->roomname(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:JIGAPPacket.RoomElementPacket)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RoomElementPacket::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:JIGAPPacket.RoomElementPacket)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string roomName = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "JIGAPPacket.RoomElementPacket.roomName");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        1, this->roomname(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:JIGAPPacket.RoomElementPacket)
+  return target;
+}
+
+size_t RoomElementPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:JIGAPPacket.RoomElementPacket)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  // required string roomName = 1;
+  if (has_roomname()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RoomElementPacket::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:JIGAPPacket.RoomElementPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RoomElementPacket* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RoomElementPacket>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:JIGAPPacket.RoomElementPacket)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:JIGAPPacket.RoomElementPacket)
+    MergeFrom(*source);
+  }
+}
+
+void RoomElementPacket::MergeFrom(const RoomElementPacket& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:JIGAPPacket.RoomElementPacket)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_roomname()) {
+    _has_bits_[0] |= 0x00000001u;
+    roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+}
+
+void RoomElementPacket::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:JIGAPPacket.RoomElementPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RoomElementPacket::CopyFrom(const RoomElementPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:JIGAPPacket.RoomElementPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RoomElementPacket::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  return true;
+}
+
+void RoomElementPacket::Swap(RoomElementPacket* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RoomElementPacket::InternalSwap(RoomElementPacket* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  roomname_.Swap(&other->roomname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RoomElementPacket::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -586,8 +2962,29 @@ void Packet::InternalSwap(Packet* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace JIGAPPacket
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::JIGAPPacket::Packet* Arena::CreateMaybeMessage< ::JIGAPPacket::Packet >(Arena* arena) {
-  return Arena::CreateInternal< ::JIGAPPacket::Packet >(arena);
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::LoginRequestPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::LoginRequestPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::LoginRequestPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::LoginAnswerPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::LoginAnswerPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::LoginAnswerPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::CreateRoomPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::CreateRoomPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::CreateRoomPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::JoinedRoomRequestPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::JoinedRoomRequestPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::JoinedRoomRequestPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::JoinedRoomAnswerPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::JoinedRoomAnswerPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::JoinedRoomAnswerPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::ChattingPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::ChattingPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::ChattingPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::RoomListAnswerPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::RoomListAnswerPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::RoomListAnswerPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::JIGAPPacket::RoomElementPacket* Arena::CreateMaybeMessage< ::JIGAPPacket::RoomElementPacket >(Arena* arena) {
+  return Arena::CreateInternal< ::JIGAPPacket::RoomElementPacket >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

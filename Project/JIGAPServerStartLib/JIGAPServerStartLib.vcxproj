@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ClientPacketHandler.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPStructure.h" />
@@ -170,11 +171,13 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="SerializeObject.h" />
+    <ClInclude Include="ServerPacketHandler.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClientPacketHandler.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServerStartLib.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
@@ -187,6 +190,7 @@
     </ClCompile>
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="SerializeObject.cpp" />
+    <ClCompile Include="ServerPacketHandler.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />

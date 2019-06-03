@@ -2,19 +2,15 @@
 
 struct PacketHeader
 {
-
+	google::protobuf::int32 size;
+	JIGAPPacket::PacketType packetType;
 };
 
 class PacketHandler
 {
 private:
-	JIGAPPacket::Packet* lpPacket;
-
-
 public:
 	PacketHandler();
 	~PacketHandler();
-
-	void SetPacketParameter(JIGAPPacket::Packet_PacketType eInPacketType, const std::string& strInSender, const std::string& message);
 };
 

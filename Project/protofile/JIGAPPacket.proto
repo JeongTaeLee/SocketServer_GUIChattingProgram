@@ -4,23 +4,31 @@ package JIGAPPacket;
 
 enum PacketType
 {
-	LoginType = 0;
-	RoomListType = 1;
-	CreateRoomType = 2;
-	JoinedRoomType = 3;
-	ExitRoomType = 4;
-	ChattingType = 5;
+	LoginRequestType = 0;
+	LoginAnswerType = 1;
+
+	JoinedRoomRequestType = 2;
+	JoinedRoomAnswerType = 3;	
+	
+	CreateRoomType = 4;
+
+	RoomListRequestType = 5;
+	RoomListAnswerType = 6;
+	RoomElementType = 7;
+
+	ExitRoomRequestType = 8;
+	ExitRoomAnswerType = 9;
+	ChattingType = 10;
 }
 
-message LoginPacket
+message LoginRequestPacket
 {
 	required string nickName = 1;
 }
 
-message RoomListPacket
+message LoginAnswerPacket
 {
-	required int32 roomCount = 1;
-	required string roomListString = 2;
+	required bool loginSuccess = 1;
 }
 
 message CreateRoomPacket
@@ -29,9 +37,15 @@ message CreateRoomPacket
 	required string roomName = 2;
 }
 
-message JoinedRoomPacket
+message JoinedRoomRequestPacket
 {
 	required string sender = 1;
+	required string roomName = 2;
+}
+
+message JoinedRoomAnswerPacket
+{
+	required bool joinedRoomSuccess = 1;
 	required string roomName = 2;
 }
 
@@ -39,4 +53,14 @@ message ChattingPacket
 {
 	required string sender = 1;
 	required string msg = 2;
+}
+
+message RoomListAnswerPacket
+{
+	required int32 roomCount = 1;
+}
+
+message RoomElementPacket
+{
+	required string roomName = 1;
 }
