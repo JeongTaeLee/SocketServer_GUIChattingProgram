@@ -80,7 +80,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\</OutDir>
     <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,7 +92,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\</OutDir>
     <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -163,7 +163,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ClientPacketHandler.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPStructure.h" />
@@ -171,13 +170,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="SerializeObject.h" />
-    <ClInclude Include="ServerPacketHandler.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClientPacketHandler.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServerStartLib.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
@@ -190,7 +187,6 @@
     </ClCompile>
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="SerializeObject.cpp" />
-    <ClCompile Include="ServerPacketHandler.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
