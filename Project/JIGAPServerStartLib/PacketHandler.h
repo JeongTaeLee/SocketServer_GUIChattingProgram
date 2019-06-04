@@ -1,6 +1,6 @@
 #pragma once
 
-#define BASEALLOCSIZE 10000+
+#define BASEALLOCSIZE 2048
 
 
 struct PacketHeader
@@ -12,46 +12,38 @@ struct PacketHeader
 class PacketHandler
 {
 private:
-	google::protobuf::int8* lpBuffer;
+	char* lpInputStream;
+	char* lpOutputStream;
+
+	// 현재 버퍼에 할당된 총 길이입니다.
+	unsigned int iIStreamAllocSize;
+	unsigned int iOStreamAllocSize;
+
+	// 현재 버터에 쓰여진 길이입니다.
+	unsigned int iIStreamWriteSize;
+	unsigned int iOStreamWriteSize;
+
+
 public:
 	PacketHandler();
 	~PacketHandler();
 
-	template<class Packet>
-	void AddPacket(JIGAPPacket::PacketType type, const Packet & packet);
 
+private:
+	bool Write(const PacketHeader & header, google::protobuf::Message * lpInPacket, unsigned int iInSizes);
+
+public:
+	// 요청 외에 다른 정보를 쓸필요 없는 데이터를 쓸때 사용합니다.
+	void WriteBaseRequest(JIGAPPacket::PacketType eInPacketType);
+	// 답변 외에 외에 다른 정보를 쓸필요 없는 데이터를 쓸때 사용합니다.
+	void WriteBaseAnswer(JIGAPPacket::PacketType eInPacketType);
+
+	void WriteLoginRequest(const std::string & strInNickName);
+	void WriteLoginAnswer(bool bInSuccess);
+
+	void WriteJoinedRoomRequest(const std::string& strInRoomName);
+	void WriteJoinedRoomAnswer(bool bInSuccess, const std::string& strInRoomName);
+
+	void WriteRoomListAnswer(int iInRoomCount);
+	void WriteRoomElement(const std::string& strInRoomName);
 };
-
-template<class Packet>
-inline void PacketHandler::AddPacket(JIGAPPacket::PacketType type, const Packet& packet)
-{
-	switch (type)
-	{
-	case JIGAPPacket::LoginRequestType:
-		break;
-	case JIGAPPacket::LoginAnswerType:
-		break;
-	case JIGAPPacket::JoinedRoomRequestType:
-		break;
-	case JIGAPPacket::JoinedRoomAnswerType:
-		break;
-	case JIGAPPacket::CreateRoomType:
-		break;
-	case JIGAPPacket::RoomListRequestType:
-		break;
-	case JIGAPPacket::RoomListAnswerType:
-		break;
-	case JIGAPPacket::RoomElementType:
-		break;
-	case JIGAPPacket::ExitRoomRequestType:
-		break;
-	case JIGAPPacket::ExitRoomAnswerType:
-		break;
-	case JIGAPPacket::ChattingType:
-		break;
-	}
-
-	PacketHeader header;
-	header.packetType = type;
-	header.size = packet.ByteSize();
-}

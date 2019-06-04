@@ -32,9 +32,6 @@
     <Filter Include="JIGAPPacket">
       <UniqueIdentifier>{07a52522-dd90-4d37-bc00-072423337ac0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PacketHandler\ServerPacketHandler">
-      <UniqueIdentifier>{6f053f50-bba7-4480-87a7-ce316a8384e5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

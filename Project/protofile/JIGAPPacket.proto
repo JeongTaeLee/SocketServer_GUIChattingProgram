@@ -21,6 +21,15 @@ enum PacketType
 	ChattingType = 10;
 }
 
+message BaseRequestPacket
+{
+	required PacketType requestType = 1;
+}
+message BaseAnswerPacket
+{
+	required PacketType answerType = 2;
+}
+
 message LoginRequestPacket
 {
 	required string nickName = 1;
@@ -33,14 +42,12 @@ message LoginAnswerPacket
 
 message CreateRoomPacket
 {
-	required string sender = 1;
-	required string roomName = 2;
+	required string roomName = 1;
 }
 
 message JoinedRoomRequestPacket
 {
-	required string sender = 1;
-	required string roomName = 2;
+	required string roomName = 1;
 }
 
 message JoinedRoomAnswerPacket
@@ -51,8 +58,7 @@ message JoinedRoomAnswerPacket
 
 message ChattingPacket
 {
-	required string sender = 1;
-	required string msg = 2;
+	required string msg = 1;
 }
 
 message RoomListAnswerPacket
