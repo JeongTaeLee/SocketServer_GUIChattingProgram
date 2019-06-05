@@ -38,12 +38,19 @@ public:
 	// 답변 외에 외에 다른 정보를 쓸필요 없는 데이터를 쓸때 사용합니다.
 	void WriteBaseAnswer(JIGAPPacket::PacketType eInPacketType);
 
+	// 로그인
 	void WriteLoginRequest(const std::string & strInNickName);
 	void WriteLoginAnswer(bool bInSuccess);
 
+	// 방 참가.
 	void WriteJoinedRoomRequest(const std::string& strInRoomName);
 	void WriteJoinedRoomAnswer(bool bInSuccess, const std::string& strInRoomName);
 
+	//RoomList
 	void WriteRoomListAnswer(int iInRoomCount);
 	void WriteRoomElement(const std::string& strInRoomName);
+
+	void WriteTotalPacketSize(unsigned int size);
+	void ClearWirteBuffer();
 };
+

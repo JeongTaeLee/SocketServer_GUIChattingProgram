@@ -80,7 +80,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\</OutDir>
     <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,7 +92,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\</OutDir>
     <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
