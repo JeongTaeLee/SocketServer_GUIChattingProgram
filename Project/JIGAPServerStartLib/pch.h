@@ -7,7 +7,6 @@
 #ifndef PCH_H
 #define PCH_H
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
@@ -19,6 +18,11 @@
 #include <list>
 #include <map>
 
+#include "JIGAPPacket.pb.h"
 
 #include "JIGAPStructure.h"
+
+
 #endif //PCH_H
+
+

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "TCPSocket.h"
+
 #include "SocketAddress.h"
+#include "Room.h"
 #include "TCPIOData.h" 
 
 TCPSocket::TCPSocket()
@@ -138,6 +140,16 @@ int TCPSocket::SYNCRecv(char* szInBuf, int iInBufSize)
 int TCPSocket::SYNCSend(const char* szInBuf, int iInBufSize)
 {
 	return send(hSock, szInBuf, iInBufSize, 0);
+}
+
+const IOMODE& TCPSocket::GetIOMode()
+{
+	return lpIOData->eIOMode;
+}
+
+char* TCPSocket::GetBufferData()
+{
+	return lpIOData->szBuffer;
 }
 
 void TCPSocket::SetBufferData(const char* copy, int size)

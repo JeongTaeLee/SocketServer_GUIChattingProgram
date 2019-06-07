@@ -1,11 +1,20 @@
 #pragma once
 
-#define BASEALLOCSIZE 2048
 
+#ifdef _DEBUG
+#pragma comment(lib, "libprotobufd.lib")
+#pragma comment(lib, "libprotobuf-lited.lib")
+#else
+#pragma comment(lib, "libprotobuf.lib")
+#pragma comment(lib, "libprotobuf-lite.lib")
+#endif
+
+
+class Room;
 
 struct PacketHeader
 {
-	google::protobuf::int32 size;
+	int size;
 	JIGAPPacket::PacketType packetType;
 };
 
@@ -29,28 +38,62 @@ public:
 	~PacketHandler();
 
 
-private:
-	bool Write(const PacketHeader & header, google::protobuf::Message * lpInPacket, unsigned int iInSizes);
+public:
+	template <class Packet>
+	bool WritePacket(const PacketHeader& header, const Packet & inPacket)
+	{
+		int headerSize = sizeof(header);
+
+		memcpy(&lpOutputStream[iOStreamWriteSize], (char*)& header, headerSize);
+		iOStreamWriteSize += headerSize;
+
+		return inPacket->SerializeToArray(&lpOutputStream, iOStreamAllocSize - iOStreamWriteSize);
+	}
+
+	template <class Packet>
+	bool WritePacket(JIGAPPacket::PacketType eInType, const Packet& inPacket)
+	{
+		PacketHeader header;
+		header.packetType = eInType;
+		header.size = inPacket.ByteSize();
+
+		int headerSize = sizeof(header);
+
+		memcpy(&lpOutputStream[iOStreamWriteSize], (char*)& header, headerSize);
+		iOStreamWriteSize += headerSize;
+
+		WriteTotalPacketSize(iOStreamWriteSize);
+
+		return inPacket.SerializeToArray(&lpOutputStream, inPacket.ByteSize());
+	}
 
 public:
-	// 요청 외에 다른 정보를 쓸필요 없는 데이터를 쓸때 사용합니다.
-	void WriteBaseRequest(JIGAPPacket::PacketType eInPacketType);
-	// 답변 외에 외에 다른 정보를 쓸필요 없는 데이터를 쓸때 사용합니다.
-	void WriteBaseAnswer(JIGAPPacket::PacketType eInPacketType);
+	int ParsingPacketSize(char* lpInBuffer);
 
-	// 로그인
+public:
+	// 로그인 패킷.
 	void WriteLoginRequest(const std::string & strInNickName);
 	void WriteLoginAnswer(bool bInSuccess);
 
-	// 방 참가.
-	void WriteJoinedRoomRequest(const std::string& strInRoomName);
-	void WriteJoinedRoomAnswer(bool bInSuccess, const std::string& strInRoomName);
+	//방 생성 패킷.
+	void WriteCreateRoomPacket(const std::string& strInRoomName);
 
-	//RoomList
-	void WriteRoomListAnswer(int iInRoomCount);
-	void WriteRoomElement(const std::string& strInRoomName);
+	// 방 참가 패킷.
+	void WriteJoinedRoomRequest(const std::string& strInRoomName);
+	void WriteJoinedRoomAnswer(const std::string& strInRoomName, bool bInSuccess);
+
+	// 방 이탈 패킷.
+	void WriteExitRoomRequest();
+	void WriteExitRoomAnswer();
+
+	//RoomListPacket
+	void WriteRoomListRequest();
+	void WriteRoomListInformation(unsigned int iInRoomCount);
+	void WriteRoomListElement(const std::map < std::string, Room*> & mInRoomList);
 
 	void WriteTotalPacketSize(unsigned int size);
 	void ClearWirteBuffer();
+
+public:
 };
 

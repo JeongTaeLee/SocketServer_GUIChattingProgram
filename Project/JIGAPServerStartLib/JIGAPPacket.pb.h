@@ -19,6 +19,8 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
+#define PROTOBUF_USE_DLLS
+
 #include <google/protobuf/port_undef.inc>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
@@ -48,7 +50,7 @@ struct TableStruct_JIGAPPacket_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[10]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,48 +58,28 @@ struct TableStruct_JIGAPPacket_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto;
 namespace JIGAPPacket {
-class BaseAnswerPacket;
-class BaseAnswerPacketDefaultTypeInternal;
-extern BaseAnswerPacketDefaultTypeInternal _BaseAnswerPacket_default_instance_;
-class BaseRequestPacket;
-class BaseRequestPacketDefaultTypeInternal;
-extern BaseRequestPacketDefaultTypeInternal _BaseRequestPacket_default_instance_;
-class ChattingPacket;
-class ChattingPacketDefaultTypeInternal;
-extern ChattingPacketDefaultTypeInternal _ChattingPacket_default_instance_;
-class CreateRoomPacket;
-class CreateRoomPacketDefaultTypeInternal;
-extern CreateRoomPacketDefaultTypeInternal _CreateRoomPacket_default_instance_;
 class JoinedRoomAnswerPacket;
 class JoinedRoomAnswerPacketDefaultTypeInternal;
 extern JoinedRoomAnswerPacketDefaultTypeInternal _JoinedRoomAnswerPacket_default_instance_;
-class JoinedRoomRequestPacket;
-class JoinedRoomRequestPacketDefaultTypeInternal;
-extern JoinedRoomRequestPacketDefaultTypeInternal _JoinedRoomRequestPacket_default_instance_;
 class LoginAnswerPacket;
 class LoginAnswerPacketDefaultTypeInternal;
 extern LoginAnswerPacketDefaultTypeInternal _LoginAnswerPacket_default_instance_;
-class LoginRequestPacket;
-class LoginRequestPacketDefaultTypeInternal;
-extern LoginRequestPacketDefaultTypeInternal _LoginRequestPacket_default_instance_;
-class RoomElementPacket;
-class RoomElementPacketDefaultTypeInternal;
-extern RoomElementPacketDefaultTypeInternal _RoomElementPacket_default_instance_;
 class RoomListAnswerPacket;
 class RoomListAnswerPacketDefaultTypeInternal;
 extern RoomListAnswerPacketDefaultTypeInternal _RoomListAnswerPacket_default_instance_;
+class StringPacket;
+class StringPacketDefaultTypeInternal;
+extern StringPacketDefaultTypeInternal _StringPacket_default_instance_;
+class TypePacket;
+class TypePacketDefaultTypeInternal;
+extern TypePacketDefaultTypeInternal _TypePacket_default_instance_;
 }  // namespace JIGAPPacket
 PROTOBUF_NAMESPACE_OPEN
-template<> ::JIGAPPacket::BaseAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::BaseAnswerPacket>(Arena*);
-template<> ::JIGAPPacket::BaseRequestPacket* Arena::CreateMaybeMessage<::JIGAPPacket::BaseRequestPacket>(Arena*);
-template<> ::JIGAPPacket::ChattingPacket* Arena::CreateMaybeMessage<::JIGAPPacket::ChattingPacket>(Arena*);
-template<> ::JIGAPPacket::CreateRoomPacket* Arena::CreateMaybeMessage<::JIGAPPacket::CreateRoomPacket>(Arena*);
 template<> ::JIGAPPacket::JoinedRoomAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::JoinedRoomAnswerPacket>(Arena*);
-template<> ::JIGAPPacket::JoinedRoomRequestPacket* Arena::CreateMaybeMessage<::JIGAPPacket::JoinedRoomRequestPacket>(Arena*);
 template<> ::JIGAPPacket::LoginAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::LoginAnswerPacket>(Arena*);
-template<> ::JIGAPPacket::LoginRequestPacket* Arena::CreateMaybeMessage<::JIGAPPacket::LoginRequestPacket>(Arena*);
-template<> ::JIGAPPacket::RoomElementPacket* Arena::CreateMaybeMessage<::JIGAPPacket::RoomElementPacket>(Arena*);
 template<> ::JIGAPPacket::RoomListAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::RoomListAnswerPacket>(Arena*);
+template<> ::JIGAPPacket::StringPacket* Arena::CreateMaybeMessage<::JIGAPPacket::StringPacket>(Arena*);
+template<> ::JIGAPPacket::TypePacket* Arena::CreateMaybeMessage<::JIGAPPacket::TypePacket>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace JIGAPPacket {
 
@@ -109,10 +91,12 @@ enum PacketType : int {
   CreateRoomType = 4,
   RoomListRequestType = 5,
   RoomListAnswerType = 6,
-  RoomElementType = 7,
+  ElementOfRoomListType = 7,
   ExitRoomRequestType = 8,
   ExitRoomAnswerType = 9,
-  ChattingType = 10
+  ChattingType = 10,
+  //PacketType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  //PacketType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool PacketType_IsValid(int value);
 constexpr PacketType PacketType_MIN = LoginRequestType;
@@ -135,36 +119,29 @@ inline bool PacketType_Parse(
 }
 // ===================================================================
 
-class BaseRequestPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.BaseRequestPacket) */ {
+class TypePacket :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.TypePacket) */ {
  public:
-  BaseRequestPacket();
-  virtual ~BaseRequestPacket();
+  TypePacket();
+  virtual ~TypePacket();
 
-  BaseRequestPacket(const BaseRequestPacket& from);
-  BaseRequestPacket(BaseRequestPacket&& from) noexcept
-    : BaseRequestPacket() {
+  TypePacket(const TypePacket& from);
+  TypePacket(TypePacket&& from) noexcept
+    : TypePacket() {
     *this = ::std::move(from);
   }
 
-  inline BaseRequestPacket& operator=(const BaseRequestPacket& from) {
+  inline TypePacket& operator=(const TypePacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline BaseRequestPacket& operator=(BaseRequestPacket&& from) noexcept {
+  inline TypePacket& operator=(TypePacket&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
       CopyFrom(from);
     }
     return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
   }
 
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
@@ -176,34 +153,34 @@ class BaseRequestPacket :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const BaseRequestPacket& default_instance();
+  static const TypePacket& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const BaseRequestPacket* internal_default_instance() {
-    return reinterpret_cast<const BaseRequestPacket*>(
-               &_BaseRequestPacket_default_instance_);
+  static inline const TypePacket* internal_default_instance() {
+    return reinterpret_cast<const TypePacket*>(
+               &_TypePacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  void Swap(BaseRequestPacket* other);
-  friend void swap(BaseRequestPacket& a, BaseRequestPacket& b) {
+  void Swap(TypePacket* other);
+  friend void swap(TypePacket& a, TypePacket& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline BaseRequestPacket* New() const final {
-    return CreateMaybeMessage<BaseRequestPacket>(nullptr);
+  inline TypePacket* New() const final {
+    return CreateMaybeMessage<TypePacket>(nullptr);
   }
 
-  BaseRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<BaseRequestPacket>(arena);
+  TypePacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TypePacket>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const BaseRequestPacket& from);
-  void MergeFrom(const BaseRequestPacket& from);
+  void CopyFrom(const TypePacket& from);
+  void MergeFrom(const TypePacket& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -224,10 +201,10 @@ class BaseRequestPacket :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(BaseRequestPacket* other);
+  void InternalSwap(TypePacket* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.BaseRequestPacket";
+    return "JIGAPPacket.TypePacket";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -251,55 +228,46 @@ class BaseRequestPacket :
 
   // accessors -------------------------------------------------------
 
-  // required .JIGAPPacket.PacketType requestType = 1;
-  bool has_requesttype() const;
-  void clear_requesttype();
-  static const int kRequestTypeFieldNumber = 1;
-  ::JIGAPPacket::PacketType requesttype() const;
-  void set_requesttype(::JIGAPPacket::PacketType value);
+  // .JIGAPPacket.PacketType type = 1;
+  void clear_type();
+  static const int kTypeFieldNumber = 1;
+  ::JIGAPPacket::PacketType type() const;
+  void set_type(::JIGAPPacket::PacketType value);
 
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.BaseRequestPacket)
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.TypePacket)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  int type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  int requesttype_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
 // -------------------------------------------------------------------
 
-class BaseAnswerPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.BaseAnswerPacket) */ {
+class StringPacket :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.StringPacket) */ {
  public:
-  BaseAnswerPacket();
-  virtual ~BaseAnswerPacket();
+  StringPacket();
+  virtual ~StringPacket();
 
-  BaseAnswerPacket(const BaseAnswerPacket& from);
-  BaseAnswerPacket(BaseAnswerPacket&& from) noexcept
-    : BaseAnswerPacket() {
+  StringPacket(const StringPacket& from);
+  StringPacket(StringPacket&& from) noexcept
+    : StringPacket() {
     *this = ::std::move(from);
   }
 
-  inline BaseAnswerPacket& operator=(const BaseAnswerPacket& from) {
+  inline StringPacket& operator=(const StringPacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline BaseAnswerPacket& operator=(BaseAnswerPacket&& from) noexcept {
+  inline StringPacket& operator=(StringPacket&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
       CopyFrom(from);
     }
     return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
   }
 
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
@@ -311,34 +279,34 @@ class BaseAnswerPacket :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const BaseAnswerPacket& default_instance();
+  static const StringPacket& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const BaseAnswerPacket* internal_default_instance() {
-    return reinterpret_cast<const BaseAnswerPacket*>(
-               &_BaseAnswerPacket_default_instance_);
+  static inline const StringPacket* internal_default_instance() {
+    return reinterpret_cast<const StringPacket*>(
+               &_StringPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  void Swap(BaseAnswerPacket* other);
-  friend void swap(BaseAnswerPacket& a, BaseAnswerPacket& b) {
+  void Swap(StringPacket* other);
+  friend void swap(StringPacket& a, StringPacket& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline BaseAnswerPacket* New() const final {
-    return CreateMaybeMessage<BaseAnswerPacket>(nullptr);
+  inline StringPacket* New() const final {
+    return CreateMaybeMessage<StringPacket>(nullptr);
   }
 
-  BaseAnswerPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<BaseAnswerPacket>(arena);
+  StringPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StringPacket>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const BaseAnswerPacket& from);
-  void MergeFrom(const BaseAnswerPacket& from);
+  void CopyFrom(const StringPacket& from);
+  void MergeFrom(const StringPacket& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -359,10 +327,10 @@ class BaseAnswerPacket :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(BaseAnswerPacket* other);
+  void InternalSwap(StringPacket* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.BaseAnswerPacket";
+    return "JIGAPPacket.StringPacket";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -386,162 +354,25 @@ class BaseAnswerPacket :
 
   // accessors -------------------------------------------------------
 
-  // required .JIGAPPacket.PacketType answerType = 2;
-  bool has_answertype() const;
-  void clear_answertype();
-  static const int kAnswerTypeFieldNumber = 2;
-  ::JIGAPPacket::PacketType answertype() const;
-  void set_answertype(::JIGAPPacket::PacketType value);
+  // string str = 1;
+  void clear_str();
+  static const int kStrFieldNumber = 1;
+  const std::string& str() const;
+  void set_str(const std::string& value);
+  void set_str(std::string&& value);
+  void set_str(const char* value);
+  void set_str(const char* value, size_t size);
+  std::string* mutable_str();
+  std::string* release_str();
+  void set_allocated_str(std::string* str);
 
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.BaseAnswerPacket)
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.StringPacket)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr str_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  int answertype_;
-  friend struct ::TableStruct_JIGAPPacket_2eproto;
-};
-// -------------------------------------------------------------------
-
-class LoginRequestPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.LoginRequestPacket) */ {
- public:
-  LoginRequestPacket();
-  virtual ~LoginRequestPacket();
-
-  LoginRequestPacket(const LoginRequestPacket& from);
-  LoginRequestPacket(LoginRequestPacket&& from) noexcept
-    : LoginRequestPacket() {
-    *this = ::std::move(from);
-  }
-
-  inline LoginRequestPacket& operator=(const LoginRequestPacket& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline LoginRequestPacket& operator=(LoginRequestPacket&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const LoginRequestPacket& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const LoginRequestPacket* internal_default_instance() {
-    return reinterpret_cast<const LoginRequestPacket*>(
-               &_LoginRequestPacket_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  void Swap(LoginRequestPacket* other);
-  friend void swap(LoginRequestPacket& a, LoginRequestPacket& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline LoginRequestPacket* New() const final {
-    return CreateMaybeMessage<LoginRequestPacket>(nullptr);
-  }
-
-  LoginRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<LoginRequestPacket>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const LoginRequestPacket& from);
-  void MergeFrom(const LoginRequestPacket& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(LoginRequestPacket* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.LoginRequestPacket";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
-    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string nickName = 1;
-  bool has_nickname() const;
-  void clear_nickname();
-  static const int kNickNameFieldNumber = 1;
-  const std::string& nickname() const;
-  void set_nickname(const std::string& value);
-  void set_nickname(std::string&& value);
-  void set_nickname(const char* value);
-  void set_nickname(const char* value, size_t size);
-  std::string* mutable_nickname();
-  std::string* release_nickname();
-  void set_allocated_nickname(std::string* nickname);
-
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.LoginRequestPacket)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr nickname_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
 // -------------------------------------------------------------------
@@ -571,13 +402,6 @@ class LoginAnswerPacket :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
     return GetDescriptor();
   }
@@ -595,7 +419,7 @@ class LoginAnswerPacket :
                &_LoginAnswerPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   void Swap(LoginAnswerPacket* other);
   friend void swap(LoginAnswerPacket& a, LoginAnswerPacket& b) {
@@ -662,8 +486,7 @@ class LoginAnswerPacket :
 
   // accessors -------------------------------------------------------
 
-  // required bool loginSuccess = 1;
-  bool has_loginsuccess() const;
+  // bool loginSuccess = 1;
   void clear_loginsuccess();
   static const int kLoginSuccessFieldNumber = 1;
   bool loginsuccess() const;
@@ -674,291 +497,8 @@ class LoginAnswerPacket :
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   bool loginsuccess_;
-  friend struct ::TableStruct_JIGAPPacket_2eproto;
-};
-// -------------------------------------------------------------------
-
-class CreateRoomPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.CreateRoomPacket) */ {
- public:
-  CreateRoomPacket();
-  virtual ~CreateRoomPacket();
-
-  CreateRoomPacket(const CreateRoomPacket& from);
-  CreateRoomPacket(CreateRoomPacket&& from) noexcept
-    : CreateRoomPacket() {
-    *this = ::std::move(from);
-  }
-
-  inline CreateRoomPacket& operator=(const CreateRoomPacket& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CreateRoomPacket& operator=(CreateRoomPacket&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const CreateRoomPacket& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const CreateRoomPacket* internal_default_instance() {
-    return reinterpret_cast<const CreateRoomPacket*>(
-               &_CreateRoomPacket_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  void Swap(CreateRoomPacket* other);
-  friend void swap(CreateRoomPacket& a, CreateRoomPacket& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline CreateRoomPacket* New() const final {
-    return CreateMaybeMessage<CreateRoomPacket>(nullptr);
-  }
-
-  CreateRoomPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<CreateRoomPacket>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const CreateRoomPacket& from);
-  void MergeFrom(const CreateRoomPacket& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CreateRoomPacket* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.CreateRoomPacket";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
-    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string roomName = 1;
-  bool has_roomname() const;
-  void clear_roomname();
-  static const int kRoomNameFieldNumber = 1;
-  const std::string& roomname() const;
-  void set_roomname(const std::string& value);
-  void set_roomname(std::string&& value);
-  void set_roomname(const char* value);
-  void set_roomname(const char* value, size_t size);
-  std::string* mutable_roomname();
-  std::string* release_roomname();
-  void set_allocated_roomname(std::string* roomname);
-
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.CreateRoomPacket)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
-  friend struct ::TableStruct_JIGAPPacket_2eproto;
-};
-// -------------------------------------------------------------------
-
-class JoinedRoomRequestPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.JoinedRoomRequestPacket) */ {
- public:
-  JoinedRoomRequestPacket();
-  virtual ~JoinedRoomRequestPacket();
-
-  JoinedRoomRequestPacket(const JoinedRoomRequestPacket& from);
-  JoinedRoomRequestPacket(JoinedRoomRequestPacket&& from) noexcept
-    : JoinedRoomRequestPacket() {
-    *this = ::std::move(from);
-  }
-
-  inline JoinedRoomRequestPacket& operator=(const JoinedRoomRequestPacket& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline JoinedRoomRequestPacket& operator=(JoinedRoomRequestPacket&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const JoinedRoomRequestPacket& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const JoinedRoomRequestPacket* internal_default_instance() {
-    return reinterpret_cast<const JoinedRoomRequestPacket*>(
-               &_JoinedRoomRequestPacket_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    5;
-
-  void Swap(JoinedRoomRequestPacket* other);
-  friend void swap(JoinedRoomRequestPacket& a, JoinedRoomRequestPacket& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline JoinedRoomRequestPacket* New() const final {
-    return CreateMaybeMessage<JoinedRoomRequestPacket>(nullptr);
-  }
-
-  JoinedRoomRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<JoinedRoomRequestPacket>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const JoinedRoomRequestPacket& from);
-  void MergeFrom(const JoinedRoomRequestPacket& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(JoinedRoomRequestPacket* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.JoinedRoomRequestPacket";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
-    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string roomName = 1;
-  bool has_roomname() const;
-  void clear_roomname();
-  static const int kRoomNameFieldNumber = 1;
-  const std::string& roomname() const;
-  void set_roomname(const std::string& value);
-  void set_roomname(std::string&& value);
-  void set_roomname(const char* value);
-  void set_roomname(const char* value, size_t size);
-  std::string* mutable_roomname();
-  std::string* release_roomname();
-  void set_allocated_roomname(std::string* roomname);
-
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.JoinedRoomRequestPacket)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
 // -------------------------------------------------------------------
@@ -988,13 +528,6 @@ class JoinedRoomAnswerPacket :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
     return GetDescriptor();
   }
@@ -1012,7 +545,7 @@ class JoinedRoomAnswerPacket :
                &_JoinedRoomAnswerPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    3;
 
   void Swap(JoinedRoomAnswerPacket* other);
   friend void swap(JoinedRoomAnswerPacket& a, JoinedRoomAnswerPacket& b) {
@@ -1079,8 +612,7 @@ class JoinedRoomAnswerPacket :
 
   // accessors -------------------------------------------------------
 
-  // required string roomName = 2;
-  bool has_roomname() const;
+  // string roomName = 2;
   void clear_roomname();
   static const int kRoomNameFieldNumber = 2;
   const std::string& roomname() const;
@@ -1092,8 +624,7 @@ class JoinedRoomAnswerPacket :
   std::string* release_roomname();
   void set_allocated_roomname(std::string* roomname);
 
-  // required bool joinedRoomSuccess = 1;
-  bool has_joinedroomsuccess() const;
+  // bool joinedRoomSuccess = 1;
   void clear_joinedroomsuccess();
   static const int kJoinedRoomSuccessFieldNumber = 1;
   bool joinedroomsuccess() const;
@@ -1103,155 +634,10 @@ class JoinedRoomAnswerPacket :
  private:
   class HasBitSetters;
 
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
   bool joinedroomsuccess_;
-  friend struct ::TableStruct_JIGAPPacket_2eproto;
-};
-// -------------------------------------------------------------------
-
-class ChattingPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.ChattingPacket) */ {
- public:
-  ChattingPacket();
-  virtual ~ChattingPacket();
-
-  ChattingPacket(const ChattingPacket& from);
-  ChattingPacket(ChattingPacket&& from) noexcept
-    : ChattingPacket() {
-    *this = ::std::move(from);
-  }
-
-  inline ChattingPacket& operator=(const ChattingPacket& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ChattingPacket& operator=(ChattingPacket&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const ChattingPacket& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ChattingPacket* internal_default_instance() {
-    return reinterpret_cast<const ChattingPacket*>(
-               &_ChattingPacket_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  void Swap(ChattingPacket* other);
-  friend void swap(ChattingPacket& a, ChattingPacket& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline ChattingPacket* New() const final {
-    return CreateMaybeMessage<ChattingPacket>(nullptr);
-  }
-
-  ChattingPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ChattingPacket>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ChattingPacket& from);
-  void MergeFrom(const ChattingPacket& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(ChattingPacket* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.ChattingPacket";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
-    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string msg = 1;
-  bool has_msg() const;
-  void clear_msg();
-  static const int kMsgFieldNumber = 1;
-  const std::string& msg() const;
-  void set_msg(const std::string& value);
-  void set_msg(std::string&& value);
-  void set_msg(const char* value);
-  void set_msg(const char* value, size_t size);
-  std::string* mutable_msg();
-  std::string* release_msg();
-  void set_allocated_msg(std::string* msg);
-
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.ChattingPacket)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1281,13 +667,6 @@ class RoomListAnswerPacket :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
     return GetDescriptor();
   }
@@ -1305,7 +684,7 @@ class RoomListAnswerPacket :
                &_RoomListAnswerPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    4;
 
   void Swap(RoomListAnswerPacket* other);
   friend void swap(RoomListAnswerPacket& a, RoomListAnswerPacket& b) {
@@ -1372,8 +751,7 @@ class RoomListAnswerPacket :
 
   // accessors -------------------------------------------------------
 
-  // required int32 roomCount = 1;
-  bool has_roomcount() const;
+  // int32 roomCount = 1;
   void clear_roomcount();
   static const int kRoomCountFieldNumber = 1;
   ::PROTOBUF_NAMESPACE_ID::int32 roomcount() const;
@@ -1384,150 +762,8 @@ class RoomListAnswerPacket :
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::int32 roomcount_;
-  friend struct ::TableStruct_JIGAPPacket_2eproto;
-};
-// -------------------------------------------------------------------
-
-class RoomElementPacket :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.RoomElementPacket) */ {
- public:
-  RoomElementPacket();
-  virtual ~RoomElementPacket();
-
-  RoomElementPacket(const RoomElementPacket& from);
-  RoomElementPacket(RoomElementPacket&& from) noexcept
-    : RoomElementPacket() {
-    *this = ::std::move(from);
-  }
-
-  inline RoomElementPacket& operator=(const RoomElementPacket& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline RoomElementPacket& operator=(RoomElementPacket&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const RoomElementPacket& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const RoomElementPacket* internal_default_instance() {
-    return reinterpret_cast<const RoomElementPacket*>(
-               &_RoomElementPacket_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    9;
-
-  void Swap(RoomElementPacket* other);
-  friend void swap(RoomElementPacket& a, RoomElementPacket& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline RoomElementPacket* New() const final {
-    return CreateMaybeMessage<RoomElementPacket>(nullptr);
-  }
-
-  RoomElementPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<RoomElementPacket>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const RoomElementPacket& from);
-  void MergeFrom(const RoomElementPacket& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(RoomElementPacket* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "JIGAPPacket.RoomElementPacket";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
-    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required string roomName = 1;
-  bool has_roomname() const;
-  void clear_roomname();
-  static const int kRoomNameFieldNumber = 1;
-  const std::string& roomname() const;
-  void set_roomname(const std::string& value);
-  void set_roomname(std::string&& value);
-  void set_roomname(const char* value);
-  void set_roomname(const char* value, size_t size);
-  std::string* mutable_roomname();
-  std::string* release_roomname();
-  void set_allocated_roomname(std::string* roomname);
-
-  // @@protoc_insertion_point(class_scope:JIGAPPacket.RoomElementPacket)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
 // ===================================================================
@@ -1539,333 +775,159 @@ class RoomElementPacket :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// BaseRequestPacket
+// TypePacket
 
-// required .JIGAPPacket.PacketType requestType = 1;
-inline bool BaseRequestPacket::has_requesttype() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
+// .JIGAPPacket.PacketType type = 1;
+inline void TypePacket::clear_type() {
+  type_ = 0;
 }
-inline void BaseRequestPacket::clear_requesttype() {
-  requesttype_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+inline ::JIGAPPacket::PacketType TypePacket::type() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.TypePacket.type)
+  return static_cast< ::JIGAPPacket::PacketType >(type_);
 }
-inline ::JIGAPPacket::PacketType BaseRequestPacket::requesttype() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.BaseRequestPacket.requestType)
-  return static_cast< ::JIGAPPacket::PacketType >(requesttype_);
-}
-inline void BaseRequestPacket::set_requesttype(::JIGAPPacket::PacketType value) {
-  assert(::JIGAPPacket::PacketType_IsValid(value));
-  _has_bits_[0] |= 0x00000001u;
-  requesttype_ = value;
-  // @@protoc_insertion_point(field_set:JIGAPPacket.BaseRequestPacket.requestType)
+inline void TypePacket::set_type(::JIGAPPacket::PacketType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:JIGAPPacket.TypePacket.type)
 }
 
 // -------------------------------------------------------------------
 
-// BaseAnswerPacket
+// StringPacket
 
-// required .JIGAPPacket.PacketType answerType = 2;
-inline bool BaseAnswerPacket::has_answertype() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
+// string str = 1;
+inline void StringPacket::clear_str() {
+  str_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void BaseAnswerPacket::clear_answertype() {
-  answertype_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+inline const std::string& StringPacket::str() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.StringPacket.str)
+  return str_.GetNoArena();
 }
-inline ::JIGAPPacket::PacketType BaseAnswerPacket::answertype() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.BaseAnswerPacket.answerType)
-  return static_cast< ::JIGAPPacket::PacketType >(answertype_);
+inline void StringPacket::set_str(const std::string& value) {
+  
+  str_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.StringPacket.str)
 }
-inline void BaseAnswerPacket::set_answertype(::JIGAPPacket::PacketType value) {
-  assert(::JIGAPPacket::PacketType_IsValid(value));
-  _has_bits_[0] |= 0x00000001u;
-  answertype_ = value;
-  // @@protoc_insertion_point(field_set:JIGAPPacket.BaseAnswerPacket.answerType)
-}
-
-// -------------------------------------------------------------------
-
-// LoginRequestPacket
-
-// required string nickName = 1;
-inline bool LoginRequestPacket::has_nickname() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void LoginRequestPacket::clear_nickname() {
-  nickname_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& LoginRequestPacket::nickname() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.LoginRequestPacket.nickName)
-  return nickname_.GetNoArena();
-}
-inline void LoginRequestPacket::set_nickname(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  nickname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:JIGAPPacket.LoginRequestPacket.nickName)
-}
-inline void LoginRequestPacket::set_nickname(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  nickname_.SetNoArena(
+inline void StringPacket::set_str(std::string&& value) {
+  
+  str_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.LoginRequestPacket.nickName)
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.StringPacket.str)
 }
-inline void LoginRequestPacket::set_nickname(const char* value) {
+inline void StringPacket::set_str(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  nickname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:JIGAPPacket.LoginRequestPacket.nickName)
+  
+  str_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.StringPacket.str)
 }
-inline void LoginRequestPacket::set_nickname(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  nickname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+inline void StringPacket::set_str(const char* value, size_t size) {
+  
+  str_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.LoginRequestPacket.nickName)
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.StringPacket.str)
 }
-inline std::string* LoginRequestPacket::mutable_nickname() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:JIGAPPacket.LoginRequestPacket.nickName)
-  return nickname_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline std::string* StringPacket::mutable_str() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.StringPacket.str)
+  return str_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* LoginRequestPacket::release_nickname() {
-  // @@protoc_insertion_point(field_release:JIGAPPacket.LoginRequestPacket.nickName)
-  if (!has_nickname()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return nickname_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline std::string* StringPacket::release_str() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.StringPacket.str)
+  
+  return str_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void LoginRequestPacket::set_allocated_nickname(std::string* nickname) {
-  if (nickname != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+inline void StringPacket::set_allocated_str(std::string* str) {
+  if (str != nullptr) {
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
-  nickname_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), nickname);
-  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.LoginRequestPacket.nickName)
+  str_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), str);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.StringPacket.str)
 }
 
 // -------------------------------------------------------------------
 
 // LoginAnswerPacket
 
-// required bool loginSuccess = 1;
-inline bool LoginAnswerPacket::has_loginsuccess() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
+// bool loginSuccess = 1;
 inline void LoginAnswerPacket::clear_loginsuccess() {
   loginsuccess_ = false;
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline bool LoginAnswerPacket::loginsuccess() const {
   // @@protoc_insertion_point(field_get:JIGAPPacket.LoginAnswerPacket.loginSuccess)
   return loginsuccess_;
 }
 inline void LoginAnswerPacket::set_loginsuccess(bool value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   loginsuccess_ = value;
   // @@protoc_insertion_point(field_set:JIGAPPacket.LoginAnswerPacket.loginSuccess)
 }
 
 // -------------------------------------------------------------------
 
-// CreateRoomPacket
-
-// required string roomName = 1;
-inline bool CreateRoomPacket::has_roomname() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void CreateRoomPacket::clear_roomname() {
-  roomname_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& CreateRoomPacket::roomname() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.CreateRoomPacket.roomName)
-  return roomname_.GetNoArena();
-}
-inline void CreateRoomPacket::set_roomname(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:JIGAPPacket.CreateRoomPacket.roomName)
-}
-inline void CreateRoomPacket::set_roomname(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.CreateRoomPacket.roomName)
-}
-inline void CreateRoomPacket::set_roomname(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:JIGAPPacket.CreateRoomPacket.roomName)
-}
-inline void CreateRoomPacket::set_roomname(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.CreateRoomPacket.roomName)
-}
-inline std::string* CreateRoomPacket::mutable_roomname() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:JIGAPPacket.CreateRoomPacket.roomName)
-  return roomname_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* CreateRoomPacket::release_roomname() {
-  // @@protoc_insertion_point(field_release:JIGAPPacket.CreateRoomPacket.roomName)
-  if (!has_roomname()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return roomname_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void CreateRoomPacket::set_allocated_roomname(std::string* roomname) {
-  if (roomname != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  roomname_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roomname);
-  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.CreateRoomPacket.roomName)
-}
-
-// -------------------------------------------------------------------
-
-// JoinedRoomRequestPacket
-
-// required string roomName = 1;
-inline bool JoinedRoomRequestPacket::has_roomname() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void JoinedRoomRequestPacket::clear_roomname() {
-  roomname_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& JoinedRoomRequestPacket::roomname() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-  return roomname_.GetNoArena();
-}
-inline void JoinedRoomRequestPacket::set_roomname(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-}
-inline void JoinedRoomRequestPacket::set_roomname(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-}
-inline void JoinedRoomRequestPacket::set_roomname(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-}
-inline void JoinedRoomRequestPacket::set_roomname(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-}
-inline std::string* JoinedRoomRequestPacket::mutable_roomname() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-  return roomname_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* JoinedRoomRequestPacket::release_roomname() {
-  // @@protoc_insertion_point(field_release:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-  if (!has_roomname()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return roomname_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void JoinedRoomRequestPacket::set_allocated_roomname(std::string* roomname) {
-  if (roomname != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  roomname_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roomname);
-  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.JoinedRoomRequestPacket.roomName)
-}
-
-// -------------------------------------------------------------------
-
 // JoinedRoomAnswerPacket
 
-// required bool joinedRoomSuccess = 1;
-inline bool JoinedRoomAnswerPacket::has_joinedroomsuccess() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
+// bool joinedRoomSuccess = 1;
 inline void JoinedRoomAnswerPacket::clear_joinedroomsuccess() {
   joinedroomsuccess_ = false;
-  _has_bits_[0] &= ~0x00000002u;
 }
 inline bool JoinedRoomAnswerPacket::joinedroomsuccess() const {
   // @@protoc_insertion_point(field_get:JIGAPPacket.JoinedRoomAnswerPacket.joinedRoomSuccess)
   return joinedroomsuccess_;
 }
 inline void JoinedRoomAnswerPacket::set_joinedroomsuccess(bool value) {
-  _has_bits_[0] |= 0x00000002u;
+  
   joinedroomsuccess_ = value;
   // @@protoc_insertion_point(field_set:JIGAPPacket.JoinedRoomAnswerPacket.joinedRoomSuccess)
 }
 
-// required string roomName = 2;
-inline bool JoinedRoomAnswerPacket::has_roomname() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
+// string roomName = 2;
 inline void JoinedRoomAnswerPacket::clear_roomname() {
   roomname_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& JoinedRoomAnswerPacket::roomname() const {
   // @@protoc_insertion_point(field_get:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
   return roomname_.GetNoArena();
 }
 inline void JoinedRoomAnswerPacket::set_roomname(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
 }
 inline void JoinedRoomAnswerPacket::set_roomname(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   roomname_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
 }
 inline void JoinedRoomAnswerPacket::set_roomname(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
+  
   roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
 }
 inline void JoinedRoomAnswerPacket::set_roomname(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
+  
   roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
 }
 inline std::string* JoinedRoomAnswerPacket::mutable_roomname() {
-  _has_bits_[0] |= 0x00000001u;
+  
   // @@protoc_insertion_point(field_mutable:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
   return roomname_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 inline std::string* JoinedRoomAnswerPacket::release_roomname() {
   // @@protoc_insertion_point(field_release:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
-  if (!has_roomname()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return roomname_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  
+  return roomname_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 inline void JoinedRoomAnswerPacket::set_allocated_roomname(std::string* roomname) {
   if (roomname != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   roomname_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roomname);
   // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.JoinedRoomAnswerPacket.roomName)
@@ -1873,163 +935,25 @@ inline void JoinedRoomAnswerPacket::set_allocated_roomname(std::string* roomname
 
 // -------------------------------------------------------------------
 
-// ChattingPacket
-
-// required string msg = 1;
-inline bool ChattingPacket::has_msg() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void ChattingPacket::clear_msg() {
-  msg_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& ChattingPacket::msg() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.ChattingPacket.msg)
-  return msg_.GetNoArena();
-}
-inline void ChattingPacket::set_msg(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:JIGAPPacket.ChattingPacket.msg)
-}
-inline void ChattingPacket::set_msg(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  msg_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.ChattingPacket.msg)
-}
-inline void ChattingPacket::set_msg(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:JIGAPPacket.ChattingPacket.msg)
-}
-inline void ChattingPacket::set_msg(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.ChattingPacket.msg)
-}
-inline std::string* ChattingPacket::mutable_msg() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChattingPacket.msg)
-  return msg_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* ChattingPacket::release_msg() {
-  // @@protoc_insertion_point(field_release:JIGAPPacket.ChattingPacket.msg)
-  if (!has_msg()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return msg_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void ChattingPacket::set_allocated_msg(std::string* msg) {
-  if (msg != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  msg_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg);
-  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChattingPacket.msg)
-}
-
-// -------------------------------------------------------------------
-
 // RoomListAnswerPacket
 
-// required int32 roomCount = 1;
-inline bool RoomListAnswerPacket::has_roomcount() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
+// int32 roomCount = 1;
 inline void RoomListAnswerPacket::clear_roomcount() {
   roomcount_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 RoomListAnswerPacket::roomcount() const {
   // @@protoc_insertion_point(field_get:JIGAPPacket.RoomListAnswerPacket.roomCount)
   return roomcount_;
 }
 inline void RoomListAnswerPacket::set_roomcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   roomcount_ = value;
   // @@protoc_insertion_point(field_set:JIGAPPacket.RoomListAnswerPacket.roomCount)
-}
-
-// -------------------------------------------------------------------
-
-// RoomElementPacket
-
-// required string roomName = 1;
-inline bool RoomElementPacket::has_roomname() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void RoomElementPacket::clear_roomname() {
-  roomname_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& RoomElementPacket::roomname() const {
-  // @@protoc_insertion_point(field_get:JIGAPPacket.RoomElementPacket.roomName)
-  return roomname_.GetNoArena();
-}
-inline void RoomElementPacket::set_roomname(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:JIGAPPacket.RoomElementPacket.roomName)
-}
-inline void RoomElementPacket::set_roomname(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.RoomElementPacket.roomName)
-}
-inline void RoomElementPacket::set_roomname(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:JIGAPPacket.RoomElementPacket.roomName)
-}
-inline void RoomElementPacket::set_roomname(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  roomname_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.RoomElementPacket.roomName)
-}
-inline std::string* RoomElementPacket::mutable_roomname() {
-  _has_bits_[0] |= 0x00000001u;
-  // @@protoc_insertion_point(field_mutable:JIGAPPacket.RoomElementPacket.roomName)
-  return roomname_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* RoomElementPacket::release_roomname() {
-  // @@protoc_insertion_point(field_release:JIGAPPacket.RoomElementPacket.roomName)
-  if (!has_roomname()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return roomname_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void RoomElementPacket::set_allocated_roomname(std::string* roomname) {
-  if (roomname != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  roomname_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roomname);
-  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.RoomElementPacket.roomName)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

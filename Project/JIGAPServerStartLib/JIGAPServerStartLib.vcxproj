@@ -72,15 +72,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\Exe\</OutDir>
-    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
+    <OutDir>..\Build\</OutDir>
+    <LibraryPath>C:\protoc-3.8.0\solution\Debug;$(LibraryPath)</LibraryPath>
     <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\</OutDir>
-    <LibraryPath>E:\ServerDevelopment\SocketServer_GUIChattingProgram\Project\JIGAPServerStartLib\protoLib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\protoc-3.8.0\solution\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

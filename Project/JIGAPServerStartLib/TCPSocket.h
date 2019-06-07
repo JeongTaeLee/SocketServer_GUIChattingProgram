@@ -3,6 +3,7 @@
 #include "SocketAddress.h"
 
 class TCPIOData;
+enum IOMODE;
 class Room;
 
 class TCPSocket
@@ -11,9 +12,9 @@ protected:
 	SOCKET hSock;
 	SocketAddress sockAddr;
 
-	LPIODATA lpIOData;
+	TCPIOData * lpIOData;
 	
-	Room * lpRoom;
+	Room* lpRoom;
 
 	std::string strUserName;
 public:	
@@ -87,8 +88,8 @@ public:
 public:
 	const SOCKET& GetSocket() { return hSock; }
 
-	const IOMODE& GetIOMode() {	return lpIOData->eIOMode; }
-	char* GetBufferData() { return lpIOData->szBuffer; }
+	const IOMODE& GetIOMode();
+	char* GetBufferData();
 	void SetBufferData(const char* copy, int size);
 
 	const std::string& GetMyUserName() { return strUserName; }

@@ -40,9 +40,6 @@
     <ClInclude Include="pch.h">
       <Filter>pch</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPStructure.h">
-      <Filter>JIGAPStructure</Filter>
-    </ClInclude>
     <ClInclude Include="SocketAddress.h">
       <Filter>SocketAddress</Filter>
     </ClInclude>
@@ -63,6 +60,9 @@
     </ClInclude>
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPStructure.h">
+      <Filter>JIGAPStructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

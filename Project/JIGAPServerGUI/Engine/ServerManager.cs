@@ -34,10 +34,10 @@ namespace JIGAPServerGUI
         {
             /*Server Open합니다*/
             if (jigapServerWrap.JIGAPWrapServerOpen(strIpAddr, strPortAddr))
-            {
-                bOnServer = true;
-                return true;
-            }
+            { 
+               bOnServer = true;
+               return true;
+           }
 
             return false;
         }
@@ -45,11 +45,11 @@ namespace JIGAPServerGUI
         public void ServerClose()
         {
             /*Server Close합니다*/
-            if (bOnServer)
-            {
-                jigapServerWrap.JIGAPWrapServerClose();
-                bOnServer = false;
-            }
+             if (bOnServer)
+             {
+                 jigapServerWrap.JIGAPWrapServerClose();
+                 bOnServer = false;
+             }
         }
         public bool CheckSystemMsg() { return jigapServerWrap.JIGAPCheckSystemMsg(); }
         public string GetSystemMsg() { return jigapServerWrap.JIGAPGetSystemMsg(); }

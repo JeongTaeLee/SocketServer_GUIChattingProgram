@@ -16,7 +16,6 @@
 #include <WS2tcpip.h>
 #include <Windows.h>
 
-#include <mutex>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -27,9 +26,24 @@
 #include <map>
 #include <crtdbg.h>
 
-#pragma comment(lib, "ws2_32.lib")
 
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
+#include "../JIGAPServerStartLib/SocketAddress.h"
+#include "../JIGAPServerStartLib/TCPIOData.h"
+#include "../JIGAPServerStartLib/TCPSocket.h"
+#include "../JIGAPServerStartLib/SerializeObject.h"
+#include "../JIGAPServerStartLib/Room.h"
+#include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
+#include "../JIGAPServerStartLib/PacketHandler.h"
+
+#pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
 
+#ifdef _DEBUG
+#pragma comment(lib, "libprotobufd.lib")
+#pragma comment(lib, "libprotobuf-lited.lib")
+#else
+#pragma comment(lib, "libprotobuf.lib")
+#pragma comment(lib, "libprotobuf-lite.lib")
+#endif
 #endif //PCH_H

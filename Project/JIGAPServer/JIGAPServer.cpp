@@ -6,11 +6,11 @@
 #include "JIGAPServer.h"
 
 
-
 JIGAPServer::JIGAPServer()
 	:lpServSock(nullptr), 
 	
 	lpSerializeObject(new SerializeObject), 
+	lpPacketHandler(new PacketHandler),
 	
 	hSystemLogMutex(nullptr), 
 	hClientDataMutex(nullptr), 
@@ -24,6 +24,8 @@ JIGAPServer::JIGAPServer()
 
 JIGAPServer::~JIGAPServer()
 {
+	delete lpSerializeObject;
+	delete lpPacketHandler;
 }
 
 HRESULT JIGAPServer::JIGAPInitializeServer()
@@ -150,7 +152,7 @@ void JIGAPServer::JIGAPConnectThread()
 
 	while (true)
 	{
-		LPTCPSOCK lpClntData = lpServSock->Accept(); // 연결을 대기합니다.
+		TCPSocket* lpClntData = lpServSock->Accept(); // 연결을 대기합니다.
 
 		if (bServerOn == false) // 서버가 종료되었습니다.
 			break;
@@ -192,7 +194,7 @@ void JIGAPServer::JIGAPChattingThread()
 
 	while (true)
 	{
-		LPTCPSOCK lpClntSock = nullptr;
+		TCPSocket* lpClntSock = nullptr;
 		LPIODATA lpIOData = nullptr;
 
 		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
@@ -208,6 +210,8 @@ void JIGAPServer::JIGAPChattingThread()
 
 		else // 성공적으로 IO가 끝났습니다.
 		{
+
+			/*
 			int literal = 0;
 			
 			lpSerializeObject->ClearSendStreamBuffer();
@@ -249,13 +253,14 @@ void JIGAPServer::JIGAPChattingThread()
 			ReleaseMutex(hClientDataMutex);
 
 			lpSerializeObject->ClearRecvStreamBuffer();
+			*/
 		}
 	}
 
 	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
 }
 
-void JIGAPServer::OnLogin(LPTCPSOCK & lpClntSock)
+void JIGAPServer::OnLogin(TCPSocket* & lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -293,7 +298,7 @@ void JIGAPServer::OnLogin(LPTCPSOCK & lpClntSock)
 	}
 }
 
-void JIGAPServer::OnRequestRoomList(LPTCPSOCK& lpClntSock)
+void JIGAPServer::OnRequestRoomList(TCPSocket*& lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -318,7 +323,7 @@ void JIGAPServer::OnRequestRoomList(LPTCPSOCK& lpClntSock)
 	}
 }
 
-void JIGAPServer::OnRequestCreateRoom(LPTCPSOCK& lpClntSock)
+void JIGAPServer::OnRequestCreateRoom(TCPSocket*& lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -350,7 +355,7 @@ void JIGAPServer::OnRequestCreateRoom(LPTCPSOCK& lpClntSock)
 	}
 }
 
-void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
+void JIGAPServer::OnRequestJoinedRoom(TCPSocket* & lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -378,7 +383,7 @@ void JIGAPServer::OnRequestJoinedRoom(LPTCPSOCK & lpClntSock)
 	}
 }
 
-void JIGAPServer::OnRequestExtiRoom(LPTCPSOCK& lpClntSock)
+void JIGAPServer::OnRequestExtiRoom(TCPSocket*& lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -391,7 +396,7 @@ void JIGAPServer::OnRequestExtiRoom(LPTCPSOCK& lpClntSock)
 	}
 }
 
-void JIGAPServer::OnRequestChatting(LPTCPSOCK & lpClntSock)
+void JIGAPServer::OnRequestChatting(TCPSocket* & lpClntSock)
 {
 	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
 	{
@@ -411,7 +416,9 @@ void JIGAPServer::OnRequestChatting(LPTCPSOCK & lpClntSock)
 	}
 }
 
-int JIGAPServer::CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIOData)
+
+
+DWORD JIGAPServer::CheckIOCompletionSocket(TCPSocket* & inSocket, TCPIOData* & inIOData)
 {
 	DWORD dwByte = 0;
 
@@ -429,7 +436,7 @@ int JIGAPServer::CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIODa
 			return 0;
 	}
 
-	return 1;
+	return dwByte;
 }
 
 void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
@@ -469,7 +476,7 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 		return;
 
 
-	LPTCPSOCK lpSock = find->second;
+	TCPSocket* lpSock = find->second;
 	
 
 	RemoveClientToRoom(lpSock);
@@ -486,7 +493,7 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 
 }
 
-void JIGAPServer::RemoveClientToRoom(LPTCPSOCK& lpSock)
+void JIGAPServer::RemoveClientToRoom(TCPSocket*& lpSock)
 {
 	if (!lpSock) return;
 

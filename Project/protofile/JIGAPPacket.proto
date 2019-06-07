@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package JIGAPPacket;
 
@@ -14,59 +14,32 @@ enum PacketType
 
 	RoomListRequestType = 5;
 	RoomListAnswerType = 6;
-	RoomElementType = 7;
+	ElementOfRoomListType = 7;
 
 	ExitRoomRequestType = 8;
 	ExitRoomAnswerType = 9;
 	ChattingType = 10;
 }
-
-message BaseRequestPacket
+message TypePacket
 {
-	required PacketType requestType = 1;
+	PacketType type = 1;
 }
-message BaseAnswerPacket
+message StringPacket
 {
-	required PacketType answerType = 2;
+	string str = 1;
 }
-
-message LoginRequestPacket
-{
-	required string nickName = 1;
-}
-
 message LoginAnswerPacket
 {
-	required bool loginSuccess = 1;
-}
-
-message CreateRoomPacket
-{
-	required string roomName = 1;
-}
-
-message JoinedRoomRequestPacket
-{
-	required string roomName = 1;
+	bool loginSuccess = 1;
 }
 
 message JoinedRoomAnswerPacket
 {
-	required bool joinedRoomSuccess = 1;
-	required string roomName = 2;
-}
-
-message ChattingPacket
-{
-	required string msg = 1;
+	bool joinedRoomSuccess = 1;
+	string roomName = 2;
 }
 
 message RoomListAnswerPacket
 {
-	required int32 roomCount = 1;
-}
-
-message RoomElementPacket
-{
-	required string roomName = 1;
+	int32 roomCount = 1;
 }

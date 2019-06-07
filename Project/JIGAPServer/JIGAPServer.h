@@ -1,10 +1,17 @@
 #pragma once
 
+class Room;
+class TCPIOData;
+class TCPSocket;
+class SerializeObject;
+class PacketHandler;
+
 class JIGAPServer
 {
 private:
-	LPTCPSOCK lpServSock;
+	TCPSocket* lpServSock;
 	SerializeObject* lpSerializeObject;
+	PacketHandler* lpPacketHandler;
 
 	HANDLE hSystemLogMutex;	
 	HANDLE hClientDataMutex;
@@ -16,8 +23,8 @@ private:
 	std::thread connectThread;
 	std::thread chattingThread;
 
-	std::map < std::string, LPROOM> mRooms;
-	std::map < SOCKET, LPTCPSOCK > mClientData;
+	std::map < std::string, Room*> mRooms;
+	std::map < SOCKET, TCPSocket* > mClientData;
 	
 	std::queue < std::string > qSystemMsg;
 
@@ -41,14 +48,14 @@ public:
 	void JIGAPConnectThread();
 	void JIGAPChattingThread();
 
-	void OnLogin(LPTCPSOCK & lpClntData);
-	void OnRequestRoomList(LPTCPSOCK& lpClntData);
-	void OnRequestCreateRoom(LPTCPSOCK & lpClntData);
-	void OnRequestJoinedRoom(LPTCPSOCK & lpClntData);
-	void OnRequestExtiRoom(LPTCPSOCK & lpClntData);
-	void OnRequestChatting(LPTCPSOCK & lpClntData);
+	void OnLogin(TCPSocket* & lpClntData);
+	void OnRequestRoomList(TCPSocket*& lpClntData);
+	void OnRequestCreateRoom(TCPSocket* & lpClntData);
+	void OnRequestJoinedRoom(TCPSocket* & lpClntData);
+	void OnRequestExtiRoom(TCPSocket* & lpClntData);
+	void OnRequestChatting(TCPSocket* & lpClntData);
 
-	int CheckIOCompletionSocket(LPTCPSOCK & inSocket, LPIODATA & inIOData);
+	DWORD  CheckIOCompletionSocket(TCPSocket* & inSocket, TCPIOData* & inIOData);
 
 public:
 	void JIGAPPrintSystemLog(const char * fmt, ...);
@@ -57,7 +64,7 @@ public:
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
 public:
 	void RemoveClient(const SOCKET & hSock);
-	void RemoveClientToRoom(LPTCPSOCK & lpSock);
+	void RemoveClientToRoom(TCPSocket* & lpSock);
 	
 };
 

@@ -17,16 +17,10 @@
 #include <cstring>
 #include <cstdarg>
 #include <thread>
-#include <mutex>
 #include <queue>
 #include <list>
 #include <map>
 #include <crtdbg.h>
-#pragma comment(lib, "ws2_32.lib")
-
-
-#include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
 
 
 #endif

@@ -35,13 +35,3 @@ enum JIGAPSTATE
 	E_REQUESTROOM,
 	E_ONROOM,
 };
-
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-#include <google/protobuf/text_format.h>
-
-#include "SocketAddress.h"
-#include "TCPIOData.h"
-#include "TCPSocket.h"
-#include "SerializeObject.h"
-#include "Room.h"
-#include "JIGAPPacket.pb.h"

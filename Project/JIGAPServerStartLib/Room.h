@@ -1,7 +1,6 @@
 #pragma once
 
 class TCPSocket;
-class Lobby;
 
 class Room
 {
