@@ -3,7 +3,7 @@
 
 #ifndef GOOGLE_PROTOBUF_INCLUDED_JIGAPPacket_2eproto
 #define GOOGLE_PROTOBUF_INCLUDED_JIGAPPacket_2eproto
-
+#define PROTOBUF_USE_DLLS
 #include <limits>
 #include <string>
 
@@ -18,8 +18,6 @@
 #error incompatible with your Protocol Buffer headers. Please
 #error regenerate this file with a newer version of protoc.
 #endif
-
-#define PROTOBUF_USE_DLLS
 
 #include <google/protobuf/port_undef.inc>
 #include <google/protobuf/io/coded_stream.h>
@@ -50,7 +48,7 @@ struct TableStruct_JIGAPPacket_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +56,12 @@ struct TableStruct_JIGAPPacket_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto;
 namespace JIGAPPacket {
+class ChattingSpreadPacket;
+class ChattingSpreadPacketDefaultTypeInternal;
+extern ChattingSpreadPacketDefaultTypeInternal _ChattingSpreadPacket_default_instance_;
+class CreateRoomAnswerPacket;
+class CreateRoomAnswerPacketDefaultTypeInternal;
+extern CreateRoomAnswerPacketDefaultTypeInternal _CreateRoomAnswerPacket_default_instance_;
 class JoinedRoomAnswerPacket;
 class JoinedRoomAnswerPacketDefaultTypeInternal;
 extern JoinedRoomAnswerPacketDefaultTypeInternal _JoinedRoomAnswerPacket_default_instance_;
@@ -75,6 +79,8 @@ class TypePacketDefaultTypeInternal;
 extern TypePacketDefaultTypeInternal _TypePacket_default_instance_;
 }  // namespace JIGAPPacket
 PROTOBUF_NAMESPACE_OPEN
+template<> ::JIGAPPacket::ChattingSpreadPacket* Arena::CreateMaybeMessage<::JIGAPPacket::ChattingSpreadPacket>(Arena*);
+template<> ::JIGAPPacket::CreateRoomAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::CreateRoomAnswerPacket>(Arena*);
 template<> ::JIGAPPacket::JoinedRoomAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::JoinedRoomAnswerPacket>(Arena*);
 template<> ::JIGAPPacket::LoginAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::LoginAnswerPacket>(Arena*);
 template<> ::JIGAPPacket::RoomListAnswerPacket* Arena::CreateMaybeMessage<::JIGAPPacket::RoomListAnswerPacket>(Arena*);
@@ -88,19 +94,21 @@ enum PacketType : int {
   LoginAnswerType = 1,
   JoinedRoomRequestType = 2,
   JoinedRoomAnswerType = 3,
-  CreateRoomType = 4,
-  RoomListRequestType = 5,
-  RoomListAnswerType = 6,
-  ElementOfRoomListType = 7,
-  ExitRoomRequestType = 8,
-  ExitRoomAnswerType = 9,
-  ChattingType = 10,
-  //PacketType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  //PacketType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  CreateRoomRequestType = 4,
+  CreateRoomAnswerType = 5,
+  RoomListRequestType = 6,
+  RoomListAnswerType = 7,
+  ElementOfRoomListType = 8,
+  ExitRoomRequestType = 9,
+  ExitRoomAnswerType = 10,
+  ChattingRequestType = 11,
+  ChattingSpreadType = 12,
+ // PacketType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+ // PacketType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool PacketType_IsValid(int value);
 constexpr PacketType PacketType_MIN = LoginRequestType;
-constexpr PacketType PacketType_MAX = ChattingType;
+constexpr PacketType PacketType_MAX = ChattingSpreadType;
 constexpr int PacketType_ARRAYSIZE = PacketType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PacketType_descriptor();
@@ -503,6 +511,132 @@ class LoginAnswerPacket :
 };
 // -------------------------------------------------------------------
 
+class CreateRoomAnswerPacket :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.CreateRoomAnswerPacket) */ {
+ public:
+  CreateRoomAnswerPacket();
+  virtual ~CreateRoomAnswerPacket();
+
+  CreateRoomAnswerPacket(const CreateRoomAnswerPacket& from);
+  CreateRoomAnswerPacket(CreateRoomAnswerPacket&& from) noexcept
+    : CreateRoomAnswerPacket() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateRoomAnswerPacket& operator=(const CreateRoomAnswerPacket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateRoomAnswerPacket& operator=(CreateRoomAnswerPacket&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CreateRoomAnswerPacket& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CreateRoomAnswerPacket* internal_default_instance() {
+    return reinterpret_cast<const CreateRoomAnswerPacket*>(
+               &_CreateRoomAnswerPacket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  void Swap(CreateRoomAnswerPacket* other);
+  friend void swap(CreateRoomAnswerPacket& a, CreateRoomAnswerPacket& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreateRoomAnswerPacket* New() const final {
+    return CreateMaybeMessage<CreateRoomAnswerPacket>(nullptr);
+  }
+
+  CreateRoomAnswerPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateRoomAnswerPacket>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CreateRoomAnswerPacket& from);
+  void MergeFrom(const CreateRoomAnswerPacket& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateRoomAnswerPacket* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.CreateRoomAnswerPacket";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool createRoomSuccess = 1;
+  void clear_createroomsuccess();
+  static const int kCreateRoomSuccessFieldNumber = 1;
+  bool createroomsuccess() const;
+  void set_createroomsuccess(bool value);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.CreateRoomAnswerPacket)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  bool createroomsuccess_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
 class JoinedRoomAnswerPacket :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.JoinedRoomAnswerPacket) */ {
  public:
@@ -545,7 +679,7 @@ class JoinedRoomAnswerPacket :
                &_JoinedRoomAnswerPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   void Swap(JoinedRoomAnswerPacket* other);
   friend void swap(JoinedRoomAnswerPacket& a, JoinedRoomAnswerPacket& b) {
@@ -684,7 +818,7 @@ class RoomListAnswerPacket :
                &_RoomListAnswerPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   void Swap(RoomListAnswerPacket* other);
   friend void swap(RoomListAnswerPacket& a, RoomListAnswerPacket& b) {
@@ -763,6 +897,151 @@ class RoomListAnswerPacket :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::int32 roomcount_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ChattingSpreadPacket :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.ChattingSpreadPacket) */ {
+ public:
+  ChattingSpreadPacket();
+  virtual ~ChattingSpreadPacket();
+
+  ChattingSpreadPacket(const ChattingSpreadPacket& from);
+  ChattingSpreadPacket(ChattingSpreadPacket&& from) noexcept
+    : ChattingSpreadPacket() {
+    *this = ::std::move(from);
+  }
+
+  inline ChattingSpreadPacket& operator=(const ChattingSpreadPacket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChattingSpreadPacket& operator=(ChattingSpreadPacket&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ChattingSpreadPacket& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ChattingSpreadPacket* internal_default_instance() {
+    return reinterpret_cast<const ChattingSpreadPacket*>(
+               &_ChattingSpreadPacket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(ChattingSpreadPacket* other);
+  friend void swap(ChattingSpreadPacket& a, ChattingSpreadPacket& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ChattingSpreadPacket* New() const final {
+    return CreateMaybeMessage<ChattingSpreadPacket>(nullptr);
+  }
+
+  ChattingSpreadPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ChattingSpreadPacket>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ChattingSpreadPacket& from);
+  void MergeFrom(const ChattingSpreadPacket& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ChattingSpreadPacket* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.ChattingSpreadPacket";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string sender = 1;
+  void clear_sender();
+  static const int kSenderFieldNumber = 1;
+  const std::string& sender() const;
+  void set_sender(const std::string& value);
+  void set_sender(std::string&& value);
+  void set_sender(const char* value);
+  void set_sender(const char* value, size_t size);
+  std::string* mutable_sender();
+  std::string* release_sender();
+  void set_allocated_sender(std::string* sender);
+
+  // string msg = 2;
+  void clear_msg();
+  static const int kMsgFieldNumber = 2;
+  const std::string& msg() const;
+  void set_msg(const std::string& value);
+  void set_msg(std::string&& value);
+  void set_msg(const char* value);
+  void set_msg(const char* value, size_t size);
+  std::string* mutable_msg();
+  std::string* release_msg();
+  void set_allocated_msg(std::string* msg);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.ChattingSpreadPacket)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sender_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
@@ -866,6 +1145,24 @@ inline void LoginAnswerPacket::set_loginsuccess(bool value) {
 
 // -------------------------------------------------------------------
 
+// CreateRoomAnswerPacket
+
+// bool createRoomSuccess = 1;
+inline void CreateRoomAnswerPacket::clear_createroomsuccess() {
+  createroomsuccess_ = false;
+}
+inline bool CreateRoomAnswerPacket::createroomsuccess() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.CreateRoomAnswerPacket.createRoomSuccess)
+  return createroomsuccess_;
+}
+inline void CreateRoomAnswerPacket::set_createroomsuccess(bool value) {
+  
+  createroomsuccess_ = value;
+  // @@protoc_insertion_point(field_set:JIGAPPacket.CreateRoomAnswerPacket.createRoomSuccess)
+}
+
+// -------------------------------------------------------------------
+
 // JoinedRoomAnswerPacket
 
 // bool joinedRoomSuccess = 1;
@@ -951,9 +1248,119 @@ inline void RoomListAnswerPacket::set_roomcount(::PROTOBUF_NAMESPACE_ID::int32 v
   // @@protoc_insertion_point(field_set:JIGAPPacket.RoomListAnswerPacket.roomCount)
 }
 
+// -------------------------------------------------------------------
+
+// ChattingSpreadPacket
+
+// string sender = 1;
+inline void ChattingSpreadPacket::clear_sender() {
+  sender_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ChattingSpreadPacket::sender() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChattingSpreadPacket.sender)
+  return sender_.GetNoArena();
+}
+inline void ChattingSpreadPacket::set_sender(const std::string& value) {
+  
+  sender_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.ChattingSpreadPacket.sender)
+}
+inline void ChattingSpreadPacket::set_sender(std::string&& value) {
+  
+  sender_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.ChattingSpreadPacket.sender)
+}
+inline void ChattingSpreadPacket::set_sender(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  sender_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.ChattingSpreadPacket.sender)
+}
+inline void ChattingSpreadPacket::set_sender(const char* value, size_t size) {
+  
+  sender_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.ChattingSpreadPacket.sender)
+}
+inline std::string* ChattingSpreadPacket::mutable_sender() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChattingSpreadPacket.sender)
+  return sender_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ChattingSpreadPacket::release_sender() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChattingSpreadPacket.sender)
+  
+  return sender_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ChattingSpreadPacket::set_allocated_sender(std::string* sender) {
+  if (sender != nullptr) {
+    
+  } else {
+    
+  }
+  sender_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sender);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChattingSpreadPacket.sender)
+}
+
+// string msg = 2;
+inline void ChattingSpreadPacket::clear_msg() {
+  msg_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ChattingSpreadPacket::msg() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChattingSpreadPacket.msg)
+  return msg_.GetNoArena();
+}
+inline void ChattingSpreadPacket::set_msg(const std::string& value) {
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.ChattingSpreadPacket.msg)
+}
+inline void ChattingSpreadPacket::set_msg(std::string&& value) {
+  
+  msg_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.ChattingSpreadPacket.msg)
+}
+inline void ChattingSpreadPacket::set_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.ChattingSpreadPacket.msg)
+}
+inline void ChattingSpreadPacket::set_msg(const char* value, size_t size) {
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.ChattingSpreadPacket.msg)
+}
+inline std::string* ChattingSpreadPacket::mutable_msg() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChattingSpreadPacket.msg)
+  return msg_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ChattingSpreadPacket::release_msg() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChattingSpreadPacket.msg)
+  
+  return msg_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ChattingSpreadPacket::set_allocated_msg(std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChattingSpreadPacket.msg)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

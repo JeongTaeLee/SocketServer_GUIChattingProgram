@@ -4,31 +4,74 @@
 #include "Room.h"
 
 PacketHandler::PacketHandler()
+	:iRecvStreamSize(MAXBUFFERSIZE), iSendStreamSize(MAXBUFFERSIZE),
+	iRecvStreamPosition(0), iSendStreamPosition(0),
+	lpRecvStream(static_cast<char*>(std::malloc(MAXBUFFERSIZE))),
+	lpSendStream(static_cast<char*>(std::malloc(MAXBUFFERSIZE))),
+	iSizeOfRecvPacket(0)
 {
-	lpInputStream = static_cast<char*>(std::malloc(MAXBUFFERSIZE));
-	lpOutputStream = static_cast<char*>(std::malloc(MAXBUFFERSIZE));
-
-	iIStreamAllocSize = iOStreamAllocSize = MAXBUFFERSIZE;
-	
-	iIStreamWriteSize = 0;
-	iOStreamWriteSize = 0;
-
-	ClearWirteBuffer();
 }
 
 PacketHandler::~PacketHandler()
 {
-	delete[] lpInputStream;
-	delete[] lpOutputStream;
+	delete[] lpRecvStream;
+	delete[] lpSendStream;
 }
 
-int PacketHandler::ParsingPacketSize(char* lpInBuffer)
+void PacketHandler::ClearRecvStream()
+{
+	memset(lpRecvStream, 0, iRecvStreamSize);
+	iRecvStreamPosition = sizeof(unsigned int);
+}
+
+void PacketHandler::SetPacketInRecvStream(char* lpInBuffer, int size)
+{
+	ClearRecvStream();
+	iSizeOfRecvPacket = size;
+	memcpy(lpRecvStream, lpInBuffer, iRecvStreamSize);
+}
+
+int PacketHandler::ParsingPacketSize(const char* lpInBuffer)
 {
 	unsigned int bufferSize = 0;
-	memcpy((void*)&bufferSize, lpInBuffer, sizeof(unsigned int));
+	memcpy((void*)& bufferSize, lpInBuffer, sizeof(unsigned int));
 	return bufferSize;
 }
 
+void PacketHandler::ParsingPacketHeader(PacketHeader& inHeader)
+{
+	int headerSize = sizeof(PacketHeader);
+	memcpy((void*)& inHeader, &lpRecvStream[iRecvStreamPosition], headerSize);
+	iRecvStreamPosition += headerSize;
+}
+
+bool PacketHandler::SerializeHader(JIGAPPacket::PacketType eInType)
+{
+	PacketHeader header;
+	header.packetType = eInType;
+	header.size = 0;
+
+	unsigned int headerSize = sizeof(header);
+	memcpy(&lpSendStream[iSendStreamPosition], (char*)& header, headerSize);
+	iSendStreamPosition += headerSize;
+	SerializeTotalPacketSize(iSendStreamPosition);
+
+	return true;
+}
+
+void PacketHandler::ClearSendStream()
+{
+	memset(lpSendStream, 0, iSendStreamSize);
+	iSendStreamPosition = sizeof(unsigned int);
+	SerializeTotalPacketSize(iSendStreamPosition);
+}
+
+void PacketHandler::SerializeTotalPacketSize(unsigned int iInSize)
+{
+	memcpy(lpSendStream, (void*)&iInSize, sizeof(unsigned int));
+}
+
+/*
 void PacketHandler::WriteLoginRequest(const std::string& strInNickName)
 {
 	JIGAPPacket::StringPacket strPacket;
@@ -126,3 +169,4 @@ void PacketHandler::ClearWirteBuffer()
 	iOStreamWriteSize = sizeof(unsigned int);
 	WriteTotalPacketSize(iOStreamWriteSize);
 }
+*/

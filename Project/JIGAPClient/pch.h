@@ -12,7 +12,6 @@
 #include <WinSock2.h>
 #include <Windows.h>
 
-#include <mutex>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -24,9 +23,24 @@
 #include <crtdbg.h>
 #include <atlstr.h>
 
-#pragma comment(lib, "ws2_32.lib")
-
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
+#include "../JIGAPServerStartLib/SocketAddress.h"
+#include "../JIGAPServerStartLib/TCPIOData.h"
+#include "../JIGAPServerStartLib/TCPSocket.h"
+#include "../JIGAPServerStartLib/SerializeObject.h"
+#include "../JIGAPServerStartLib/Room.h"
+#include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
+#include "../JIGAPServerStartLib/PacketHandler.h"
+
+#pragma comment(lib, "ws2_32.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "libprotobufd.lib")
+#pragma comment(lib, "libprotobuf-lited.lib")
+#pragma comment(lib, "../debug/JIGAPServerStartLib.lib")
+#else
+#pragma comment(lib, "libprotobuf.lib")
+#pragma comment(lib, "libprotobuf-lite.lib")
+#pragma comment(lib, "../release/JIGAPServerStartLib.lib")
+#endif
 
 #endif //PCH_H

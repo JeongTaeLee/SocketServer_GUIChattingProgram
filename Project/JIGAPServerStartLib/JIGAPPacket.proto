@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package JIGAPPacket;
+
+enum PacketType
+{
+	LoginRequestType = 0;
+	LoginAnswerType = 1;
+
+	JoinedRoomRequestType = 2;
+	JoinedRoomAnswerType = 3;	
+	
+	CreateRoomRequestType = 4;
+	CreateRoomAnswerType = 5;
+
+	RoomListRequestType = 6;
+	RoomListAnswerType = 7;
+	ElementOfRoomListType = 8;
+
+	ExitRoomRequestType = 9;
+	ExitRoomAnswerType = 10;
+
+	ChattingRequestType = 11;
+	ChattingSpreadType = 12;
+}
+message TypePacket
+{
+	PacketType type = 1;
+}
+message StringPacket
+{
+	string str = 1;
+}
+message LoginAnswerPacket
+{
+	bool loginSuccess = 1;
+}
+message CreateRoomAnswerPacket
+{
+	bool createRoomSuccess = 1;
+}
+message JoinedRoomAnswerPacket
+{
+	bool joinedRoomSuccess = 1;
+	string roomName = 2;
+}
+
+message RoomListAnswerPacket
+{
+	int32 roomCount = 1;
+}
+
+message ChattingSpreadPacket
+{
+	string sender = 1;
+	string msg = 2;
+}

@@ -37,13 +37,14 @@
 #include "../JIGAPServerStartLib/PacketHandler.h"
 
 #pragma comment(lib, "ws2_32.lib")
-#pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
 
 #ifdef _DEBUG
 #pragma comment(lib, "libprotobufd.lib")
 #pragma comment(lib, "libprotobuf-lited.lib")
+#pragma comment(lib, "../debug/JIGAPServerStartLib.lib")
 #else
 #pragma comment(lib, "libprotobuf.lib")
 #pragma comment(lib, "libprotobuf-lite.lib")
+#pragma comment(lib, "../release/JIGAPServerStartLib.lib")
 #endif
 #endif //PCH_H

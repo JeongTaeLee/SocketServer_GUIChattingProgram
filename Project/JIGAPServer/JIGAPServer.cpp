@@ -81,7 +81,7 @@ void JIGAPServer::JIGAPReleaseServer()
 	CloseHandle(hClientDataMutex);
 
 	for (auto Iter : mClientData)
-		RemoveClient(Iter.second->GetSocket());
+		RemoveClientInServer(Iter.second->GetSocket());
 	mClientData.clear();
 
 	delete lpServSock;
@@ -195,21 +195,22 @@ void JIGAPServer::JIGAPChattingThread()
 	while (true)
 	{
 		TCPSocket* lpClntSock = nullptr;
-		LPIODATA lpIOData = nullptr;
+		TCPIOData* lpIOData = nullptr;
 
 		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
 
 		if (iCheckIOResult == 0) // 클라이언트가 종료를 요청했습니다.
-		{
-			
-			RemoveClient(lpClntSock->GetSocket());
-		}
+			RemoveClientInServer(lpClntSock->GetSocket());
 
 		else if (iCheckIOResult == -1) // 서버가 종료되었습니다.
 			break;
 
-		else // 성공적으로 IO가 끝났습니다.
+		else
 		{
+			if (lpClntSock->GetIOMode() == IOMODE::E_IOMODE_RECV)
+				RecvProcessing(lpClntSock, iCheckIOResult);
+			else
+				lpClntSock->IOCPRecv();
 
 			/*
 			int literal = 0;
@@ -260,160 +261,156 @@ void JIGAPServer::JIGAPChattingThread()
 	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
 }
 
-void JIGAPServer::OnLogin(TCPSocket* & lpClntSock)
+void JIGAPServer::RecvProcessing(TCPSocket * lpInClntSocket, int iInRecvByte)
 {
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
+	unsigned int packetSize = lpPacketHandler->ParsingPacketSize(lpInClntSocket->GetBufferData());
+	JIGAPPrintSystemLog("패킷이 도착했습니다 패킷의 총 사이즈 : %d, 전달 받은 사이즈 : %d", packetSize, iInRecvByte);
+	if (packetSize > iInRecvByte)
+		return;
+
+	lpPacketHandler->ClearSendStream();
+	lpPacketHandler->SetPacketInRecvStream(lpInClntSocket->GetBufferData(), packetSize);
+
+	PacketHeader packetHeader;
+	lpPacketHandler->ParsingPacketHeader(packetHeader);
+
+	switch (packetHeader.packetType)
 	{
-		char name[MAXNAMESIZE];
-		lpSerializeObject->DeserializeRecvBuffer(name, sizeof(name));
+	case JIGAPPacket::PacketType::LoginRequestType:
+		OnRequestLogin(lpInClntSocket, packetHeader.size);
+		break;
 
-		bool loginSuccess = true;
-		WaitForSingleObject(hClientDataMutex, INFINITE);
-		for (auto Iter : mClientData)
-		{
-			if (Iter.second->GetMyUserName() == name)
-				loginSuccess = false;
-		}
-		ReleaseMutex(hClientDataMutex);
+	case JIGAPPacket::PacketType::RoomListRequestType:
+		OnRequestRoomList(lpInClntSocket, packetHeader.size);
+		break;
 
-		if (loginSuccess)
-		{
-			lpClntSock->SetUserName(name);
-			
-			lpSerializeObject->SerializeDataSendBuffer(answerLoginLiteral);
-			lpSerializeObject->SerializeDataSendBuffer(true);
+	case JIGAPPacket::PacketType::CreateRoomRequestType:
+		OnRequestCreateRoom(lpInClntSocket, packetHeader.size);
+		break;
 
-			JIGAPPrintSystemLog("%d 소켓이 닉네임 %s 로 로그인 했습니다.", lpClntSock->GetSocket(), lpClntSock->GetMyUserName().c_str());
-		}
-		else
-		{
-			lpSerializeObject->SerializeDataSendBuffer(answerLoginLiteral);
-			lpSerializeObject->SerializeDataSendBuffer(false);
+	case JIGAPPacket::PacketType::ExitRoomRequestType:
+		OnRequestExitRoom(lpInClntSocket, packetHeader.size);
+		break;
+	}
+}
+
+void JIGAPServer::OnRequestLogin(TCPSocket*& lpInClntData, unsigned int iInSize)
+{
+	JIGAPPacket::StringPacket requestPacket;
+	lpPacketHandler->ParsingPacket(requestPacket, iInSize);
+
+	bool bLoginSuccess = true;
+
+	for (auto Iter : mClientData)
+	{
+		if (Iter.second->GetMyUserName() == requestPacket.str())
+			bLoginSuccess = false;
+	}
+
+	JIGAPPacket::LoginAnswerPacket answerPacket;
+	answerPacket.set_loginsuccess(bLoginSuccess);
+	lpPacketHandler->SerializePacket(JIGAPPacket::LoginAnswerType, answerPacket);
+
+	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
+}
+
+void JIGAPServer::OnRequestRoomList(TCPSocket*& lpInClntData, unsigned int iInSize)
+{
+	WaitForSingleObject(hRoomsMutex, INFINITE);
+	
+	JIGAPPacket::RoomListAnswerPacket roomListAnswerPacket;
+	roomListAnswerPacket.set_roomcount(mRooms.size());
+	lpPacketHandler->SerializePacket(JIGAPPacket::RoomListAnswerType, roomListAnswerPacket);
+
+	for (auto Iter : mRooms)
+	{
+		JIGAPPacket::StringPacket roomNamePaket;
+		roomNamePaket.set_str(Iter.first);
+		lpPacketHandler->SerializePacket(JIGAPPacket::ElementOfRoomListType, roomNamePaket);
+	}
+
+	ReleaseMutex(hRoomsMutex);
+
+	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
+}
+
+void JIGAPServer::OnRequestCreateRoom(TCPSocket*& lpInClntData, unsigned int iInSize)
+{	
+	JIGAPPacket::StringPacket roomNamePacket;
+	lpPacketHandler->ParsingPacket(roomNamePacket, iInSize);
+
+	WaitForSingleObject(hRoomsMutex, INFINITE);
+	
+	bool bCreateSuccess = true;
+
+	auto find = mRooms.find(roomNamePacket.str());
+	if (find != mRooms.end())
+		bCreateSuccess = false;
+
+	if (bCreateSuccess)
+	{
+		Room* room = new Room();
+		room->SetRoomName(roomNamePacket.str());
+		mRooms.insert(make_pair(roomNamePacket.str(), room));
+		room->AddUser(lpInClntData);
+	}
+	ReleaseMutex(hRoomsMutex);
+
+	JIGAPPacket::CreateRoomAnswerPacket joinedRoomAnswerPacket;
+	joinedRoomAnswerPacket.set_createroomsuccess(bCreateSuccess);
+
+	lpPacketHandler->SerializePacket(JIGAPPacket::CreateRoomAnswerType, joinedRoomAnswerPacket);
+
+	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
+}
+
+void JIGAPServer::OnRequestJoinedRoom(TCPSocket*& lpInClntData, unsigned int iInSize)
+{
+	JIGAPPacket::StringPacket roomNamePacket;
+	lpPacketHandler->ParsingPacket(roomNamePacket, iInSize);
+
+	WaitForSingleObject(hRoomsMutex, INFINITE);
+	
+	auto find = mRooms.find(roomNamePacket.str());
+	
+	bool bJoinedSuccess = true;
+	if (find == mRooms.end())
+		bJoinedSuccess = false;
+
+	if (bJoinedSuccess)
+		find->second->AddUser(lpInClntData);
+	ReleaseMutex(hRoomsMutex);
+	
+	JIGAPPacket::JoinedRoomAnswerPacket joinedAnswerPacket;
+	joinedAnswerPacket.set_roomname(roomNamePacket.str());
+	joinedAnswerPacket.set_joinedroomsuccess(bJoinedSuccess);
+	
+
+	lpPacketHandler->SerializePacket(JIGAPPacket::JoinedRoomAnswerType, joinedAnswerPacket);
+
+	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
+}
+
+void JIGAPServer::OnRequestExitRoom(TCPSocket*& lpInClntData, unsigned int iInSize)
+{
+	if (lpInClntData->GetRoom())
+		RemoveClientInRoom(lpInClntData);
+
+	lpPacketHandler->SerializeHader(JIGAPPacket::PacketType::ExitRoomAnswerType);
+
+	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
+}
+
+void JIGAPServer::OnRequestChatting(TCPSocket*& lpInClntData, unsigned int iInSize)
+{
+	JIGAPPacket::StringPacket msgRequestPacket;
+	lpPacketHandler->ParsingPacket(msgRequestPacket, iInSize);
 		
-			JIGAPPrintSystemLog("%d 소켓의 로그인 요청이 거부되었습니다.");
-		}
+	JIGAPPacket::ChattingSpreadPacket spreadPacket;
+	spreadPacket.set_sender(lpInClntData->GetMyUserName());
+	spreadPacket.set_msg(msgRequestPacket.str());
 
-		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		lpClntSock->IOCPSend();
-	}
-}
-
-void JIGAPServer::OnRequestRoomList(TCPSocket*& lpClntSock)
-{
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		WaitForSingleObject(hRoomsMutex, INFINITE);
-		
-		int roomCount = mRooms.size();
-		
-		lpSerializeObject->SerializeDataSendBuffer(answerRoomListLiteral);
-		lpSerializeObject->SerializeDataSendBuffer(roomCount);
-
-		for (auto& Iter : mRooms)
-		{
-			char roomName[MAXROOMNAMESIZE] = { 0 };
-			memcpy(roomName, Iter.first.c_str() , Iter.first.size());
-			lpSerializeObject->SerializeDataSendBuffer(roomName, sizeof(roomName));
-		}
-
-		ReleaseMutex(hRoomsMutex);
-
-		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		lpClntSock->IOCPSend();
-	}
-}
-
-void JIGAPServer::OnRequestCreateRoom(TCPSocket*& lpClntSock)
-{
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		char roomName[MAXROOMNAMESIZE] = { 0 };
-		lpSerializeObject->DeserializeRecvBuffer(roomName, sizeof(roomName));
-		lpSerializeObject->SerializeDataSendBuffer(answerCreateRoomLiteral);
-		
-		WaitForSingleObject(hRoomsMutex, INFINITE);
-
-		auto find = mRooms.find(roomName);
-		if (find != mRooms.end())
-			lpSerializeObject->SerializeDataSendBuffer(false);
-		else
-		{
-			lpSerializeObject->SerializeDataSendBuffer(true);
-			
-			Room* lpRoom = new Room;
-			lpRoom->SetRoomName(roomName);
-			mRooms.insert(std::make_pair(roomName, lpRoom));
-			lpRoom->AddUser(lpClntSock);
-
-			JIGAPPrintSystemLog("%s 방이 생성되었습니다.", lpRoom->GetRoomName().c_str());
-		}
-
-		ReleaseMutex(hRoomsMutex);
-
-		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		lpClntSock->IOCPSend();
-	}
-}
-
-void JIGAPServer::OnRequestJoinedRoom(TCPSocket* & lpClntSock)
-{
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		char buffer[MAXROOMNAMESIZE];
-		lpSerializeObject->DeserializeRecvBuffer(buffer, sizeof(buffer));
-		lpSerializeObject->SerializeDataSendBuffer(answerJoinedRoomLiteral);
-
-
-		WaitForSingleObject(hRoomsMutex, INFINITE);
-
-		auto find = mRooms.find(buffer);
-		if (find != mRooms.end())
-		{
-			find->second->AddUser(lpClntSock);
-			lpSerializeObject->SerializeDataSendBuffer(true);
-			lpSerializeObject->SerializeDataSendBuffer(find->first.c_str(), find->first.size());
-		}
-		else
-			lpSerializeObject->SerializeDataSendBuffer(false);
-
-		ReleaseMutex(hRoomsMutex);
-
-		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		lpClntSock->IOCPSend();
-	}
-}
-
-void JIGAPServer::OnRequestExtiRoom(TCPSocket*& lpClntSock)
-{
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		lpSerializeObject->SerializeDataSendBuffer(answerExitRoomLiteral);
-
-		RemoveClientToRoom(lpClntSock);
-
-		lpClntSock->SetBufferData(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		lpClntSock->IOCPSend();
-	}
-}
-
-void JIGAPServer::OnRequestChatting(TCPSocket* & lpClntSock)
-{
-	if (lpClntSock->GetIOMode() == E_IOMODE_RECV)
-	{
-		char message[MAXSTRSIZE] = { 0 };
-		lpSerializeObject->DeserializeRecvBuffer(message);
-
-		char userName[MAXNAMESIZE] = { 0 };
-		memcpy(userName, lpClntSock->GetMyUserName().c_str(), lpClntSock->GetMyUserName().size());
-		lpSerializeObject->SerializeDataSendBuffer(anwserChattingLiteral);
-		lpSerializeObject->SerializeDataSendBuffer(userName, sizeof(userName));
-		lpSerializeObject->SerializeDataSendBuffer(message, sizeof(message));
-
-		if (lpClntSock->GetRoom())
-		{
-			lpClntSock->GetRoom()->SendToAllUser(lpSerializeObject->GetSendStreamBuffer(), lpSerializeObject->GetSendStreamSize());
-		}
-	}
+	lpInClntData->GetRoom()->SendToAllUser(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
 }
 
 
@@ -468,7 +465,7 @@ std::string JIGAPServer::JIGAPGetSystemMsg()
 	return strSystemMessage;
 }
 
-void JIGAPServer::RemoveClient(const SOCKET& hSock)
+void JIGAPServer::RemoveClientInServer(const SOCKET& hSock)
 {
 	auto find = mClientData.find(hSock);
 
@@ -478,10 +475,8 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 
 	TCPSocket* lpSock = find->second;
 	
-
-	RemoveClientToRoom(lpSock);
-	
-
+	if(lpSock->GetRoom())
+		RemoveClientInRoom(lpSock);
 
 	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
 	
@@ -493,7 +488,7 @@ void JIGAPServer::RemoveClient(const SOCKET& hSock)
 
 }
 
-void JIGAPServer::RemoveClientToRoom(TCPSocket*& lpSock)
+void JIGAPServer::RemoveClientInRoom(TCPSocket*& lpSock)
 {
 	if (!lpSock) return;
 

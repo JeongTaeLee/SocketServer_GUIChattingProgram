@@ -58,11 +58,11 @@
     <ClInclude Include="PacketHandler.h">
       <Filter>PacketHandler</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="JIGAPStructure.h">
       <Filter>JIGAPStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

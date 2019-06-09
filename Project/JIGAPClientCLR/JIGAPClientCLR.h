@@ -6,8 +6,8 @@
 using namespace System;
 public delegate void PROGRESS_CSHARP(void);
 
-public delegate void PROGRESS_CSHARP_CHATTING(byte* sender, byte* message, int senderSize, int messageSize);
-public delegate void PROGRESS_CSHARP_JOINEDROOM(byte* lpInRoomName, int iLength);
+public delegate void PROGRESS_CSHARP_CHATTING(const byte* sender, const byte* message, int senderSize, int messageSize);
+public delegate void PROGRESS_CSHARP_JOINEDROOM(const byte* lpInRoomName, int iLength);
 
 namespace JIGAPClientCLR 
 {

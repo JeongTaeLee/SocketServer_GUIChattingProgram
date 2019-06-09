@@ -111,9 +111,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\Build\</OutDir>
+    <OutDir>..\Build\ServerBuild\</OutDir>
     <IncludePath>C:\protoc-3.8.0\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\protoc-3.8.0\solution\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\protolib\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -71,7 +71,7 @@ public:
 	성공 : 0.
 	실패 : WSAGetLastError()
 	*/
-	int IOCPSend();
+	int IOCPSend(const char * szInStream, int iInSendSize);
 	
 	/*동기 방식로 데이터를 수신합니다.
 	성공 : 수신된 데이터 크기
@@ -90,7 +90,6 @@ public:
 
 	const IOMODE& GetIOMode();
 	char* GetBufferData();
-	void SetBufferData(const char* copy, int size);
 
 	const std::string& GetMyUserName() { return strUserName; }
 	void SetUserName(const std::string& name);

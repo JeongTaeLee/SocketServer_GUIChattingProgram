@@ -10,7 +10,7 @@ using JIGAPClientDXGUI.Engine;
 
 namespace JIGAPClientDXGUI
 {
-    class RoomListView : NetworkObject
+    class RoomListView : GameObject
     {
         private RoomButton[] RoomList = null;
 

@@ -12,7 +12,6 @@
 #include <WS2tcpip.h>
 #include <Windows.h>
 
-#include <mutex>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -25,10 +24,6 @@
 #include <handleapi.h>
 #include <atlstr.h>
 
-#pragma comment(lib, "ws2_32.lib")
-
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
-#pragma comment(lib, "../Build/JIGAPServerStartLib.lib")
-
 
 #endif //PCH_H

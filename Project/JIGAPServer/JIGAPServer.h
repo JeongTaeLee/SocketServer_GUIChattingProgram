@@ -48,12 +48,14 @@ public:
 	void JIGAPConnectThread();
 	void JIGAPChattingThread();
 
-	void OnLogin(TCPSocket* & lpClntData);
-	void OnRequestRoomList(TCPSocket*& lpClntData);
-	void OnRequestCreateRoom(TCPSocket* & lpClntData);
-	void OnRequestJoinedRoom(TCPSocket* & lpClntData);
-	void OnRequestExtiRoom(TCPSocket* & lpClntData);
-	void OnRequestChatting(TCPSocket* & lpClntData);
+	void RecvProcessing(TCPSocket* lpInTcpSocket, int iInRecvByte);
+
+	void OnRequestLogin(TCPSocket*& lpInClnData, unsigned int iInSize);
+	void OnRequestRoomList(TCPSocket*& lpInClntData, unsigned int iInSize);
+	void OnRequestCreateRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
+	void OnRequestJoinedRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
+	void OnRequestExitRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
+	void OnRequestChatting(TCPSocket*& lpInClntData, unsigned int iInSize);
 
 	DWORD  CheckIOCompletionSocket(TCPSocket* & inSocket, TCPIOData* & inIOData);
 
@@ -63,8 +65,8 @@ public:
 	std::string JIGAPGetSystemMsg();
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
 public:
-	void RemoveClient(const SOCKET & hSock);
-	void RemoveClientToRoom(TCPSocket* & lpSock);
+	void RemoveClientInServer(const SOCKET & hSock);
+	void RemoveClientInRoom(TCPSocket* & lpSock);
 	
 };
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    class NetworkObject : GameObject
+    public abstract class NetworkObject : GameObject
     {
 
         public NetworkObject()
@@ -44,7 +44,6 @@ namespace JIGAPClientDXGUI.Engine
         }
         public virtual void OnRoomList(object sender, EventArgs e)
         {
-            
         }
         public virtual void OnCreateRoom(object send, EventArgs e)
         {

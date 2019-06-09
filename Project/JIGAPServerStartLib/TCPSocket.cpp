@@ -116,11 +116,15 @@ int TCPSocket::IOCPRecv()
 	return 0;
 }
 
-int TCPSocket::IOCPSend()
+int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
 {
+	lpIOData->wsaBuf.len = iInSendSize;
+	memcpy(lpIOData->szBuffer, szInStream, iInSendSize);
+
 	DWORD dwRecvByte = 0;
 	DWORD dwFlag = 0;	
 
+	
 	if (WSASend(hSock, &lpIOData->wsaBuf, 1, &dwRecvByte, dwFlag, (OVERLAPPED*)lpIOData, nullptr) == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
@@ -128,7 +132,7 @@ int TCPSocket::IOCPSend()
 	}
 
 	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;
-
+	lpIOData->wsaBuf.len = MAXBUFFERSIZE;
 	return 0;
 }
 
@@ -150,12 +154,6 @@ const IOMODE& TCPSocket::GetIOMode()
 char* TCPSocket::GetBufferData()
 {
 	return lpIOData->szBuffer;
-}
-
-void TCPSocket::SetBufferData(const char* copy, int size)
-{
-	memset(lpIOData->szBuffer, NULL, sizeof(lpIOData->szBuffer));
-	memcpy(lpIOData->szBuffer, copy, size);
 }
 
 void TCPSocket::SetUserName(const std::string& name)

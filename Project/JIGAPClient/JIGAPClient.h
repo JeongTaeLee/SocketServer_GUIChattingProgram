@@ -1,15 +1,21 @@
 #pragma once
 typedef void(__stdcall* PROGRESS)(void);
-typedef void(__stdcall* PROGRESS_CHATTING)(char* sender,  char* message, int senderSize, int messageSize);
-typedef void(__stdcall* PROGRESS_JOINEDROOM)(char* szInRoomName, int iInLen);
+typedef void(__stdcall* PROGRESS_CHATTING)(const char* sender, const char* message, int senderSize, int messageSize);
+typedef void(__stdcall* PROGRESS_JOINEDROOM)(const char* szInRoomName, int iInLen);
+
+class TCPSocket;
+class SerializeObject;
+class PacketHandler;
+
 class JIGAPClient
 {
 private:
 	JIGAPSTATE eClientState;
 	bool bLogin;
 
-	LPTCPSOCK lpSocket;
+	TCPSocket * lpSocket;
 	SerializeObject* lpSerializeObject;
+	PacketHandler* lpPacketHandler;
 
 	HANDLE hMessageMutex;
 
@@ -28,10 +34,10 @@ private:
 	std::function<void()> lpOnRoomListCallBack;
 	std::function<void()> lpOnCreateRoomCallBack;
 	std::function<void()> lpOnCreateRoomFailedCallBack;
-	std::function<void(char* szInRoomName, int iInLen)> lpOnJoinedRoomCallBack;
+	std::function<void(const char* szInRoomName, int iInLen)> lpOnJoinedRoomCallBack;
 	std::function<void()> lpOnJoinedRoomFailedCallBack;
 	std::function<void()> lpOnExitRoomCallBack;
-	std::function<void(char* sender, char* message, int senderSize, int messageSize)> lpOnChattingCallBack;
+	std::function<void(const char* sender, const char* message, int senderSize, int messageSize)> lpOnChattingCallBack;
 public:
 	JIGAPClient();
 	virtual ~JIGAPClient();
@@ -53,11 +59,11 @@ public:
 	bool JIGAPRequestExtiRoom();
 	bool JIGAPRequestChatting(const std::string & strInMessage);
 private:
-	void JIGAPOnAnswerLogin();
-	void JIGAPOnAnswerRoomList();
-	void JIGAPOnAnswerCreateRoom();
-	void JIGAPOnAnswerJoinedRoom();
-	void JIGAPOnAnswerExtiRoom();
+	void JIGAPOnAnswerLogin(unsigned int iInSize);
+	void JIGAPOnAnswerRoomList(unsigned int iInSize);
+	void JIGAPOnAnswerCreateRoom(unsigned int iInSize);
+	void JIGAPOnAnswerJoinedRoom(unsigned int iInSize);
+	void JIGAPOnAnswerExtiRoom(unsigned int iInSize);
 	void JIGAPOnAnswerChatting();
 public:
 	void JIGAPSetOnLoginCallBack(PROGRESS lpInCallBack) { lpOnLoginCallBack = lpInCallBack; }
@@ -72,7 +78,7 @@ public:
 
 private:
 	void JIGAPPrintMessageLog(const char* fmt, ...);
-	bool JIGAPSendSerializeBuffer();
+	bool JIGAPSendSerializeBuffer(const char* szInMessage, unsigned int iInSize);
 
 public:
 	bool JIGAPCheckMessageLog();

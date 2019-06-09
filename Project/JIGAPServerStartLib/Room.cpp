@@ -11,12 +11,6 @@ Room::~Room()
 {
 }
 
-void Room::SendRoomMessage(const char* inMessage)
-{
-	for (auto& Iter : liUserList)
-		Iter->IOCPSend();
-}
-
 void Room::AddUser(TCPSocket* lpSocket)
 {
 	liUserList.push_back(lpSocket);
@@ -32,8 +26,6 @@ void Room::DeleteUser(TCPSocket* lpSocket)
 void Room::SendToAllUser(const char* lpBuffer, size_t tSize)
 {
 	for (auto Iter : liUserList)
-	{
-		Iter->SetBufferData(lpBuffer, tSize);
-		Iter->IOCPSend();
-	}
+		Iter->IOCPSend(lpBuffer, tSize);
 }
+
