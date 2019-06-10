@@ -211,50 +211,6 @@ void JIGAPServer::JIGAPChattingThread()
 				RecvProcessing(lpClntSock, iCheckIOResult);
 			else
 				lpClntSock->IOCPRecv();
-
-			/*
-			int literal = 0;
-			
-			lpSerializeObject->ClearSendStreamBuffer();
-			lpSerializeObject->SetRecvStreamBuffer(lpClntSock->GetBufferData());
-			lpSerializeObject->DeserializeRecvBuffer(literal);
-
-			WaitForSingleObject(hClientDataMutex, INFINITE);
-			switch (literal)
-			{
-			case requestLoginLiteral:
-				OnLogin(lpClntSock);
-				break;
-
-			case requestRoomListLiteral:
-				OnRequestRoomList(lpClntSock);
-				break;
-
-			case requestCreateRoomLiteral:
-				OnRequestCreateRoom(lpClntSock);
-				break;
-
-			case requestJoinedRoomLiteral:
-				OnRequestJoinedRoom(lpClntSock);
-				break;
-
-			case requestExitRoomLiteral:
-				OnRequestExtiRoom(lpClntSock);
-				break;
-
-			case requestChattingLiteral:
-				OnRequestChatting(lpClntSock);
-				break;
-
-			default:
-				if (lpClntSock->GetIOMode() == IOMODE::E_IOMODE_SEND)
-					lpClntSock->IOCPRecv();
-				break;
-			}
-			ReleaseMutex(hClientDataMutex);
-
-			lpSerializeObject->ClearRecvStreamBuffer();
-			*/
 		}
 	}
 
@@ -264,7 +220,6 @@ void JIGAPServer::JIGAPChattingThread()
 void JIGAPServer::RecvProcessing(TCPSocket * lpInClntSocket, int iInRecvByte)
 {
 	unsigned int packetSize = lpPacketHandler->ParsingPacketSize(lpInClntSocket->GetBufferData());
-	JIGAPPrintSystemLog("패킷이 도착했습니다 패킷의 총 사이즈 : %d, 전달 받은 사이즈 : %d", packetSize, iInRecvByte);
 	if (packetSize > iInRecvByte)
 		return;
 
@@ -288,8 +243,18 @@ void JIGAPServer::RecvProcessing(TCPSocket * lpInClntSocket, int iInRecvByte)
 		OnRequestCreateRoom(lpInClntSocket, packetHeader.size);
 		break;
 
+	case JIGAPPacket::PacketType::JoinedRoomRequestType:
+		OnRequestJoinedRoom(lpInClntSocket, packetHeader.size);
+		break;
+
 	case JIGAPPacket::PacketType::ExitRoomRequestType:
 		OnRequestExitRoom(lpInClntSocket, packetHeader.size);
+		break;
+	case JIGAPPacket::PacketType::ChattingRequestType:
+		OnRequestChatting(lpInClntSocket, packetHeader.size);
+		break;
+	default:
+		lpInClntSocket->IOCPRecv();
 		break;
 	}
 }
@@ -307,8 +272,11 @@ void JIGAPServer::OnRequestLogin(TCPSocket*& lpInClntData, unsigned int iInSize)
 			bLoginSuccess = false;
 	}
 
-	JIGAPPacket::LoginAnswerPacket answerPacket;
-	answerPacket.set_loginsuccess(bLoginSuccess);
+	if(bLoginSuccess)
+		lpInClntData->SetUserName(requestPacket.str());
+
+	JIGAPPacket::BoolPacket answerPacket;
+	answerPacket.set_success(bLoginSuccess);
 	lpPacketHandler->SerializePacket(JIGAPPacket::LoginAnswerType, answerPacket);
 
 	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
@@ -352,13 +320,15 @@ void JIGAPServer::OnRequestCreateRoom(TCPSocket*& lpInClntData, unsigned int iIn
 		Room* room = new Room();
 		room->SetRoomName(roomNamePacket.str());
 		mRooms.insert(make_pair(roomNamePacket.str(), room));
+		JIGAPPrintSystemLog("%s 방이 생성되었습니다.", room->GetRoomName());
+
 		room->AddUser(lpInClntData);
 	}
 	ReleaseMutex(hRoomsMutex);
+	
 
-	JIGAPPacket::CreateRoomAnswerPacket joinedRoomAnswerPacket;
-	joinedRoomAnswerPacket.set_createroomsuccess(bCreateSuccess);
-
+	JIGAPPacket::BoolPacket joinedRoomAnswerPacket;
+	joinedRoomAnswerPacket.set_success(bCreateSuccess);
 	lpPacketHandler->SerializePacket(JIGAPPacket::CreateRoomAnswerType, joinedRoomAnswerPacket);
 
 	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
@@ -385,7 +355,6 @@ void JIGAPServer::OnRequestJoinedRoom(TCPSocket*& lpInClntData, unsigned int iIn
 	joinedAnswerPacket.set_roomname(roomNamePacket.str());
 	joinedAnswerPacket.set_joinedroomsuccess(bJoinedSuccess);
 	
-
 	lpPacketHandler->SerializePacket(JIGAPPacket::JoinedRoomAnswerType, joinedAnswerPacket);
 
 	lpInClntData->IOCPSend(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
@@ -409,6 +378,7 @@ void JIGAPServer::OnRequestChatting(TCPSocket*& lpInClntData, unsigned int iInSi
 	JIGAPPacket::ChattingSpreadPacket spreadPacket;
 	spreadPacket.set_sender(lpInClntData->GetMyUserName());
 	spreadPacket.set_msg(msgRequestPacket.str());
+	lpPacketHandler->SerializePacket(JIGAPPacket::PacketType::ChattingSpreadType, spreadPacket);
 
 	lpInClntData->GetRoom()->SendToAllUser(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
 }

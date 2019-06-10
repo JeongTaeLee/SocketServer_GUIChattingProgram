@@ -64,7 +64,7 @@ private:
 	void JIGAPOnAnswerCreateRoom(unsigned int iInSize);
 	void JIGAPOnAnswerJoinedRoom(unsigned int iInSize);
 	void JIGAPOnAnswerExtiRoom(unsigned int iInSize);
-	void JIGAPOnAnswerChatting();
+	void JIGAPOnAnswerChatting(unsigned int iInSize);
 public:
 	void JIGAPSetOnLoginCallBack(PROGRESS lpInCallBack) { lpOnLoginCallBack = lpInCallBack; }
 	void JIGAPSetOnLoginFailedCallBack(PROGRESS lpInCallBack) { lpOnLoginFailedCallBack = lpInCallBack; }

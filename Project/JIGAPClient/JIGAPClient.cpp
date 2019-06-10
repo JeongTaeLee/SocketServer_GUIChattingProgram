@@ -151,6 +151,9 @@ void JIGAPClient::JIGAPRecvThread()
 		case JIGAPPacket::ExitRoomAnswerType:
 			JIGAPOnAnswerExtiRoom(header.size);
 			break;
+		case JIGAPPacket::ChattingSpreadType:
+			JIGAPOnAnswerChatting(header.size);
+			break;
 		default:
 			break;
 		}
@@ -238,11 +241,10 @@ bool JIGAPClient::JIGAPRequestChatting(const std::string& strInMessage)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
 	{
-		char message[MAXSTRSIZE] = { 0 };
-		memcpy(message, strInMessage.c_str(), strInMessage.size());
-	
-		lpSerializeObject->SerializeDataSendBuffer(requestChattingLiteral);
-		lpSerializeObject->SerializeDataSendBuffer(message, sizeof(message));
+		JIGAPPacket::StringPacket strPacket;
+		strPacket.set_str(strInMessage);
+
+		lpPacketHandler->SerializePacket(JIGAPPacket::ChattingRequestType, strPacket);
 		return this->JIGAPSendSerializeBuffer(lpPacketHandler->GetSendStream(), lpPacketHandler->GetSendStreamPosition());
 	}
 	return false;
@@ -252,10 +254,10 @@ void JIGAPClient::JIGAPOnAnswerLogin(unsigned int iInSize)
 {
 	if (!bLogin)
 	{
-		JIGAPPacket::LoginAnswerPacket answerPacket;
+		JIGAPPacket::BoolPacket answerPacket;
 		lpPacketHandler->ParsingPacket(answerPacket, iInSize);
 
-		bool bLoginSuccess = answerPacket.loginsuccess();
+		bool bLoginSuccess = answerPacket.success();
 
 		if (bLoginSuccess)
 		{
@@ -280,6 +282,7 @@ void JIGAPClient::JIGAPOnAnswerRoomList(unsigned int iInSize)
 		JIGAPPacket::RoomListAnswerPacket answerPacket;
 		lpPacketHandler->ParsingPacket(answerPacket, iInSize);
 
+		liRoomList.clear();
 		for (int i = 0; i < answerPacket.roomcount(); ++i)
 		{
 			PacketHeader header;
@@ -302,10 +305,10 @@ void JIGAPClient::JIGAPOnAnswerCreateRoom(unsigned int iInSize)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
 	{
-		JIGAPPacket::CreateRoomAnswerPacket answerPacket;
+		JIGAPPacket::BoolPacket answerPacket;
 		lpPacketHandler->ParsingPacket(answerPacket, iInSize);
 
-		if (answerPacket.createroomsuccess())
+		if (answerPacket.success())
 		{
 			if (lpOnCreateRoomCallBack)
 				lpOnCreateRoomCallBack();
@@ -324,20 +327,20 @@ void JIGAPClient::JIGAPOnAnswerJoinedRoom(unsigned int iInSize)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_NOTROOM)
 	{
-		JIGAPPacket::CreateRoomAnswerPacket answerPacket;
+		JIGAPPacket::JoinedRoomAnswerPacket answerPacket;
 		lpPacketHandler->ParsingPacket(answerPacket, iInSize);
 
-		if (answerPacket.createroomsuccess())
+		if (answerPacket.joinedroomsuccess())
 		{
-			if (lpOnCreateRoomCallBack)
-				lpOnCreateRoomCallBack();
+			if (lpOnJoinedRoomCallBack)
+				lpOnJoinedRoomCallBack(answerPacket.roomname().c_str(), answerPacket.roomname().size());
 
 			eClientState = JIGAPSTATE::E_ONROOM;
 		}
 		else
 		{
-			if (lpOnCreateRoomFailedCallBack)
-				lpOnCreateRoomFailedCallBack();
+			if (lpOnJoinedRoomFailedCallBack)
+				lpOnJoinedRoomFailedCallBack();
 		}
 	}
 }
@@ -354,21 +357,15 @@ void JIGAPClient::JIGAPOnAnswerExtiRoom(unsigned int iInSize)
 	}
 }
 
-void JIGAPClient::JIGAPOnAnswerChatting()
+void JIGAPClient::JIGAPOnAnswerChatting(unsigned int iInSize)
 {
 	if (bLogin && eClientState == JIGAPSTATE::E_ONROOM)
 	{
-		char sender[MAXNAMESIZE] = { 0 };
-		lpSerializeObject->DeserializeRecvBuffer(sender, sizeof(sender));
+		JIGAPPacket::ChattingSpreadPacket spreadPacket;
+		lpPacketHandler->ParsingPacket(spreadPacket, iInSize);
 
-		char message[MAXSTRSIZE] = { 0 };
-		lpSerializeObject->DeserializeRecvBuffer(message, sizeof(message));
-
-	
 		if (lpOnChattingCallBack)
-		{
-			lpOnChattingCallBack(sender, message, strlen(sender), strlen(message));
-		}
+			lpOnChattingCallBack(spreadPacket.sender().c_str(), spreadPacket.msg().c_str(), spreadPacket.sender().size(), spreadPacket.msg().size());
 	}
 }
 

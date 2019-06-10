@@ -100,7 +100,6 @@ namespace JIGAPClientDXGUI
             int i = 0;
             foreach (string str in RoomNames)
             {
-
                 RoomList[i] = ObjectManager.GetInst().AddObject<RoomButton>();
                 RoomList[i].transform.SetParent(this);
 
@@ -108,8 +107,6 @@ namespace JIGAPClientDXGUI
                 RoomList[i].RoomName = str;
                 RoomList[i].ButtonRange = new System.Drawing.Rectangle(0, 0, 460, 65);
                 RoomList[i].Active = false;
-
-     
                 ++i;
             }
 

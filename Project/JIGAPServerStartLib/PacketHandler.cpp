@@ -49,7 +49,7 @@ bool PacketHandler::SerializeHader(JIGAPPacket::PacketType eInType)
 {
 	PacketHeader header;
 	header.packetType = eInType;
-	header.size = 0;
+	header.size = 8;
 
 	unsigned int headerSize = sizeof(header);
 	memcpy(&lpSendStream[iSendStreamPosition], (char*)& header, headerSize);

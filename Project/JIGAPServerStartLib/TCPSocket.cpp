@@ -104,6 +104,7 @@ HANDLE TCPSocket::ConnectionCompletionPort(HANDLE hPortHandle)
 int TCPSocket::IOCPRecv()
 {
 	DWORD dwFlag = 0;
+	lpIOData->wsaBuf.len = MAXBUFFERSIZE;
 
 	if (WSARecv(hSock, &lpIOData->wsaBuf, 1, nullptr, &dwFlag, lpIOData, nullptr) == SOCKET_ERROR)
 	{
@@ -132,7 +133,6 @@ int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
 	}
 
 	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;
-	lpIOData->wsaBuf.len = MAXBUFFERSIZE;
 	return 0;
 }
 

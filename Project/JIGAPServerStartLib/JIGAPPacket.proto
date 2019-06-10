@@ -31,14 +31,11 @@ message StringPacket
 {
 	string str = 1;
 }
-message LoginAnswerPacket
+message BoolPacket
 {
-	bool loginSuccess = 1;
+	bool Success = 1;
 }
-message CreateRoomAnswerPacket
-{
-	bool createRoomSuccess = 1;
-}
+
 message JoinedRoomAnswerPacket
 {
 	bool joinedRoomSuccess = 1;

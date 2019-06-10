@@ -17,6 +17,7 @@
 #include <cstring>
 #include <cstdarg>
 #include <thread>
+
 #include <queue>
 #include <list>
 #include <functional>
@@ -36,11 +37,11 @@
 #ifdef _DEBUG
 #pragma comment(lib, "libprotobufd.lib")
 #pragma comment(lib, "libprotobuf-lited.lib")
-#pragma comment(lib, "../debug/JIGAPServerStartLib.lib")
+#pragma comment(lib, "JIGAPServerStartLib.lib")
 #else
 #pragma comment(lib, "libprotobuf.lib")
 #pragma comment(lib, "libprotobuf-lite.lib")
-#pragma comment(lib, "../release/JIGAPServerStartLib.lib")
+#pragma comment(lib, "JIGAPServerStartLib.lib")
 #endif
 
 #endif //PCH_H

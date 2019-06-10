@@ -24,7 +24,6 @@ namespace JIGAPClientDXGUI.Engine
                     return false;
             }
 
-
             SceneManager.GetInst().AddScene("LoginScene", new LoginScene());
             SceneManager.GetInst().AddScene("LobbyScene", new LobbyScene());
             SceneManager.GetInst().AddScene("ChattingScene", new ChattingScene());
