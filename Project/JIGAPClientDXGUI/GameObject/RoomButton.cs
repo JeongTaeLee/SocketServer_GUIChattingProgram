@@ -34,9 +34,9 @@ namespace JIGAPClientDXGUI
                     0, false, FontCharacterSet.Default, FontPrecision.Default, FontQuality.Default,
                     FontPitchAndFamily.Default, "돋움");
 
-                DXManager.GetInst().d3dSprite.Transform = Matrix.Translation(new Vector3(transform.worldPos.X + 10,
+                DXManager.GetInst().d3dSprite.Transform = Matrix.Translation(new Vector3(transform.worldPos.X + 290,
                     transform.worldPos.Y + 15, 0f));
-                font.DrawText(DXManager.GetInst().d3dSprite, RoomName, 0, 0, Color.Black);
+                font.DrawText(DXManager.GetInst().d3dSprite, RoomName, new Rectangle(), SharpDX.Direct3D9.FontDrawFlags.Center | SharpDX.Direct3D9.FontDrawFlags.NoClip, Color.Black);
 
                 font.Dispose();
             }

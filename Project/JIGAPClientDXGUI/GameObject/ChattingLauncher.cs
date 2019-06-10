@@ -10,52 +10,52 @@ namespace JIGAPClientDXGUI
 {
     class ChattingLauncher : NetworkObject
     {
-        private texture ChattingBackGround = null;
-        private StandardInputField ChattingField = null;
+        private InputLine ChattingLine = null;
         private ChattingView ChatView = null;
 
         public override void Init()
         {
             base.Init();
-            ChattingBackGround = ImageManager.GetInst().LoadTexture("ChattingBackGround", "./Image/ChattingBackGround.png");
+            BackGround backGround = ObjectManager.GetInst().AddObject<BackGround>(); 
+            backGround.BGTexture = ImageManager.GetInst().LoadTexture("ChattingBackGround", "./Image/ChattingBackGround.png");
+
+            ChattingLine = ObjectManager.GetInst().AddObject<InputLine>();
+            ChattingLine.transform.position = new SharpDX.Vector3(360f, 640f, 0f);
+            ChattingLine.FontColor = SharpDX.Color.Black;
+            ChattingLine.FontSize = 30;
+            ChattingLine.OnEnterCallBack = Send;
+            ChattingLine.MaxTextLength = 50;
 
             ChatView = ObjectManager.GetInst().AddObject<ChattingView>();
-  
-
-            ChattingField = ObjectManager.GetInst().AddObject<StandardInputField>();
-            ChattingField.OnEnterCallBack = Send;
-
 
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("Send", "./Image/Send.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 90, 55),
-                ButtonPos = new SharpDX.Vector3(816, 650f, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 75, 75),
+                ButtonPos = new SharpDX.Vector3(863f, 624f, 0f),
                 ButtonEventCallBack = Send
             });
 
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("ExitButton", "./Image/ExitButton.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 109, 51),
-                ButtonPos = new SharpDX.Vector3(368f, 5f, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 114, 23),
+                ButtonPos = new SharpDX.Vector3(821f, 6f, 0f),
                 ButtonEventCallBack = NetworkManager.GetInst().RequestExitRoom
             });
+
+
+
 
             NetworkManager.GetInst().RequestChatting("Hello! Joined Room");
         }
 
-        public override void Render()
-        {
-            ChattingBackGround.Draw();
-        }
-
         public void Send()
         {
-            if (ChattingField.TextBoxInputLine.InputText.Length > 0)
+            if (ChattingLine.InputText.Length > 0)
             {
-                NetworkManager.GetInst().RequestChatting(ChattingField.TextBoxInputLine.InputText.ToString());
-                ChattingField.TextBoxInputLine.InputText.Clear();
+                NetworkManager.GetInst().RequestChatting(ChattingLine.InputText.ToString());
+                ChattingLine.InputText.Clear();
             }
         }
         public override void OnExitRoom(object sender, EventArgs e)

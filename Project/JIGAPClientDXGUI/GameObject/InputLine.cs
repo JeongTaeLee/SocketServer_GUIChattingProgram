@@ -23,7 +23,6 @@ namespace JIGAPClientDXGUI
         public FontDrawFlags FontFlag { get; set; } = FontDrawFlags.NoClip;
         public OnEnter OnEnterCallBack { get; set; } = null;
         
-
         public InputLine()
         {
             DXManager.GetInst().RegisterWndProc(WndProc);
@@ -81,6 +80,10 @@ namespace JIGAPClientDXGUI
                 OnEnterCallBack();
         }
 
+        public void SetCenterText()
+        {
+            FontFlag = SharpDX.Direct3D9.FontDrawFlags.Center | SharpDX.Direct3D9.FontDrawFlags.NoClip;
+        }
 
     }
 }

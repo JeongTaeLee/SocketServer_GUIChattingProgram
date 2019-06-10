@@ -13,12 +13,14 @@ namespace JIGAPClientDXGUI
 
         public override void Init()
         {
-            ObjectManager.GetInst().AddObject<Logo>();
+            BackGround back = ObjectManager.GetInst().AddObject<BackGround>();
+            back.BGTexture = ImageManager.GetInst().LoadTexture("LoginBackGround", "./Image/LoginBackGround.png");
+
             ObjectManager.GetInst().AddObject<LoginLauncher>();
         }
         public override void Release()
         {
-            ObjectManager.GetInst().ClearObjects();
+           ObjectManager.GetInst().ClearObjects();
         }
         public override void Update()
         {
@@ -26,7 +28,7 @@ namespace JIGAPClientDXGUI
         }
         public override void Render()
         {
-            ObjectManager.GetInst().Render();
+           ObjectManager.GetInst().Render();
         }
 
     }

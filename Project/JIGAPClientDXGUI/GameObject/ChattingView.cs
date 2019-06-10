@@ -24,18 +24,17 @@ namespace JIGAPClientDXGUI
         private Queue<Chatting> ChattingQueue = new Queue<Chatting>();
 
         private int FontSize = 30;
-        private int MaxHeight = 9;
+        private int MaxHeight = 8;
 
 
         private float PivotRight = 925;
         private float PivotLeft = 350;
-        private float PivotBottom = 590;
+        private float PivotBottom = 500;
 
         public override void Init()
         {
             mtx = new Mutex(true, "ChattingQueueMutex", out mtxSuccess);
 
-            transform.position = new SharpDX.Vector3(200, 79f, 0f);
             base.Init();    
         }
 

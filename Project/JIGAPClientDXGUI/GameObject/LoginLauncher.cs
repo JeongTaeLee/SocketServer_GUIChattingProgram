@@ -10,28 +10,35 @@ namespace JIGAPClientDXGUI
 {
     class LoginLauncher : NetworkObject
     {
-        private LoginField field = null;
+        private InputLine inputLine = null;
 
         public override void Init()
         {
-            field = ObjectManager.GetInst().AddObject<LoginField>() as LoginField;
-            field.TextBoxInputLine.OnEnterCallBack = RequestLogin;
+            //field = ObjectManager.GetInst().AddObject<LoginField>() as LoginField;
+            //field.TextBoxInputLine.OnEnterCallBack = RequestLogin;
+
+            inputLine = ObjectManager.GetInst().AddObject<InputLine>();
+            inputLine.transform.position = new SharpDX.Vector3(527.5f, 595f, 0f);
+            inputLine.FontColor = SharpDX.Color.Black;
+            inputLine.FontSize = 80;
+            inputLine.SetCenterText();
+            inputLine.OnEnterCallBack = RequestLogin;
 
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("LoginButton", "./Image/LoginButton.png"),
                 ButtonRange = new System.Drawing.Rectangle(0, 0, 250, 66),
-                ButtonPos = new SharpDX.Vector3(DXManager.GetInst().Width / 2f - 125f, DXManager.GetInst().Height / 2f - 33f + 100, 0f),
+                ButtonPos = new SharpDX.Vector3(1056f, 593f, 0f),
                 ButtonEventCallBack = RequestLogin
             });
         }
 
         public void RequestLogin()
         {
-            if (field.TextBoxInputLine.InputText.Length > 0)
+            if (inputLine.InputText.Length > 0)
             {
-                NetworkManager.GetInst().RequestLogin(field.TextBoxInputLine.InputText.ToString());
-                NetworkManager.GetInst().MyName = field.TextBoxInputLine.InputText.ToString();
+                NetworkManager.GetInst().RequestLogin(inputLine.InputText.ToString());
+                NetworkManager.GetInst().MyName = inputLine.InputText.ToString();
             }
         }
 

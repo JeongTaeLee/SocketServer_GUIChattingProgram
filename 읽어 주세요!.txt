@@ -1,4 +1,0 @@
-서버와 클라이언트가 같은 컴퓨터로만 되게 되어있습니다 만약 다른 컴퓨터에서 접속할려면
-해당 서버를 실행하는 컴퓨터의 ip로 서버을 열고 클라이언트는
-JIGAPClientDXGUI에 NetworkManager::StartClient
-에서 서버 컴퓨터의 Ip로 바꿔주세요

@@ -15,11 +15,12 @@ namespace JIGAPClientDXGUI
         private RoomButton[] RoomList = null;
 
         public int Page { get; set; } = 1;
+        public int PageSize = 6;
         
 
         public override void Init()
         {
-            transform.position = new Vector3(410f, 103f, 0f);
+            transform.position = new Vector3(20f, 75f, 0f);
         }
 
         public void NextPage()
@@ -51,7 +52,7 @@ namespace JIGAPClientDXGUI
                 
                 if (Page == 1)
                 {
-                    for (int i = 0; i < 5; ++i)
+                    for (int i = 0; i < PageSize; ++i)
                     {
                         if (i < RoomList.Length)
                         {
@@ -64,9 +65,9 @@ namespace JIGAPClientDXGUI
                 }
                 else
                 {
-                    int End = (Page * 5);
+                    int End = (Page * PageSize);
                     int list = 0;
-                    for (int i = End - 5; i < End; ++i, ++list)
+                    for (int i = End - PageSize; i < End; ++i, ++list)
                     { 
                         if (i < RoomList.Length)
                         {
@@ -105,7 +106,7 @@ namespace JIGAPClientDXGUI
 
                 RoomList[i].ButtonPos = new Vector3(0f, 90f * i, 0f);
                 RoomList[i].RoomName = str;
-                RoomList[i].ButtonRange = new System.Drawing.Rectangle(0, 0, 460, 65);
+                RoomList[i].ButtonRange =  new System.Drawing.Rectangle(0, 0, 580, 71); ;
                 RoomList[i].Active = false;
                 ++i;
             }

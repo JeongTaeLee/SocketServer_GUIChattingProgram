@@ -10,67 +10,68 @@ namespace JIGAPClientDXGUI
 {
     class LobbyLauncher : NetworkObject
     {
-        private texture LobbyBackGround = null;
-        private StandardInputField RoomField = null;
+        private InputLine inputRoomName = null;
         private RoomListView ListView = null;
 
         public override void Init()
         {
             base.Init();
-            LobbyBackGround = ImageManager.GetInst().LoadTexture("LobbyBackGround", "./Image/LobbyBackGround.png");
 
-            ListView = ObjectManager.GetInst().AddObject<RoomListView>();
+            BackGround backGround = ObjectManager.GetInst().AddObject<BackGround>();
+            backGround.BGTexture = ImageManager.GetInst().LoadTexture("LobbyBackGround", "./Image/LobbyBackGround.png");
 
-            RoomField = ObjectManager.GetInst().AddObject<StandardInputField>();
-            RoomField.OnEnterCallBack = CreateRoom;
+            inputRoomName = ObjectManager.GetInst().AddObject<InputLine>();
+            inputRoomName.transform.position = new SharpDX.Vector3(935f, 60f, 0f);
+            inputRoomName.FontColor = SharpDX.Color.Black;
+            inputRoomName.FontSize = 70;
+            inputRoomName.SetCenterText();
+            inputRoomName.OnEnterCallBack = CreateRoom;
 
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("CreateRoomButton", "./Image/CreateRoomButton.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 90, 55),
-                ButtonPos = new SharpDX.Vector3(816, 650f, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 624, 76),
+                ButtonPos = new SharpDX.Vector3(629f, 147f, 0f),
                 ButtonEventCallBack = CreateRoom
             });
 
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("Refresh", "./Image/Refresh.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 48, 48),
-                ButtonPos = new SharpDX.Vector3(876, 67, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 139, 33),
+                ButtonPos = new SharpDX.Vector3(457f, 14f, 0f),
                 ButtonEventCallBack = NetworkManager.GetInst().RequestRoomList
             });
 
 
+            ListView = ObjectManager.GetInst().AddObject<RoomListView>();
+            
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("NextPage", "./Image/NextPage.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
-                ButtonPos = new SharpDX.Vector3(884f, 301f, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 281, 43),
+                ButtonPos = new SharpDX.Vector3(319f, 656f, 0f),
                 ButtonEventCallBack = ListView.NextPage
             });
-
+            
             ObjectManager.GetInst().AddObject(new Button
             {
                 ButtonTexture = ImageManager.GetInst().LoadTexture("BackPage", "./Image/BackPage.png"),
-                ButtonRange = new System.Drawing.Rectangle(0, 0, 38, 118),
-                ButtonPos = new SharpDX.Vector3(358f, 301f, 0f),
+                ButtonRange = new System.Drawing.Rectangle(0, 0, 281, 43),
+                ButtonPos = new SharpDX.Vector3(29f, 656f, 0f),
                 ButtonEventCallBack = ListView.BackPage
             });
+
 
             NetworkManager.GetInst().RequestRoomList();
         }
 
-        public override void Render()
-        {
-            LobbyBackGround.Draw();
-        }
-
         public void CreateRoom()
         {
-            if (RoomField.TextBoxInputLine.InputText.Length > 0)
+            if (inputRoomName.InputText.Length > 0)
             {
-                NetworkManager.GetInst().RequestCreateRoom(RoomField.TextBoxInputLine.InputText.ToString());
-                RoomField.TextBoxInputLine.InputText.Clear();
+                NetworkManager.GetInst().RequestCreateRoom(inputRoomName.InputText.ToString());
+                inputRoomName.InputText.Clear();
             }
         }
 

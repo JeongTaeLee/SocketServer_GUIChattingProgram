@@ -114,17 +114,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObject\BackGround.cs" />
     <Compile Include="GameObject\Button.cs" />
     <Compile Include="Engine\GameObject\GameObject.cs" />
     <Compile Include="GameObject\ChattingLauncher.cs" />
     <Compile Include="GameObject\ChattingView.cs" />
-    <Compile Include="GameObject\StandardInputField.cs" />
     <Compile Include="GameObject\InputLine.cs" />
-    <Compile Include="GameObject\InputField.cs" />
     <Compile Include="GameObject\LobbyLauncher.cs" />
-    <Compile Include="GameObject\LoginField.cs" />
     <Compile Include="GameObject\LoginLauncher.cs" />
-    <Compile Include="GameObject\Logo.cs" />
     <Compile Include="Engine\GameObject\NetworkObject.cs" />
     <Compile Include="Engine\GameObject\Transform.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
