@@ -12,7 +12,7 @@ namespace JIGAPClientDXGUI
 {
     class RoomListView : GameObject
     {
-        private RoomButton[] RoomList = null;
+        private RoomButton[] roomButtons = null;
 
         public int Page { get; set; } = 1;
         public int PageSize = 6;
@@ -25,91 +25,79 @@ namespace JIGAPClientDXGUI
 
         public void NextPage()
         {
-            if (RoomList == null) return;
+            if (roomButtons == null) return;
 
-            if ((Page * 5) > RoomList.Length && Page != 1) return;
+            if ((Page * PageSize) > roomButtons.Length && Page != 1) return;
 
-            ++Page;
-            LoadPage(Page);
+            LoadPage(Page + 1);
         }
         public void BackPage()
         {
-            if (RoomList == null) return;
+            if (roomButtons == null) return;
 
             if (Page <= 1) return;
 
-            --Page;
-            LoadPage(Page);
+            LoadPage(Page - 1);
         }
 
-        public void LoadPage(int page)
+        public void LoadPage(int _page)
         {
-            if (RoomList != null)
-            {
-                for (int i = 0; i < RoomList.Length; ++i)
-                    RoomList[i].Active = false;
+            if (roomButtons.Length == 0) return;
 
-                
-                if (Page == 1)
+            if (roomButtons != null)
+            {
+                // 전 페이지 비활성화.
+                for (int i = (Page * PageSize) - PageSize; i < (Page * PageSize);  ++i)
                 {
-                    for (int i = 0; i < PageSize; ++i)
-                    {
-                        if (i < RoomList.Length)
-                        {
-                            RoomList[i].Active = true;
-                            RoomList[i].transform.position = new Vector3(0f, 90 * i, 0f);
-                        }
-                        else
-                            break;
-                    }
+                    roomButtons[i].Active = false;
+
+                    if (roomButtons.Length - 1 == i )
+                        break;
                 }
-                else
+
+                int posCount = 0;
+                Page = _page;
+                // 현재 페이지 활성화.
+                for (int i = (Page * PageSize) - PageSize; i < (Page * PageSize); ++i, ++posCount)
                 {
-                    int End = (Page * PageSize);
-                    int list = 0;
-                    for (int i = End - PageSize; i < End; ++i, ++list)
-                    { 
-                        if (i < RoomList.Length)
-                        {
-                            RoomList[i].Active = true;
-                            RoomList[i].transform.position = new Vector3(0f, 90 * list, 0f);
-                        }
-                        else  
-                            break;
-                    }
+                    roomButtons[i].Active = true;
+                    roomButtons[i].transform.position = new SharpDX.Vector3(0f, 90 * posCount, 0f);
+
+                    if (roomButtons.Length - 1 == i)
+                        break;
                 }
             }
         }
 
         public void UpdateRoomList()
         {
-            if (RoomList != null)
+
+            if (roomButtons != null)
             {
-                foreach (RoomButton obj in RoomList)
+                for (int i = 0; i < roomButtons.Length; ++i)
                 {
-                    obj.transform.SetParent(null);
-                    obj.Destroy = true;
+                    roomButtons[i].transform.SetParent(null);
+                    roomButtons[i].Destroy = true;
                 }
 
-                if (RoomList.Length != 0)
-                    Array.Clear(RoomList, 0, RoomList.Length - 1);
+                if (roomButtons.Length > 0)
+                    Array.Clear(roomButtons, 0, roomButtons.Length);
             }
 
             string[] RoomNames = null;
             NetworkManager.GetInst().GetRoomList(ref RoomNames);
-            RoomList = new RoomButton[RoomNames.Length];
-            int i = 0;
-            foreach (string str in RoomNames)
-            {
-                RoomList[i] = ObjectManager.GetInst().AddObject<RoomButton>();
-                RoomList[i].transform.SetParent(this);
+            if (RoomNames.Length == 0) return;
 
-                RoomList[i].ButtonPos = new Vector3(0f, 90f * i, 0f);
-                RoomList[i].RoomName = str;
-                RoomList[i].ButtonRange =  new System.Drawing.Rectangle(0, 0, 580, 71); ;
-                RoomList[i].Active = false;
-                ++i;
+
+            roomButtons = new RoomButton[RoomNames.Length];
+            for (int i = 0; i < roomButtons.Length; ++i)
+            {
+                roomButtons[i] = ObjectManager.GetInst().AddObject<RoomButton>();
+                roomButtons[i].transform.SetParent(this);
+                roomButtons[i].RoomName = RoomNames[i];
+                roomButtons[i].Active = false;
             }
+
 
             LoadPage(1);
         }

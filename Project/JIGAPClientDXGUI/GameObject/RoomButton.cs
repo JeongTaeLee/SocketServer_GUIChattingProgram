@@ -22,6 +22,8 @@ namespace JIGAPClientDXGUI
             {
                 NetworkManager.GetInst().RequestJoinedRoom(RoomName);
             };
+
+            base.ButtonRange = new System.Drawing.Rectangle(0, 0, 580, 71); 
         }
 
         public override void Render()
