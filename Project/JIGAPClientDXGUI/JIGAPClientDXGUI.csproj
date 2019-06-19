@@ -134,6 +134,8 @@
     <Compile Include="GameObject\RoomButton.cs" />
     <Compile Include="GameObject\RoomListView.cs" />
     <Compile Include="Scene\ChattingScene.cs" />
+    <Compile Include="Scene\ConnectScene.cs" />
+    <Compile Include="Scene\LoadingScene.cs" />
     <Compile Include="Scene\LobbyScene.cs" />
     <Compile Include="Scene\LoginScene.cs" />
     <Compile Include="Scene\Scene.cs" />

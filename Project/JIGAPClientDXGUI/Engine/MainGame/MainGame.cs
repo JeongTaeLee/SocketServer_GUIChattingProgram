@@ -18,16 +18,12 @@ namespace JIGAPClientDXGUI.Engine
         {
             DXManager.GetInst().Initialize("JIGAPChattingGame", 1280, 720);
 
-            if (!NetworkManager.GetInst().StartClient())
-            {
-                MessageBox.Show("서버에 연결 할 수 없습니다.");
-                    return false;
-            }
-
+            SceneManager.GetInst().AddScene("LoadingScene", new LoadingScene());
+            SceneManager.GetInst().AddScene("ConnectScene", new ConnectScene);
             SceneManager.GetInst().AddScene("LoginScene", new LoginScene());
             SceneManager.GetInst().AddScene("LobbyScene", new LobbyScene());
             SceneManager.GetInst().AddScene("ChattingScene", new ChattingScene());
-            SceneManager.GetInst().ChanageScene("LoginScene");
+            SceneManager.GetInst().ChanageScene("LoadingScene");
 
             return true;
         }
