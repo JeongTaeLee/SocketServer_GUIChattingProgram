@@ -13,10 +13,7 @@ protected:
 	SocketAddress sockAddr;
 
 	TCPIOData * lpIOData;
-	
-	Room* lpRoom;
 
-	std::string strUserName;
 public:	
 	TCPSocket();
 	TCPSocket(SOCKET InSocket);
@@ -43,10 +40,23 @@ public:
 	실패  : WSAGetLastError()*/
 	int Listen(int inBackLog);\
 
-	/*IOCP TCP Socket을 다른 소켓과 연결합니다..
-	성공 : TCPSocket의 포인터
-	실패  : NULL*/
-	virtual TCPSocket * Accept();
+	/*
+	* IOCP TCP Socket을 다른 소켓과 연결합니다..
+	* 성공 : TCPSocket의 포인터
+	* 실패  : NULL
+	* 이 함수에 템플릿을 사용한 이유? TCPSocket 상속받는
+	* 모든 자식함수의 타입으로 반환하기 위함입니다.
+	*/template <class T>
+	T* Accept()
+	{
+		SocketAddress addr;
+		int size = addr.GetSize();
+
+		SOCKET sock = accept(hSock, addr.GetAsSockAddr(), &size);
+		if (sock != INVALID_SOCKET)
+			return new T(sock, addr);
+		return nullptr;
+	}
 
 	/*IOCP TCP Socket을 서버와 연결합니다.
 	성공 : 0
@@ -55,12 +65,6 @@ public:
 
 	void Closesocket();
 public:
-	/*IOCP Socket을 Completion Port에 연결합니다.
-	성공 : Handle
-	실패 : NULL
-	*/
-	HANDLE ConnectionCompletionPort(HANDLE hPortHandle);
-
 	/*IOCP 방식로 데이터를 수신합니다.
 	성공 : 0
 	실패 : WSAGetLastError()
@@ -90,13 +94,6 @@ public:
 
 	const IOMODE& GetIOMode();
 	char* GetBufferData();
-
-	const std::string& GetMyUserName() { return strUserName; }
-	void SetUserName(const std::string& name);
-
-public:
-	Room*& GetRoom() { return lpRoom; }
-	void SetRoom(Room* room) { lpRoom = room; }
 };
 
 using LPTCPSOCK = TCPSocket*;

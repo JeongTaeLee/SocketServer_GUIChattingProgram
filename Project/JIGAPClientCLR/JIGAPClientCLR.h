@@ -22,6 +22,7 @@ namespace JIGAPClientCLR
 		bool JIGAPWrapClientStart(String^ szIpAddr, String^ szPortAddr);
 		void JIGAPWrapClientEnd();
 
+		/*
 	public:
 		bool JIGAPWrapRequestLogin(String^ szNickName);
 		bool JIGAPWrapRequestRoomList();
@@ -43,9 +44,6 @@ namespace JIGAPClientCLR
 	
 
 		void JIGAPGetRoomList(cli::array<String^>^% arr);
-	public:
-		String^ JIGAPGetMessageLog();
-		bool JIGAPCheckMessage();
-		
+		*/
 	};
 }

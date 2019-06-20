@@ -17,14 +17,8 @@
     <Filter Include="TCPIOData">
       <UniqueIdentifier>{4324243d-4092-4395-ad5e-db223c7e766c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Room">
-      <UniqueIdentifier>{e4d5850a-f42c-4a28-ac21-ced4c4cb890c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SocketAddress">
       <UniqueIdentifier>{489440c3-752d-4c68-b987-43632d979b9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SerializeObject">
-      <UniqueIdentifier>{3c114ae9-9f76-48fa-b31b-a4bbff6c6c85}</UniqueIdentifier>
     </Filter>
     <Filter Include="PacketHandler">
       <UniqueIdentifier>{c6b557ef-9648-448e-ac2c-eb22021959c0}</UniqueIdentifier>
@@ -48,12 +42,6 @@
     </ClInclude>
     <ClInclude Include="TCPIOData.h">
       <Filter>TCPIOData</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Room</Filter>
-    </ClInclude>
-    <ClInclude Include="SerializeObject.h">
-      <Filter>SerializeObject</Filter>
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>PacketHandler</Filter>
@@ -81,12 +69,6 @@
     </ClCompile>
     <ClCompile Include="TCPIOData.cpp">
       <Filter>TCPIOData</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Room</Filter>
-    </ClCompile>
-    <ClCompile Include="SerializeObject.cpp">
-      <Filter>SerializeObject</Filter>
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>PacketHandler</Filter>

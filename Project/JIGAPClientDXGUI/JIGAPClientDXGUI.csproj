@@ -114,29 +114,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObject\BackGround.cs" />
-    <Compile Include="GameObject\Button.cs" />
     <Compile Include="Engine\GameObject\GameObject.cs" />
-    <Compile Include="GameObject\ChattingLauncher.cs" />
-    <Compile Include="GameObject\ChattingView.cs" />
-    <Compile Include="GameObject\InputLine.cs" />
-    <Compile Include="GameObject\LobbyLauncher.cs" />
-    <Compile Include="GameObject\LoginLauncher.cs" />
-    <Compile Include="Engine\GameObject\NetworkObject.cs" />
     <Compile Include="Engine\GameObject\Transform.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />
-    <Compile Include="Engine\Manager\NetworkManager.cs" />
     <Compile Include="Engine\Manager\ObjectManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\RenderMsgForm.cs" />
-    <Compile Include="GameObject\RoomButton.cs" />
-    <Compile Include="GameObject\RoomListView.cs" />
     <Compile Include="Scene\ChattingScene.cs" />
     <Compile Include="Scene\ConnectScene.cs" />
     <Compile Include="Scene\LoadingScene.cs" />
-    <Compile Include="Scene\LobbyScene.cs" />
     <Compile Include="Scene\LoginScene.cs" />
     <Compile Include="Scene\Scene.cs" />
     <Compile Include="Engine\Manager\DXManager.cs" />
@@ -164,6 +152,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameObject\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

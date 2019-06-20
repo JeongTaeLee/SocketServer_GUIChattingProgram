@@ -24,11 +24,11 @@ bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientStart(String^ szIpAddr, Str
 }
 
 void JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapClientEnd()
-{
-	
+{	
 	lpJigapClient->JIGAPClientEnd();
 }
 
+/*
 bool JIGAPClientCLR::JIGAPClientWrap::JIGAPWrapRequestLogin(String^ szNickName)
 {
 	std::string nickName = msclr::interop::marshal_as<std::string>(szNickName);
@@ -156,14 +156,4 @@ void JIGAPClientCLR::JIGAPClientWrap::JIGAPGetRoomList(cli::array<String^>^% arr
 			break;
 	}
 }
-
-String^ JIGAPClientCLR::JIGAPClientWrap::JIGAPGetMessageLog()
-{
-	String^ str = msclr::interop::marshal_as<String^>(lpJigapClient->JIGAPGetMessageLog());
-	return str;
-}
-
-bool JIGAPClientCLR::JIGAPClientWrap::JIGAPCheckMessage()
-{
-	return lpJigapClient->JIGAPCheckMessageLog();
-}
+*/

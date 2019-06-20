@@ -28,10 +28,3 @@ const uint32_t answerExitRoomLiteral = 'AERL';
 
 const uint32_t requestChattingLiteral = 'RCTL'; // 클라에서 채팅 요청시 필요한 메시지입니다.
 const uint32_t anwserChattingLiteral = 'ACTL'; 
-
-enum JIGAPSTATE
-{
-	E_NOTROOM,
-	E_REQUESTROOM,
-	E_ONROOM,
-};

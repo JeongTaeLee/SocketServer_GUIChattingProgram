@@ -28,8 +28,6 @@
 #include "../JIGAPServerStartLib/SocketAddress.h"
 #include "../JIGAPServerStartLib/TCPIOData.h"
 #include "../JIGAPServerStartLib/TCPSocket.h"
-#include "../JIGAPServerStartLib/SerializeObject.h"
-#include "../JIGAPServerStartLib/Room.h"
 #include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
 #include "../JIGAPServerStartLib/PacketHandler.h"
 
@@ -38,10 +36,16 @@
 #pragma comment(lib, "libprotobufd.lib")
 #pragma comment(lib, "libprotobuf-lited.lib")
 #pragma comment(lib, "JIGAPServerStartLib.lib")
+
+#define DEBUG_LOG(s) std::cout << s << std::endl;
+
 #else
 #pragma comment(lib, "libprotobuf.lib")
 #pragma comment(lib, "libprotobuf-lite.lib")
 #pragma comment(lib, "JIGAPServerStartLib.lib")
+
+#define DEBUG_LOG(s) 
+
 #endif
 
 #endif //PCH_H

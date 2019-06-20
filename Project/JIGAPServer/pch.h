@@ -26,15 +26,16 @@
 #include <map>
 #include <crtdbg.h>
 
-
 #include "../JIGAPServerStartLib/JIGAPStructure.h"
 #include "../JIGAPServerStartLib/SocketAddress.h"
 #include "../JIGAPServerStartLib/TCPIOData.h"
 #include "../JIGAPServerStartLib/TCPSocket.h"
-#include "../JIGAPServerStartLib/SerializeObject.h"
-#include "../JIGAPServerStartLib/Room.h"
 #include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
 #include "../JIGAPServerStartLib/PacketHandler.h"
+
+#include "UserTCPSocket.h"
+#include "Room.h"
+
 
 #pragma comment(lib, "ws2_32.lib")
 

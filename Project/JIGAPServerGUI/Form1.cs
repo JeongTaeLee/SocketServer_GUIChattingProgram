@@ -24,6 +24,9 @@ namespace JIGAPServerGUI
 
             this.Shown += new EventHandler(ServerFormShown);
             this.FormClosing += new FormClosingEventHandler(ServerFormClosing);
+
+            IPTextBox.Text = "127.0.0.1";
+            PortTextBox.Text = "9199";
         }
 
         #region FormEvent

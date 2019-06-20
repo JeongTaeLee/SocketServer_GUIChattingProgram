@@ -11,6 +11,12 @@
     <Filter Include="JIGAServer">
       <UniqueIdentifier>{06529035-f0d3-4ab6-aae3-f71fc38807ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServerTCPSocket">
+      <UniqueIdentifier>{e2a9b9b1-abba-4ff8-b4b8-f28a44599d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Room">
+      <UniqueIdentifier>{a2a8f687-f843-4179-b756-653106163098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -22,6 +28,12 @@
     <ClInclude Include="JIGAPServer.h">
       <Filter>JIGAServer</Filter>
     </ClInclude>
+    <ClInclude Include="UserTCPSocket.h">
+      <Filter>ServerTCPSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Room</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -29,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="JIGAPServer.cpp">
       <Filter>JIGAServer</Filter>
+    </ClCompile>
+    <ClCompile Include="UserTCPSocket.cpp">
+      <Filter>ServerTCPSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Room</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

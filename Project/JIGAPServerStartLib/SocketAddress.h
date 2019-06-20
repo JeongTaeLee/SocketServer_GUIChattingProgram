@@ -4,7 +4,7 @@ class TCPSocket;
 
 class SocketAddress
 {
-private:
+public:
 	sockaddr_in sockAddrIn;
 
 	sockaddr* GetAsSockAddr();
@@ -18,6 +18,6 @@ public:
 
 	int GetSize() const { return sizeof(sockAddrIn); }
 	
-	friend TCPSocket;
+	
 };
 

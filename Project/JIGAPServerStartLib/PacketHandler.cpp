@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "PacketHandler.h"
 
-#include "Room.h"
 
 PacketHandler::PacketHandler()
 	:iRecvStreamSize(MAXBUFFERSIZE), iSendStreamSize(MAXBUFFERSIZE),

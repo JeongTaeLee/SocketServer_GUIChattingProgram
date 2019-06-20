@@ -5,12 +5,12 @@ class TCPIOData;
 class TCPSocket;
 class SerializeObject;
 class PacketHandler;
+class UserTCPSocket;
 
 class JIGAPServer
 {
 private:
 	TCPSocket* lpServSock;
-	SerializeObject* lpSerializeObject;
 	PacketHandler* lpPacketHandler;
 
 	HANDLE hSystemLogMutex;	
@@ -21,10 +21,10 @@ private:
 	std::string szPortAddr;
 
 	std::thread connectThread;
-	std::thread chattingThread;
+	std::thread ioThread;
 
+	std::map < SOCKET, UserTCPSocket* > mClientData;
 	std::map < std::string, Room*> mRooms;
-	std::map < SOCKET, TCPSocket* > mClientData;
 	
 	std::queue < std::string > qSystemMsg;
 
@@ -46,27 +46,18 @@ public:
 
 public:
 	void JIGAPConnectThread();
-	void JIGAPChattingThread();
+	void JIGAPIOThread();
 
-	void RecvProcessing(TCPSocket* lpInTcpSocket, int iInRecvByte);
+	DWORD  CheckIOCompletionSocket(UserTCPSocket* & inSocket, TCPIOData* & inIOData);
 
-	void OnRequestLogin(TCPSocket*& lpInClnData, unsigned int iInSize);
-	void OnRequestRoomList(TCPSocket*& lpInClntData, unsigned int iInSize);
-	void OnRequestCreateRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
-	void OnRequestJoinedRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
-	void OnRequestExitRoom(TCPSocket*& lpInClntData, unsigned int iInSize);
-	void OnRequestChatting(TCPSocket*& lpInClntData, unsigned int iInSize);
-
-	DWORD  CheckIOCompletionSocket(TCPSocket* & inSocket, TCPIOData* & inIOData);
-
+	void RemoveClientInServer(const SOCKET& hSock);
+	void RemoveClientInRoom(UserTCPSocket* lpSock);
 public:
 	void JIGAPPrintSystemLog(const char * fmt, ...);
 	
 	std::string JIGAPGetSystemMsg();
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
 public:
-	void RemoveClientInServer(const SOCKET & hSock);
-	void RemoveClientInRoom(TCPSocket* & lpSock);
 	
 };
 

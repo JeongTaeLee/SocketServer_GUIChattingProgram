@@ -13,9 +13,6 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
-            BackGround backGround = ObjectManager.GetInst().AddObject<BackGround>();
-            backGround.BGTexture = ImageManager.GetInst().LoadTexture("NConnectBackGround", " ");
-
         }
 
         public override void Release()

@@ -2,11 +2,10 @@
 #include "TCPSocket.h"
 
 #include "SocketAddress.h"
-#include "Room.h"
 #include "TCPIOData.h" 
 
 TCPSocket::TCPSocket()
-	:hSock(NULL), lpIOData(new TCPIOData), lpRoom(nullptr)
+	:hSock(NULL), lpIOData(new TCPIOData)
 {
 }
 
@@ -65,17 +64,6 @@ int TCPSocket::Listen(int inBackLog)
 	return WSAGetLastError();
 }
 
-TCPSocket* TCPSocket::Accept()
-{	
-	SocketAddress addr;
-	int size = addr.GetSize();
-
-	SOCKET sock = accept(hSock, addr.GetAsSockAddr(), &size);
-	if (sock != INVALID_SOCKET)
-		return new TCPSocket(sock, addr);
-	return nullptr;
-}
-
 int TCPSocket::Connect(const char* szInIpAddr, const char* szInPortAddr)
 {
 	sockAddr.SetAddress(szInIpAddr, szInPortAddr);
@@ -89,16 +77,6 @@ int TCPSocket::Connect(const char* szInIpAddr, const char* szInPortAddr)
 void TCPSocket::Closesocket()
 {
 	closesocket(hSock);
-}
-
-HANDLE TCPSocket::ConnectionCompletionPort(HANDLE hPortHandle)
-{
-	HANDLE hHandle = CreateIoCompletionPort((HANDLE)hSock, hPortHandle, (ULONG_PTR)this, NULL);
-	
-	if (hHandle == nullptr)
-		return nullptr;
-	
-	return hHandle;
 }
 
 int TCPSocket::IOCPRecv()
@@ -155,9 +133,3 @@ char* TCPSocket::GetBufferData()
 {
 	return lpIOData->szBuffer;
 }
-
-void TCPSocket::SetUserName(const std::string& name)
-{
-	strUserName = name;
-}
-
