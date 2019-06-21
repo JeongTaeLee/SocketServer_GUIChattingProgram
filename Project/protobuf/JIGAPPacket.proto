@@ -69,6 +69,11 @@ message BaseRequestPacket
 	PacketType packettype = 1;
 }
 
+message ChattingPacket
+{
+	string sender = 1;
+	string msg = 2;
+}
 message BaseAsnwerPacket
 {
 	PacketType packettype = 1;

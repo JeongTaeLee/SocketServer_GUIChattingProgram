@@ -8,22 +8,29 @@ using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    class SceneManager : IDisposable
+    partial class SceneManager : IDisposable
     {
-        private static SceneManager Instance = null;
-        public static SceneManager GetInst()
+        private static SceneManager instance = null;
+        public static SceneManager Instance
         {
-            if (Instance == null)
-                Instance = new SceneManager();
+            get
+            {
+                if (instance == null)
+                    instance = new SceneManager();
 
-            return Instance;
+                return instance;
+            }
         }
 
         Dictionary<string, Scene> scenes = new Dictionary<string, Scene>();
 
         private Scene nowScene = null;
         private Scene nextScene = null;
+    }
 
+
+    partial class SceneManager : IDisposable
+    {
         public Scene AddScene(string inName, Scene inScene)
         {
             Scene scene = null;

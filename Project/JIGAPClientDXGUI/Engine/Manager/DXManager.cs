@@ -15,15 +15,16 @@ namespace JIGAPClientDXGUI.Engine
 {
     delegate void RunFunc();
 
-    class DXManager : IDisposable
+    partial class DXManager : IDisposable
     {
-        private static DXManager Instance = null;
-        public static DXManager GetInst()
-        {
-            if (Instance == null)
-                Instance = new DXManager();
-
-            return Instance;
+        private static DXManager instance = null;
+        public static DXManager Instance {
+            get
+            {
+                if (instance == null)
+                    instance = new DXManager();
+                return instance;
+            }
         }
 
         public RenderMsgForm renderForm { get; private set; } = null;
@@ -33,7 +34,11 @@ namespace JIGAPClientDXGUI.Engine
 
         public int Width { get => renderForm.ClientSize.Width; }
         public int Height { get => renderForm.ClientSize.Height; }
+    }
 
+
+    partial class DXManager : IDisposable
+    {
         public bool Initialize(string name, int width, int height)
         {
             renderForm = new RenderMsgForm(name);

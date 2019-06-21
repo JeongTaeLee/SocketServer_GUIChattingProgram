@@ -11,30 +11,39 @@ using System.Drawing;
 namespace JIGAPClientDXGUI.Engine
 {
 
-    class InputManager : IDisposable
+    partial class InputManager : IDisposable
     {
-        private static InputManager Instance = null;
-        public static InputManager GetInst()
+        private static InputManager instance = null;
+        public static InputManager Instance
         {
-            if (Instance == null)
-                Instance = new InputManager();
-            return Instance;
-        }
+            get
+            {
+                if (instance == null)
+                    instance = new InputManager();
 
-        public Point MousePoint{ get => new Point(Cursor.Position.X, Cursor.Position.Y); }
+                return instance;
+            }
+        }
+        
+
+        public Point MousePoint { get => new Point(Cursor.Position.X, Cursor.Position.Y); }
         public event EventHandler LeftMouseDown;
         public event EventHandler LeftMouseUp;
         public event EventHandler RightMouseDown;
         public event EventHandler RightMouseUp;
+    }
 
+
+    partial class InputManager : IDisposable
+    {
         public InputManager()
         {
-            DXManager.GetInst().RegisterWndProc(WndProc);
+            DXManager.Instance.RegisterWndProc(WndProc);
         }
 
         public void Dispose()
         {
-            DXManager.GetInst().UnRegisterwndProc(WndProc);
+            DXManager.Instance.UnRegisterwndProc(WndProc);
             
         }
 

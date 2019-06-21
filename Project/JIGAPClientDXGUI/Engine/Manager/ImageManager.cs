@@ -8,7 +8,7 @@ using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    class texture : IDisposable
+    partial class texture : IDisposable
     {
         public Texture d3dTex { get; private set; } = null;
         public ImageInformation d3dInfo { get; private set; } = new ImageInformation();
@@ -22,14 +22,14 @@ namespace JIGAPClientDXGUI.Engine
         public void Draw()
         {
             if (d3dTex != null)
-                DXManager.GetInst().d3dSprite.Draw(d3dTex, Color.White);
+                DXManager.Instance.d3dSprite.Draw(d3dTex, Color.White);
 
         }
 
         public void Draw(Color color)
         {
             if (d3dTex != null)
-                DXManager.GetInst().d3dSprite.Draw(d3dTex, color);
+                DXManager.Instance.d3dSprite.Draw(d3dTex, color);
 
         }
 
@@ -40,20 +40,27 @@ namespace JIGAPClientDXGUI.Engine
         }
     }
 
-
-
-    class ImageManager : IDisposable
+    partial class ImageManager : IDisposable
     {
-        private static ImageManager Instance = null;
-        public static ImageManager GetInst()
+        private static ImageManager instance = null;
+        public static ImageManager Instance
         {
-            if (Instance == null)
-                Instance = new ImageManager();
+            get
+            {
+                if (instance == null)
+                    instance = new ImageManager();
 
-            return Instance;
+                return instance;
+            }
         }
 
-        Dictionary<string, texture> textures = new Dictionary<string, texture>();
+
+        private Dictionary<string, texture> textures = new Dictionary<string, texture>();
+    }
+
+
+    partial class ImageManager : IDisposable
+    {
 
         public texture LoadTexture(string key, string path = "None")
         {
@@ -63,7 +70,7 @@ namespace JIGAPClientDXGUI.Engine
             { 
                 ImageInformation info;
 
-                Texture d3dTex = Texture.FromFile(DXManager.GetInst().d3dDevice, path,
+                Texture d3dTex = Texture.FromFile(DXManager.Instance.d3dDevice, path,
                 D3DX.DefaultNonPowerOf2, D3DX.DefaultNonPowerOf2, 1, Usage.None, Format.Unknown, Pool.Managed, Filter.None, Filter.None, 0, out info);
 
                 myTex = new texture(d3dTex, info);

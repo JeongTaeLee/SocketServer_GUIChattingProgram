@@ -16,46 +16,46 @@ namespace JIGAPClientDXGUI.Engine
     {
         public bool Initialize()
         {
-            DXManager.GetInst().Initialize("JIGAPChattingGame", 1280, 720);
+            DXManager.Instance.Initialize("JIGAPChattingGame", 1280, 720);
 
-            SceneManager.GetInst().AddScene("LoadingScene", new LoadingScene());
-            SceneManager.GetInst().AddScene("ConnectScene", new ConnectScene());
-            SceneManager.GetInst().AddScene("LoginScene", new LoginScene());
-            SceneManager.GetInst().AddScene("ChattingScene", new ChattingScene());
-            SceneManager.GetInst().ChanageScene("LoadingScene");
+            SceneManager.Instance.AddScene("LoadingScene", new LoadingScene());
+            SceneManager.Instance.AddScene("LoginScene", new LoginScene());
+            SceneManager.Instance.AddScene("ConnectScene", new ConnectScene());
+            SceneManager.Instance.AddScene("ChattingScene", new ChattingScene());
+            SceneManager.Instance.ChanageScene("LoadingScene");
 
             return true;
         }
         public void Update()
         {
-            SceneManager.GetInst().Update();
+            SceneManager.Instance.Update();
         }
 
         public void Run()
         {
-            RenderLoop.Run(DXManager.GetInst().renderForm, delegate ()
+            RenderLoop.Run(DXManager.Instance.renderForm, delegate ()
             {
                 Update();
 
-                DXManager.GetInst().d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, new Color(172, 103, 32, 255), 1f, 0);
-                DXManager.GetInst().d3dDevice.BeginScene();
-                DXManager.GetInst().d3dSprite.Begin(SpriteFlags.AlphaBlend);
+                DXManager.Instance.d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, new Color(172, 103, 32, 255), 1f, 0);
+                DXManager.Instance.d3dDevice.BeginScene();
+                DXManager.Instance.d3dSprite.Begin(SpriteFlags.AlphaBlend);
 
-                SceneManager.GetInst().Render();
+                SceneManager.Instance.Render();
 
-                DXManager.GetInst().d3dSprite.End();
-                DXManager.GetInst().d3dDevice.EndScene();
-                DXManager.GetInst().d3dDevice.Present();
+                DXManager.Instance.d3dSprite.End();
+                DXManager.Instance.d3dDevice.EndScene();
+                DXManager.Instance.d3dDevice.Present();
             });
         }
 
         public void Dispose()
         {
-            ObjectManager.GetInst().Dispose();
-            ImageManager.GetInst().Dispose();
-            SceneManager.GetInst().Dispose();
-            InputManager.GetInst().Dispose();
-            DXManager.GetInst()?.Dispose();
+            ObjectManager.Instance.Dispose();
+            ImageManager.Instance.Dispose();
+            SceneManager.Instance.Dispose();
+            InputManager.Instance.Dispose();
+            DXManager.Instance?.Dispose();
         }
     }
 }
