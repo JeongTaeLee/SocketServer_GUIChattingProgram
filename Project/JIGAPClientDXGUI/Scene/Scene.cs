@@ -13,7 +13,6 @@ namespace JIGAPClientDXGUI
 
         public abstract void Init();
         public abstract void Release();
-        public abstract void Update();
-        public abstract void Render();
+
     }
 }

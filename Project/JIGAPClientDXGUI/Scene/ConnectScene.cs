@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 using JIGAPClientDXGUI.Engine;
 
@@ -13,19 +12,15 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
+            GameObject obj = ObjectManager.Instance.RegisterObject();
+            obj.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("ConnectButton"), 100, 100, 223, 58);
+            
         }
 
         public override void Release()
         { 
         }
 
-        public override void Update()
-        {
-        }
-
-        public override void Render()
-        {
-        }
 
     }
 }

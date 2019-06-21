@@ -26,7 +26,15 @@ namespace JIGAPClientDXGUI.Engine
         }
         
 
-        public Point MousePoint { get => new Point(Cursor.Position.X, Cursor.Position.Y); }
+        public Point MousePoint
+        {
+            get
+            {
+                Point point = new Point(Cursor.Position.X, Cursor.Position.Y);
+                Point ToClient = DXManager.Instance.renderForm.PointToClient(point);
+                return ToClient;
+            }
+        }
         public event EventHandler LeftMouseDown;
         public event EventHandler LeftMouseUp;
         public event EventHandler RightMouseDown;

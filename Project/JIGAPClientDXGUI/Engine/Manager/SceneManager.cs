@@ -66,13 +66,6 @@ namespace JIGAPClientDXGUI.Engine
                 nextScene = null;
                 nowScene.Init();
             }
-            if (nowScene != null)
-                nowScene.Update();
-        }
-        public void Render()
-        {
-            if (nowScene != null)
-                nowScene.Render();
         }
 
         public void Dispose()

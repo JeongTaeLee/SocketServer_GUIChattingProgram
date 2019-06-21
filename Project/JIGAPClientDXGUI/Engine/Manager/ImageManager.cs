@@ -34,6 +34,7 @@ namespace JIGAPClientDXGUI.Engine
         }
 
 
+
         public void Dispose()
         {
             d3dTex.Dispose();

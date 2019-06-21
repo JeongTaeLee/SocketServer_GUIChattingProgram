@@ -19,8 +19,8 @@ namespace JIGAPClientDXGUI.Engine
             DXManager.Instance.Initialize("JIGAPChattingGame", 1280, 720);
 
             SceneManager.Instance.AddScene("LoadingScene", new LoadingScene());
-            SceneManager.Instance.AddScene("LoginScene", new LoginScene());
             SceneManager.Instance.AddScene("ConnectScene", new ConnectScene());
+            SceneManager.Instance.AddScene("LoginScene", new LoginScene());
             SceneManager.Instance.AddScene("ChattingScene", new ChattingScene());
             SceneManager.Instance.ChanageScene("LoadingScene");
 
@@ -29,6 +29,7 @@ namespace JIGAPClientDXGUI.Engine
         public void Update()
         {
             SceneManager.Instance.Update();
+            ObjectManager.Instance.Update();
         }
 
         public void Run()
@@ -37,13 +38,11 @@ namespace JIGAPClientDXGUI.Engine
             {
                 Update();
 
-                DXManager.Instance.d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, new Color(172, 103, 32, 255), 1f, 0);
+                DXManager.Instance.d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, new Color(100, 100, 255, 255), 1f, 0);
                 DXManager.Instance.d3dDevice.BeginScene();
-                DXManager.Instance.d3dSprite.Begin(SpriteFlags.AlphaBlend);
 
-                SceneManager.Instance.Render();
+                ObjectManager.Instance.Render();
 
-                DXManager.Instance.d3dSprite.End();
                 DXManager.Instance.d3dDevice.EndScene();
                 DXManager.Instance.d3dDevice.Present();
             });

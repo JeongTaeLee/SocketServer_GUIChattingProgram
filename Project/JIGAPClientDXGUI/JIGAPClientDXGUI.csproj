@@ -125,6 +125,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Component\Button.cs" />
+    <Compile Include="Engine\Component\SpriteRenderer.cs" />
+    <Compile Include="Engine\Component\UIRenderer.cs" />
     <Compile Include="Engine\Entry\Component.cs" />
     <Compile Include="Engine\Entry\GameObject.cs" />
     <Compile Include="Engine\Component\Transform.cs" />

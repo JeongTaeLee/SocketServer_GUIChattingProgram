@@ -16,19 +16,14 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
-            SceneManager.Instance.ChanageScene("LoginScene");
+            ImageManager.Instance.LoadTexture("ConnectButton", "./Image/ConnectButton.png");
+
+            SceneManager.Instance.ChanageScene("ConnectScene");
         }
 
         public override void Release()
         {
         }
 
-        public override void Render()
-        {
-        }
-
-        public override void Update()
-        {
-        }
     }
 }

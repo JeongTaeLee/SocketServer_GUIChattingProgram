@@ -39,12 +39,7 @@ namespace JIGAPClientDXGUI
         public override void Release()
         {
         }
-        public override void Update()
-        {
-        }
-        public override void Render()
-        {
-        }
+
 
     }
 }

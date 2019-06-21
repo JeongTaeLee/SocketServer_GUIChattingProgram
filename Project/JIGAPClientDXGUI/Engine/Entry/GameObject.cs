@@ -37,9 +37,6 @@ namespace JIGAPClientDXGUI.Engine
 
             Components.Clear();
         }
-        public virtual void Update() {}
-        public virtual void Render() {}
-
         public void ComponentUpdate()
         {
             foreach (Component Com in Components)
@@ -68,7 +65,7 @@ namespace JIGAPClientDXGUI.Engine
             return Com;
         }
 
-        public Component GetComponent<T>()
+        public T GetComponent<T>()
             where T : Component
         {
             foreach (Component obj in Components)
