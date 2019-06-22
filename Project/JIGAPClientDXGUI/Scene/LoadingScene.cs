@@ -16,6 +16,7 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
+            ImageManager.Instance.LoadTexture("ConnectSceneBackGround", "./Image/ConnectBackGround.png");
             ImageManager.Instance.LoadTexture("ConnectButton", "./Image/ConnectButton.png");
 
             SceneManager.Instance.ChanageScene("ConnectScene");

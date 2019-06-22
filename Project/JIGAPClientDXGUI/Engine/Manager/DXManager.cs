@@ -65,7 +65,7 @@ namespace JIGAPClientDXGUI.Engine
             d3dDevice?.Dispose();
             d3dObject?.Dispose();
 
-            GC.SuppressFinalize(true);
+            GC.SuppressFinalize(this);
         }
 
         public void RegisterWndProc(EventHandler<Message> eventHandler)

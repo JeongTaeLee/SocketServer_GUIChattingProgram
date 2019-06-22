@@ -91,7 +91,7 @@ namespace JIGAPClientDXGUI.Engine
                 textures.ToList()[i].Value.Dispose();
 
             textures.Clear();
-            GC.SuppressFinalize(true);
+            GC.SuppressFinalize(this);
         }
     }
 

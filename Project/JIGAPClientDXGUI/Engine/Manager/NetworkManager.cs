@@ -10,7 +10,7 @@ using System.Net.Sockets;
 
 namespace JIGAPClientDXGUI.Engine 
 {
-    partial class NetworkManager
+    partial class NetworkManager : IDisposable
     {
         private static NetworkManager instance = null;
         public static NetworkManager Instance
@@ -32,8 +32,14 @@ namespace JIGAPClientDXGUI.Engine
         public bool bServerOn { get; private set; } = false;
     }
 
-    partial class NetworkManager
+    partial class NetworkManager : IDisposable
     {
+        public void Dispose()
+        {
+            if (bServerOn)
+                DisconnectServer();
+        }
+
         public bool ConnectServer(string inIp, string inPort)
         {
             if (bServerOn)

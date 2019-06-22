@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Drawing;
 
+using SharpDX.DirectInput;
+
 
 namespace JIGAPClientDXGUI.Engine
 {
@@ -39,6 +41,25 @@ namespace JIGAPClientDXGUI.Engine
         public event EventHandler LeftMouseUp;
         public event EventHandler RightMouseDown;
         public event EventHandler RightMouseUp;
+
+        public enum MouseButtonType
+        {
+            Left = 0,
+            Right = 1,
+            Wheel = 2,
+        }
+
+        // DirectInput
+        private DirectInput directInput     = null;
+        private Keyboard keyboard           = null;
+        private Mouse mouse                 = null;
+
+        // Buffer
+        bool[] currentKeyBuffer = new bool[(int)Key.MediaSelect + 1];
+        bool[] oldKeyBuffer = new bool[(int)Key.MediaSelect + 1];
+
+        bool[] oldMouseBuffer = new bool[8];
+        bool[] currentMouseBuffer = new bool[8];
     }
 
 
@@ -47,12 +68,76 @@ namespace JIGAPClientDXGUI.Engine
         public InputManager()
         {
             DXManager.Instance.RegisterWndProc(WndProc);
+
+            directInput = new DirectInput();
+            keyboard = new Keyboard(directInput);
+            mouse = new Mouse(directInput);
+
+            keyboard.Properties.BufferSize = 0;
+            mouse.Properties.BufferSize = 0;
+
+            keyboard.Acquire();
+            mouse.Acquire();
         }
 
         public void Dispose()
         {
+            keyboard.Dispose();
+            mouse.Dispose();
+            directInput.Dispose();
             DXManager.Instance.UnRegisterwndProc(WndProc);
-            
+            GC.SuppressFinalize(this);
+        }
+
+        public void Update()
+        {
+            Array.Copy(currentKeyBuffer, 0, oldKeyBuffer, 0, currentKeyBuffer.Length);
+            Array.Clear(currentKeyBuffer, 0, currentKeyBuffer.Length);
+
+            var kb = keyboard.GetCurrentState();
+            foreach (Key i in Enum.GetValues(typeof(Key)))
+            {
+                if (kb.IsPressed(i))
+                    currentKeyBuffer[(int)i] = true;
+            }
+
+            oldMouseBuffer = new bool[currentMouseBuffer.Length];
+            Array.Copy(currentMouseBuffer, oldMouseBuffer, currentMouseBuffer.Length);
+
+            var ms = mouse.GetCurrentState();
+            currentMouseBuffer = new bool[ms.Buttons.Length];
+
+            Array.Copy(ms.Buttons, currentMouseBuffer, ms.Buttons.Length);
+        }
+
+        public bool GetKeyDown(Key key)
+        {
+            return (currentKeyBuffer[(int)key] && !oldKeyBuffer[(int)key]);
+        }
+
+        public bool GetKeyUp(Key key)
+        {
+            return (!currentKeyBuffer[(int)key] && oldKeyBuffer[(int)key]);
+        }
+
+        public bool GetKey(Key key)
+        {
+            return (currentKeyBuffer[(int)key] && oldKeyBuffer[(int)key]);
+        }
+
+        public bool GetMouseDown(MouseButtonType type)
+        {
+            return (currentMouseBuffer[(int)type] && !oldMouseBuffer[(int)type]);
+        }
+
+        public bool GetMouseUp(MouseButtonType type)
+        {
+            return (!currentMouseBuffer[(int)type] && oldMouseBuffer[(int)type]);
+        }
+
+        public bool GetMouse(MouseButtonType type)
+        {
+            return (currentMouseBuffer[(int)type] && oldMouseBuffer[(int)type]);
         }
 
         protected void WndProc(object sender, Message message)

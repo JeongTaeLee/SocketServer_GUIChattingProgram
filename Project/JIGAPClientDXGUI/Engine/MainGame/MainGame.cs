@@ -28,6 +28,7 @@ namespace JIGAPClientDXGUI.Engine
         }
         public void Update()
         {
+            InputManager.Instance.Update();
             SceneManager.Instance.Update();
             ObjectManager.Instance.Update();
         }

@@ -124,7 +124,7 @@ namespace JIGAPClientDXGUI.Engine
 
             
 
-            GC.SuppressFinalize(true);
+            GC.SuppressFinalize(this);
         }
 
     }

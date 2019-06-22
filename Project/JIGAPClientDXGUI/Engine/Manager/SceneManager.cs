@@ -77,7 +77,7 @@ namespace JIGAPClientDXGUI.Engine
 
             scenes.Clear();
 
-            GC.SuppressFinalize(true);
+            GC.SuppressFinalize(this);
         }
 
     }
