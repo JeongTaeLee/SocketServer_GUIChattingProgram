@@ -12,7 +12,7 @@ namespace JIGAPClientDXGUI.Engine
 {
     partial class SpriteRenderer : Component
     {
-        public texture texture;
+        private texture texture;
         public texture Texture
         {
             get

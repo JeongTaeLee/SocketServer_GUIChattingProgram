@@ -26,7 +26,6 @@ namespace JIGAPClientDXGUI.Engine
                 return instance;
             }
         }
-        
 
         public Point MousePoint
         {
@@ -58,8 +57,8 @@ namespace JIGAPClientDXGUI.Engine
         bool[] currentKeyBuffer = new bool[(int)Key.MediaSelect + 1];
         bool[] oldKeyBuffer = new bool[(int)Key.MediaSelect + 1];
 
-        bool[] oldMouseBuffer = new bool[8];
-        bool[] currentMouseBuffer = new bool[8];
+        bool[] oldMouseBuffer = null;
+        bool[] currentMouseBuffer = null;
     }
 
 
@@ -78,6 +77,10 @@ namespace JIGAPClientDXGUI.Engine
 
             keyboard.Acquire();
             mouse.Acquire();
+
+            var ms = mouse.GetCurrentState();
+            currentMouseBuffer = new bool[ms.Buttons.Length];
+            oldMouseBuffer = new bool[ms.Buttons.Length];
         }
 
         public void Dispose()
@@ -101,12 +104,8 @@ namespace JIGAPClientDXGUI.Engine
                     currentKeyBuffer[(int)i] = true;
             }
 
-            oldMouseBuffer = new bool[currentMouseBuffer.Length];
-            Array.Copy(currentMouseBuffer, oldMouseBuffer, currentMouseBuffer.Length);
-
             var ms = mouse.GetCurrentState();
-            currentMouseBuffer = new bool[ms.Buttons.Length];
-
+            Array.Copy(currentMouseBuffer, oldMouseBuffer, currentMouseBuffer.Length);
             Array.Copy(ms.Buttons, currentMouseBuffer, ms.Buttons.Length);
         }
 

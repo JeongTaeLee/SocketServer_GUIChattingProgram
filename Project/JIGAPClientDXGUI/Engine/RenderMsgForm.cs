@@ -20,6 +20,13 @@ namespace JIGAPClientDXGUI.Engine
 
     }
 
+    public class KeyType
+    {
+        public const int VK_BACKSPACE = 8;
+        public const int VK_SPACE = 32;
+    }
+
+
     class RenderMsgForm : RenderForm
     {
         public event EventHandler<Message> OnMessage;

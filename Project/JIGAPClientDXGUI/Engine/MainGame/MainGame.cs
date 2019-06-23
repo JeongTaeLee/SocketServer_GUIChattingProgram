@@ -19,7 +19,6 @@ namespace JIGAPClientDXGUI.Engine
             DXManager.Instance.Initialize("JIGAPChattingGame", 1280, 720);
 
             SceneManager.Instance.AddScene("LoadingScene", new LoadingScene());
-            SceneManager.Instance.AddScene("ConnectScene", new ConnectScene());
             SceneManager.Instance.AddScene("LoginScene", new LoginScene());
             SceneManager.Instance.AddScene("ChattingScene", new ChattingScene());
             SceneManager.Instance.ChanageScene("LoadingScene");
@@ -51,11 +50,12 @@ namespace JIGAPClientDXGUI.Engine
 
         public void Dispose()
         {
+            NetworkManager.Instance.Dispose();
             ObjectManager.Instance.Dispose();
             ImageManager.Instance.Dispose();
             SceneManager.Instance.Dispose();
             InputManager.Instance.Dispose();
-            DXManager.Instance?.Dispose();
+            DXManager.Instance.Dispose();
         }
     }
 }

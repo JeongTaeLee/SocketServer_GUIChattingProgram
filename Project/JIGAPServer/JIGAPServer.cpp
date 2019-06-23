@@ -155,7 +155,7 @@ void JIGAPServer::JIGAPConnectThread()
 			continue;
 		}
 		
-		HANDLE hHandle = CreateIoCompletionPort((HANDLE)lpClntSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)this, NULL);
+		HANDLE hHandle = CreateIoCompletionPort((HANDLE)lpClntSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)lpClntSocket, NULL);
 		if (hHandle == NULL)
 		{
 			JIGAPPrintSystemLog("에러! 컴플렉션 포트에 연결하지 못했습니다 code : %d, socket : %d", WSAGetLastError(), lpClntSocket->GetSocket());
@@ -193,7 +193,9 @@ void JIGAPServer::JIGAPIOThread()
 		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
 
 		if (iCheckIOResult == 0) // 클라이언트가 종료를 요청했습니다.
+		{
 			RemoveClientInServer(lpClntSock->GetSocket());
+		}
 
 		else if (iCheckIOResult == -1) // 서버가 종료되었습니다.
 			break;

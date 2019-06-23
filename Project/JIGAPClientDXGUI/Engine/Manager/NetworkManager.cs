@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace JIGAPClientDXGUI.Engine 
 {
@@ -40,13 +41,102 @@ namespace JIGAPClientDXGUI.Engine
                 DisconnectServer();
         }
 
-        public bool ConnectServer(string inIp, string inPort)
+        /*
+         * Data/ConnectData.txt 파일에서 서버 정보를 읽어옵니다.
+         */
+        private bool ParsingConnectData()
+        {
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo("./Data");
+
+            if (!di.Exists)
+                di.Create();
+
+            System.IO.FileInfo fi = new System.IO.FileInfo("./Data/ConnectData.txt");
+            
+            if (!fi.Exists)
+            {
+                fi.Create().Close();
+                
+                using (StreamWriter wr = new StreamWriter("./Data/ConnectData.txt"))
+                {
+                    wr.WriteLine("# 클라이언트에 필요한 연결 정보입니다.");
+                    wr.WriteLine("# Tag 종류");
+                    wr.WriteLine("# '#' 주석");
+                    wr.WriteLine("# 'IP' ip 주소");
+                    wr.WriteLine("# 'PORT' port 주소");
+                    wr.WriteLine("# 입력 방식은 'Tag 입력' 입니다.");
+                    wr.WriteLine("");
+                    wr.WriteLine("# Connect 정보");
+                    wr.WriteLine("");
+                    wr.WriteLine("IP 127.0.0.1");
+                    wr.WriteLine("");
+                    wr.WriteLine("PORT 9199");
+                }
+            }
+
+            bool IsParsingIP = false;
+            bool IsParsingPort = false;
+            using (StreamReader stream  = fi.OpenText())
+            {
+                string line;
+                while ((line = stream.ReadLine()) != null)
+                {
+                    string tag = null;
+                    string data = null;
+
+                    int index = line.IndexOf(' ');
+                    if (index > 0)
+                    {
+                        tag = line.Substring(0, index);
+                        data = line.Substring(index + 1);
+                    }
+                    else
+                        continue;
+
+                    switch (tag)
+                    {
+                        case "#":
+                            continue;
+                            break;
+
+                        case "IP":
+                            IsParsingIP = true;
+                            IpAddress = data;
+                            break;
+
+                        case "PORT":
+                            IsParsingPort = true;
+                            PortAddress = data;
+                            break;
+
+                        default:
+                            continue;
+                    }
+                }
+            }
+
+            if (!IsParsingIP)
+            {
+                MessageBox.Show("./Data/ConnectData.txt 파일에서 IP 주소 정보를 읽어올 수 없습니다.");
+                return false;
+            }
+            if (!IsParsingPort)
+            {
+                MessageBox.Show("./Data/ConnectData.txt 파일에서 PORT 주소 정보를 읽어올 수 없습니다.");
+                return false;
+            }
+
+            return true;
+        }
+
+
+        public bool ConnectServer()
         {
             if (bServerOn)
                 return false;
 
-            IpAddress = inIp;
-            PortAddress = inPort;
+            if (!ParsingConnectData())
+                return false;
 
             ServerSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -74,5 +164,7 @@ namespace JIGAPClientDXGUI.Engine
             ServerSock.Close();
             bServerOn = false;
         }
+
+        
     }
 }

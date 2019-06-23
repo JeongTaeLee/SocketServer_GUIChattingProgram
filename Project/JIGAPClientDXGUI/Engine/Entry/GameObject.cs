@@ -15,6 +15,7 @@ namespace JIGAPClientDXGUI.Engine
         public bool Active { get; set; } = true;
         public bool Destroy { get; set; } = false;
 
+
        
     }
 

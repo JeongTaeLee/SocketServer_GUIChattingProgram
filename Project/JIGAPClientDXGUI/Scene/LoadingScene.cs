@@ -16,10 +16,11 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
-            ImageManager.Instance.LoadTexture("ConnectSceneBackGround", "./Image/ConnectBackGround.png");
-            ImageManager.Instance.LoadTexture("ConnectButton", "./Image/ConnectButton.png");
+            ImageManager.Instance.LoadTexture("LoginBackGround", "./Image/LoginScene/LoginBackGround.png");
+            ImageManager.Instance.LoadTexture("LoginTextBox", "./Image/LoginScene/LoginTextBox.png");
+            ImageManager.Instance.LoadTexture("LoginButton", "./Image/LoginScene/LoginButton.png");
 
-            SceneManager.Instance.ChanageScene("ConnectScene");
+            SceneManager.Instance.ChanageScene("LoginScene");
         }
 
         public override void Release()

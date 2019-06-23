@@ -33,6 +33,8 @@ namespace JIGAPClientDXGUI.Engine
 
         public override void Update()
         {
+            RenewButton();
+
             if (UIRenderer == null)
                 return;
 
@@ -63,10 +65,9 @@ namespace JIGAPClientDXGUI.Engine
                 buttonStart = false;
                 UIRenderer.Color = new Color(255, 255, 255, 255);
             }
-                
         }
 
-        public void SetButton(texture inTexture, int x, int y, int inWidth, int inHeight, ButtonEvent inButtonEvent)
+        public void SetButton(texture inTexture, float x, float y, int inWidth, int inHeight, ButtonEvent inButtonEvent)
         {
             UIRenderer.Texture = inTexture;
 
@@ -75,7 +76,7 @@ namespace JIGAPClientDXGUI.Engine
 
             transform.position = new Vector3(x, y, 0f);
 
-            rectangle = new Rectangle(x, y, inWidth, inHeight);
+            rectangle = new Rectangle((int)x, (int)y, inWidth, inHeight);
 
             buttonEvent = inButtonEvent;
         }
@@ -83,7 +84,7 @@ namespace JIGAPClientDXGUI.Engine
         /*
          * 버튼 정보를 변경한 정보로 다시 갱신합니다
          */
-        public void Renew()
+        public void RenewButton()
         {
             rectangle = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
         }
