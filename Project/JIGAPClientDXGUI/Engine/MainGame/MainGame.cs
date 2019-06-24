@@ -20,7 +20,7 @@ namespace JIGAPClientDXGUI.Engine
 
             SceneManager.Instance.AddScene("LoadingScene", new LoadingScene());
             SceneManager.Instance.AddScene("LoginScene", new LoginScene());
-            SceneManager.Instance.AddScene("ChattingScene", new ChattingScene());
+            SceneManager.Instance.AddScene("IngameScene", new IngameScene());
             SceneManager.Instance.ChanageScene("LoadingScene");
 
             return true;

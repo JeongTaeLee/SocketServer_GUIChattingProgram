@@ -28,7 +28,6 @@ namespace JIGAPClientDXGUI.Engine
         private LinkedList<GameObject> Objects = new LinkedList<GameObject>();
         private LinkedList<SpriteRenderer> SpriteRenderers = new LinkedList<SpriteRenderer>();
         private LinkedList<UIRenderer> UIRenderers = new LinkedList<UIRenderer>();
-
     }
 
     partial class ObjectManager : IDisposable
@@ -55,6 +54,7 @@ namespace JIGAPClientDXGUI.Engine
         {
             UIRenderers.AddLast(inUIRenderer);
         }
+
         public void UnRegisterSpriteRenderer(SpriteRenderer inSpriteRenderer)
         {
             SpriteRenderers.Remove(inSpriteRenderer);

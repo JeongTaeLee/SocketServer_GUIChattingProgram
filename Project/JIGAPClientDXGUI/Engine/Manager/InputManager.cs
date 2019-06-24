@@ -32,7 +32,9 @@ namespace JIGAPClientDXGUI.Engine
             get
             {
                 Point point = new Point(Cursor.Position.X, Cursor.Position.Y);
-                Point ToClient = DXManager.Instance.renderForm.PointToClient(point);
+
+                Point ToClient = new Point();
+                ToClient = DXManager.Instance.renderForm.PointToClient(point);
                 return ToClient;
             }
         }

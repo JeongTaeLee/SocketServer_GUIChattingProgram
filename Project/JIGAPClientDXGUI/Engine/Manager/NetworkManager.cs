@@ -27,10 +27,11 @@ namespace JIGAPClientDXGUI.Engine
 
 
         public Socket ServerSock { get; private set; } = null;
-
         public string IpAddress { get; private set; }
         public string PortAddress { get; private set; }
         public bool bServerOn { get; private set; } = false;
+
+        public PacketHandler PacketHandler { get; private set; } = new PacketHandler();
     }
 
     partial class NetworkManager : IDisposable
@@ -47,12 +48,10 @@ namespace JIGAPClientDXGUI.Engine
         private bool ParsingConnectData()
         {
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo("./Data");
-
             if (!di.Exists)
                 di.Create();
 
             System.IO.FileInfo fi = new System.IO.FileInfo("./Data/ConnectData.txt");
-            
             if (!fi.Exists)
             {
                 fi.Create().Close();
@@ -164,7 +163,49 @@ namespace JIGAPClientDXGUI.Engine
             ServerSock.Close();
             bServerOn = false;
         }
-
-        
     }
+
+    partial class NetworkManager : IDisposable
+    {
+        public void SendLoginRequest(string id, string passward)
+        {
+            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+
+            args.Completed += OnSendComplate;
+            args.SetBuffer(PacketHandler.sendBuffer, 0, PacketHandler.sendPosition);
+            
+            ServerSock.SendAsync(args);
+        }
+
+        private void OnSendComplate(object sender, SocketAsyncEventArgs e)
+        {
+
+        }
+
+        public void RecvThread()
+        {
+            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+
+            args.Completed += OnRecvComplete;
+
+            byte[] recvBuffer = new byte[PacketHandler.bufferSize];
+            args.SetBuffer(recvBuffer, 0, PacketHandler.bufferSize);
+            ServerSock.ReceiveAsync(args);
+        }
+
+        private void OnRecvComplete(object sender, SocketAsyncEventArgs e)
+        {
+
+            if (ServerSock.Connected && e.BytesTransferred > 0)
+            {
+                // 받아온버퍼.
+                //e.Buffer
+            }
+            else
+            {
+
+            }
+        }
+    }
+
 }

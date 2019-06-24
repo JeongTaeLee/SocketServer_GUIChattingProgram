@@ -80,7 +80,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\lib\libDebug\</OutDir>
     <LibraryPath>$(SolutionDir)\lib\libDebug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>E:\Develop\External\protobuf-cpp-3.8.0\protobuf-3.8.0\src;C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,7 +92,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\lib\libRelease\</OutDir>
     <LibraryPath>$(SolutionDir)\lib\libRelease;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>E:\Develop\External\protobuf-cpp-3.8.0\protobuf-3.8.0\src;C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

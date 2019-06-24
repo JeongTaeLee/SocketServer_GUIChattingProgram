@@ -24,39 +24,39 @@ namespace JIGAPPacket {
     static JIGAPPacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiQwoMTWVzc2FnZUhh",
-            "ZGVyEiUKBHR5cGUYASABKA4yFy5KSUdBUFBhY2tldC5QYWNrZXRUeXBlEgwK",
-            "BHNpemUYAiABKAUiIAoSTG9naW5SZXF1ZXN0UGFja2V0EgoKAmlkGAEgASgJ",
-            "IiQKEUxvZ2luQW5zd2VyUGFja2V0Eg8KB3N1Y2Nlc3MYASABKAgiIgoOUm9v",
-            "bUluZm9QYWNrZXQSEAoIcm9vbW5hbWUYASABKAkiVgoUSm9pblJvb21BbnN3",
-            "ZXJQYWNrZXQSLQoIcm9vbUluZm8YASABKAsyGy5KSUdBUFBhY2tldC5Sb29t",
-            "SW5mb1BhY2tldBIPCgdzdWNjZXNzGAIgASgIIlgKFkNyZWF0ZVJvb21BbnN3",
-            "ZXJQYWNrZXQSLQoIcm9vbUluZm8YASABKAsyGy5KSUdBUFBhY2tldC5Sb29t",
-            "SW5mb1BhY2tldBIPCgdzdWNjZXNzGAIgASgIIikKFFJvb21MaXN0QW5zd2Vy",
-            "UGFja2V0EhEKCXJvb21jb3VudBgBIAEoBSJAChFCYXNlUmVxdWVzdFBhY2tl",
-            "dBIrCgpwYWNrZXR0eXBlGAEgASgOMhcuSklHQVBQYWNrZXQuUGFja2V0VHlw",
-            "ZSItCg5DaGF0dGluZ1BhY2tldBIOCgZzZW5kZXIYASABKAkSCwoDbXNnGAIg",
-            "ASgJIj8KEEJhc2VBc253ZXJQYWNrZXQSKwoKcGFja2V0dHlwZRgBIAEoDjIX",
-            "LkpJR0FQUGFja2V0LlBhY2tldFR5cGUqvgIKClBhY2tldFR5cGUSEAoMTG9n",
-            "aW5SZXF1ZXN0EAASDwoLTG9naW5BbnN3ZXIQARITCg9Kb2luUm9vbVJlcXVl",
-            "c3QQAhISCg5Kb2luUm9vbUFuc3dlchADEhUKEUNyZWF0ZVJvb21SZXF1ZXN0",
-            "EAQSFAoQQ3JlYXRlUm9vbUFzbndlchAFEhMKD1Jvb21MaXN0UmVxdWVzdBAG",
-            "EhIKDlJvb21MaXN0QW5zd2VyEAcSEwoPUm9vbUxpc3RFbGVtZW50EAgSEwoP",
-            "RXhpdFJvb21SZXF1ZXN0EAkSEgoORXhpdFJvb21BbnN3ZXIQChITCg9DaGF0",
-            "dGluZ1JlcXVlc3QQCxISCg5DaGF0dGluZ1NwcmVhZBAMEhMKD1BsYXllckVu",
-            "dGVyUm9vbRANEhIKDlBsYXllckV4aXRSb29tEA5iBnByb3RvMw=="));
+            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiRAoNTWVzc2FnZUhl",
+            "YWRlchIlCgR0eXBlGAEgASgOMhcuSklHQVBQYWNrZXQuUGFja2V0VHlwZRIM",
+            "CgRzaXplGAIgASgFIiAKEkxvZ2luUmVxdWVzdFBhY2tldBIKCgJpZBgBIAEo",
+            "CSIkChFMb2dpbkFuc3dlclBhY2tldBIPCgdzdWNjZXNzGAEgASgIIiIKDlJv",
+            "b21JbmZvUGFja2V0EhAKCHJvb21uYW1lGAEgASgJIlgKFkNyZWF0ZVJvb21B",
+            "bnN3ZXJQYWNrZXQSLQoIcm9vbUluZm8YASABKAsyGy5KSUdBUFBhY2tldC5S",
+            "b29tSW5mb1BhY2tldBIPCgdzdWNjZXNzGAIgASgIIlYKFEpvaW5Sb29tQW5z",
+            "d2VyUGFja2V0Ei0KCHJvb21JbmZvGAEgASgLMhsuSklHQVBQYWNrZXQuUm9v",
+            "bUluZm9QYWNrZXQSDwoHc3VjY2VzcxgCIAEoCCIpChRSb29tTGlzdEFuc3dl",
+            "clBhY2tldBIRCglyb29tY291bnQYASABKAUiLQoOQ2hhdHRpbmdQYWNrZXQS",
+            "DgoGc2VuZGVyGAEgASgJEgsKA21zZxgCIAEoCSJAChFCYXNlUmVxdWVzdFBh",
+            "Y2tldBIrCgpwYWNrZXR0eXBlGAEgASgOMhcuSklHQVBQYWNrZXQuUGFja2V0",
+            "VHlwZSI/ChBCYXNlQXNud2VyUGFja2V0EisKCnBhY2tldHR5cGUYASABKA4y",
+            "Fy5KSUdBUFBhY2tldC5QYWNrZXRUeXBlKr4CCgpQYWNrZXRUeXBlEhAKDExv",
+            "Z2luUmVxdWVzdBAAEg8KC0xvZ2luQW5zd2VyEAESEwoPSm9pblJvb21SZXF1",
+            "ZXN0EAISEgoOSm9pblJvb21BbnN3ZXIQAxIVChFDcmVhdGVSb29tUmVxdWVz",
+            "dBAEEhQKEENyZWF0ZVJvb21Bc253ZXIQBRITCg9Sb29tTGlzdFJlcXVlc3QQ",
+            "BhISCg5Sb29tTGlzdEFuc3dlchAHEhMKD1Jvb21MaXN0RWxlbWVudBAIEhMK",
+            "D0V4aXRSb29tUmVxdWVzdBAJEhIKDkV4aXRSb29tQW5zd2VyEAoSEwoPQ2hh",
+            "dHRpbmdSZXF1ZXN0EAsSEgoOQ2hhdHRpbmdTcHJlYWQQDBITCg9QbGF5ZXJF",
+            "bnRlclJvb20QDRISCg5QbGF5ZXJFeGl0Um9vbRAOYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.PacketType), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.MessageHader), global::JIGAPPacket.MessageHader.Parser, new[]{ "Type", "Size" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.MessageHeader), global::JIGAPPacket.MessageHeader.Parser, new[]{ "Type", "Size" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequestPacket), global::JIGAPPacket.LoginRequestPacket.Parser, new[]{ "Id" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswerPacket), global::JIGAPPacket.LoginAnswerPacket.Parser, new[]{ "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfoPacket), global::JIGAPPacket.RoomInfoPacket.Parser, new[]{ "Roomname" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswerPacket), global::JIGAPPacket.JoinRoomAnswerPacket.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswerPacket), global::JIGAPPacket.CreateRoomAnswerPacket.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswerPacket), global::JIGAPPacket.JoinRoomAnswerPacket.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswerPacket), global::JIGAPPacket.RoomListAnswerPacket.Parser, new[]{ "Roomcount" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.BaseRequestPacket), global::JIGAPPacket.BaseRequestPacket.Parser, new[]{ "Packettype" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChattingPacket), global::JIGAPPacket.ChattingPacket.Parser, new[]{ "Sender", "Msg" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.BaseRequestPacket), global::JIGAPPacket.BaseRequestPacket.Parser, new[]{ "Packettype" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.BaseAsnwerPacket), global::JIGAPPacket.BaseAsnwerPacket.Parser, new[]{ "Packettype" }, null, null, null)
           }));
     }
@@ -85,11 +85,11 @@ namespace JIGAPPacket {
   #endregion
 
   #region Messages
-  public sealed partial class MessageHader : pb::IMessage<MessageHader> {
-    private static readonly pb::MessageParser<MessageHader> _parser = new pb::MessageParser<MessageHader>(() => new MessageHader());
+  public sealed partial class MessageHeader : pb::IMessage<MessageHeader> {
+    private static readonly pb::MessageParser<MessageHeader> _parser = new pb::MessageParser<MessageHeader>(() => new MessageHeader());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<MessageHader> Parser { get { return _parser; } }
+    public static pb::MessageParser<MessageHeader> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -102,22 +102,22 @@ namespace JIGAPPacket {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MessageHader() {
+    public MessageHeader() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MessageHader(MessageHader other) : this() {
+    public MessageHeader(MessageHeader other) : this() {
       type_ = other.type_;
       size_ = other.size_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MessageHader Clone() {
-      return new MessageHader(this);
+    public MessageHeader Clone() {
+      return new MessageHeader(this);
     }
 
     /// <summary>Field number for the "type" field.</summary>
@@ -144,11 +144,11 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as MessageHader);
+      return Equals(other as MessageHeader);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(MessageHader other) {
+    public bool Equals(MessageHeader other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -207,7 +207,7 @@ namespace JIGAPPacket {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(MessageHader other) {
+    public void MergeFrom(MessageHeader other) {
       if (other == null) {
         return;
       }
@@ -629,169 +629,6 @@ namespace JIGAPPacket {
 
   }
 
-  public sealed partial class JoinRoomAnswerPacket : pb::IMessage<JoinRoomAnswerPacket> {
-    private static readonly pb::MessageParser<JoinRoomAnswerPacket> _parser = new pb::MessageParser<JoinRoomAnswerPacket>(() => new JoinRoomAnswerPacket());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<JoinRoomAnswerPacket> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[4]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public JoinRoomAnswerPacket() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public JoinRoomAnswerPacket(JoinRoomAnswerPacket other) : this() {
-      roomInfo_ = other.roomInfo_ != null ? other.roomInfo_.Clone() : null;
-      success_ = other.success_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public JoinRoomAnswerPacket Clone() {
-      return new JoinRoomAnswerPacket(this);
-    }
-
-    /// <summary>Field number for the "roomInfo" field.</summary>
-    public const int RoomInfoFieldNumber = 1;
-    private global::JIGAPPacket.RoomInfoPacket roomInfo_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::JIGAPPacket.RoomInfoPacket RoomInfo {
-      get { return roomInfo_; }
-      set {
-        roomInfo_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 2;
-    private bool success_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Success {
-      get { return success_; }
-      set {
-        success_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as JoinRoomAnswerPacket);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(JoinRoomAnswerPacket other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(RoomInfo, other.RoomInfo)) return false;
-      if (Success != other.Success) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (roomInfo_ != null) hash ^= RoomInfo.GetHashCode();
-      if (Success != false) hash ^= Success.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (roomInfo_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(RoomInfo);
-      }
-      if (Success != false) {
-        output.WriteRawTag(16);
-        output.WriteBool(Success);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (roomInfo_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomInfo);
-      }
-      if (Success != false) {
-        size += 1 + 1;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(JoinRoomAnswerPacket other) {
-      if (other == null) {
-        return;
-      }
-      if (other.roomInfo_ != null) {
-        if (roomInfo_ == null) {
-          RoomInfo = new global::JIGAPPacket.RoomInfoPacket();
-        }
-        RoomInfo.MergeFrom(other.RoomInfo);
-      }
-      if (other.Success != false) {
-        Success = other.Success;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (roomInfo_ == null) {
-              RoomInfo = new global::JIGAPPacket.RoomInfoPacket();
-            }
-            input.ReadMessage(RoomInfo);
-            break;
-          }
-          case 16: {
-            Success = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class CreateRoomAnswerPacket : pb::IMessage<CreateRoomAnswerPacket> {
     private static readonly pb::MessageParser<CreateRoomAnswerPacket> _parser = new pb::MessageParser<CreateRoomAnswerPacket>(() => new CreateRoomAnswerPacket());
     private pb::UnknownFieldSet _unknownFields;
@@ -800,7 +637,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[5]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -915,6 +752,169 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(CreateRoomAnswerPacket other) {
+      if (other == null) {
+        return;
+      }
+      if (other.roomInfo_ != null) {
+        if (roomInfo_ == null) {
+          RoomInfo = new global::JIGAPPacket.RoomInfoPacket();
+        }
+        RoomInfo.MergeFrom(other.RoomInfo);
+      }
+      if (other.Success != false) {
+        Success = other.Success;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (roomInfo_ == null) {
+              RoomInfo = new global::JIGAPPacket.RoomInfoPacket();
+            }
+            input.ReadMessage(RoomInfo);
+            break;
+          }
+          case 16: {
+            Success = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class JoinRoomAnswerPacket : pb::IMessage<JoinRoomAnswerPacket> {
+    private static readonly pb::MessageParser<JoinRoomAnswerPacket> _parser = new pb::MessageParser<JoinRoomAnswerPacket>(() => new JoinRoomAnswerPacket());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<JoinRoomAnswerPacket> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public JoinRoomAnswerPacket() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public JoinRoomAnswerPacket(JoinRoomAnswerPacket other) : this() {
+      roomInfo_ = other.roomInfo_ != null ? other.roomInfo_.Clone() : null;
+      success_ = other.success_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public JoinRoomAnswerPacket Clone() {
+      return new JoinRoomAnswerPacket(this);
+    }
+
+    /// <summary>Field number for the "roomInfo" field.</summary>
+    public const int RoomInfoFieldNumber = 1;
+    private global::JIGAPPacket.RoomInfoPacket roomInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.RoomInfoPacket RoomInfo {
+      get { return roomInfo_; }
+      set {
+        roomInfo_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "success" field.</summary>
+    public const int SuccessFieldNumber = 2;
+    private bool success_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Success {
+      get { return success_; }
+      set {
+        success_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as JoinRoomAnswerPacket);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(JoinRoomAnswerPacket other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(RoomInfo, other.RoomInfo)) return false;
+      if (Success != other.Success) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (roomInfo_ != null) hash ^= RoomInfo.GetHashCode();
+      if (Success != false) hash ^= Success.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (roomInfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(RoomInfo);
+      }
+      if (Success != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(Success);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (roomInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomInfo);
+      }
+      if (Success != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(JoinRoomAnswerPacket other) {
       if (other == null) {
         return;
       }
@@ -1084,135 +1084,6 @@ namespace JIGAPPacket {
 
   }
 
-  public sealed partial class BaseRequestPacket : pb::IMessage<BaseRequestPacket> {
-    private static readonly pb::MessageParser<BaseRequestPacket> _parser = new pb::MessageParser<BaseRequestPacket>(() => new BaseRequestPacket());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<BaseRequestPacket> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[7]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public BaseRequestPacket() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public BaseRequestPacket(BaseRequestPacket other) : this() {
-      packettype_ = other.packettype_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public BaseRequestPacket Clone() {
-      return new BaseRequestPacket(this);
-    }
-
-    /// <summary>Field number for the "packettype" field.</summary>
-    public const int PackettypeFieldNumber = 1;
-    private global::JIGAPPacket.PacketType packettype_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::JIGAPPacket.PacketType Packettype {
-      get { return packettype_; }
-      set {
-        packettype_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as BaseRequestPacket);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(BaseRequestPacket other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Packettype != other.Packettype) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Packettype != 0) hash ^= Packettype.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Packettype != 0) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Packettype);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Packettype != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Packettype);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(BaseRequestPacket other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Packettype != 0) {
-        Packettype = other.Packettype;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            Packettype = (global::JIGAPPacket.PacketType) input.ReadEnum();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class ChattingPacket : pb::IMessage<ChattingPacket> {
     private static readonly pb::MessageParser<ChattingPacket> _parser = new pb::MessageParser<ChattingPacket>(() => new ChattingPacket());
     private pb::UnknownFieldSet _unknownFields;
@@ -1221,7 +1092,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[8]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1362,6 +1233,135 @@ namespace JIGAPPacket {
           }
           case 18: {
             Msg = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class BaseRequestPacket : pb::IMessage<BaseRequestPacket> {
+    private static readonly pb::MessageParser<BaseRequestPacket> _parser = new pb::MessageParser<BaseRequestPacket>(() => new BaseRequestPacket());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<BaseRequestPacket> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseRequestPacket() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseRequestPacket(BaseRequestPacket other) : this() {
+      packettype_ = other.packettype_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseRequestPacket Clone() {
+      return new BaseRequestPacket(this);
+    }
+
+    /// <summary>Field number for the "packettype" field.</summary>
+    public const int PackettypeFieldNumber = 1;
+    private global::JIGAPPacket.PacketType packettype_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.PacketType Packettype {
+      get { return packettype_; }
+      set {
+        packettype_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as BaseRequestPacket);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(BaseRequestPacket other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Packettype != other.Packettype) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Packettype != 0) hash ^= Packettype.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Packettype != 0) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Packettype);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Packettype != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Packettype);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(BaseRequestPacket other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Packettype != 0) {
+        Packettype = other.Packettype;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Packettype = (global::JIGAPPacket.PacketType) input.ReadEnum();
             break;
           }
         }

@@ -24,7 +24,7 @@ namespace JIGAPClientDXGUI.Engine
     partial class Button : Component
     {
         public override void Init()
-        {
+        {     
             UIRenderer = gameObject.GetComponent<UIRenderer>();
 
             if (UIRenderer == null)
@@ -51,7 +51,7 @@ namespace JIGAPClientDXGUI.Engine
                         UIRenderer.Color.B - 1, UIRenderer.Color.A);
                 }
 
-                
+
                 if (InputManager.Instance.GetMouse(InputManager.MouseButtonType.Left) && buttonStart)
                     UIRenderer.Color = new Color(100, 100, 100);
                 else

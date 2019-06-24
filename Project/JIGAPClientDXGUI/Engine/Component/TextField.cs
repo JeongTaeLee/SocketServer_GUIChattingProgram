@@ -23,6 +23,18 @@ namespace JIGAPClientDXGUI.Engine
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
 
+        public int FontSize
+        {
+            get
+            {
+                return Text.FontSize;
+            }
+
+            set
+            {
+                Text.FontSize = value;
+            }
+        }
 
         public texture Texture
         {

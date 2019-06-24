@@ -136,6 +136,7 @@
     <Compile Include="Engine\Entry\Component.cs" />
     <Compile Include="Engine\Entry\GameObject.cs" />
     <Compile Include="Engine\Component\Transform.cs" />
+    <Compile Include="Engine\Entry\NetworkObject.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Engine\PakcetHandler\PacketHandler.cs" />
     <Compile Include="Engine\Protobuf\JIGAPPacket.cs" />
     <Compile Include="Engine\RenderMsgForm.cs" />
-    <Compile Include="Scene\ChattingScene.cs" />
+    <Compile Include="Scene\IngameScene.cs" />
     <Compile Include="Scene\LoadingScene.cs" />
     <Compile Include="Scene\LoginScene.cs" />
     <Compile Include="Scene\Scene.cs" />
