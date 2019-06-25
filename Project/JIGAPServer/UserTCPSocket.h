@@ -1,6 +1,4 @@
 #pragma once
-#include "..\JIGAPServerStartLib\TCPSocket.h"
-
 class Room;
 
 class UserTCPSocket :

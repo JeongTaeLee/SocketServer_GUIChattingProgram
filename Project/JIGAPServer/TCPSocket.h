@@ -1,7 +1,7 @@
 #pragma once
 
-class TCPIOData;
 enum IOMODE;
+class TCPIOData;
 class Room;
 
 class TCPSocket

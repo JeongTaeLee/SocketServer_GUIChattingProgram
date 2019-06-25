@@ -17,6 +17,24 @@
     <Filter Include="Room">
       <UniqueIdentifier>{a2a8f687-f843-4179-b756-653106163098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JIGAPStructure">
+      <UniqueIdentifier>{e91c6060-7b09-4afd-9ddf-845581e5ef72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPPacket">
+      <UniqueIdentifier>{349828a8-5786-43d5-a203-224772243bec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler">
+      <UniqueIdentifier>{f2d16b62-5fb9-478e-bac2-dce6b7d6177b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SocketAddress">
+      <UniqueIdentifier>{713ca061-bf47-4954-81c8-47d5957a7249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TCPSocket">
+      <UniqueIdentifier>{41945770-95a3-4c02-bcd2-d7720c6abb6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TCPIOData">
+      <UniqueIdentifier>{74db9ee6-f4d9-4a4b-946c-e884795edcde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -34,6 +52,24 @@
     <ClInclude Include="Room.h">
       <Filter>Room</Filter>
     </ClInclude>
+    <ClInclude Include="JIGAPStructure.h">
+      <Filter>JIGAPStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>PacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketAddress.h">
+      <Filter>SocketAddress</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPSocket.h">
+      <Filter>TCPSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPIOData.h">
+      <Filter>TCPIOData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -47,6 +83,24 @@
     </ClCompile>
     <ClCompile Include="Room.cpp">
       <Filter>Room</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPStructure.cpp">
+      <Filter>JIGAPStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>PacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketAddress.cpp">
+      <Filter>SocketAddress</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSocket.cpp">
+      <Filter>TCPSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPIOData.cpp">
+      <Filter>TCPIOData</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

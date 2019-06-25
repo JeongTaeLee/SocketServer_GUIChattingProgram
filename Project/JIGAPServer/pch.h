@@ -26,13 +26,20 @@
 #include <map>
 #include <crtdbg.h>
 
-#include "../JIGAPServerStartLib/JIGAPStructure.h"
-#include "../JIGAPServerStartLib/SocketAddress.h"
-#include "../JIGAPServerStartLib/TCPIOData.h"
-#include "../JIGAPServerStartLib/TCPSocket.h"
-#include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
-#include "../JIGAPServerStartLib/PacketHandler.h"
+//#include "../JIGAPServerStartLib/JIGAPStructure.h"
+//#include "../JIGAPServerStartLib/SocketAddress.h"
+//#include "../JIGAPServerStartLib/TCPIOData.h"
+//#include "../JIGAPServerStartLib/TCPSocket.h"
+//#include "../JIGAPServerStartLib/JIGAPPacket.pb.h"
+//#include "../JIGAPServerStartLib/PacketHandler.h"
 
+#include "JIGAPPacket.pb.h"
+#include "JIGAPStructure.h"
+
+#include "SocketAddress.h"
+
+#include "TCPSocket.h"
+#include "TCPIOData.h"
 #include "UserTCPSocket.h"
 #include "Room.h"
 
@@ -42,7 +49,7 @@
 #ifdef _DEBUG
 #pragma comment(lib, "libprotobufd.lib")
 #pragma comment(lib, "libprotobuf-lited.lib")
-#pragma comment(lib, "JIGAPServerStartLib.lib")
+//#pragma comment(lib, "JIGAPServerStartLib.lib")
 #else
 #pragma comment(lib, "libprotobuf.lib")
 #pragma comment(lib, "libprotobuf-lite.lib")

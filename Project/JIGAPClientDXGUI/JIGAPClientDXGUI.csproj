@@ -136,7 +136,6 @@
     <Compile Include="Engine\Entry\Component.cs" />
     <Compile Include="Engine\Entry\GameObject.cs" />
     <Compile Include="Engine\Component\Transform.cs" />
-    <Compile Include="Engine\Entry\NetworkObject.cs" />
     <Compile Include="Engine\MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />

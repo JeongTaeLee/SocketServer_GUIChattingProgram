@@ -171,20 +171,42 @@ namespace JIGAPClientDXGUI.Engine
     {
         public void SendLoginRequest(string id, string passward)
         {
+            LoginRequestPacket requestPacket = new LoginRequestPacket();
+            requestPacket.Id = id;
+
+            PacketHandler.SerializePacket(PacketType.LoginRequest, requestPacket);
+
+            OnSendPacket();
+        }
+        private void RecvLoginAnswer(ref PacketHeader inHeader)
+        {
+            LoginAnswerPacket answerPacket = PacketHandler.ParsingPacket<LoginAnswerPacket>(inHeader.PacketSize);
+
+            if (answerPacket.Success)
+            {
+                // 로그인을 성공했을 경우.
+            }
+            else
+            {
+                // 로그인에 실패했을 경우.
+            }
+        }
+
+        private void OnSendPacket()
+        {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
 
             args.Completed += OnSendComplate;
             args.SetBuffer(PacketHandler.sendBuffer, 0, PacketHandler.sendPosition);
-            
-            ServerSock.SendAsync(args);
-        }
 
+            ServerSock.SendAsync(args);
+
+        }
         private void OnSendComplate(object sender, SocketAsyncEventArgs e)
         {
 
         }
-
-        public void RecvThread()
+        private void RecvThread()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
 
@@ -238,19 +260,5 @@ namespace JIGAPClientDXGUI.Engine
             }
         }
 
-        private void RecvLoginAnswer(ref PacketHeader inHeader)
-        {
-            LoginAnswerPacket answerPacket = PacketHandler.ParsingPacket<LoginAnswerPacket>(inHeader.PacketSize);
-
-            if (answerPacket.Success)
-            {
-                // 로그인을 성공했을 경우.
-            }
-            else
-            {
-                // 로그인에 실패했을 경우.
-            }
-
-        }
     }
 }
