@@ -35,6 +35,9 @@
     <Filter Include="TCPIOData">
       <UniqueIdentifier>{74db9ee6-f4d9-4a4b-946c-e884795edcde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServerLogic">
+      <UniqueIdentifier>{29c359d7-7a38-41d1-bd91-4f8d6ee970c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -55,9 +58,6 @@
     <ClInclude Include="JIGAPStructure.h">
       <Filter>JIGAPStructure</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>PacketHandler</Filter>
     </ClInclude>
@@ -69,6 +69,12 @@
     </ClInclude>
     <ClInclude Include="TCPIOData.h">
       <Filter>TCPIOData</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerLogic.h">
+      <Filter>ServerLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +93,6 @@
     <ClCompile Include="JIGAPStructure.cpp">
       <Filter>JIGAPStructure</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <Filter>JIGAPPacket</Filter>
-    </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>PacketHandler</Filter>
     </ClCompile>
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="TCPIOData.cpp">
       <Filter>TCPIOData</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerLogic.cpp">
+      <Filter>ServerLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

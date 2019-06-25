@@ -12,7 +12,7 @@ namespace JIGAPClientDXGUI.Engine
 {
     struct PacketHeader
     {
-        public PacketType Type;
+        public JIGAPPacket.Type Type;
         public int PacketSize;
     }
 
@@ -54,7 +54,7 @@ namespace JIGAPClientDXGUI.Engine
 
         public PacketHeader ParsingPacketHeader()
         {
-            PacketType type = (PacketType)BitConverter.ToInt32(recvBuffer, recvPosition);
+            JIGAPPacket.Type type = (JIGAPPacket.Type)BitConverter.ToInt32(recvBuffer, recvPosition);
             recvPosition += sizeof(int);
             int byteSizes = BitConverter.ToInt32(recvBuffer, recvPosition);
             recvPosition += sizeof(int);
@@ -81,7 +81,7 @@ namespace JIGAPClientDXGUI.Engine
             Buffer.BlockCopy(BitConverter.GetBytes(size), 0, sendBuffer, 0, sizeof(int));
         }
 
-        public void SerializePacket<Packet>(PacketType inType, Packet inPacket) where Packet : Google.Protobuf.IMessage
+        public void SerializePacket<Packet>(JIGAPPacket.Type inType, Packet inPacket) where Packet : Google.Protobuf.IMessage
         {
             Buffer.BlockCopy(BitConverter.GetBytes((int)inType), 0, sendBuffer, sendPosition, sizeof(int));
             sendPosition += sizeof(int);

@@ -14,16 +14,16 @@ private:
 	PacketHandler* lpPacketHandler;
 
 	HANDLE hSystemLogMutex;	
-	HANDLE hClientDataMutex;
+	HANDLE hUsersMutex;
 	HANDLE hRoomsMutex;
 
 	std::string szIpAddr;
 	std::string szPortAddr;
 
 	std::thread connectThread;
-	std::thread ioThread;
+	std::thread recvThread;
 
-	std::map < SOCKET, UserTCPSocket* > mClientData;
+	std::map < SOCKET, UserTCPSocket* > mUsers;
 	std::map < std::string, Room*> mRooms;
 	
 	std::queue < std::string > qSystemMsg;
@@ -48,18 +48,30 @@ public:
 	void JIGAPConnectThread();
 	void JIGAPIOThread();
 
-	DWORD  CheckIOCompletionSocket(UserTCPSocket* & inSocket, TCPIOData* & inIOData);
+	void RecvProcess();
+	void WorkProcess();
 
+public:
 	void RemoveClientInServer(const SOCKET& hSock);
 	void RemoveClientInRoom(UserTCPSocket* lpSock);
 
-	void RecvProcess();
+public:
+	void UsersLock() { WaitForSingleObject(hUsersMutex, INFINITE); }
+	void UsersUnlock() { ReleaseMutex(hUsersMutex); }
+	
+	void RoomsLock() { WaitForSingleObject(hRoomsMutex, INFINITE); }
+	void RoomsUnlock() { ReleaseMutex(hRoomsMutex); }
+
+public:
+	const std::map < SOCKET, UserTCPSocket* >& GetUsers() { return mUsers; }
+	std::map < std::string, Room*>& GetRooms() { return mRooms; }
+	PacketHandler* GetPacketHandler() { return lpPacketHandler; }
+
 public:
 	void JIGAPPrintSystemLog(const char * fmt, ...);
 	
 	std::string JIGAPGetSystemMsg();
 	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
-public:
 	
 };
 

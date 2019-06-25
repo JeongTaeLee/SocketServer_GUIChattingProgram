@@ -15,7 +15,7 @@ class Room;
 struct PacketHeader
 {
 	int size;
-	JIGAPPacket::PacketType packetType;
+	JIGAPPacket::Type packetType;
 };
 
 class PacketHandler
@@ -42,7 +42,7 @@ public:
 	void SetRecvPacket(const char* ch, int iSize);
 	
 	int ParsingPacketSize(const char* buffer);
-	void ParsingPacketHeader(JIGAPPacket::MessageHeader & inHeader);
+	void ParsingPacketHeader(PacketHeader& inHeader);
 	
 	template<class Packet>
 	void ParsingPacket(Packet& inPaket, int inSize)
@@ -55,7 +55,7 @@ public:
 	void SerializePacketSize(int iPacketSize);
 
 	template<class Packet>
-	void SerializePacket(JIGAPPacket::PacketType inType, Packet& inPacket)
+	void SerializePacket(JIGAPPacket::Type inType, Packet& inPacket)
 	{
 		memcpy(&lpSendStream[iSendStreamPosition], (void*)& inType, sizeof(int));
 		iSendStreamPosition += sizeof(int);

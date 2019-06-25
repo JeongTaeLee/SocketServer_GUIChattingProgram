@@ -19,9 +19,6 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
-#define GOOGLE_DCHECK
-#define PROTOBUF_USE_DLLS
-
 #include <google/protobuf/port_undef.inc>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
@@ -112,8 +109,8 @@ enum Type : int {
   eRoomListElement = 8,
   eExitRoomRequest = 9,
   eExitRoomAnswer = 10,
-  //Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  //Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Type_IsValid(int value);
 constexpr Type Type_MIN = eLoginRequest;

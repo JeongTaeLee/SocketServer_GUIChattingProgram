@@ -1,0 +1,61 @@
+
+syntax = "proto3";
+
+package JIGAPPacket;
+
+enum Type
+{
+    eLoginRequest = 0;
+    eLoginAnswer = 1;
+
+    eCreateRoomRequest = 2;
+    eCreateRoomAnswer = 3;
+
+    eJoinRoomRequest = 4;
+    eJoinRoomAnswer = 5; 
+
+    eRoomListRequest = 6;
+    eRoomListAnswer= 7;
+    eRoomListElement = 8;
+
+    eExitRoomRequest = 9;
+    eExitRoomAnswer = 10;
+}
+
+message RoomInfo{
+    string roomname = 1;
+}
+
+message LoginRequest{
+    string id = 1;
+    string passward = 2;
+}
+
+message LoginAnswer{
+    bool success = 1;
+}
+
+message CreateRoomAnswer{
+    bool success = 1;
+}
+
+message JoinRoomRequest{
+    RoomInfo roomInfo = 1;
+}
+
+message JoinRoomAnswer{
+    bool success = 1;
+}
+
+message RoomListAnswer{
+    int32 roomCount = 1;
+}
+
+message RoomListElement{
+    RoomInfo roomInfo = 1;
+}
+
+message EmptyPacket{
+    Type type = 1;
+}
+

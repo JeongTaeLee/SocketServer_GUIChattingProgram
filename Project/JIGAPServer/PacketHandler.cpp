@@ -36,10 +36,18 @@ int PacketHandler::ParsingPacketSize(const char* buffer)
 	return paketSize;
 }
 
-void PacketHandler::ParsingPacketHeader(JIGAPPacket::MessageHeader& inHeader)
+void PacketHandler::ParsingPacketHeader(PacketHeader& inHeader)
 {
-	inHeader.ParseFromArray(&lpRecvStream[iRecvStreamPosition], inHeader.ByteSize());
-	iRecvStreamPosition += inHeader.ByteSize();
+	JIGAPPacket::Type type;
+	memcpy(&type, &lpRecvStream[iRecvStreamPosition], sizeof(int));
+	iRecvStreamPosition += sizeof(int);
+
+	int size;
+	memcpy(&size, &lpRecvStream[iRecvStreamPosition], sizeof(int));
+	iRecvStreamPosition += sizeof(int);
+	
+	inHeader.packetType = type;
+	inHeader.size = size;
 }
 
 void PacketHandler::SerializePacketSize(int iPacketSize)

@@ -3,7 +3,6 @@
 
 #include "JIGAPPacket.pb.h"
 
-#include "pch.h"
 #include <algorithm>
 
 #include <google/protobuf/stubs/common.h>

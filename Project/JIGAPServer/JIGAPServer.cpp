@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "JIGAPServer.h"
-#include "PacketHandler.h"
+#include "Room.h"
 
 JIGAPServer::JIGAPServer()
 	:lpServSock(nullptr), 
@@ -12,7 +12,7 @@ JIGAPServer::JIGAPServer()
 	lpPacketHandler(new PacketHandler),
 	
 	hSystemLogMutex(nullptr), 
-	hClientDataMutex(nullptr), 
+	hUsersMutex(nullptr), 
 	hRoomsMutex(nullptr),
 
 	hCompletionHandle(nullptr),
@@ -76,11 +76,11 @@ void JIGAPServer::JIGAPReleaseServer()
 {
 	lpServSock->Closesocket();
 	CloseHandle(hCompletionHandle);
-	CloseHandle(hClientDataMutex);
+	CloseHandle(hUsersMutex);
 
-	for (auto Iter : mClientData)
+	for (auto Iter : mUsers)
 		RemoveClientInServer(Iter.second->GetSocket());
-	mClientData.clear();
+	mUsers.clear();
 
 	delete lpServSock;
 	lpServSock = nullptr;
@@ -105,11 +105,11 @@ bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr
 	}
 
 	hSystemLogMutex		= CreateMutex(0, FALSE, NULL);
-	hClientDataMutex	= CreateMutex(0, FALSE, NULL);
+	hUsersMutex	= CreateMutex(0, FALSE, NULL);
 	hRoomsMutex			= CreateMutex(0, FALSE, NULL);
 
 	connectThread	= std::thread([&]() { JIGAPConnectThread(); });  Sleep(10);
-	ioThread		= std::thread([&]() { JIGAPIOThread(); });
+	recvThread		= std::thread([&]() { JIGAPIOThread(); });
 
 	JIGAPPrintSystemLog("서버가 열렸습니다!");
 	return true;
@@ -124,14 +124,14 @@ void JIGAPServer::JIGAPServerClose()
 	JIGAPReleaseServer();
 
 	/*Thread를 해제합니다.*/
-	if (ioThread.joinable())
-		ioThread.join();
+	if (recvThread.joinable())
+		recvThread.join();
 	if (connectThread.joinable())
 		connectThread.join();
 
 	/*생성한 WInAPI Mutex를 해제합니다.*/
 	CloseHandle(hSystemLogMutex);
-	CloseHandle(hClientDataMutex);
+	CloseHandle(hUsersMutex);
 	CloseHandle(hRoomsMutex);
 
 	JIGAPPrintSystemLog("서버가 닫혔습니다!");
@@ -168,7 +168,7 @@ void JIGAPServer::JIGAPConnectThread()
 
 		JIGAPPrintSystemLog("클라이언트 소켓이 연결되었습니다 : %d", lpClntSocket->GetSocket());
 		
-		mClientData.insert(std::make_pair(lpClntSocket->GetSocket(), lpClntSocket));
+		mUsers.insert(std::make_pair(lpClntSocket->GetSocket(), lpClntSocket));
 
 		if ((iErrorCode = lpClntSocket->IOCPRecv()))
 		{
@@ -188,88 +188,73 @@ void JIGAPServer::JIGAPIOThread()
 
 	while (true)
 	{
-		UserTCPSocket * lpClntSock	= nullptr;
-		TCPIOData* lpIOData			= nullptr;
+		UserTCPSocket* lpClntSock = nullptr;
+		TCPIOData* lpIOData = nullptr;
 
-		int iCheckIOResult = CheckIOCompletionSocket(lpClntSock, lpIOData);
+		DWORD dwByte = 0;
+		GetQueuedCompletionStatus(hCompletionHandle, &dwByte, (PULONG_PTR)& lpClntSock, (LPOVERLAPPED*)& lpIOData,
+			INFINITE);
 
-		if (iCheckIOResult == 0) // 클라이언트가 종료를 요청했습니다.
-		{
-			RemoveClientInServer(lpClntSock->GetSocket());
-		}
+		if (dwByte == 0) RemoveClientInServer(lpClntSock->GetSocket());
 
-		else if (iCheckIOResult == -1) // 서버가 종료되었습니다.
-			break;
+		else if (dwByte == -1) break;
+
 		else
 		{
+			int dataSize = lpPacketHandler->ParsingPacketSize(lpClntSock->GetBufferData());
 
+			if (dataSize <= dwByte)
+			{
+				lpPacketHandler->SetRecvPacket(lpClntSock->GetBufferData(), dataSize);
+
+				RecvProcess();
+			}
 		}
 	}
 
 	JIGAPPrintSystemLog("채팅 쓰레드가 비활성화 되었습니다.");
 }
 
-DWORD JIGAPServer::CheckIOCompletionSocket(UserTCPSocket* & inSocket, TCPIOData* & inIOData)
+void JIGAPServer::RecvProcess()
 {
-	DWORD dwByte = 0;
+}
 
-	GetQueuedCompletionStatus(hCompletionHandle,
-		&dwByte,
-		(PULONG_PTR)& inSocket,
-		(LPOVERLAPPED*)& inIOData,
-		INFINITE);
-
-	if (dwByte == 0)
-	{
-		if (bServerOn == false)
-			return -1;
-		else
-			return 0;
-	}
-
-	return dwByte;
+void JIGAPServer::WorkProcess()
+{
 }
 
 void JIGAPServer::RemoveClientInServer(const SOCKET& hSock)
 {
-	auto find = mClientData.find(hSock);
+	if (auto find = mUsers.find(hSock); find == mUsers.end())
+	{
+		if (auto lpSock = find->second; lpSock != nullptr)
+		{
+			if (lpSock->GetRoom())
+				RemoveClientInRoom(lpSock);
 
-	if (find == mClientData.end())
-		return;
-
-
-	UserTCPSocket* lpSock = find->second;
-
-	if (lpSock->GetRoom())
-		RemoveClientInRoom(lpSock);
+			delete lpSock;
+		}
+	
+		WaitForSingleObject(hUsersMutex, INFINITE);
+		mUsers.erase(find);
+		ReleaseMutex(hUsersMutex);
+	}
 
 	JIGAPPrintSystemLog("소켓과 연결이 끊겼습니다. : %d", hSock);
-
-	delete lpSock;
-
-	WaitForSingleObject(hClientDataMutex, INFINITE);
-
-	mClientData.erase(find);
-	
-	ReleaseMutex(hClientDataMutex);
-
 }
 
 void JIGAPServer::RemoveClientInRoom(UserTCPSocket* lpSock)
 {
 	if (!lpSock) return;
 
-	Room* lpRoom = lpSock->GetRoom();
-	if (!lpRoom) return;
-
-	if (lpRoom)
+	if (auto lpRoom = lpSock->GetRoom(); lpRoom != nullptr)
 	{
 		lpRoom->UnRegisterUser(lpSock);
 
-		WaitForSingleObject(hRoomsMutex, INFINITE);
-	
 		if (lpRoom->GetUserCount() <= 0)
 		{
+			WaitForSingleObject(hRoomsMutex, INFINITE);
+
 			auto find = mRooms.find(lpRoom->GetRoomName());
 
 			if (find != mRooms.end())
@@ -278,14 +263,10 @@ void JIGAPServer::RemoveClientInRoom(UserTCPSocket* lpSock)
 				mRooms.erase(find);
 			}
 			delete lpRoom;
+			
+			ReleaseMutex(hRoomsMutex);
 		}
-
-		ReleaseMutex(hRoomsMutex);
 	}
-}
-
-void JIGAPServer::RecvProcess()
-{
 }
 
 void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
