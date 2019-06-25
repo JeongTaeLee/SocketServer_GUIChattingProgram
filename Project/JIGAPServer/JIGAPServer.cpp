@@ -283,6 +283,10 @@ void JIGAPServer::RemoveClientInRoom(UserTCPSocket* lpSock)
 	}
 }
 
+void JIGAPServer::RecvProcess()
+{
+}
+
 void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
 {
 	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */

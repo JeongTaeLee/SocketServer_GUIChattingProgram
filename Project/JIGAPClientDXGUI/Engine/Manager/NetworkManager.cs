@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 
+using JIGAPPacket;
+
 namespace JIGAPClientDXGUI.Engine 
 {
     partial class NetworkManager : IDisposable
@@ -198,14 +200,57 @@ namespace JIGAPClientDXGUI.Engine
 
             if (ServerSock.Connected && e.BytesTransferred > 0)
             {
-                // 받아온버퍼.
-                //e.Buffer
+                PacketHandler.ClearSendBuffer();
+
+                int paketSize = PacketHandler.ParsingPacketSize(e.Buffer);
+                PacketHandler.SetRecvBuffer(e.Buffer, paketSize);
+
+                OnRecvProcess();
             }
             else
             {
 
             }
+        } 
+        
+        private void OnRecvProcess()
+        {
+            PacketHeader header = PacketHandler.ParsingPacketHeader();
+
+            switch (header.Type)
+            {
+                case PacketType.LoginAnswer:
+                    break;
+                case PacketType.JoinRoomAnswer:
+                    break;
+                case PacketType.CreateRoomAsnwer:
+                    break;
+                case PacketType.RoomListAnswer:
+                    break;
+                case PacketType.ExitRoomAnswer:
+                    break;
+                case PacketType.ChattingSpread:
+                    break;
+                case PacketType.PlayerEnterRoom:
+                    break;
+                case PacketType.PlayerExitRoom:
+                    break;
+            }
+        }
+
+        private void RecvLoginAnswer(ref PacketHeader inHeader)
+        {
+            LoginAnswerPacket answerPacket = PacketHandler.ParsingPacket<LoginAnswerPacket>(inHeader.PacketSize);
+
+            if (answerPacket.Success)
+            {
+                // 로그인을 성공했을 경우.
+            }
+            else
+            {
+                // 로그인에 실패했을 경우.
+            }
+
         }
     }
-
 }

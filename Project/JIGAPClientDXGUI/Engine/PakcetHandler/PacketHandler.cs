@@ -10,23 +10,15 @@ using Google.Protobuf.Collections;
 
 namespace JIGAPClientDXGUI.Engine
 {
+    struct PacketHeader
+    {
+        public PacketType Type;
+        public int PacketSize;
+    }
+
+
     partial class PacketHandler
     {
-        //const int message_header_size = sizeof(int) * 2;
-        //LoginRequestPacket packet = new LoginRequestPacket { Id = "Test" };
-
-        //byte[] readBuffer = new byte[1024];
-        //byte[] buffer = new byte[1024];
-        //Buffer.BlockCopy(buffer, 0, readBuffer, packetheadersize, packetsize);
-
-        //LoginRequestPacket.Parser.ParseFrom(buffer);
-
-
-        //byte[] buffer = new byte[message_header_size + packet.CalculateSize()];
-        //
-        //
-        //packet.ToByteArray().CopyTo(buffer, message_header_size);
-
         public const int bufferSize = 2048;
 
         public byte[] recvBuffer { get; set; } = new byte[bufferSize];
@@ -35,7 +27,7 @@ namespace JIGAPClientDXGUI.Engine
         public int recvPosition { get; private set; } = 0;
         public int sendPosition { get; private set; } = 0;
 
-        private int recvTotalSize = 0;
+        private int recvTotalSize { get; set; } = 0;
 
     }
 
@@ -60,24 +52,22 @@ namespace JIGAPClientDXGUI.Engine
             return BitConverter.ToInt32(inRecvBuffer, sizeof(int) * 0);
         }
 
-        public MessageHeader ParsingPacketHeader()
+        public PacketHeader ParsingPacketHeader()
         {
             PacketType type = (PacketType)BitConverter.ToInt32(recvBuffer, recvPosition);
             recvPosition += sizeof(int);
             int byteSizes = BitConverter.ToInt32(recvBuffer, recvPosition);
             recvPosition += sizeof(int);
 
-            MessageHeader header = new MessageHeader();
+            PacketHeader header = new PacketHeader();
             header.Type = type;
-            header.Size = byteSizes;
+            header.PacketSize = byteSizes;
 
             return header;
         }
 
-        public Packet PrasingPacket<Packet>(int inSize) where Packet : Google.Protobuf.IMessage, new ()
+        public Packet ParsingPacket<Packet>(int inSize) where Packet : Google.Protobuf.IMessage, new ()
         {
-            byte[] buffer = new byte[inSize];
-
             Packet packet = new Packet();
             packet = (Packet)packet.Descriptor.Parser.ParseFrom(recvBuffer, recvPosition, inSize);
 

@@ -52,6 +52,8 @@ public:
 
 	void RemoveClientInServer(const SOCKET& hSock);
 	void RemoveClientInRoom(UserTCPSocket* lpSock);
+
+	void RecvProcess();
 public:
 	void JIGAPPrintSystemLog(const char * fmt, ...);
 	

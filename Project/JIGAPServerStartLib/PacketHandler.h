@@ -14,7 +14,7 @@ class Room;
 
 struct PacketHeader
 {
-	unsigned int size;
+	int size;
 	JIGAPPacket::PacketType packetType;
 };
 
@@ -55,17 +55,15 @@ public:
 	void SerializePacketSize(int iPacketSize);
 
 	template<class Packet>
-	void SerializePacket(JIGAPPacket::PacketType inType, Packet& inPaket)
+	void SerializePacket(JIGAPPacket::PacketType inType, Packet& inPacket)
 	{
-		JIGAPPacket::MessageHeader header;
-		header.set_type(inType);
-		header.set_size(inPaket.ByteSize());
+		memcpy(&lpSendStream[iSendStreamPosition], (void*)& inType, sizeof(int));
+		iSendStreamPosition += sizeof(int);
+		memcpy(&lpSendStream[iSendStreamPosition], (void*)& inPacket.ByteSize(), sizeof(int));
+		iSendStreamPosition += sizeof(int);
 
-		inHeader.SerializeToArray(&lpSendStream[iSendStreamPosition], header.ByteSize());
-		iSendStreamPosition += header.ByteSize();
+		inPacket.SerializeToArray(&lpSendStream[iSendStreamPosition], inPacket.ByteSize());
 
-		inPaket.SerializeToArray(&lpSendStream[iSendStreamPosition], header.size());
-		iSendStreamPosition += header.size();
 	}
 };
 
