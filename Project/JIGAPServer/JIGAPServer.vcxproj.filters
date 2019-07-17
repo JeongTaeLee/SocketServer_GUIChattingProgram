@@ -38,6 +38,9 @@
     <Filter Include="ServerLogic">
       <UniqueIdentifier>{29c359d7-7a38-41d1-bd91-4f8d6ee970c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JIGAPServerBase">
+      <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -76,6 +79,9 @@
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
     </ClInclude>
+    <ClInclude Include="JIGAPServerBase.h">
+      <Filter>JIGAPServerBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -110,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPServerBase.cpp">
+      <Filter>JIGAPServerBase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
