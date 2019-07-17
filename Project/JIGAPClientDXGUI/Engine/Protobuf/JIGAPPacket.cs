@@ -24,30 +24,32 @@ namespace JIGAPPacket {
     static JIGAPPacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiHAoIUm9vbUluZm8S",
-            "EAoIcm9vbW5hbWUYASABKAkiLAoMTG9naW5SZXF1ZXN0EgoKAmlkGAEgASgJ",
-            "EhAKCHBhc3N3YXJkGAIgASgJIh4KC0xvZ2luQW5zd2VyEg8KB3N1Y2Nlc3MY",
-            "ASABKAgiIwoQQ3JlYXRlUm9vbUFuc3dlchIPCgdzdWNjZXNzGAEgASgIIjoK",
-            "D0pvaW5Sb29tUmVxdWVzdBInCghyb29tSW5mbxgBIAEoCzIVLkpJR0FQUGFj",
-            "a2V0LlJvb21JbmZvIiEKDkpvaW5Sb29tQW5zd2VyEg8KB3N1Y2Nlc3MYASAB",
-            "KAgiIwoOUm9vbUxpc3RBbnN3ZXISEQoJcm9vbUNvdW50GAEgASgFIjoKD1Jv",
-            "b21MaXN0RWxlbWVudBInCghyb29tSW5mbxgBIAEoCzIVLkpJR0FQUGFja2V0",
-            "LlJvb21JbmZvIi4KC0VtcHR5UGFja2V0Eh8KBHR5cGUYASABKA4yES5KSUdB",
-            "UFBhY2tldC5UeXBlKvEBCgRUeXBlEhEKDWVMb2dpblJlcXVlc3QQABIQCgxl",
-            "TG9naW5BbnN3ZXIQARIWChJlQ3JlYXRlUm9vbVJlcXVlc3QQAhIVChFlQ3Jl",
-            "YXRlUm9vbUFuc3dlchADEhQKEGVKb2luUm9vbVJlcXVlc3QQBBITCg9lSm9p",
-            "blJvb21BbnN3ZXIQBRIUChBlUm9vbUxpc3RSZXF1ZXN0EAYSEwoPZVJvb21M",
-            "aXN0QW5zd2VyEAcSFAoQZVJvb21MaXN0RWxlbWVudBAIEhQKEGVFeGl0Um9v",
-            "bVJlcXVlc3QQCRITCg9lRXhpdFJvb21BbnN3ZXIQCmIGcHJvdG8z"));
+            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiLAoMTG9naW5SZXF1",
+            "ZXN0EgoKAmlkGAEgASgJEhAKCHBhc3N3YXJkGAIgASgJIh4KC0xvZ2luQW5z",
+            "d2VyEg8KB3N1Y2Nlc3MYASABKAgiHAoIUm9vbUluZm8SEAoIcm9vbW5hbWUY",
+            "ASABKAkiTAoQQ3JlYXRlUm9vbUFuc3dlchInCghyb29tSW5mbxgBIAEoCzIV",
+            "LkpJR0FQUGFja2V0LlJvb21JbmZvEg8KB3N1Y2Nlc3MYAiABKAgiOgoPSm9p",
+            "blJvb21SZXF1ZXN0EicKCHJvb21JbmZvGAEgASgLMhUuSklHQVBQYWNrZXQu",
+            "Um9vbUluZm8iSgoOSm9pblJvb21BbnN3ZXISJwoIcm9vbUluZm8YASABKAsy",
+            "FS5KSUdBUFBhY2tldC5Sb29tSW5mbxIPCgdzdWNjZXNzGAIgASgIIiMKDlJv",
+            "b21MaXN0QW5zd2VyEhEKCXJvb21Db3VudBgBIAEoBSI6Cg9Sb29tTGlzdEVs",
+            "ZW1lbnQSJwoIcm9vbUluZm8YASABKAsyFS5KSUdBUFBhY2tldC5Sb29tSW5m",
+            "byIuCgtFbXB0eVBhY2tldBIfCgR0eXBlGAEgASgOMhEuSklHQVBQYWNrZXQu",
+            "VHlwZSrxAQoEVHlwZRIRCg1lTG9naW5SZXF1ZXN0EAASEAoMZUxvZ2luQW5z",
+            "d2VyEAESFgoSZUNyZWF0ZVJvb21SZXF1ZXN0EAISFQoRZUNyZWF0ZVJvb21B",
+            "bnN3ZXIQAxIUChBlSm9pblJvb21SZXF1ZXN0EAQSEwoPZUpvaW5Sb29tQW5z",
+            "d2VyEAUSFAoQZVJvb21MaXN0UmVxdWVzdBAGEhMKD2VSb29tTGlzdEFuc3dl",
+            "chAHEhQKEGVSb29tTGlzdEVsZW1lbnQQCBIUChBlRXhpdFJvb21SZXF1ZXN0",
+            "EAkSEwoPZUV4aXRSb29tQW5zd2VyEApiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequest), global::JIGAPPacket.LoginRequest.Parser, new[]{ "Id", "Passward" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "Success" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomRequest), global::JIGAPPacket.JoinRoomRequest.Parser, new[]{ "RoomInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswer), global::JIGAPPacket.JoinRoomAnswer.Parser, new[]{ "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswer), global::JIGAPPacket.JoinRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswer), global::JIGAPPacket.RoomListAnswer.Parser, new[]{ "RoomCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListElement), global::JIGAPPacket.RoomListElement.Parser, new[]{ "RoomInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.EmptyPacket), global::JIGAPPacket.EmptyPacket.Parser, new[]{ "Type" }, null, null, null)
@@ -74,135 +76,6 @@ namespace JIGAPPacket {
   #endregion
 
   #region Messages
-  public sealed partial class RoomInfo : pb::IMessage<RoomInfo> {
-    private static readonly pb::MessageParser<RoomInfo> _parser = new pb::MessageParser<RoomInfo>(() => new RoomInfo());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<RoomInfo> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[0]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RoomInfo() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RoomInfo(RoomInfo other) : this() {
-      roomname_ = other.roomname_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RoomInfo Clone() {
-      return new RoomInfo(this);
-    }
-
-    /// <summary>Field number for the "roomname" field.</summary>
-    public const int RoomnameFieldNumber = 1;
-    private string roomname_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Roomname {
-      get { return roomname_; }
-      set {
-        roomname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as RoomInfo);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(RoomInfo other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Roomname != other.Roomname) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Roomname.Length != 0) hash ^= Roomname.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Roomname.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Roomname);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Roomname.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Roomname);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(RoomInfo other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Roomname.Length != 0) {
-        Roomname = other.Roomname;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            Roomname = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class LoginRequest : pb::IMessage<LoginRequest> {
     private static readonly pb::MessageParser<LoginRequest> _parser = new pb::MessageParser<LoginRequest>(() => new LoginRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -211,7 +84,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[1]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -368,7 +241,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[2]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -489,6 +362,135 @@ namespace JIGAPPacket {
 
   }
 
+  public sealed partial class RoomInfo : pb::IMessage<RoomInfo> {
+    private static readonly pb::MessageParser<RoomInfo> _parser = new pb::MessageParser<RoomInfo>(() => new RoomInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<RoomInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo(RoomInfo other) : this() {
+      roomname_ = other.roomname_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo Clone() {
+      return new RoomInfo(this);
+    }
+
+    /// <summary>Field number for the "roomname" field.</summary>
+    public const int RoomnameFieldNumber = 1;
+    private string roomname_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Roomname {
+      get { return roomname_; }
+      set {
+        roomname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as RoomInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(RoomInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Roomname != other.Roomname) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Roomname.Length != 0) hash ^= Roomname.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Roomname.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Roomname);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Roomname.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Roomname);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(RoomInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Roomname.Length != 0) {
+        Roomname = other.Roomname;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Roomname = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class CreateRoomAnswer : pb::IMessage<CreateRoomAnswer> {
     private static readonly pb::MessageParser<CreateRoomAnswer> _parser = new pb::MessageParser<CreateRoomAnswer>(() => new CreateRoomAnswer());
     private pb::UnknownFieldSet _unknownFields;
@@ -514,6 +516,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CreateRoomAnswer(CreateRoomAnswer other) : this() {
+      roomInfo_ = other.roomInfo_ != null ? other.roomInfo_.Clone() : null;
       success_ = other.success_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -523,8 +526,19 @@ namespace JIGAPPacket {
       return new CreateRoomAnswer(this);
     }
 
+    /// <summary>Field number for the "roomInfo" field.</summary>
+    public const int RoomInfoFieldNumber = 1;
+    private global::JIGAPPacket.RoomInfo roomInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.RoomInfo RoomInfo {
+      get { return roomInfo_; }
+      set {
+        roomInfo_ = value;
+      }
+    }
+
     /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 1;
+    public const int SuccessFieldNumber = 2;
     private bool success_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Success {
@@ -547,6 +561,7 @@ namespace JIGAPPacket {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(RoomInfo, other.RoomInfo)) return false;
       if (Success != other.Success) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -554,6 +569,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (roomInfo_ != null) hash ^= RoomInfo.GetHashCode();
       if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -568,8 +584,12 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (roomInfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(RoomInfo);
+      }
       if (Success != false) {
-        output.WriteRawTag(8);
+        output.WriteRawTag(16);
         output.WriteBool(Success);
       }
       if (_unknownFields != null) {
@@ -580,6 +600,9 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (roomInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomInfo);
+      }
       if (Success != false) {
         size += 1 + 1;
       }
@@ -593,6 +616,12 @@ namespace JIGAPPacket {
     public void MergeFrom(CreateRoomAnswer other) {
       if (other == null) {
         return;
+      }
+      if (other.roomInfo_ != null) {
+        if (roomInfo_ == null) {
+          RoomInfo = new global::JIGAPPacket.RoomInfo();
+        }
+        RoomInfo.MergeFrom(other.RoomInfo);
       }
       if (other.Success != false) {
         Success = other.Success;
@@ -608,7 +637,14 @@ namespace JIGAPPacket {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
+          case 10: {
+            if (roomInfo_ == null) {
+              RoomInfo = new global::JIGAPPacket.RoomInfo();
+            }
+            input.ReadMessage(RoomInfo);
+            break;
+          }
+          case 16: {
             Success = input.ReadBool();
             break;
           }
@@ -778,6 +814,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public JoinRoomAnswer(JoinRoomAnswer other) : this() {
+      roomInfo_ = other.roomInfo_ != null ? other.roomInfo_.Clone() : null;
       success_ = other.success_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -787,8 +824,19 @@ namespace JIGAPPacket {
       return new JoinRoomAnswer(this);
     }
 
+    /// <summary>Field number for the "roomInfo" field.</summary>
+    public const int RoomInfoFieldNumber = 1;
+    private global::JIGAPPacket.RoomInfo roomInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.RoomInfo RoomInfo {
+      get { return roomInfo_; }
+      set {
+        roomInfo_ = value;
+      }
+    }
+
     /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 1;
+    public const int SuccessFieldNumber = 2;
     private bool success_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Success {
@@ -811,6 +859,7 @@ namespace JIGAPPacket {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(RoomInfo, other.RoomInfo)) return false;
       if (Success != other.Success) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -818,6 +867,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (roomInfo_ != null) hash ^= RoomInfo.GetHashCode();
       if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -832,8 +882,12 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (roomInfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(RoomInfo);
+      }
       if (Success != false) {
-        output.WriteRawTag(8);
+        output.WriteRawTag(16);
         output.WriteBool(Success);
       }
       if (_unknownFields != null) {
@@ -844,6 +898,9 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (roomInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomInfo);
+      }
       if (Success != false) {
         size += 1 + 1;
       }
@@ -857,6 +914,12 @@ namespace JIGAPPacket {
     public void MergeFrom(JoinRoomAnswer other) {
       if (other == null) {
         return;
+      }
+      if (other.roomInfo_ != null) {
+        if (roomInfo_ == null) {
+          RoomInfo = new global::JIGAPPacket.RoomInfo();
+        }
+        RoomInfo.MergeFrom(other.RoomInfo);
       }
       if (other.Success != false) {
         Success = other.Success;
@@ -872,7 +935,14 @@ namespace JIGAPPacket {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
+          case 10: {
+            if (roomInfo_ == null) {
+              RoomInfo = new global::JIGAPPacket.RoomInfo();
+            }
+            input.ReadMessage(RoomInfo);
+            break;
+          }
+          case 16: {
             Success = input.ReadBool();
             break;
           }

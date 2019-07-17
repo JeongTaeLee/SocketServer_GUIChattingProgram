@@ -112,7 +112,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>E:\Develop\External\protobuf-cpp-3.8.0\protobuf-3.8.0\src;C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>E:\Develop\External\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\libDebug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -232,24 +232,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
     <ClInclude Include="JIGAPServerBase.h" />
+    <ClInclude Include="JIGAPServerChat.h" />
     <ClInclude Include="JIGAPStructure.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Room.h" />
-    <ClInclude Include="ServerLogic.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
-    <ClInclude Include="UserTCPSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
     <ClCompile Include="JIGAPServerBase.cpp" />
+    <ClCompile Include="JIGAPServerChat.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="pch.cpp">
@@ -260,12 +258,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Room.cpp" />
-    <ClCompile Include="ServerLogic.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
-    <ClCompile Include="UserTCPSocket.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

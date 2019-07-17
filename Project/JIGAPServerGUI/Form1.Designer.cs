@@ -77,7 +77,6 @@
             this.ServerOpenButton.TabIndex = 4;
             this.ServerOpenButton.Text = "서버 열기";
             this.ServerOpenButton.UseVisualStyleBackColor = true;
-            this.ServerOpenButton.Click += new System.EventHandler(this.ServerOpenButton_Click);
             // 
             // systemLogTextBox
             // 
@@ -96,7 +95,6 @@
             this.serverCloseButton.TabIndex = 6;
             this.serverCloseButton.Text = "서버 닫기";
             this.serverCloseButton.UseVisualStyleBackColor = true;
-            this.serverCloseButton.Click += new System.EventHandler(this.ServerCloseButton_Click);
             // 
             // Form1
             // 

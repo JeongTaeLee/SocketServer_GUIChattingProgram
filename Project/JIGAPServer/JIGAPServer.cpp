@@ -1,300 +1,172 @@
-ï»¿// JIGAPServer.cpp : ì •ì  ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜ë¥¼ ì •ì˜í•©ë‹ˆë‹¤.
-//
-
 #include "pch.h"
-#include "framework.h"
 #include "JIGAPServer.h"
-#include "Room.h"
+#include "TCPSocket.h"
 
-JIGAPServer::JIGAPServer()
-	:lpServSock(nullptr), 
-	
-	lpPacketHandler(new PacketHandler),
-	
-	hSystemLogMutex(nullptr), 
-	hUsersMutex(nullptr), 
-	hRoomsMutex(nullptr),
-
-	hCompletionHandle(nullptr),
-	
-	bServerOn(false)
+bool JIGAPServer::CreateServerSocket()
 {
-}
-
-JIGAPServer::~JIGAPServer()
-{
-	delete lpPacketHandler;
-}
-
-HRESULT JIGAPServer::JIGAPInitializeServer()
-{
-	int iErrorCode = 0;
-
-	lpServSock = new TCPSocket;
-
-	WSADATA wsa;
-	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
-		return E_FAIL;
-
-	if ( (iErrorCode = lpServSock->IOCPSocket()) ) 
+	lpServerSocket = new TCPSocket();
+	//ServerÀÇ ¼ÒÄÏÀ» »ı¼ºÇÕ´Ï´Ù.
+	if (lpServerSocket->IOCPSocket() != 0)
 	{
-		JIGAPPrintSystemLog("socket Error! Code : %d, Faild Create Socket", iErrorCode);
-		return E_FAIL;
+		RegisterServerLog("¼­¹ö ¼ÒÄÏÀÇ »ı¼ºÀ» ½ÇÆĞ Çß½À´Ï´Ù.");
+		delete lpServerSocket;
+		return false;
 	}
 
-	JIGAPPrintSystemLog("ì†Œì¼“ì„ ìƒì„±í–ˆìŠµë‹ˆë‹¤!");
-
-	if ( (iErrorCode = lpServSock->Bind(szIpAddr.c_str(), szPortAddr.c_str())) )
+	if (lpServerSocket->Bind(serverData.GetIpAdress().c_str(), serverData.GetPortAddress().c_str()) != 0)
 	{
-		JIGAPPrintSystemLog("bind Error! Code : %d, Faild Bind Socket", iErrorCode);
-		return E_FAIL;
+		RegisterServerLog("¼­¹ö ¼ÒÄÏÀÇ ÇÒ´çÀ» ½ÇÆĞ Çß½À´Ï´Ù. (SOCKET : %d)", lpServerSocket->GetSocket());
+		lpServerSocket->Closesocket();
+		SAFE_DELETE(lpServerSocket);
+		return false;
 	}
 
-	JIGAPPrintSystemLog("ì†Œì¼“ì´ ë°”ì¸ë“œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
-
-	if ( (iErrorCode = lpServSock->Listen(10)) )
+	if (lpServerSocket->Listen(100) != 0)
 	{
-		JIGAPPrintSystemLog("listen Error! Code : %d", iErrorCode);
-		return E_FAIL;
+		RegisterServerLog("¼­¹ö ¼ÒÄÏÀ» ¿¬°á ´ë±â ¸ğµå·Î º¯°æÇÏÁö ¸øÇß½À´Ï´Ù. (SOCKET : %d)", lpServerSocket->GetSocket());
+		lpServerSocket->Closesocket();
+		SAFE_DELETE(lpServerSocket);
+		return false;
 	}
-	
-	JIGAPPrintSystemLog("ì†Œì¼“ì´ ì—°ê²° ëŒ€ê¸°ì¤‘ì…ë‹ˆë‹¤.");
 
-	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 1);
+	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 	if (hCompletionHandle == nullptr)
 	{
-		JIGAPPrintSystemLog("CreateIOCompletionPort Error! Code : %d, Failed Create CompletionPort", iErrorCode);
-		return E_FAIL;
-	}
-	
-	JIGAPPrintSystemLog("CompletionPort ë§Œë“¤ì–´ì¡ŒìŠµë‹ˆë‹¤.");
-
-	return S_OK;
-}
-
-void JIGAPServer::JIGAPReleaseServer()
-{
-	lpServSock->Closesocket();
-	CloseHandle(hCompletionHandle);
-	CloseHandle(hUsersMutex);
-
-	for (auto Iter : mUsers)
-		RemoveClientInServer(Iter.second->GetSocket());
-	mUsers.clear();
-
-	delete lpServSock;
-	lpServSock = nullptr;
-
-	WSACleanup();
-}
-
-bool JIGAPServer::JIGAPServerOpen(std::string _szIpAddr, std::string _szPortAddr)
-{
-	if (bServerOn)
-		return false;
-
-	szIpAddr	= _szIpAddr;
-	szPortAddr	= _szPortAddr;
-
-	bServerOn	= true;
-
-	if (FAILED(JIGAPServer::JIGAPInitializeServer()))
-	{
-		JIGAPPrintSystemLog("ì„œë²„ë¥¼ ì—¬ëŠ”ë° ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤!");
+		RegisterServerLog("¼­¹ö ¼ÒÄÏÀÇ CompletionPort¸¦ »ı¼ºÇÏÁö ¸øÇß½À´Ï´Ù.");
+		lpServerSocket->Closesocket();
+		SAFE_DELETE(lpServerSocket);
 		return false;
 	}
 
-	hSystemLogMutex		= CreateMutex(0, FALSE, NULL);
-	hUsersMutex	= CreateMutex(0, FALSE, NULL);
-	hRoomsMutex			= CreateMutex(0, FALSE, NULL);
-
-	connectThread	= std::thread([&]() { JIGAPConnectThread(); });  Sleep(10);
-	recvThread		= std::thread([&]() { JIGAPIOThread(); });
-
-	JIGAPPrintSystemLog("ì„œë²„ê°€ ì—´ë ¸ìŠµë‹ˆë‹¤!");
 	return true;
 }
 
-void JIGAPServer::JIGAPServerClose()
+bool JIGAPServer::ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress)
 {
-	/*ì„œë²„ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤.*/
-	bServerOn = false;
-	Sleep(10);
+	serverData.SetServerData(inIpAddress, inPortAddress);
 
-	JIGAPReleaseServer();
+	hServerLogMutex = CreateMutex(nullptr, false, nullptr);
+	hUsersMapMutex	= CreateMutex(nullptr, false, nullptr);
+	hWorkMutex		= CreateMutex(nullptr, false, nullptr);
 
-	/*Threadë¥¼ í•´ì œí•©ë‹ˆë‹¤.*/
-	if (recvThread.joinable())
-		recvThread.join();
-	if (connectThread.joinable())
-		connectThread.join();
+	hConnectThread	= std::thread([&]() { OnConnectTask(); });
+	hRecvThread		= std::thread([&]() { OnRecvPacketTask(); });
+	hSendThread		= std::thread([&]() { OnSendPacketTask(); });
 
-	/*ìƒì„±í•œ WInAPI Mutexë¥¼ í•´ì œí•©ë‹ˆë‹¤.*/
-	CloseHandle(hSystemLogMutex);
-	CloseHandle(hUsersMutex);
-	CloseHandle(hRoomsMutex);
-
-	JIGAPPrintSystemLog("ì„œë²„ê°€ ë‹«í˜”ìŠµë‹ˆë‹¤!");
-}
-
-void JIGAPServer::JIGAPConnectThread()
-{
-	int iErrorCode = 0;
-
-	JIGAPPrintSystemLog("ì—°ê²° ì“°ë ˆë“œê°€ í™œì„±í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");	
-
-	while (true)
+	if (CreateServerSocket() == false)
 	{
-		UserTCPSocket * lpClntSocket = lpServSock->Accept<UserTCPSocket>(); // ì—°ê²°ì„ ëŒ€ê¸°í•©ë‹ˆë‹¤.
-
-		if (bServerOn == false) // ì„œë²„ê°€ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.
-			break;
-		
-		if (lpClntSocket == nullptr) 
-		{
-			JIGAPPrintSystemLog("í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ê³¼ ì—°ê²°ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤");
-			continue;
-		}
-		
-		HANDLE hHandle = CreateIoCompletionPort((HANDLE)lpClntSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)lpClntSocket, NULL);
-		if (hHandle == NULL)
-		{
-			JIGAPPrintSystemLog("ì—ëŸ¬! ì»´í”Œë ‰ì…˜ í¬íŠ¸ì— ì—°ê²°í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤ code : %d, socket : %d", WSAGetLastError(), lpClntSocket->GetSocket());
-
-			lpClntSocket->Closesocket();
-			delete lpClntSocket;
-			continue;
-		}
-
-		JIGAPPrintSystemLog("í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì´ ì—°ê²°ë˜ì—ˆìŠµë‹ˆë‹¤ : %d", lpClntSocket->GetSocket());
-		
-		mUsers.insert(std::make_pair(lpClntSocket->GetSocket(), lpClntSocket));
-
-		if ((iErrorCode = lpClntSocket->IOCPRecv()))
-		{
-			JIGAPPrintSystemLog("ì—ëŸ¬! IOCP ìˆ˜ì‹ ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. code : %d, socket : %d", WSAGetLastError(), lpClntSocket->GetSocket());
-
-			lpClntSocket->Closesocket();
-			delete lpClntSocket;
-		}
+		RegisterServerLog("¼­¹öÀÇ ÃÊ±âÈ­¸¦ ½ÇÆĞÇß½À´Ï´Ù. ¼­¹ö°¡ ½ÇÇàµÇÁö ¸øÇß½À´Ï´Ù.");
+		ServerRelease();
+		return false;
 	}
+	else
+		RegisterServerLog("¼­¹ö ¼ÒÄÏÀÌ ¼º°øÀûÀ¸·Î ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù. ¼­¹ö°¡ ½ÇÇàµÇ¾ú½À´Ï´Ù.");
 
-	JIGAPPrintSystemLog("ì—°ê²° ì“°ë ˆë“œê°€ ë¹„í™œì„±í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");
+	return true;
 }
 
-void JIGAPServer::JIGAPIOThread()
+void JIGAPServer::ServerRelease()
 {
-	JIGAPPrintSystemLog("ì±„íŒ… ì“°ë ˆë“œê°€ í™œì„±í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");
+	CloseHandle(hServerLogMutex);
+	CloseHandle(hUsersMapMutex);
+	CloseHandle(hWorkMutex);
 
+	if (hConnectThread.joinable())
+		hConnectThread.join();
+	if (hRecvThread.joinable())
+		hRecvThread.join();
+	if (hSendThread.joinable())
+		hSendThread.join();
+
+	if (lpServerSocket)
+	{
+		lpServerSocket->Closesocket();
+		SAFE_DELETE(lpServerSocket);
+	}
+}
+
+void JIGAPServer::OnConnectTask()
+{
 	while (true)
 	{
-		UserTCPSocket* lpClntSock = nullptr;
-		TCPIOData* lpIOData = nullptr;
-
-		DWORD dwByte = 0;
-		GetQueuedCompletionStatus(hCompletionHandle, &dwByte, (PULONG_PTR)& lpClntSock, (LPOVERLAPPED*)& lpIOData,
-			INFINITE);
-
-		if (dwByte == 0) RemoveClientInServer(lpClntSock->GetSocket());
-
-		else if (dwByte == -1) break;
-
+		TCPSocket * acceptSocket = lpServerSocket->Accept<TCPSocket>();
+	
+		if (acceptSocket)
+		{
+			HANDLE hHandle = CreateIoCompletionPort((HANDLE)acceptSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)acceptSocket, NULL);
+		
+			if (hCompletionHandle == nullptr)
+			{	
+				RegisterServerLog("JIGAPServer.cpp : 104ÁÙ / CompletionPortÀÇ ¿¬°áÀÇ ½É°¢ÇÑ ¹®Á¦°¡ »ı°å½À´Ï´Ù. (SOCKET : %d)", acceptSocket->GetSocket());
+				acceptSocket->Closesocket();
+				delete acceptSocket;
+				continue;
+			}
+			
+			WaitForSingleObject(hUsersMapMutex, INFINITE);
+			{
+				mUsers.insert(std::make_pair(acceptSocket->GetSocket(), acceptSocket));
+			}
+			ReleaseMutex(hUsersMapMutex);
+		}
 		else
 		{
-			int dataSize = lpPacketHandler->ParsingPacketSize(lpClntSock->GetBufferData());
-
-			if (dataSize <= dwByte)
-			{
-				lpPacketHandler->SetRecvPacket(lpClntSock->GetBufferData(), dataSize);
-
-				RecvProcess();
-			}
+			RegisterServerLog("JIGAPServer.cpp : 68ÁÙ / ¼ÒÄÏ ¿¬°áÀÇ ½É°¢ÇÑ ¹®Á¦°¡ »ı°å½À´Ï´Ù.");
+			continue;
 		}
 	}
-
-	JIGAPPrintSystemLog("ì±„íŒ… ì“°ë ˆë“œê°€ ë¹„í™œì„±í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");
 }
 
-void JIGAPServer::RecvProcess()
+void JIGAPServer::OnRecvPacketTask()
 {
 }
 
-void JIGAPServer::WorkProcess()
+void JIGAPServer::OnSendPacketTask()
 {
 }
 
-void JIGAPServer::RemoveClientInServer(const SOCKET& hSock)
+void JIGAPServer::RegisterServerLog(const char* fmt, ...)
 {
-	if (auto find = mUsers.find(hSock); find == mUsers.end())
+	/*Mutex¸¦ ¼ÒÀ¯ÇÕ´Ï´Ù. ÇØ´çÇÚµéÀº non-signaled »óÅÂ°¡ µË´Ï´Ù ¹İ¸é ÀÌ¹Ì ÇÚµéÀÌ Non-signaled »óÅÂÀÌ¸é ºí·ÏÅ·ÇÕ´Ï´Ù. */
+	WaitForSingleObject(hServerLogMutex, INFINITE);
 	{
-		if (auto lpSock = find->second; lpSock != nullptr)
+		char buf[512] = { 0 };
+		va_list ap;
+
+		va_start(ap, fmt);
+		vsprintf(buf, fmt, ap);
+		va_end(ap);
+
+		qServerLog.push(buf);
+	} 
+	/*Mutex ¼ÒÀ¯ÇÏÁö ¾Ê°Ô ¹Ù²ãÁİ´Ï´Ù. ¹ÂÅØ½º¸¦ signaled »óÅÂ·Î ¹Ù²ß´Ï´Ù*/
+	ReleaseMutex(hServerLogMutex);
+}
+
+std::string JIGAPServer::PopServerLog()
+{
+	std::string strSystemMessage;
+	bool bPopSuccess = false;
+
+	WaitForSingleObject(hServerLogMutex, INFINITE);
+	{	
+		if (qServerLog.size() >= 0)
 		{
-			if (lpSock->GetRoom())
-				RemoveClientInRoom(lpSock);
+			/*°¡Àå ¿À·¡µÈ ¸Ş½ÃÁö¸¦ °¡Á®¿É´Ï´Ù.*/
+			strSystemMessage = qServerLog.front();
 
-			delete lpSock;
+			/*°¡Àå ¿À·¡µÈ ¸Ş½ÃÁö¸¦ Queue¿¡¼­ Áö¿ó´Ï´Ù.*/
+			qServerLog.pop();
+
+			bPopSuccess = true;
 		}
-	
-		WaitForSingleObject(hUsersMutex, INFINITE);
-		mUsers.erase(find);
-		ReleaseMutex(hUsersMutex);
+		else
+			bPopSuccess = false;
 	}
+	ReleaseMutex(hServerLogMutex);
 
-	JIGAPPrintSystemLog("ì†Œì¼“ê³¼ ì—°ê²°ì´ ëŠê²¼ìŠµë‹ˆë‹¤. : %d", hSock);
+	if (bPopSuccess)
+		return strSystemMessage;
+
+	return std::string();
 }
-
-void JIGAPServer::RemoveClientInRoom(UserTCPSocket* lpSock)
-{
-	if (!lpSock) return;
-
-	if (auto lpRoom = lpSock->GetRoom(); lpRoom != nullptr)
-	{
-		lpRoom->UnRegisterUser(lpSock);
-
-		if (lpRoom->GetUserCount() <= 0)
-		{
-			WaitForSingleObject(hRoomsMutex, INFINITE);
-
-			auto find = mRooms.find(lpRoom->GetRoomName());
-
-			if (find != mRooms.end())
-			{
-				JIGAPPrintSystemLog("%s ë°©ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.", lpRoom->GetRoomName().c_str());
-				mRooms.erase(find);
-			}
-			delete lpRoom;
-			
-			ReleaseMutex(hRoomsMutex);
-		}
-	}
-}
-
-void JIGAPServer::JIGAPPrintSystemLog(const char* fmt, ...)
-{
-	/*Mutexë¥¼ ì†Œìœ í•©ë‹ˆë‹¤. í•´ë‹¹í•¸ë“¤ì€ non-signaled ìƒíƒœê°€ ë©ë‹ˆë‹¤ ë°˜ë©´ ì´ë¯¸ í•¸ë“¤ì´ Non-signaled ìƒíƒœì´ë©´ ë¸”ë¡í‚¹í•©ë‹ˆë‹¤. */
-	WaitForSingleObject(hSystemLogMutex, INFINITE);
-	char buf[512] = { 0 };
-	va_list ap;
-
-	va_start(ap, fmt);
-	vsprintf(buf, fmt, ap);
-	va_end(ap);
-
-	qSystemMsg.push(buf);
-	
-	/*Mutex ì†Œìœ í•˜ì§€ ì•Šê²Œ ë°”ê¿”ì¤ë‹ˆë‹¤. ë®¤í…ìŠ¤ë¥¼ signaled ìƒíƒœë¡œ ë°”ê¿‰ë‹ˆë‹¤*/
-	ReleaseMutex(hSystemLogMutex);	
-}
-
-std::string JIGAPServer::JIGAPGetSystemMsg()
-{
-	/*ê°€ì¥ ì˜¤ë˜ëœ ë©”ì‹œì§€ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.*/
-	WaitForSingleObject(hSystemLogMutex, INFINITE);
-	std::string strSystemMessage = qSystemMsg.front();
-
-	/*ê°€ì¥ ì˜¤ë˜ëœ ë©”ì‹œì§€ë¥¼ Queueì—ì„œ ì§€ì›ë‹ˆë‹¤.*/
-	qSystemMsg.pop();
-	ReleaseMutex(hSystemLogMutex);
-	return strSystemMessage;
-}
-

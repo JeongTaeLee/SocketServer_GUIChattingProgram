@@ -1,21 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="pch">
       <UniqueIdentifier>{d352cc8c-5019-45b1-93f1-ba6c2e62cce6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JIGAServer">
-      <UniqueIdentifier>{06529035-f0d3-4ab6-aae3-f71fc38807ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ServerTCPSocket">
-      <UniqueIdentifier>{e2a9b9b1-abba-4ff8-b4b8-f28a44599d07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Room">
-      <UniqueIdentifier>{a2a8f687-f843-4179-b756-653106163098}</UniqueIdentifier>
     </Filter>
     <Filter Include="JIGAPStructure">
       <UniqueIdentifier>{e91c6060-7b09-4afd-9ddf-845581e5ef72}</UniqueIdentifier>
@@ -35,28 +22,22 @@
     <Filter Include="TCPIOData">
       <UniqueIdentifier>{74db9ee6-f4d9-4a4b-946c-e884795edcde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerLogic">
-      <UniqueIdentifier>{29c359d7-7a38-41d1-bd91-4f8d6ee970c9}</UniqueIdentifier>
+    <Filter Include="ServerEngine">
+      <UniqueIdentifier>{94f6c50d-9cdd-4d14-8b61-680116fc4a9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JIGAPServerBase">
+    <Filter Include="ServerEngine\JIGAPServer">
       <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\JIGAPServerBase">
+      <UniqueIdentifier>{b2a00a1f-6bc7-4052-9a8c-f83d969ab00b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\JIGAPServerChat">
+      <UniqueIdentifier>{851ce47c-dc9d-4402-a12d-aef40f231dc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>pch</Filter>
-    </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>리소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="JIGAPServer.h">
-      <Filter>JIGAServer</Filter>
-    </ClInclude>
-    <ClInclude Include="UserTCPSocket.h">
-      <Filter>ServerTCPSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Room</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPStructure.h">
       <Filter>JIGAPStructure</Filter>
@@ -73,28 +54,22 @@
     <ClInclude Include="TCPIOData.h">
       <Filter>TCPIOData</Filter>
     </ClInclude>
-    <ClInclude Include="ServerLogic.h">
-      <Filter>ServerLogic</Filter>
-    </ClInclude>
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
     </ClInclude>
+    <ClInclude Include="JIGAPServer.h">
+      <Filter>ServerEngine\JIGAPServer</Filter>
+    </ClInclude>
     <ClInclude Include="JIGAPServerBase.h">
-      <Filter>JIGAPServerBase</Filter>
+      <Filter>ServerEngine\JIGAPServerBase</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPServerChat.h">
+      <Filter>ServerEngine\JIGAPServerChat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
-    </ClCompile>
-    <ClCompile Include="JIGAPServer.cpp">
-      <Filter>JIGAServer</Filter>
-    </ClCompile>
-    <ClCompile Include="UserTCPSocket.cpp">
-      <Filter>ServerTCPSocket</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Room</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPStructure.cpp">
       <Filter>JIGAPStructure</Filter>
@@ -111,14 +86,17 @@
     <ClCompile Include="TCPIOData.cpp">
       <Filter>TCPIOData</Filter>
     </ClCompile>
-    <ClCompile Include="ServerLogic.cpp">
-      <Filter>ServerLogic</Filter>
-    </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
     </ClCompile>
+    <ClCompile Include="JIGAPServer.cpp">
+      <Filter>ServerEngine\JIGAPServer</Filter>
+    </ClCompile>
     <ClCompile Include="JIGAPServerBase.cpp">
-      <Filter>JIGAPServerBase</Filter>
+      <Filter>ServerEngine\JIGAPServerBase</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPServerChat.cpp">
+      <Filter>ServerEngine\JIGAPServerChat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -165,11 +165,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JIGAPServer\JIGAPServer.vcxproj">
-      <Project>{9cf58c5c-a4d4-4f84-a8e1-8f92d9c8b29b}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

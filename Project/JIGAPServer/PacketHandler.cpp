@@ -1,57 +1,31 @@
 #include "pch.h"
 #include "PacketHandler.h"
 
-
-PacketHandler::PacketHandler()
-	:iRecvStreamSize(MAXBUFFERSIZE), iSendStreamSize(MAXBUFFERSIZE),
-	iRecvStreamPosition(0), iSendStreamPosition(0),
-	lpRecvStream(static_cast<char*>(std::malloc(MAXBUFFERSIZE))),
-	lpSendStream(static_cast<char*>(std::malloc(MAXBUFFERSIZE)))
+int PacketHandler::ParsingBufferSize(const char* inSzBuffer)
 {
+	unsigned int bufferSize = 0;
+	memcpy(&bufferSize, inSzBuffer, sizeof(unsigned int));
+	return bufferSize;
 }
 
-PacketHandler::~PacketHandler()
+void PacketHandler::SerializeBufferSize(unsigned int iInSerializeSize)
 {
-	delete[] lpRecvStream;
-	delete[] lpSendStream;
+	iTotalSerializeBufferSize = iInSerializeSize;
+	memcpy(szSerializeBuffer, &iTotalSerializeBufferSize, sizeof(iTotalSerializeBufferSize));
 }
 
-void PacketHandler::ClearSendPacket()
+
+void PacketHandler::ClearParsingBuffer(const char* inSzBuffer, unsigned int iInTotalBufferSize)
 {
-	ZeroMemory(&lpSendStream, sizeof(int) * iSendStreamSize);
-	iSendStreamPosition = 4;
+	iParsingPosition = sizeof(unsigned int);
+	iTotalParsingBufferSize = iInTotalBufferSize;
+	memcpy(szParsingBuffer, inSzBuffer, sizeof(char) * iTotalParsingBufferSize);
 }
 
-void PacketHandler::SetRecvPacket(const char* ch, int iSize)
+void PacketHandler::ClearSerializeBuffer()
 {
-	ZeroMemory(&lpRecvStream, sizeof(int) * iRecvStreamSize);
-	memcpy(lpRecvStream, ch, iSize);
-	iRecvStreamPosition = 4;
-}
-
-int PacketHandler::ParsingPacketSize(const char* buffer)
-{
-	int paketSize = 0;
-	memcpy((void*)& paketSize, buffer, sizeof(paketSize));
-	return paketSize;
-}
-
-void PacketHandler::ParsingPacketHeader(PacketHeader& inHeader)
-{
-	JIGAPPacket::Type type;
-	memcpy(&type, &lpRecvStream[iRecvStreamPosition], sizeof(int));
-	iRecvStreamPosition += sizeof(int);
-
-	int size;
-	memcpy(&size, &lpRecvStream[iRecvStreamPosition], sizeof(int));
-	iRecvStreamPosition += sizeof(int);
+	memset(szSerializeBuffer, 0, sizeof(szSerializeBuffer));
+	iSerializePosition			= sizeof(unsigned int);
 	
-	inHeader.packetType = type;
-	inHeader.size = size;
+	SerializeBufferSize(iSerializePosition);
 }
-
-void PacketHandler::SerializePacketSize(int iPacketSize)
-{
-	memcpy(&lpSendStream, (void*)& iPacketSize, sizeof(int));
-}
-

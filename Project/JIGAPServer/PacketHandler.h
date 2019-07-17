@@ -1,69 +1,47 @@
 #pragma once
 
-
-#ifdef _DEBUG
-#pragma comment(lib, "libprotobufd.lib")
-#pragma comment(lib, "libprotobuf-lited.lib")
-#else
-#pragma comment(lib, "libprotobuf.lib")
-#pragma comment(lib, "libprotobuf-lite.lib")
-#endif
-
-
-class Room;
-
 struct PacketHeader
 {
-	int size;
-	JIGAPPacket::Type packetType;
+	int iSize;
+	JIGAPPacket::Type ePacketType;
+	google::protobuf::Message* lpPacket;
+	
 };
 
 class PacketHandler
 {
 private:
-	char * lpRecvStream;
-	char * lpSendStream;
+	char szParsingBuffer[MAXBUFFERSIZE];
+	char szSerializeBuffer[MAXBUFFERSIZE];
 
-	// 현재 버퍼에 할당된 총 길이입니다.
-	unsigned int iRecvStreamSize;
-	unsigned int iSendStreamSize;
+	unsigned int iParsingPosition = 0;
+	unsigned int iSerializePosition = 0;
 
-	// 현재 스트림에서 읽은 사이즈입니다.
-	unsigned int iRecvStreamPosition;
-	// 현재 스트림에서 써진 사이즈입니다.
-	unsigned int iSendStreamPosition;
+	unsigned int iTotalSerializeBufferSize = 0;
+	unsigned int iTotalParsingBufferSize = 0;
+public:
+	int ParsingBufferSize(const char * inSzBuffer);
+	void SerializeBufferSize(unsigned int iInSerializeSize);
+
+	void ClearParsingBuffer(const char* inSzBuffer, unsigned int iInTotalBuffeRSize);
+	void ClearSerializeBuffer();
 
 public:
-	PacketHandler();
-	~PacketHandler();
-
-public:
-	void ClearSendPacket();
-	void SetRecvPacket(const char* ch, int iSize);
-	
-	int ParsingPacketSize(const char* buffer);
-	void ParsingPacketHeader(PacketHeader& inHeader);
-	
-	template<class Packet>
-	void ParsingPacket(Packet& inPaket, int inSize)
+	template<class PacketType>
+	void SerializePacket(JIGAPPacket::Type eInType, PacketType& inPacket)
 	{
-		inPaket.ParseFromArray(&lpRecvStream[iRecvStreamPosition], inSize);
-		iRecvStreamPosition += inSize;
+		int serializeSize = inPacket.ByteSize();
+		memcpy(&szSerializeBuffer[iSerializePosition], &serializeSize, sizeof(int));
+		iSerializePosition += sizeof(int);
+
+		memcpy(&szSerializeBuffer[iSerializePosition], &eInType, sizeof(JIGAPPacket::Type));
+		iSerializePosition += sizeof(JIGAPPacket::Type);
+
+		inPacket.SerializeToArray(&szSerializeBuffer[iSerializePosition], inPacket.ByteSize());
+		iSerializePosition += inPacket.ByteSize();
+
+		SerializeBufferSize(iSerializePosition);
 	}
 
-public:
-	void SerializePacketSize(int iPacketSize);
-
-	template<class Packet>
-	void SerializePacket(JIGAPPacket::Type inType, Packet& inPacket)
-	{
-		memcpy(&lpSendStream[iSendStreamPosition], (void*)& inType, sizeof(int));
-		iSendStreamPosition += sizeof(int);
-		memcpy(&lpSendStream[iSendStreamPosition], (void*)& inPacket.ByteSize(), sizeof(int));
-		iSendStreamPosition += sizeof(int);
-
-		inPacket.SerializeToArray(&lpSendStream[iSendStreamPosition], inPacket.ByteSize());
-
-	}
 };
 

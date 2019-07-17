@@ -1,77 +1,62 @@
 #pragma once
 
-class Room;
-class TCPIOData;
+struct ServerData
+{
+private:
+	std::string strIpAddress;
+	std::string strPortAddress;
+
+public:
+	ServerData() {}
+	~ServerData() {}
+
+	void SetServerData(const std::string& inStrIpAddress, const std::string& inStrPortAddress)
+	{
+		strIpAddress = inStrIpAddress;
+		strPortAddress = inStrPortAddress;
+	}
+
+	const std::string& GetIpAdress() { return strIpAddress; }
+	const std::string& GetPortAddress() { return strPortAddress; }
+};
+
+using SerialNumber = SOCKET;
+
 class TCPSocket;
-class SerializeObject;
-class PacketHandler;
-class UserTCPSocket;
 
 class JIGAPServer
 {
 private:
-	TCPSocket* lpServSock;
-	PacketHandler* lpPacketHandler;
+	TCPSocket* lpServerSocket	= nullptr;
+	HANDLE hCompletionHandle	= nullptr;
+	ServerData serverData		= {};
 
-	HANDLE hSystemLogMutex;	
-	HANDLE hUsersMutex;
-	HANDLE hRoomsMutex;
+	std::map<SerialNumber, TCPSocket*> mUsers;
 
-	std::string szIpAddr;
-	std::string szPortAddr;
+	HANDLE hServerLogMutex	= nullptr;
+	HANDLE hUsersMapMutex	= nullptr;
+	HANDLE hWorkMutex		= nullptr;
 
-	std::thread connectThread;
-	std::thread recvThread;
+	std::thread hConnectThread;
+	std::thread hRecvThread;
+	std::thread hSendThread;
 
-	std::map < SOCKET, UserTCPSocket* > mUsers;
-	std::map < std::string, Room*> mRooms;
-	
-	std::queue < std::string > qSystemMsg;
+	std::queue<std::string> qServerLog;
 
-	bool bServerOn;
-public:
-	HANDLE hCompletionHandle;
-
-public:
-	JIGAPServer();
-	virtual ~JIGAPServer();
 
 private:
-	HRESULT JIGAPInitializeServer();
-	void JIGAPReleaseServer();
+	bool CreateServerSocket();
 
 public:
-	bool JIGAPServerOpen(std::string szIpAddr, std::string szPortAddr);
-	void JIGAPServerClose();
-
-public:
-	void JIGAPConnectThread();
-	void JIGAPIOThread();
-
-	void RecvProcess();
-	void WorkProcess();
-
-public:
-	void RemoveClientInServer(const SOCKET& hSock);
-	void RemoveClientInRoom(UserTCPSocket* lpSock);
-
-public:
-	void UsersLock() { WaitForSingleObject(hUsersMutex, INFINITE); }
-	void UsersUnlock() { ReleaseMutex(hUsersMutex); }
+	bool ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress);
+	void ServerRelease();
 	
-	void RoomsLock() { WaitForSingleObject(hRoomsMutex, INFINITE); }
-	void RoomsUnlock() { ReleaseMutex(hRoomsMutex); }
+	void OnConnectTask();
+	void OnRecvPacketTask();
+	void OnSendPacketTask();
 
 public:
-	const std::map < SOCKET, UserTCPSocket* >& GetUsers() { return mUsers; }
-	std::map < std::string, Room*>& GetRooms() { return mRooms; }
-	PacketHandler* GetPacketHandler() { return lpPacketHandler; }
-
-public:
-	void JIGAPPrintSystemLog(const char * fmt, ...);
-	
-	std::string JIGAPGetSystemMsg();
-	bool JIGAPCheckSystemMsg() { return !qSystemMsg.empty(); };
-	
+	void RegisterServerLog(const char* fmt, ...);
+	std::string PopServerLog();
 };
 

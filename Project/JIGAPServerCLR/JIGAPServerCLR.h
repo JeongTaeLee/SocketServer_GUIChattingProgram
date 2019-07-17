@@ -8,16 +8,9 @@ namespace JIGAPServerCLR {
 	public ref class JIGAPServerWrap
 	{
 	protected:
-		JIGAPServer* lpJIGAPServer;
 	public:
 		JIGAPServerWrap();
 		virtual ~JIGAPServerWrap();
 
-		bool JIGAPWrapServerOpen(String ^ szIpAddr, String^ szPortAddr);
-		void JIGAPWrapServerClose();
-
-	public:
-		String^ JIGAPGetSystemMsg();
-		bool JIGAPCheckSystemMsg();
 	};
 }

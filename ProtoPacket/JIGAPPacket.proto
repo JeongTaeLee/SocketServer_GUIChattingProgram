@@ -22,10 +22,6 @@ enum Type
     eExitRoomAnswer = 10;
 }
 
-message RoomInfo{
-    string roomname = 1;
-}
-
 message LoginRequest{
     string id = 1;
     string passward = 2;
@@ -35,8 +31,13 @@ message LoginAnswer{
     bool success = 1;
 }
 
+message RoomInfo{
+    string roomname = 1;
+}
+
 message CreateRoomAnswer{
-    bool success = 1;
+    RoomInfo roomInfo = 1;
+    bool success = 2;
 }
 
 message JoinRoomRequest{
@@ -44,7 +45,8 @@ message JoinRoomRequest{
 }
 
 message JoinRoomAnswer{
-    bool success = 1;
+    RoomInfo roomInfo = 1;
+    bool success = 2;
 }
 
 message RoomListAnswer{
