@@ -43,5 +43,15 @@ public:
 		SerializeBufferSize(iSerializePosition);
 	}
 
+public:
+	void NextParsingHeader(PacketHeader& inPacketHeader);
+	
+	template<class PacketType>
+	void NextParsingPacket(PacketType& inPacket, int iInSize)
+	{
+		inPacket.ParseFromArray(&szParsingBuffer[iParsingPosition], iInSize);
+		iParsingPosition += iInSize;
+	}
+
 };
 

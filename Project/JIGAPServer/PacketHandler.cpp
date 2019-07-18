@@ -29,3 +29,12 @@ void PacketHandler::ClearSerializeBuffer()
 	
 	SerializeBufferSize(iSerializePosition);
 }
+
+void PacketHandler::NextParsingHeader(PacketHeader& inPacketHeader)
+{
+	memcpy(&inPacketHeader.iSize, &szParsingBuffer[iParsingPosition], sizeof(int));
+	iParsingPosition += sizeof(int);
+
+	memcpy(&inPacketHeader.iSize, &szParsingBuffer[iParsingPosition], sizeof(JIGAPPacket::Type));
+	iParsingPosition += sizeof(JIGAPPacket::Type);
+}

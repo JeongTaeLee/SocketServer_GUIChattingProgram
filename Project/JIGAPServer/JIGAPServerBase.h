@@ -1,8 +1,10 @@
 #pragma once
+
+class JIGAPServer;
 class JIGAPServerBase
 {
 protected:
-
+	
 public:
 	virtual void OnInitialize()		PURE;
 	virtual void OnRelease()		PURE;

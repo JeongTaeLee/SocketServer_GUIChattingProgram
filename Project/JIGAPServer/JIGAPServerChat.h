@@ -8,5 +8,7 @@ class JIGAPServerChat :
 	virtual void OnRelease() override;
 	virtual void OnConnect() override;
 	virtual void OnProcess() override;
+
+	
 };
 
