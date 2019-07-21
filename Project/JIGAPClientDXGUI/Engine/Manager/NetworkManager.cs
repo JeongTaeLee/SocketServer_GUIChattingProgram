@@ -9,8 +9,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 
-using JIGAPPacket;
-
 namespace JIGAPClientDXGUI.Engine 
 {
     partial class NetworkManager : IDisposable
@@ -154,6 +152,8 @@ namespace JIGAPClientDXGUI.Engine
             }
 
             bServerOn = true;
+
+            OnRecvMode();
             return bServerOn;
         }
 
@@ -171,25 +171,16 @@ namespace JIGAPClientDXGUI.Engine
     {
         public void SendLoginRequest(string id, string passward)
         {
-            LoginRequestPacket requestPacket = new LoginRequestPacket();
-            requestPacket.Id = id;
+            JIGAPPacket.LoginRequest loginRequest = new JIGAPPacket.LoginRequest();
+            loginRequest.Id = id;
+            loginRequest.Passward = passward;
 
-            PacketHandler.SerializePacket(PacketType.LoginRequest, requestPacket);
+            PacketHandler.SerializePacket(JIGAPPacket.Type.ELoginRequest, loginRequest);
 
             OnSendPacket();
         }
         private void RecvLoginAnswer(ref PacketHeader inHeader)
         {
-            LoginAnswerPacket answerPacket = PacketHandler.ParsingPacket<LoginAnswerPacket>(inHeader.PacketSize);
-
-            if (answerPacket.Success)
-            {
-                // 로그인을 성공했을 경우.
-            }
-            else
-            {
-                // 로그인에 실패했을 경우.
-            }
         }
 
         private void OnSendPacket()
@@ -202,11 +193,13 @@ namespace JIGAPClientDXGUI.Engine
             ServerSock.SendAsync(args);
 
         }
+
         private void OnSendComplate(object sender, SocketAsyncEventArgs e)
         {
-
+            OnRecvMode();
         }
-        private void RecvThread()
+
+        private void OnRecvMode()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
 
@@ -241,21 +234,16 @@ namespace JIGAPClientDXGUI.Engine
 
             switch (header.Type)
             {
-                case PacketType.LoginAnswer:
+                case JIGAPPacket.Type.ELoginAnswer:
+                    RecvLoginAnswer(ref header);
                     break;
-                case PacketType.JoinRoomAnswer:
+                case JIGAPPacket.Type.ECreateRoomAnswer:
                     break;
-                case PacketType.CreateRoomAsnwer:
+                case JIGAPPacket.Type.EJoinRoomAnswer:
                     break;
-                case PacketType.RoomListAnswer:
+                case JIGAPPacket.Type.ERoomListAnswer:
                     break;
-                case PacketType.ExitRoomAnswer:
-                    break;
-                case PacketType.ChattingSpread:
-                    break;
-                case PacketType.PlayerEnterRoom:
-                    break;
-                case PacketType.PlayerExitRoom:
+                case JIGAPPacket.Type.EExitRoomAnswer:
                     break;
             }
         }

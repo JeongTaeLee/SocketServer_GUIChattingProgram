@@ -235,8 +235,8 @@
     <ClInclude Include="ChatUserData.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
-    <ClInclude Include="JIGAPBaseServer.h" />
-    <ClInclude Include="JIGAPChatServer.h" />
+    <ClInclude Include="JIGAPBaserProcess.h" />
+    <ClInclude Include="JIGAPChatProcess.h" />
     <ClInclude Include="JIGAPStructure.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h" />
@@ -252,8 +252,8 @@
     <ClCompile Include="ChatUserData.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
-    <ClCompile Include="JIGAPBaseServer.cpp" />
-    <ClCompile Include="JIGAPChatServer.cpp" />
+    <ClCompile Include="JIGAPBaserProcess.cpp" />
+    <ClCompile Include="JIGAPChatProcess.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PacketHandler.cpp" />

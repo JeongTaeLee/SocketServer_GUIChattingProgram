@@ -10,7 +10,7 @@ using Google.Protobuf.Collections;
 
 namespace JIGAPClientDXGUI.Engine
 {
-    struct PacketHeader
+     struct PacketHeader
     {
         public JIGAPPacket.Type Type;
         public int PacketSize;

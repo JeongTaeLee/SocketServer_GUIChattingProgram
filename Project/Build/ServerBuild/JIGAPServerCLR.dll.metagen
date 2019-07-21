@@ -14,6 +14,16 @@ Class JIGAPServerCLR.JIGAPServerWrap: AutoLayout, AnsiClass, Class, Public, Befo
   Interfaces:
     System.IDisposable
   Methods:
+    Initialize(): PrivateScope, Public, HideBySig
+    Release(): PrivateScope, Public, HideBySig
     OpenServer(String, String): PrivateScope, Public, HideBySig
     CloseServer(): PrivateScope, Public, HideBySig
+    RegisterLogFunc(LogFunc): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class JIGAPServerCLR.JIGAPServerWrap+LogFunc: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask

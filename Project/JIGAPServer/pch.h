@@ -17,14 +17,15 @@
 #include <list>
 #include <map>
 #include <crtdbg.h>
+#include <atlconv.h>
+
+#pragma comment(lib, "ws2_32.lib")
 
 #define SAFE_DELETE(s) { if (s) { delete s; s = nullptr; } }
 #define SAFE_DELETE_ARRAY(s) { if (s) { delete[] s; s = nullptr;} } 
 
 #define StartMutex(handler) WaitForSingleObject(handler, INFINITE)
 #define EndMutex(handler) ReleaseMutex(handler)
-
-#pragma comment(lib, "ws2_32.lib")
 
 #ifdef _DEBUG
 #pragma comment(lib, "libprotobufd.lib")

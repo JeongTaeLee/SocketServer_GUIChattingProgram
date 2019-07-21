@@ -28,88 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.IpLabel = new System.Windows.Forms.Label();
-            this.PortLabel = new System.Windows.Forms.Label();
-            this.IPTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.IpTextBox = new System.Windows.Forms.TextBox();
             this.PortTextBox = new System.Windows.Forms.TextBox();
-            this.ServerOpenButton = new System.Windows.Forms.Button();
-            this.systemLogTextBox = new System.Windows.Forms.TextBox();
-            this.serverCloseButton = new System.Windows.Forms.Button();
+            this.ServerSwitch = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // IpLabel
+            // label1
             // 
-            this.IpLabel.AutoSize = true;
-            this.IpLabel.Location = new System.Drawing.Point(12, 9);
-            this.IpLabel.Name = "IpLabel";
-            this.IpLabel.Size = new System.Drawing.Size(44, 12);
-            this.IpLabel.TabIndex = 0;
-            this.IpLabel.Text = "IP 주소";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "IP";
             // 
-            // PortLabel
+            // label2
             // 
-            this.PortLabel.AutoSize = true;
-            this.PortLabel.Location = new System.Drawing.Point(12, 34);
-            this.PortLabel.Name = "PortLabel";
-            this.PortLabel.Size = new System.Drawing.Size(55, 12);
-            this.PortLabel.TabIndex = 1;
-            this.PortLabel.Text = "Port 주소";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "PORT";
             // 
-            // IPTextBox
+            // IpTextBox
             // 
-            this.IPTextBox.Location = new System.Drawing.Point(79, 6);
-            this.IPTextBox.Name = "IPTextBox";
-            this.IPTextBox.Size = new System.Drawing.Size(151, 21);
-            this.IPTextBox.TabIndex = 2;
+            this.IpTextBox.Location = new System.Drawing.Point(69, 16);
+            this.IpTextBox.Name = "IpTextBox";
+            this.IpTextBox.Size = new System.Drawing.Size(239, 21);
+            this.IpTextBox.TabIndex = 2;
+            this.IpTextBox.Text = "127.0.0.1";
             // 
             // PortTextBox
             // 
-            this.PortTextBox.Location = new System.Drawing.Point(79, 34);
+            this.PortTextBox.Location = new System.Drawing.Point(69, 49);
             this.PortTextBox.Name = "PortTextBox";
-            this.PortTextBox.Size = new System.Drawing.Size(151, 21);
+            this.PortTextBox.Size = new System.Drawing.Size(239, 21);
             this.PortTextBox.TabIndex = 3;
+            this.PortTextBox.Text = "9199";
             // 
-            // ServerOpenButton
+            // ServerSwitch
             // 
-            this.ServerOpenButton.Location = new System.Drawing.Point(236, 6);
-            this.ServerOpenButton.Name = "ServerOpenButton";
-            this.ServerOpenButton.Size = new System.Drawing.Size(79, 21);
-            this.ServerOpenButton.TabIndex = 4;
-            this.ServerOpenButton.Text = "서버 열기";
-            this.ServerOpenButton.UseVisualStyleBackColor = true;
+            this.ServerSwitch.Location = new System.Drawing.Point(12, 76);
+            this.ServerSwitch.Name = "ServerSwitch";
+            this.ServerSwitch.Size = new System.Drawing.Size(297, 23);
+            this.ServerSwitch.TabIndex = 4;
+            this.ServerSwitch.Text = "Open";
+            this.ServerSwitch.UseVisualStyleBackColor = true;
+            this.ServerSwitch.Click += new System.EventHandler(this.ServerSwitch_Click);
             // 
-            // systemLogTextBox
+            // textBox1
             // 
-            this.systemLogTextBox.Location = new System.Drawing.Point(14, 70);
-            this.systemLogTextBox.Multiline = true;
-            this.systemLogTextBox.Name = "systemLogTextBox";
-            this.systemLogTextBox.ReadOnly = true;
-            this.systemLogTextBox.Size = new System.Drawing.Size(301, 368);
-            this.systemLogTextBox.TabIndex = 5;
-            // 
-            // serverCloseButton
-            // 
-            this.serverCloseButton.Location = new System.Drawing.Point(236, 32);
-            this.serverCloseButton.Name = "serverCloseButton";
-            this.serverCloseButton.Size = new System.Drawing.Size(79, 23);
-            this.serverCloseButton.TabIndex = 6;
-            this.serverCloseButton.Text = "서버 닫기";
-            this.serverCloseButton.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(12, 105);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(296, 333);
+            this.textBox1.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 450);
-            this.Controls.Add(this.serverCloseButton);
-            this.Controls.Add(this.systemLogTextBox);
-            this.Controls.Add(this.ServerOpenButton);
+            this.ClientSize = new System.Drawing.Size(320, 450);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ServerSwitch);
             this.Controls.Add(this.PortTextBox);
-            this.Controls.Add(this.IPTextBox);
-            this.Controls.Add(this.PortLabel);
-            this.Controls.Add(this.IpLabel);
+            this.Controls.Add(this.IpTextBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "JIGAPServer";
+            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,13 +108,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label IpLabel;
-        private System.Windows.Forms.Label PortLabel;
-        private System.Windows.Forms.TextBox IPTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox IpTextBox;
         private System.Windows.Forms.TextBox PortTextBox;
-        private System.Windows.Forms.Button ServerOpenButton;
-        private System.Windows.Forms.TextBox systemLogTextBox;
-        private System.Windows.Forms.Button serverCloseButton;
+        private System.Windows.Forms.Button ServerSwitch;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

@@ -13,9 +13,6 @@
     <Filter Include="ServerEngine">
       <UniqueIdentifier>{94f6c50d-9cdd-4d14-8b61-680116fc4a9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\JIGAPServer">
-      <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ServerEngine\Entity">
       <UniqueIdentifier>{0546293e-1b62-481f-ab3f-b7bcad857af8}</UniqueIdentifier>
     </Filter>
@@ -46,17 +43,20 @@
     <Filter Include="ServerEngine\Entity\BaseUserData">
       <UniqueIdentifier>{4abc8bc7-8ba3-4066-a869-d355481a1c69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\JIGAPBaserServer">
-      <UniqueIdentifier>{b2a00a1f-6bc7-4052-9a8c-f83d969ab00b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JIGAPChattingServer">
       <UniqueIdentifier>{5e6b3633-9de9-4fb9-a1b0-2cf4f1841b59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JIGAPChattingServer\JIGAPChatServer">
-      <UniqueIdentifier>{851ce47c-dc9d-4402-a12d-aef40f231dc1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JIGAPChattingServer\ChatUserData">
       <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\JIGAPBaserProcess">
+      <UniqueIdentifier>{b2a00a1f-6bc7-4052-9a8c-f83d969ab00b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPChattingServer\JIGAPChatProcess">
+      <UniqueIdentifier>{851ce47c-dc9d-4402-a12d-aef40f231dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPServer">
+      <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,7 +82,7 @@
       <Filter>JIGAPPacket</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPServer.h">
-      <Filter>ServerEngine\JIGAPServer</Filter>
+      <Filter>JIGAPServer</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>ServerEngine\Entity\ObjectPool</Filter>
@@ -99,11 +99,11 @@
     <ClInclude Include="ChatUserData.h">
       <Filter>JIGAPChattingServer\ChatUserData</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPBaseServer.h">
-      <Filter>ServerEngine\JIGAPBaserServer</Filter>
+    <ClInclude Include="JIGAPBaserProcess.h">
+      <Filter>ServerEngine\JIGAPBaserProcess</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPChatServer.h">
-      <Filter>JIGAPChattingServer\JIGAPChatServer</Filter>
+    <ClInclude Include="JIGAPChatProcess.h">
+      <Filter>JIGAPChattingServer\JIGAPChatProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
       <Filter>JIGAPPacket</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPServer.cpp">
-      <Filter>ServerEngine\JIGAPServer</Filter>
+      <Filter>JIGAPServer</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
       <Filter>ServerEngine\Entity\ObjectPool</Filter>
@@ -143,11 +143,11 @@
     <ClCompile Include="ChatUserData.cpp">
       <Filter>JIGAPChattingServer\ChatUserData</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPBaseServer.cpp">
-      <Filter>ServerEngine\JIGAPBaserServer</Filter>
+    <ClCompile Include="JIGAPBaserProcess.cpp">
+      <Filter>ServerEngine\JIGAPBaserProcess</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPChatServer.cpp">
-      <Filter>JIGAPChattingServer\JIGAPChatServer</Filter>
+    <ClCompile Include="JIGAPChatProcess.cpp">
+      <Filter>JIGAPChattingServer\JIGAPChatProcess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

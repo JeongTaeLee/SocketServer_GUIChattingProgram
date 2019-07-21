@@ -48,7 +48,8 @@ namespace JIGAPClientDXGUI
 
         private void OnLogin()
         {
-            SceneManager.Instance.ChanageScene("IngameScene");
+            NetworkManager.Instance.SendLoginRequest("TestLogin", "TestLogin");
+           // SceneManager.Instance.ChanageScene("IngameScene");
         }
 
     }

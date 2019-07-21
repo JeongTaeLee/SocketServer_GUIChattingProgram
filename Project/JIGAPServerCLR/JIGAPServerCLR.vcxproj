@@ -81,8 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Develop\CompanyHomework\SocketServer_GUIChattingProgram\Project\lib\libDebug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib\libDebug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

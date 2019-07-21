@@ -1,5 +1,7 @@
 #pragma once
 
+typedef void (*LogFunc)(int* strLog);
+
 struct ServerData
 {
 private:
@@ -22,7 +24,7 @@ public:
 
 
 class TCPSocket;
-class JIGAPBaseServer;
+class JIGAPBaserProcess;
 class PacketHandler;
 
 class JIGAPServer
@@ -35,13 +37,15 @@ private:
 	std::thread hConnectThread;
 	std::thread hRecvThread;
 
-	std::queue<std::string> qServerLog;
-	HANDLE hServerLogMutex	= nullptr;
-	
 	PacketHandler* lpPacketHandler		= nullptr;
-	JIGAPBaseServer* lpServerProcess	= nullptr;
+	JIGAPBaserProcess* lpServerProcess	= nullptr;
 
 	bool bServerOn = false;
+
+	//C# ¿¡¼­ CalLBack
+private:
+	LogFunc lpLogFunc = nullptr;
+
 private:
 	bool CreateServerSocket();
 
@@ -51,12 +55,13 @@ public:
 	bool StartServer(const std::string& inIpAddress, const std::string& inPortAddress);
 	void CloseServer();
 
-	
 	void OnConnectTask();
 	void OnRecvPacketTask();
 
 public:
 	void RegisterServerLog(const char* fmt, ...);
-	std::string PopServerLog();
+
+public:
+	void RegisterLogFunc(void* lpFuncPointer);
 };
 

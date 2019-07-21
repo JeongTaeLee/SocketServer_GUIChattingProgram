@@ -3,5 +3,6 @@
 class ChatUserData :
 	public BaseUserData
 {
+
 };
 
