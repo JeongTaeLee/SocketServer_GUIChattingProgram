@@ -12,6 +12,7 @@
 #include <cstring>
 #include <cstdarg>
 #include <thread>
+#include <functional>
 #include <queue>
 #include <list>
 #include <map>
@@ -19,6 +20,9 @@
 
 #define SAFE_DELETE(s) { if (s) { delete s; s = nullptr; } }
 #define SAFE_DELETE_ARRAY(s) { if (s) { delete[] s; s = nullptr;} } 
+
+#define StartMutex(handler) WaitForSingleObject(handler, INFINITE)
+#define EndMutex(handler) ReleaseMutex(handler)
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -32,7 +36,9 @@
 
 #include "JIGAPPacket.pb.h"
 #include "JIGAPStructure.h"
+#include "TCPSocket.h"
 
+#include "ObjectPool.h"
 #include "PacketHandler.h"
 
 #endif PCH_H

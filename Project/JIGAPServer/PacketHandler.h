@@ -20,7 +20,10 @@ private:
 	unsigned int iTotalSerializeBufferSize = 0;
 	unsigned int iTotalParsingBufferSize = 0;
 public:
-	int ParsingBufferSize(const char * inSzBuffer);
+	PacketHandler();
+	~PacketHandler();
+
+	int ParsingBufferSize(const char* inSzBuffer);
 	void SerializeBufferSize(unsigned int iInSerializeSize);
 
 	void ClearParsingBuffer(const char* inSzBuffer, unsigned int iInTotalBuffeRSize);
@@ -45,7 +48,7 @@ public:
 
 public:
 	void NextParsingHeader(PacketHeader& inPacketHeader);
-	
+
 	template<class PacketType>
 	void NextParsingPacket(PacketType& inPacket, int iInSize)
 	{
@@ -53,5 +56,11 @@ public:
 		iParsingPosition += iInSize;
 	}
 
+public:
+	const char* GetSerializeBufferData() { return szSerializeBuffer; }
+	int GetSerializeBufferSize() { return sizeof(szSerializeBuffer); }
+
+	const char* GetParsingBufferData() { return szParsingBuffer; }
+	int GetParsingBufferSize() { return sizeof(szParsingBuffer); }
 };
 

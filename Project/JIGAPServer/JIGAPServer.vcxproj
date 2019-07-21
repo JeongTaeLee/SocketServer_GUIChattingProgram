@@ -232,23 +232,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChatUserData.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
-    <ClInclude Include="JIGAPServerBase.h" />
-    <ClInclude Include="JIGAPServerChat.h" />
+    <ClInclude Include="JIGAPBaseServer.h" />
+    <ClInclude Include="JIGAPChatServer.h" />
     <ClInclude Include="JIGAPStructure.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="singleton.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
+    <ClInclude Include="UserDataAdmin.h" />
+    <ClInclude Include="BaseUserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChatUserData.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
-    <ClCompile Include="JIGAPServerBase.cpp" />
-    <ClCompile Include="JIGAPServerChat.cpp" />
+    <ClCompile Include="JIGAPBaseServer.cpp" />
+    <ClCompile Include="JIGAPChatServer.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -261,6 +268,8 @@
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
+    <ClCompile Include="UserDataAdmin.cpp" />
+    <ClCompile Include="BaseUserData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

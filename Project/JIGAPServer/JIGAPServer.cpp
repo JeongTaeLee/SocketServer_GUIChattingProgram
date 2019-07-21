@@ -1,29 +1,23 @@
 #include "pch.h"
 #include "JIGAPServer.h"
-#include "TCPSocket.h"
+#include "JIGAPChatServer.h"
 
 bool JIGAPServer::CreateServerSocket()
 {
+	int errorCode = 0;
+
 	lpServerSocket = new TCPSocket();
 	//Server의 소켓을 생성합니다.
-	if (lpServerSocket->IOCPSocket() != 0)
+	if ((errorCode = lpServerSocket->IOCPSocket()) != 0)
 	{
-		RegisterServerLog("서버 소켓의 생성을 실패 했습니다.");
+		RegisterServerLog("서버 소켓의 생성을 실패 했습니다. (ErrorCode : %d)", errorCode);
 		delete lpServerSocket;
 		return false;
 	}
 
-	if (lpServerSocket->Bind(serverData.GetIpAdress().c_str(), serverData.GetPortAddress().c_str()) != 0)
+	if ((errorCode = lpServerSocket->Bind(serverData.GetIpAdress().c_str(), serverData.GetPortAddress().c_str())) != 0)
 	{
-		RegisterServerLog("서버 소켓의 할당을 실패 했습니다. (SOCKET : %d)", lpServerSocket->GetSocket());
-		lpServerSocket->Closesocket();
-		SAFE_DELETE(lpServerSocket);
-		return false;
-	}
-
-	if (lpServerSocket->Listen(100) != 0)
-	{
-		RegisterServerLog("서버 소켓을 연결 대기 모드로 변경하지 못했습니다. (SOCKET : %d)", lpServerSocket->GetSocket());
+		RegisterServerLog("서버 소켓의 할당을 실패 했습니다. (ErrorCode : %d)", errorCode);
 		lpServerSocket->Closesocket();
 		SAFE_DELETE(lpServerSocket);
 		return false;
@@ -38,20 +32,28 @@ bool JIGAPServer::CreateServerSocket()
 		return false;
 	}
 
+	if ((errorCode = lpServerSocket->Listen(100)) != 0)
+	{
+		RegisterServerLog("서버 소켓을 연결 대기 모드로 변경하지 못했습니다. (ErrorCode : %d)", errorCode);
+		lpServerSocket->Closesocket();
+		SAFE_DELETE(lpServerSocket);
+		return false;
+	}
+
 	return true;
 }
 
 bool JIGAPServer::ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress)
 {
+	lpServerProcess = new JIGAPChatServer();
+
 	serverData.SetServerData(inIpAddress, inPortAddress);
 
 	hServerLogMutex = CreateMutex(nullptr, false, nullptr);
-	hUsersMapMutex	= CreateMutex(nullptr, false, nullptr);
-	hWorkMutex		= CreateMutex(nullptr, false, nullptr);
+	lpPacketHandler = new PacketHandler();
 
 	hConnectThread	= std::thread([&]() { OnConnectTask(); });
 	hRecvThread		= std::thread([&]() { OnRecvPacketTask(); });
-	hSendThread		= std::thread([&]() { OnSendPacketTask(); });
 
 	if (CreateServerSocket() == false)
 	{
@@ -67,22 +69,31 @@ bool JIGAPServer::ServerInitialize(const std::string& inIpAddress, const std::st
 
 void JIGAPServer::ServerRelease()
 {
-	CloseHandle(hServerLogMutex);
-	CloseHandle(hUsersMapMutex);
-	CloseHandle(hWorkMutex);
+	bServerOn = false;
 
-	if (hConnectThread.joinable())
-		hConnectThread.join();
-	if (hRecvThread.joinable())
-		hRecvThread.join();
-	if (hSendThread.joinable())
-		hSendThread.join();
+	CloseHandle(hServerLogMutex);
 
 	if (lpServerSocket)
 	{
 		lpServerSocket->Closesocket();
 		SAFE_DELETE(lpServerSocket);
 	}
+
+	if (hConnectThread.joinable())
+		hConnectThread.join();
+	if (hRecvThread.joinable())
+		hRecvThread.join();
+}
+
+bool JIGAPServer::StartServer(const std::string& inIpAddress, const std::string& inPortAddress)
+{
+	bServerOn = ServerInitialize(inIpAddress, inPortAddress);
+	return bServerOn;
+}
+
+void JIGAPServer::CloseServer()
+{
+	ServerRelease();
 }
 
 void JIGAPServer::OnConnectTask()
@@ -90,28 +101,35 @@ void JIGAPServer::OnConnectTask()
 	while (true)
 	{
 		TCPSocket * acceptSocket = lpServerSocket->Accept<TCPSocket>();
-	
+
+		if (bServerOn == false)
+			break;
+
 		if (acceptSocket)
 		{
 			HANDLE hHandle = CreateIoCompletionPort((HANDLE)acceptSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)acceptSocket, NULL);
 		
 			if (hCompletionHandle == nullptr)
 			{	
-				RegisterServerLog("JIGAPServer.cpp : 104줄 / CompletionPort의 연결의 심각한 문제가 생겼습니다. (SOCKET : %d)", acceptSocket->GetSocket());
+				RegisterServerLog("JIGAPServer.cpp  / CompletionPort의 연결의 심각한 문제가 생겼습니다. (SOCKET : %d)", acceptSocket->GetSocket());
 				acceptSocket->Closesocket();
-				delete acceptSocket;
+				SAFE_DELETE(acceptSocket);
 				continue;
 			}
-			
-			WaitForSingleObject(hUsersMapMutex, INFINITE);
+	
+			int iError = 0;
+			if ((iError == acceptSocket->IOCPRecv()) != 0)
 			{
-				mUsers.insert(std::make_pair(acceptSocket->GetSocket(), acceptSocket));
+				RegisterServerLog("JIGAPServer.cpp / 연결한 소켓을 수신상태로 변경하지 못했습니다 (ErrorCode : %d) ", iError);
+				continue;
 			}
-			ReleaseMutex(hUsersMapMutex);
+
+			if (lpServerProcess)
+				lpServerProcess->OnConnect(acceptSocket);
 		}
 		else
 		{
-			RegisterServerLog("JIGAPServer.cpp : 68줄 / 소켓 연결의 심각한 문제가 생겼습니다.");
+			RegisterServerLog("JIGAPServer.cpp / 소켓 연결의 심각한 문제가 생겼습니다.");
 			continue;
 		}
 	}
@@ -119,16 +137,49 @@ void JIGAPServer::OnConnectTask()
 
 void JIGAPServer::OnRecvPacketTask()
 {
-}
+	while (true)
+	{
+		DWORD iRecvByte = 0;
+		
+		TCPSocket* lpTCPSocket = nullptr;
+		TCPIOData* lpTCPIoData = nullptr;
 
-void JIGAPServer::OnSendPacketTask()
-{
+		if (GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
+			(LPOVERLAPPED*)&lpTCPIoData, INFINITE) == false)
+		{
+			RegisterServerLog("JIGAPServer.cpp / 패킷을 받는 도중 심각한 문제가 생겼습니다.");
+			continue;
+		}
+
+		if (bServerOn == false)
+			break;
+		
+		if (iRecvByte == 0)
+		{
+			lpServerProcess->OnDisconnect(lpTCPSocket);
+			closesocket(lpTCPSocket->GetSocket());
+			SAFE_DELETE(lpTCPSocket);
+		}
+		else
+		{
+			int iRealRecvSize = lpPacketHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
+			lpPacketHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
+			lpPacketHandler->ClearSerializeBuffer();
+
+			lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
+
+			lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeBufferSize());
+		}
+
+	}
+
+
 }
 
 void JIGAPServer::RegisterServerLog(const char* fmt, ...)
 {
 	/*Mutex를 소유합니다. 해당핸들은 non-signaled 상태가 됩니다 반면 이미 핸들이 Non-signaled 상태이면 블록킹합니다. */
-	WaitForSingleObject(hServerLogMutex, INFINITE);
+	StartMutex(hServerLogMutex);
 	{
 		char buf[512] = { 0 };
 		va_list ap;
@@ -140,7 +191,7 @@ void JIGAPServer::RegisterServerLog(const char* fmt, ...)
 		qServerLog.push(buf);
 	} 
 	/*Mutex 소유하지 않게 바꿔줍니다. 뮤텍스를 signaled 상태로 바꿉니다*/
-	ReleaseMutex(hServerLogMutex);
+	EndMutex(hServerLogMutex);
 }
 
 std::string JIGAPServer::PopServerLog()
@@ -148,7 +199,7 @@ std::string JIGAPServer::PopServerLog()
 	std::string strSystemMessage;
 	bool bPopSuccess = false;
 
-	WaitForSingleObject(hServerLogMutex, INFINITE);
+	StartMutex(hServerLogMutex);
 	{	
 		if (qServerLog.size() >= 0)
 		{
@@ -163,7 +214,7 @@ std::string JIGAPServer::PopServerLog()
 		else
 			bPopSuccess = false;
 	}
-	ReleaseMutex(hServerLogMutex);
+	EndMutex(hServerLogMutex);
 
 	if (bPopSuccess)
 		return strSystemMessage;

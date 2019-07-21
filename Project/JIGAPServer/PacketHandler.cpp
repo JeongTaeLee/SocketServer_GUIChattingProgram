@@ -1,6 +1,16 @@
 #include "pch.h"
 #include "PacketHandler.h"
 
+PacketHandler::PacketHandler()
+{
+	memset(&szParsingBuffer, 0, sizeof(szParsingBuffer));
+	memset(&szSerializeBuffer, 0, sizeof(szSerializeBuffer));
+}
+
+PacketHandler::~PacketHandler()
+{
+}
+
 int PacketHandler::ParsingBufferSize(const char* inSzBuffer)
 {
 	unsigned int bufferSize = 0;

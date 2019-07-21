@@ -10,29 +10,53 @@
     <Filter Include="JIGAPPacket">
       <UniqueIdentifier>{349828a8-5786-43d5-a203-224772243bec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PacketHandler">
-      <UniqueIdentifier>{f2d16b62-5fb9-478e-bac2-dce6b7d6177b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SocketAddress">
-      <UniqueIdentifier>{713ca061-bf47-4954-81c8-47d5957a7249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TCPSocket">
-      <UniqueIdentifier>{41945770-95a3-4c02-bcd2-d7720c6abb6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TCPIOData">
-      <UniqueIdentifier>{74db9ee6-f4d9-4a4b-946c-e884795edcde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ServerEngine">
       <UniqueIdentifier>{94f6c50d-9cdd-4d14-8b61-680116fc4a9c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ServerEngine\JIGAPServer">
       <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\JIGAPServerBase">
+    <Filter Include="ServerEngine\Entity">
+      <UniqueIdentifier>{0546293e-1b62-481f-ab3f-b7bcad857af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\SocketAddress">
+      <UniqueIdentifier>{713ca061-bf47-4954-81c8-47d5957a7249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\PacketHandler">
+      <UniqueIdentifier>{f2d16b62-5fb9-478e-bac2-dce6b7d6177b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\ObjectPool">
+      <UniqueIdentifier>{57ae3b7c-9238-4ae9-88a5-26df5bf5a69d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\TCPIOData">
+      <UniqueIdentifier>{74db9ee6-f4d9-4a4b-946c-e884795edcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\TCPSocket">
+      <UniqueIdentifier>{41945770-95a3-4c02-bcd2-d7720c6abb6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Mananger">
+      <UniqueIdentifier>{969dd818-1f61-46fb-b742-ccc9d4dcdc5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Admin">
+      <UniqueIdentifier>{f80601b6-03c5-464e-9353-603dbb642acc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Admin\UserAdmin">
+      <UniqueIdentifier>{a8a3551d-395f-4442-8d32-a2e1199555c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Entity\BaseUserData">
+      <UniqueIdentifier>{4abc8bc7-8ba3-4066-a869-d355481a1c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\JIGAPBaserServer">
       <UniqueIdentifier>{b2a00a1f-6bc7-4052-9a8c-f83d969ab00b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\JIGAPServerChat">
+    <Filter Include="JIGAPChattingServer">
+      <UniqueIdentifier>{5e6b3633-9de9-4fb9-a1b0-2cf4f1841b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPChattingServer\JIGAPChatServer">
       <UniqueIdentifier>{851ce47c-dc9d-4402-a12d-aef40f231dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JIGAPChattingServer\ChatUserData">
+      <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,16 +67,16 @@
       <Filter>JIGAPStructure</Filter>
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
-      <Filter>PacketHandler</Filter>
+      <Filter>ServerEngine\Entity\PacketHandler</Filter>
     </ClInclude>
     <ClInclude Include="SocketAddress.h">
-      <Filter>SocketAddress</Filter>
+      <Filter>ServerEngine\Entity\SocketAddress</Filter>
     </ClInclude>
     <ClInclude Include="TCPSocket.h">
-      <Filter>TCPSocket</Filter>
+      <Filter>ServerEngine\Entity\TCPSocket</Filter>
     </ClInclude>
     <ClInclude Include="TCPIOData.h">
-      <Filter>TCPIOData</Filter>
+      <Filter>ServerEngine\Entity\TCPIOData</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
@@ -60,11 +84,26 @@
     <ClInclude Include="JIGAPServer.h">
       <Filter>ServerEngine\JIGAPServer</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPServerBase.h">
-      <Filter>ServerEngine\JIGAPServerBase</Filter>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>ServerEngine\Entity\ObjectPool</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPServerChat.h">
-      <Filter>ServerEngine\JIGAPServerChat</Filter>
+    <ClInclude Include="singleton.h">
+      <Filter>ServerEngine\Mananger</Filter>
+    </ClInclude>
+    <ClInclude Include="UserDataAdmin.h">
+      <Filter>ServerEngine\Admin\UserAdmin</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseUserData.h">
+      <Filter>ServerEngine\Entity\BaseUserData</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatUserData.h">
+      <Filter>JIGAPChattingServer\ChatUserData</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPBaseServer.h">
+      <Filter>ServerEngine\JIGAPBaserServer</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPChatServer.h">
+      <Filter>JIGAPChattingServer\JIGAPChatServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,16 +114,16 @@
       <Filter>JIGAPStructure</Filter>
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
-      <Filter>PacketHandler</Filter>
+      <Filter>ServerEngine\Entity\PacketHandler</Filter>
     </ClCompile>
     <ClCompile Include="SocketAddress.cpp">
-      <Filter>SocketAddress</Filter>
+      <Filter>ServerEngine\Entity\SocketAddress</Filter>
     </ClCompile>
     <ClCompile Include="TCPSocket.cpp">
-      <Filter>TCPSocket</Filter>
+      <Filter>ServerEngine\Entity\TCPSocket</Filter>
     </ClCompile>
     <ClCompile Include="TCPIOData.cpp">
-      <Filter>TCPIOData</Filter>
+      <Filter>ServerEngine\Entity\TCPIOData</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
@@ -92,11 +131,23 @@
     <ClCompile Include="JIGAPServer.cpp">
       <Filter>ServerEngine\JIGAPServer</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPServerBase.cpp">
-      <Filter>ServerEngine\JIGAPServerBase</Filter>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>ServerEngine\Entity\ObjectPool</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPServerChat.cpp">
-      <Filter>ServerEngine\JIGAPServerChat</Filter>
+    <ClCompile Include="UserDataAdmin.cpp">
+      <Filter>ServerEngine\Admin\UserAdmin</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseUserData.cpp">
+      <Filter>ServerEngine\Entity\BaseUserData</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatUserData.cpp">
+      <Filter>JIGAPChattingServer\ChatUserData</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPBaseServer.cpp">
+      <Filter>ServerEngine\JIGAPBaserServer</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPChatServer.cpp">
+      <Filter>JIGAPChattingServer\JIGAPChatServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

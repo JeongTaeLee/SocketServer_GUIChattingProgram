@@ -20,9 +20,10 @@ public:
 	const std::string& GetPortAddress() { return strPortAddress; }
 };
 
-using SerialNumber = SOCKET;
 
 class TCPSocket;
+class JIGAPBaseServer;
+class PacketHandler;
 
 class JIGAPServer
 {
@@ -31,29 +32,28 @@ private:
 	HANDLE hCompletionHandle	= nullptr;
 	ServerData serverData		= {};
 
-	std::map<SerialNumber, TCPSocket*> mUsers;
-
-	HANDLE hServerLogMutex	= nullptr;
-	HANDLE hUsersMapMutex	= nullptr;
-	HANDLE hWorkMutex		= nullptr;
-
 	std::thread hConnectThread;
 	std::thread hRecvThread;
-	std::thread hSendThread;
 
 	std::queue<std::string> qServerLog;
+	HANDLE hServerLogMutex	= nullptr;
+	
+	PacketHandler* lpPacketHandler		= nullptr;
+	JIGAPBaseServer* lpServerProcess	= nullptr;
 
-
+	bool bServerOn = false;
 private:
 	bool CreateServerSocket();
 
-public:
 	bool ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress);
 	void ServerRelease();
+public:
+	bool StartServer(const std::string& inIpAddress, const std::string& inPortAddress);
+	void CloseServer();
+
 	
 	void OnConnectTask();
 	void OnRecvPacketTask();
-	void OnSendPacketTask();
 
 public:
 	void RegisterServerLog(const char* fmt, ...);
