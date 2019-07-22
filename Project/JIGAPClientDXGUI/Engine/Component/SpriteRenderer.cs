@@ -8,7 +8,7 @@ using SharpDX;
 using System.Runtime.InteropServices;
 using SharpDX.Mathematics.Interop;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     partial class SpriteRenderer : Component
     {

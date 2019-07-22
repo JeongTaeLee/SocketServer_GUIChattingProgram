@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Windows;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     public class MsgType
     {

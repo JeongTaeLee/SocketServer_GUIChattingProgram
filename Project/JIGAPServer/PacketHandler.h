@@ -33,12 +33,12 @@ public:
 	template<class PacketType>
 	void SerializePacket(JIGAPPacket::Type eInType, PacketType& inPacket)
 	{
+		memcpy(&szSerializeBuffer[iSerializePosition], &eInType, sizeof(JIGAPPacket::Type));
+		iSerializePosition += sizeof(JIGAPPacket::Type);
+
 		int serializeSize = inPacket.ByteSize();
 		memcpy(&szSerializeBuffer[iSerializePosition], &serializeSize, sizeof(int));
 		iSerializePosition += sizeof(int);
-
-		memcpy(&szSerializeBuffer[iSerializePosition], &eInType, sizeof(JIGAPPacket::Type));
-		iSerializePosition += sizeof(JIGAPPacket::Type);
 
 		inPacket.SerializeToArray(&szSerializeBuffer[iSerializePosition], inPacket.ByteSize());
 		iSerializePosition += inPacket.ByteSize();
@@ -62,5 +62,7 @@ public:
 
 	const char* GetParsingBufferData() { return szParsingBuffer; }
 	int GetParsingBufferSize() { return sizeof(szParsingBuffer); }
+
+	int GetSerializeRealSize() { return iSerializePosition; }
 };
 

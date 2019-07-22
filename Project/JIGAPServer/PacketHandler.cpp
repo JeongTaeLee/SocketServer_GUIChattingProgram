@@ -42,7 +42,7 @@ void PacketHandler::ClearSerializeBuffer()
 
 void PacketHandler::NextParsingHeader(PacketHeader& inPacketHeader)
 {
-	memcpy(&inPacketHeader.iSize, &szParsingBuffer[iParsingPosition], sizeof(int));
+	memcpy(&inPacketHeader.ePacketType, &szParsingBuffer[iParsingPosition], sizeof(int));
 	iParsingPosition += sizeof(int);
 
 	memcpy(&inPacketHeader.iSize, &szParsingBuffer[iParsingPosition], sizeof(JIGAPPacket::Type));

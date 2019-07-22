@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpDX;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     partial class GameObject
     {
@@ -14,9 +14,7 @@ namespace JIGAPClientDXGUI.Engine
         public Transform transform { get; private set; } = null;
         public bool Active { get; set; } = true;
         public bool Destroy { get; set; } = false;
-
-
-       
+   
     }
 
     public partial class GameObject

@@ -26,5 +26,10 @@ void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHand
 
 	JIGAPPacket::LoginRequest loginRequest;
 	lpHandler->NextParsingPacket(loginRequest, header.iSize);
+
+	JIGAPPacket::LoginAnswer loginAnswer;
+	loginAnswer.set_success(true);
+
+	lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, loginAnswer);
 }
 

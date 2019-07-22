@@ -7,22 +7,14 @@
 
 JIGAPServerCLR::JIGAPServerWrap::JIGAPServerWrap()
 {
+	lpJIGAPServer = new JIGAPServer();
 }
 
 JIGAPServerCLR::JIGAPServerWrap::~JIGAPServerWrap()
 {
-}
-
-void JIGAPServerCLR::JIGAPServerWrap::Initialize()
-{
-	lpJIGAPServer = new JIGAPServer();
-}
-
-void JIGAPServerCLR::JIGAPServerWrap::Release()
-{
 	delete lpJIGAPServer;
-	lpJIGAPServer = nullptr;
 }
+
 
 bool JIGAPServerCLR::JIGAPServerWrap::OpenServer(String^ inStrIp, String^ inStrPort)
 {

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     partial class TextField : Component
     {

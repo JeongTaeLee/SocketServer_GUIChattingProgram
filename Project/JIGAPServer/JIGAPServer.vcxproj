@@ -112,7 +112,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>E:\Develop\External\protobuf\protobuf-3.8.0-rc-1\src;$(IncludePath)</IncludePath>
+    <IncludePath>E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\libDebug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

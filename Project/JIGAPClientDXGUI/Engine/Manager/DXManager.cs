@@ -11,7 +11,7 @@ using SharpDX.Direct3D9;
 using SharpDX.Mathematics.Interop;
 using SharpDX.Windows;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     delegate void RunFunc();
 

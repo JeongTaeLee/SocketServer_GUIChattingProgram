@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SharpDX;
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
     partial class Button : Component
     {

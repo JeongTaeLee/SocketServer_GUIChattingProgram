@@ -60,8 +60,6 @@ public:
 
 public:
 	void RegisterServerLog(const char* fmt, ...);
-
-public:
 	void RegisterLogFunc(void* lpFuncPointer);
 };
 

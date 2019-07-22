@@ -33,7 +33,7 @@
             this.IpTextBox = new System.Windows.Forms.TextBox();
             this.PortTextBox = new System.Windows.Forms.TextBox();
             this.ServerSwitch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -80,20 +80,20 @@
             this.ServerSwitch.UseVisualStyleBackColor = true;
             this.ServerSwitch.Click += new System.EventHandler(this.ServerSwitch_Click);
             // 
-            // textBox1
+            // LogTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 105);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(296, 333);
-            this.textBox1.TabIndex = 5;
+            this.LogTextBox.Location = new System.Drawing.Point(12, 105);
+            this.LogTextBox.Multiline = true;
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.Size = new System.Drawing.Size(296, 333);
+            this.LogTextBox.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 450);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.ServerSwitch);
             this.Controls.Add(this.PortTextBox);
             this.Controls.Add(this.IpTextBox);
@@ -113,7 +113,7 @@
         private System.Windows.Forms.TextBox IpTextBox;
         private System.Windows.Forms.TextBox PortTextBox;
         private System.Windows.Forms.Button ServerSwitch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox LogTextBox;
     }
 }
 

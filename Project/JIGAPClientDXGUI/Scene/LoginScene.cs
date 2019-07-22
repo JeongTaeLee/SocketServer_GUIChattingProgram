@@ -13,6 +13,9 @@ using JIGAPClientDXGUI.Engine;
 using SharpDX;
 using SharpDX.Direct3D9;
 
+using System.Net;
+using System.Net.Sockets;
+
 namespace JIGAPClientDXGUI
 {
     public class LoginScene : Scene
@@ -20,6 +23,7 @@ namespace JIGAPClientDXGUI
 
         public override void Init()
         {
+           
             if (!NetworkManager.Instance.ConnectServer())
             {
                 System.Windows.Forms.Application.Exit();
@@ -33,11 +37,13 @@ namespace JIGAPClientDXGUI
             TextField field= LoginTextBox.AddComponent<TextField>();
             field.Texture = ImageManager.Instance.LoadTexture("LoginTextBox");
             field.String = "Login 정보를 입력해주세요";
-            field.EnterBehavior = (string str) => { OnLogin(); };
+            field.EnterBehavior = (string str) => { OnLoginRequest(); };
             LoginTextBox.transform.position = new SharpDX.Vector3(429f, 315f, 0f);
 
             GameObject loginButton = ObjectManager.Instance.RegisterObject();
-            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 560f, 418f, 223, 58, () => { OnLogin(); });
+            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 560f, 418f, 223, 58, () => { OnLoginRequest(); });
+
+            ObjectManager.Instance.RegisterObject().AddComponent<LoginLauncher>();
 
         }
         public override void Release()
@@ -46,10 +52,9 @@ namespace JIGAPClientDXGUI
         }
 
 
-        private void OnLogin()
+        private void OnLoginRequest()
         {
             NetworkManager.Instance.SendLoginRequest("TestLogin", "TestLogin");
-           // SceneManager.Instance.ChanageScene("IngameScene");
         }
 
     }

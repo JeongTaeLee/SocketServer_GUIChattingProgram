@@ -9,8 +9,21 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 
-namespace JIGAPClientDXGUI.Engine 
+namespace JIGAPClientDXGUI
 {
+    //Delegate & Event
+    partial class NetworkManager
+    {
+        public delegate void LoginCallBack();
+
+        public void InvokeLoginSuccess() { LoginSuccess?.Invoke(); }
+        public event LoginCallBack LoginSuccess;
+
+        public void InvokeLoginFailed() { LoginFailed?.Invoke(); }
+        public event LoginCallBack LoginFailed;
+    }
+    
+
     partial class NetworkManager : IDisposable
     {
         private static NetworkManager instance = null;
@@ -18,128 +31,40 @@ namespace JIGAPClientDXGUI.Engine
         {
             get
             {
+                
                 if (instance == null)
                     instance = new NetworkManager();
 
                 return instance;
             }
         }
-
-
         public Socket ServerSock { get; private set; } = null;
-        public string IpAddress { get; private set; }
-        public string PortAddress { get; private set; }
         public bool bServerOn { get; private set; } = false;
 
         public PacketHandler PacketHandler { get; private set; } = new PacketHandler();
+        public ConnectDataInfo connectDataInfo { get; private set; } = new ConnectDataInfo();
+        public PacketProcess PacketProcess { get; private set; } = new PacketProcess();
     }
 
     partial class NetworkManager : IDisposable
     {
         public void Dispose()
         {
+            
             if (bServerOn)
                 DisconnectServer();
         }
-
-        /*
-         * Data/ConnectData.txt 파일에서 서버 정보를 읽어옵니다.
-         */
-        private bool ParsingConnectData()
-        {
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo("./Data");
-            if (!di.Exists)
-                di.Create();
-
-            System.IO.FileInfo fi = new System.IO.FileInfo("./Data/ConnectData.txt");
-            if (!fi.Exists)
-            {
-                fi.Create().Close();
-                
-                using (StreamWriter wr = new StreamWriter("./Data/ConnectData.txt"))
-                {
-                    wr.WriteLine("# 클라이언트에 필요한 연결 정보입니다.");
-                    wr.WriteLine("# Tag 종류");
-                    wr.WriteLine("# '#' 주석");
-                    wr.WriteLine("# 'IP' ip 주소");
-                    wr.WriteLine("# 'PORT' port 주소");
-                    wr.WriteLine("# 입력 방식은 'Tag 입력' 입니다.");
-                    wr.WriteLine("");
-                    wr.WriteLine("# Connect 정보");
-                    wr.WriteLine("");
-                    wr.WriteLine("IP 127.0.0.1");
-                    wr.WriteLine("");
-                    wr.WriteLine("PORT 9199");
-                }
-            }
-
-            bool IsParsingIP = false;
-            bool IsParsingPort = false;
-            using (StreamReader stream  = fi.OpenText())
-            {
-                string line;
-                while ((line = stream.ReadLine()) != null)
-                {
-                    string tag = null;
-                    string data = null;
-
-                    int index = line.IndexOf(' ');
-                    if (index > 0)
-                    {
-                        tag = line.Substring(0, index);
-                        data = line.Substring(index + 1);
-                    }
-                    else
-                        continue;
-
-                    switch (tag)
-                    {
-                        case "#":
-                            continue;
-                            break;
-
-                        case "IP":
-                            IsParsingIP = true;
-                            IpAddress = data;
-                            break;
-
-                        case "PORT":
-                            IsParsingPort = true;
-                            PortAddress = data;
-                            break;
-
-                        default:
-                            continue;
-                    }
-                }
-            }
-
-            if (!IsParsingIP)
-            {
-                MessageBox.Show("./Data/ConnectData.txt 파일에서 IP 주소 정보를 읽어올 수 없습니다.");
-                return false;
-            }
-            if (!IsParsingPort)
-            {
-                MessageBox.Show("./Data/ConnectData.txt 파일에서 PORT 주소 정보를 읽어올 수 없습니다.");
-                return false;
-            }
-
-            return true;
-        }
-
 
         public bool ConnectServer()
         {
             if (bServerOn)
                 return false;
 
-            if (!ParsingConnectData())
-                return false;
+            connectDataInfo.ParseConnectDataInfo();
 
             ServerSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(IpAddress), Convert.ToInt32(PortAddress));
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(connectDataInfo.strIpAddress), Convert.ToInt32(connectDataInfo.strPortAddress));
 
             try
             {
@@ -153,7 +78,7 @@ namespace JIGAPClientDXGUI.Engine
 
             bServerOn = true;
 
-            OnRecvMode();
+            OnRecvPacket();
             return bServerOn;
         }
 
@@ -167,44 +92,23 @@ namespace JIGAPClientDXGUI.Engine
         }
     }
 
-    partial class NetworkManager : IDisposable
+    partial class NetworkManager
     {
-        public void SendLoginRequest(string id, string passward)
-        {
-            JIGAPPacket.LoginRequest loginRequest = new JIGAPPacket.LoginRequest();
-            loginRequest.Id = id;
-            loginRequest.Passward = passward;
-
-            PacketHandler.SerializePacket(JIGAPPacket.Type.ELoginRequest, loginRequest);
-
-            OnSendPacket();
-        }
-        private void RecvLoginAnswer(ref PacketHeader inHeader)
-        {
-        }
-
         private void OnSendPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
 
-            args.Completed += OnSendComplate;
-            args.SetBuffer(PacketHandler.sendBuffer, 0, PacketHandler.sendPosition);
+            args.SetBuffer(PacketHandler.serializeBuffer, 0, PacketHandler.serializePosition);
 
             ServerSock.SendAsync(args);
-
         }
 
-        private void OnSendComplate(object sender, SocketAsyncEventArgs e)
-        {
-            OnRecvMode();
-        }
-
-        private void OnRecvMode()
+        private void OnRecvPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-
+            
             args.Completed += OnRecvComplete;
-
+            
             byte[] recvBuffer = new byte[PacketHandler.bufferSize];
             args.SetBuffer(recvBuffer, 0, PacketHandler.bufferSize);
             ServerSock.ReceiveAsync(args);
@@ -215,38 +119,30 @@ namespace JIGAPClientDXGUI.Engine
 
             if (ServerSock.Connected && e.BytesTransferred > 0)
             {
-                PacketHandler.ClearSendBuffer();
+                int paketSize = PacketHandler.ParsingTotalPacketSize(e.Buffer);
+                PacketHandler.ClearParsingBuffer(e.Buffer, paketSize);
 
-                int paketSize = PacketHandler.ParsingPacketSize(e.Buffer);
-                PacketHandler.SetRecvBuffer(e.Buffer, paketSize);
-
-                OnRecvProcess();
+                PacketProcess.OnRecvProcess(PacketHandler);
             }
             else
             {
-
             }
         } 
-        
-        private void OnRecvProcess()
+    }
+
+    partial class NetworkManager
+    { 
+        public void SendLoginRequest(string strId, string strPassward)
         {
-            PacketHeader header = PacketHandler.ParsingPacketHeader();
+            PacketHandler.ClearSerializeBuffer();
 
-            switch (header.Type)
-            {
-                case JIGAPPacket.Type.ELoginAnswer:
-                    RecvLoginAnswer(ref header);
-                    break;
-                case JIGAPPacket.Type.ECreateRoomAnswer:
-                    break;
-                case JIGAPPacket.Type.EJoinRoomAnswer:
-                    break;
-                case JIGAPPacket.Type.ERoomListAnswer:
-                    break;
-                case JIGAPPacket.Type.EExitRoomAnswer:
-                    break;
-            }
+            JIGAPPacket.LoginRequest loginRequest = new JIGAPPacket.LoginRequest();
+            loginRequest.Id         = strId;
+            loginRequest.Passward   = strPassward;
+
+            PacketHandler.SerializePacket(JIGAPPacket.Type.ELoginRequest, loginRequest);
+
+            OnSendPacket();
         }
-
     }
 }

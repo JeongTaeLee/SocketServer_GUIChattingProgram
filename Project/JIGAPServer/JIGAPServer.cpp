@@ -98,25 +98,21 @@ void JIGAPServer::ServerRelease()
 	if (hConnectThread.joinable())
 		hConnectThread.join();
 	RegisterServerLog("ConnectThread가 종료되었습니다");
+	
 	Sleep(100);
+	
 	if (hRecvThread.joinable())
 		hRecvThread.join();
 	RegisterServerLog("RecvThread가 종료되었습니다");
-	RegisterServerLog("서버가 종료되었습니다.");
 	
-	lpServerSocket		= nullptr;
-	hCompletionHandle	= nullptr;
-	lpPacketHandler		= nullptr;
-	lpServerProcess		= nullptr;
-	lpLogFunc			= nullptr;
+	RegisterServerLog("서버가 종료되었습니다.");
 }
 
 
 bool JIGAPServer::StartServer(const std::string& inIpAddress, const std::string& inPortAddress)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtDumpMemoryLeaks();
-	//_CrtSetBreakAlloc(1000);
+	//_CrtSetBreakAlloc(1751);
 
 	bServerOn = ServerInitialize(inIpAddress, inPortAddress);
 	return bServerOn;
@@ -206,7 +202,7 @@ void JIGAPServer::OnRecvPacketTask()
 
 			lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
 
-			lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeBufferSize());
+			lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeRealSize());
 		}
 	}
 }
@@ -223,7 +219,7 @@ void JIGAPServer::RegisterServerLog(const char* fmt, ...)
 	wchar_t tBuf[1024];
 	MultiByteToWideChar(CP_ACP, 0, buf, -1, tBuf, 1024);
 
-	//lpLogFunc((int*)tBuf);
+	lpLogFunc((int*)tBuf);
 }
 
 void JIGAPServer::RegisterLogFunc(void* lpFuncPointer)

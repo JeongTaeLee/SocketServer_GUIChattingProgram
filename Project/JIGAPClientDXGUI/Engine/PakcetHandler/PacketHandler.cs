@@ -8,7 +8,7 @@ using JIGAPPacket;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
      struct PacketHeader
     {
@@ -21,77 +21,65 @@ namespace JIGAPClientDXGUI.Engine
     {
         public const int bufferSize = 2048;
 
-        public byte[] recvBuffer { get; set; } = new byte[bufferSize];
-        public byte[] sendBuffer { get; set; } = new byte[bufferSize];
+        public byte[] parsingBuffer { get; private set; } = new byte[bufferSize];
+        public byte[] serializeBuffer { get; private set; } = new byte[bufferSize];
 
-        public int recvPosition { get; private set; } = 0;
-        public int sendPosition { get; private set; } = 0;
-
-        private int recvTotalSize { get; set; } = 0;
+        public int parsingPosition { get; private set; } = 0;
+        public int serializePosition { get; private set; } = 0;
 
     }
 
     partial class PacketHandler
     {
-        public void SetRecvBuffer(byte[] inRecvBuffer, int inTotalSize)
+        public void ClearParsingBuffer(byte[] inParsingBuffer, int inISize)
         {
-            Array.Clear(recvBuffer, 0, bufferSize);
-
-            Buffer.BlockCopy(inRecvBuffer, 0, recvBuffer, 0, inTotalSize);
-            recvTotalSize = inTotalSize;
-            recvPosition = 4;
-        }
-        public void ClearSendBuffer()
-        {
-            Array.Clear(sendBuffer, 0, bufferSize);
-            sendPosition = 4;
+            Array.Clear(parsingBuffer, 0, bufferSize);
+            parsingPosition = sizeof(int);
+            Buffer.BlockCopy(inParsingBuffer, 0, parsingBuffer, 0, inISize);
         }
 
-        public int ParsingPacketSize(byte[] inRecvBuffer)
+        public void ClearSerializeBuffer()
         {
-            return BitConverter.ToInt32(inRecvBuffer, sizeof(int) * 0);
+            Array.Clear(serializeBuffer, 0, bufferSize);
+            serializePosition = sizeof(int);
+            SerializeBufferSize(serializePosition);
         }
 
-        public PacketHeader ParsingPacketHeader()
+        public void SerializeBufferSize(int inISize)
         {
-            JIGAPPacket.Type type = (JIGAPPacket.Type)BitConverter.ToInt32(recvBuffer, recvPosition);
-            recvPosition += sizeof(int);
-            int byteSizes = BitConverter.ToInt32(recvBuffer, recvPosition);
-            recvPosition += sizeof(int);
-
-            PacketHeader header = new PacketHeader();
-            header.Type = type;
-            header.PacketSize = byteSizes;
-
-            return header;
-        }
-
-        public Packet ParsingPacket<Packet>(int inSize) where Packet : Google.Protobuf.IMessage, new ()
-        {
-            Packet packet = new Packet();
-            packet = (Packet)packet.Descriptor.Parser.ParseFrom(recvBuffer, recvPosition, inSize);
-
-            recvPosition += inSize;
-
-            return packet;
-        }
-
-        private void SerializePacketSize(int size)
-        {
-            Buffer.BlockCopy(BitConverter.GetBytes(size), 0, sendBuffer, 0, sizeof(int));
+            Buffer.BlockCopy(BitConverter.GetBytes(inISize), 0, serializeBuffer, 0, sizeof(int));
         }
 
         public void SerializePacket<Packet>(JIGAPPacket.Type inType, Packet inPacket) where Packet : Google.Protobuf.IMessage
         {
-            Buffer.BlockCopy(BitConverter.GetBytes((int)inType), 0, sendBuffer, sendPosition, sizeof(int));
-            sendPosition += sizeof(int);
-            Buffer.BlockCopy(BitConverter.GetBytes(inPacket.CalculateSize()), 0, sendBuffer, sendPosition, sizeof(int));
-            sendPosition += sizeof(int);
+            Buffer.BlockCopy(BitConverter.GetBytes((int)inType), 0, serializeBuffer, serializePosition, sizeof(JIGAPPacket.Type));
+            serializePosition += sizeof(JIGAPPacket.Type);
+            Buffer.BlockCopy(BitConverter.GetBytes(inPacket.CalculateSize()), 0, serializeBuffer, serializePosition, sizeof(int));
+            serializePosition += sizeof(int);
 
-            Buffer.BlockCopy(inPacket.ToByteArray(), 0, sendBuffer, sendPosition, inPacket.CalculateSize());
-            sendPosition += inPacket.CalculateSize();
+            Buffer.BlockCopy(inPacket.ToByteArray(), 0, serializeBuffer, serializePosition, inPacket.CalculateSize());
+            serializePosition += inPacket.CalculateSize();
 
-            SerializePacketSize(sendPosition);
+            SerializeBufferSize(serializePosition);
+        }
+
+        public int ParsingTotalPacketSize(byte[] packetArray)
+        {
+            int totalSize = BitConverter.ToInt32(packetArray, 0);
+            return totalSize;
+        }
+
+        public void ParsingHeader(ref PacketHeader header)
+        {
+            header.Type = (JIGAPPacket.Type)BitConverter.ToInt32(parsingBuffer, parsingPosition);
+            parsingPosition += sizeof(JIGAPPacket.Type);
+            header.PacketSize = BitConverter.ToInt32(parsingBuffer, parsingPosition);
+            parsingPosition += sizeof(int);
+        }
+        public void ParsingPacket<Packet>(ref Packet inPacket, int inPacketSize) where Packet : Google.Protobuf.IMessage
+        {
+            inPacket = (Packet)inPacket.Descriptor.Parser.ParseFrom(parsingBuffer, parsingPosition, inPacketSize);
+            parsingPosition += inPacketSize;
         }
     }
 

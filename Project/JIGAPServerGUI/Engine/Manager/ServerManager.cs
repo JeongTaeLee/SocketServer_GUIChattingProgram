@@ -8,7 +8,7 @@ namespace JIGAPServerGUI
 {
     partial class ServerManager
     {
-        JIGAPServerCLR.JIGAPServerWrap jigapServer = null;
+        JIGAPServerCLR.JIGAPServerWrap jigapServer = new JIGAPServerCLR.JIGAPServerWrap();
         JIGAPServerCLR.JIGAPServerWrap.LogFunc logFunc = null;
 
         private static ServerManager instance = null;
@@ -26,22 +26,6 @@ namespace JIGAPServerGUI
 
     partial class ServerManager
     {
-        public void Initialize()
-        {
-            if (jigapServer == null)
-            {
-                jigapServer = new JIGAPServerCLR.JIGAPServerWrap();
-                jigapServer.Initialize();
-            }
-        }
-        public void Release()
-        {
-            if (jigapServer != null)
-                jigapServer.Release();
-
-            jigapServer = null;
-        }
-
         public bool OpenServer(string strInIp, string strInPort)
         {
             if (!IsOnServer)
@@ -55,7 +39,7 @@ namespace JIGAPServerGUI
             if (IsOnServer)
             {
                 jigapServer.CloseServer();
-                jigapServer.Release();
+                IsOnServer = false;
             }
         }
 
@@ -63,6 +47,15 @@ namespace JIGAPServerGUI
         {
             logFunc = inLogFunc;
             jigapServer.RegisterLogFunc(logFunc);
+        }
+    
+        public void Dispose()
+        {
+            if (jigapServer != null)
+            {
+                jigapServer.Dispose();
+                jigapServer = null;
+            }
         }
     }
 }

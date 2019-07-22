@@ -10,7 +10,7 @@ using System.Drawing;
 using SharpDX.DirectInput;
 
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
 
     partial class InputManager : IDisposable

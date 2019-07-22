@@ -8,7 +8,7 @@ using SharpDX;
 using SharpDX.Mathematics;
 
 
-namespace JIGAPClientDXGUI.Engine
+namespace JIGAPClientDXGUI
 {
 
     partial class ObjectManager : IDisposable

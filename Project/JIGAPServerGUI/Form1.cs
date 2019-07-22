@@ -18,7 +18,6 @@ namespace JIGAPServerGUI
         {
             InitializeComponent();
 
-            ServerManager.Instance.Initialize();
             ServerManager.Instance.RegisterLogFunc(ServerLogFunc);
         }
 
@@ -26,7 +25,21 @@ namespace JIGAPServerGUI
 
         public void ServerLogFunc(IntPtr strLog)
         {
-            string str = Marshal.PtrToStringUni(strLog);
+            StringBuilder str = new StringBuilder();
+            str.Append("System : ");
+            str.Append(Marshal.PtrToStringUni(strLog));
+            str.Append("\r\n");
+
+            if (LogTextBox.InvokeRequired)
+            {
+                LogTextBox.BeginInvoke(new MethodInvoker(delegate {
+                    LogTextBox.AppendText(str.ToString());
+                }));
+            }
+            else
+            {
+                LogTextBox.AppendText(str.ToString());
+            }
         }
 
         private void ServerSwitch_Click(object sender, EventArgs e)

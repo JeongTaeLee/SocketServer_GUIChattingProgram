@@ -128,15 +128,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\LoginLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />
     <Compile Include="Engine\Component\SpriteRenderer.cs" />
     <Compile Include="Engine\Component\Text.cs" />
     <Compile Include="Engine\Component\TextField.cs" />
     <Compile Include="Engine\Component\UIRenderer.cs" />
+    <Compile Include="Engine\ConnectDataInfo\ConnectDataInfo.cs" />
     <Compile Include="Engine\Entry\Component.cs" />
     <Compile Include="Engine\Entry\GameObject.cs" />
     <Compile Include="Engine\Component\Transform.cs" />
-    <Compile Include="Engine\MainGame\MainGame.cs" />
+    <Compile Include="Engine\Entry\NetworkComponent.cs" />
+    <Compile Include="Engine\PacketProcess\PacketProcess.cs" />
+    <Compile Include="MainGame\MainGame.cs" />
     <Compile Include="Engine\Manager\ImageManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />
     <Compile Include="Engine\Manager\NetworkManager.cs" />
