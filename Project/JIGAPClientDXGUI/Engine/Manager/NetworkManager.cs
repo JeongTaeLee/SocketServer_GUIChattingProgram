@@ -70,9 +70,9 @@ namespace JIGAPClientDXGUI
             {
                 ServerSock.Connect(localEndPoint);
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("서버에 접속 할 수 없습니다", "Error!");
+                MessageBox.Show("서버에 접속 할 수 없습니다 " + e.Message,"Error!");
                 return false;
             }
 

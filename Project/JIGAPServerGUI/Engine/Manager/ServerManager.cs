@@ -26,10 +26,10 @@ namespace JIGAPServerGUI
 
     partial class ServerManager
     {
-        public bool OpenServer(string strInIp, string strInPort)
+        public bool OpenServer(string strInPort)
         {
             if (!IsOnServer)
-                return (IsOnServer = jigapServer.OpenServer(strInIp, strInPort));
+                return (IsOnServer = jigapServer.OpenServer(strInPort));
 
             return false;
         }

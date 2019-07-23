@@ -5,20 +5,17 @@ typedef void (*LogFunc)(int* strLog);
 struct ServerData
 {
 private:
-	std::string strIpAddress;
 	std::string strPortAddress;
 
 public:
 	ServerData() {}
 	~ServerData() {}
 
-	void SetServerData(const std::string& inStrIpAddress, const std::string& inStrPortAddress)
+	void SetServerData(const std::string& inStrPortAddress)
 	{
-		strIpAddress = inStrIpAddress;
 		strPortAddress = inStrPortAddress;
 	}
 
-	const std::string& GetIpAdress() { return strIpAddress; }
 	const std::string& GetPortAddress() { return strPortAddress; }
 };
 
@@ -49,10 +46,10 @@ private:
 private:
 	bool CreateServerSocket();
 
-	bool ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress);
+	bool ServerInitialize( const std::string& inPortAddress);
 	void ServerRelease();
 public:
-	bool StartServer(const std::string& inIpAddress, const std::string& inPortAddress);
+	bool StartServer(const std::string& inPortAddress);
 	void CloseServer();
 
 	void OnConnectTask();

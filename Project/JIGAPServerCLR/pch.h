@@ -22,11 +22,5 @@
 #include <map>
 #include <crtdbg.h>
 
-#ifdef _DEBUG
-#pragma comment(lib, "libprotobufd.lib")
-#pragma comment(lib, "libprotobuf-lited.lib")
-#else
-#pragma comment(lib, "libprotobuf.lib")
-#pragma comment(lib, "libprotobuf-lite.lib")
-#endif
+
 #endif

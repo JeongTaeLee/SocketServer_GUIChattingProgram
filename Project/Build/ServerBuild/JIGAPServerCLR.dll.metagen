@@ -14,7 +14,7 @@ Class JIGAPServerCLR.JIGAPServerWrap: AutoLayout, AnsiClass, Class, Public, Befo
   Interfaces:
     System.IDisposable
   Methods:
-    OpenServer(String, String): PrivateScope, Public, HideBySig
+    OpenServer(String): PrivateScope, Public, HideBySig
     CloseServer(): PrivateScope, Public, HideBySig
     RegisterLogFunc(LogFunc): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

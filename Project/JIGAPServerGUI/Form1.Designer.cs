@@ -28,43 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.IpTextBox = new System.Windows.Forms.TextBox();
             this.PortTextBox = new System.Windows.Forms.TextBox();
             this.ServerSwitch = new System.Windows.Forms.Button();
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "IP";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 52);
+            this.label2.Location = new System.Drawing.Point(12, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "PORT";
             // 
-            // IpTextBox
-            // 
-            this.IpTextBox.Location = new System.Drawing.Point(69, 16);
-            this.IpTextBox.Name = "IpTextBox";
-            this.IpTextBox.Size = new System.Drawing.Size(239, 21);
-            this.IpTextBox.TabIndex = 2;
-            this.IpTextBox.Text = "127.0.0.1";
-            // 
             // PortTextBox
             // 
-            this.PortTextBox.Location = new System.Drawing.Point(69, 49);
+            this.PortTextBox.Location = new System.Drawing.Point(69, 12);
             this.PortTextBox.Name = "PortTextBox";
             this.PortTextBox.Size = new System.Drawing.Size(239, 21);
             this.PortTextBox.TabIndex = 3;
@@ -72,7 +53,7 @@
             // 
             // ServerSwitch
             // 
-            this.ServerSwitch.Location = new System.Drawing.Point(12, 76);
+            this.ServerSwitch.Location = new System.Drawing.Point(12, 39);
             this.ServerSwitch.Name = "ServerSwitch";
             this.ServerSwitch.Size = new System.Drawing.Size(297, 23);
             this.ServerSwitch.TabIndex = 4;
@@ -82,10 +63,10 @@
             // 
             // LogTextBox
             // 
-            this.LogTextBox.Location = new System.Drawing.Point(12, 105);
+            this.LogTextBox.Location = new System.Drawing.Point(12, 68);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.Size = new System.Drawing.Size(296, 333);
+            this.LogTextBox.Size = new System.Drawing.Size(296, 370);
             this.LogTextBox.TabIndex = 5;
             // 
             // Form1
@@ -96,9 +77,7 @@
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.ServerSwitch);
             this.Controls.Add(this.PortTextBox);
-            this.Controls.Add(this.IpTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -107,10 +86,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox IpTextBox;
         private System.Windows.Forms.TextBox PortTextBox;
         private System.Windows.Forms.Button ServerSwitch;
         private System.Windows.Forms.TextBox LogTextBox;

@@ -112,8 +112,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\libDebug</LibraryPath>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib\libDebug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -124,9 +124,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\Build\ServerBuild</OutDir>
-    <IncludePath>C:\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\libRelease;$(LibraryPath)</LibraryPath>
+    <OutDir>..\Build\ReleaseServer\</OutDir>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include\mysql;E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib\libRelease\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -223,6 +223,8 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

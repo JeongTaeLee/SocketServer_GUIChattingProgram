@@ -18,7 +18,7 @@ namespace JIGAPServerCLR {
 		JIGAPServerWrap();
 		virtual ~JIGAPServerWrap();
 
-		bool OpenServer(String^ inStrIp, String^ inStrPort);
+		bool OpenServer(String^ inStrPort);
 		void CloseServer();
 
 	public:

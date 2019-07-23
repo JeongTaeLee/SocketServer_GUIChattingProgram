@@ -16,10 +16,10 @@ SocketAddress::~SocketAddress()
 {
 }
 
-void SocketAddress::SetAddress(const char* InIpAddr, const char* InPortAddr)
+void SocketAddress::SetAddress(const char* InPortAddr)
 {
 	sockAddrIn.sin_family = AF_INET;
-	sockAddrIn.sin_addr.s_addr = inet_addr(InIpAddr);
+	sockAddrIn.sin_addr.s_addr = htonl(INADDR_ANY);
 	sockAddrIn.sin_port = htons(atoi(InPortAddr));
 }
 

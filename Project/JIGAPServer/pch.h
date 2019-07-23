@@ -18,8 +18,10 @@
 #include <map>
 #include <crtdbg.h>
 #include <atlconv.h>
+#include <mysql.h>
 
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "libmysql.lib")
 
 #define SAFE_DELETE(s) { if (s) { delete s; s = nullptr; } }
 #define SAFE_DELETE_ARRAY(s) { if (s) { delete[] s; s = nullptr;} } 

@@ -37,11 +37,11 @@ namespace JIGAPClientDXGUI
             TextField field= LoginTextBox.AddComponent<TextField>();
             field.Texture = ImageManager.Instance.LoadTexture("LoginTextBox");
             field.String = "Login 정보를 입력해주세요";
-            field.EnterBehavior = (string str) => { OnLoginRequest(); };
+            field.EnterBehavior = (string str) => { OnLoginRequest(str); };
             LoginTextBox.transform.position = new SharpDX.Vector3(429f, 315f, 0f);
 
             GameObject loginButton = ObjectManager.Instance.RegisterObject();
-            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 560f, 418f, 223, 58, () => { OnLoginRequest(); });
+            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 560f, 418f, 223, 58, () => { OnLoginRequest(field.String); });
 
             ObjectManager.Instance.RegisterObject().AddComponent<LoginLauncher>();
 
@@ -52,9 +52,9 @@ namespace JIGAPClientDXGUI
         }
 
 
-        private void OnLoginRequest()
+        private void OnLoginRequest(string inStr)
         {
-            NetworkManager.Instance.SendLoginRequest("TestLogin", "TestLogin");
+            NetworkManager.Instance.SendLoginRequest(inStr, inStr);
         }
 
     }

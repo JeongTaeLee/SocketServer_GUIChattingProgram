@@ -46,9 +46,8 @@ namespace JIGAPServerGUI
         {
             if (ServerManager.Instance.IsOnServer == false)
             {
-                if (ServerManager.Instance.OpenServer(IpTextBox.Text, PortTextBox.Text))
+                if (ServerManager.Instance.OpenServer(PortTextBox.Text))
                 {
-                    IpTextBox.Enabled   = false;
                     PortTextBox.Enabled = false;
 
                     ServerSwitch.Text = "Close";
@@ -58,7 +57,6 @@ namespace JIGAPServerGUI
             {
                 ServerManager.Instance.CloseServer();
 
-                IpTextBox.Enabled   = true;
                 PortTextBox.Enabled = true;
 
                 ServerSwitch.Text = "Open";

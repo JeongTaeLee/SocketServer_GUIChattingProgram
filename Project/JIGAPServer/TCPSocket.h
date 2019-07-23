@@ -34,7 +34,7 @@ public:
 	/*IOCP TCP Socket을 바인드(할당)합니다.
 	성공 : 0
 	실패  : WSAGetLastError()*/
-	int Bind(const char * szInIpAddr, const char * szInPortAddr);
+	int Bind(const char * szInPortAddr);
 
 	/*IOCP TCP Socket의 대기열을 생성합니다.
 	성공 : 0

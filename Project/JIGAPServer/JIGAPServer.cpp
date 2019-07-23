@@ -14,64 +14,68 @@ bool JIGAPServer::CreateServerSocket()
 
 	if ((errorCode = lpServerSocket->IOCPSocket()) != 0)
 	{
-		RegisterServerLog("서버 소켓의 생성을 실패 했습니다. (ErrorCode : %d)", errorCode);
+		RegisterServerLog("Socket create failed (ErrorCode : %d)", errorCode);
 		delete lpServerSocket;
 		return false;
 	}
 
-	RegisterServerLog("서버 소켓이 생성되었습니다.");
+	RegisterServerLog("Socket Create Success");
 
-	if ((errorCode = lpServerSocket->Bind(serverData.GetIpAdress().c_str(), serverData.GetPortAddress().c_str())) != 0)
+	if ((errorCode = lpServerSocket->Bind(serverData.GetPortAddress().c_str())) != 0)
 	{
-		RegisterServerLog("서버 소켓의 할당을 실패 했습니다. (ErrorCode : %d)", errorCode);
+		RegisterServerLog("Socket bind failed(ErrorCode : %d)", errorCode);
 		lpServerSocket->Closesocket();
 		SAFE_DELETE(lpServerSocket);
 		return false;
 	}
 
-	RegisterServerLog("서버 소켓을 할당했습니다");
+	RegisterServerLog("Socket bind success");
 
 	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 	if (hCompletionHandle == nullptr)
 	{
-		RegisterServerLog("서버 소켓의 CompletionPort를 생성하지 못했습니다.");
+		RegisterServerLog("CompletionPort create failed");
 		lpServerSocket->Closesocket();
 		SAFE_DELETE(lpServerSocket);
 		return false;
 	}
 
-	RegisterServerLog("서버 소켓의 CompletionPort를 생성했습니다");
+	RegisterServerLog("CompletePort create success");
 
 	if ((errorCode = lpServerSocket->Listen(100)) != 0)
 	{
-		RegisterServerLog("서버 소켓을 연결 대기 모드로 변경하지 못했습니다. (ErrorCode : %d)", errorCode);
+		RegisterServerLog("Socket Listen failed (ErrorCode : %d)", errorCode);
 		lpServerSocket->Closesocket();
 		SAFE_DELETE(lpServerSocket);
 		return false;
 	}
 
-	RegisterServerLog("서버 소켓을 대기 모드로 변경했습니다");
+	RegisterServerLog("Socket listen Success");
 
 	return true;
 }
 
-bool JIGAPServer::ServerInitialize(const std::string& inIpAddress, const std::string& inPortAddress)
+bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 {
 	lpServerProcess = new JIGAPChatProcess();
 	lpServerProcess->OnInitialize();
 	
-	serverData.SetServerData(inIpAddress, inPortAddress);
+	serverData.SetServerData(inPortAddress);
 	
 	lpPacketHandler = new PacketHandler();
 	
 	if (CreateServerSocket() == false)
 	{	
-		RegisterServerLog("서버의 초기화를 실패했습니다. 서버가 실행되지 못했습니다.");
+		RegisterServerLog("Server initiliaze failed");
 		ServerRelease();
 		return false;
 	}
 	else
-		RegisterServerLog("서버가 실행되었습니다.");
+		RegisterServerLog("Server intialize success");
+	
+	
+	RegisterServerLog("Start Server");
+
 	
 	hConnectThread = std::thread([&]() { OnConnectTask(); });
 	Sleep(100);
@@ -97,24 +101,24 @@ void JIGAPServer::ServerRelease()
 	
 	if (hConnectThread.joinable())
 		hConnectThread.join();
-	RegisterServerLog("ConnectThread가 종료되었습니다");
+	RegisterServerLog("End ConnecThread");
 	
 	Sleep(100);
 	
 	if (hRecvThread.joinable())
 		hRecvThread.join();
-	RegisterServerLog("RecvThread가 종료되었습니다");
+	RegisterServerLog("End RecvThread");
 	
-	RegisterServerLog("서버가 종료되었습니다.");
+	RegisterServerLog("End Server");
 }
 
 
-bool JIGAPServer::StartServer(const std::string& inIpAddress, const std::string& inPortAddress)
+bool JIGAPServer::StartServer(const std::string& inPortAddress)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(1751);
 
-	bServerOn = ServerInitialize(inIpAddress, inPortAddress);
+	bServerOn = ServerInitialize(inPortAddress);
 	return bServerOn;
 }
 
@@ -125,7 +129,7 @@ void JIGAPServer::CloseServer()
 
 void JIGAPServer::OnConnectTask()
 {
-	RegisterServerLog("Connect Thread를 실행했습니다.");
+	RegisterServerLog("Start ConnectThread");
 
 	while (true)
 	{
@@ -140,7 +144,7 @@ void JIGAPServer::OnConnectTask()
 		
 			if (hCompletionHandle == nullptr)
 			{	
-				RegisterServerLog("JIGAPServer.cpp  / CompletionPort의 연결의 심각한 문제가 생겼습니다. (SOCKET : %d)", acceptSocket->GetSocket());
+				RegisterServerLog("JIGAPServer.cpp  / CompletionPort Connect NewClient failed (SOCKET : %d)", acceptSocket->GetSocket());
 				acceptSocket->Closesocket();
 				SAFE_DELETE(acceptSocket);
 				continue;
@@ -149,18 +153,18 @@ void JIGAPServer::OnConnectTask()
 			int iError = 0;
 			if ((iError = acceptSocket->IOCPRecv()) != 0)
 			{
-				RegisterServerLog("JIGAPServer.cpp / 연결한 소켓을 수신상태로 변경하지 못했습니다 (ErrorCode : %d) ", iError);
+				RegisterServerLog("JIGAPServer.cpp / NewClient Change RecvMode failed (ErrorCode : %d) ", iError);
 				continue;
 			}
 
-			RegisterServerLog("클라이언트 소켓이 연결되었습니다 (SOCKET : %d)", acceptSocket->GetSocket());
+			RegisterServerLog("NewClient Connected Server (SOCKET : %d)", acceptSocket->GetSocket());
 
 			if (lpServerProcess)
 				lpServerProcess->OnConnect(acceptSocket);
 		}
 		else
 		{
-			RegisterServerLog("JIGAPServer.cpp / 소켓 연결의 심각한 문제가 생겼습니다.");
+			RegisterServerLog("JIGAPServer.cpp / NewClient Connected Server failed");
 			continue;
 		}
 	}
@@ -168,7 +172,7 @@ void JIGAPServer::OnConnectTask()
 
 void JIGAPServer::OnRecvPacketTask()
 {
-	RegisterServerLog("Recv Thread를 실행했습니다");
+	RegisterServerLog("Start Recv Thread");
 
 	while (true)
 	{
@@ -191,7 +195,7 @@ void JIGAPServer::OnRecvPacketTask()
 		{
 			lpServerProcess->OnDisconnect(lpTCPSocket);
 			closesocket(lpTCPSocket->GetSocket());
-			RegisterServerLog("클라이언트 소켓이 연결해제되었습니다(SOCKET : %d)", lpTCPSocket->GetSocket());
+			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
 			SAFE_DELETE(lpTCPSocket);
 		}
 		else

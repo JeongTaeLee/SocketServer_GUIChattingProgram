@@ -16,12 +16,11 @@ JIGAPServerCLR::JIGAPServerWrap::~JIGAPServerWrap()
 }
 
 
-bool JIGAPServerCLR::JIGAPServerWrap::OpenServer(String^ inStrIp, String^ inStrPort)
+bool JIGAPServerCLR::JIGAPServerWrap::OpenServer(String^ inStrPort)
 {
-	std::string strIp = msclr::interop::marshal_as<std::string>(inStrIp);
 	std::string strPort = msclr::interop::marshal_as<std::string>(inStrPort);
 
-	return lpJIGAPServer->StartServer(strIp, strPort);
+	return lpJIGAPServer->StartServer(strPort);
 }
 
 void JIGAPServerCLR::JIGAPServerWrap::CloseServer()

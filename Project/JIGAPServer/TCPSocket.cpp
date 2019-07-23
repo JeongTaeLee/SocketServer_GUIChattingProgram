@@ -42,9 +42,9 @@ int TCPSocket::SYNCSocket()
 	return WSAGetLastError();
 }
 
-int TCPSocket::Bind(const char* szInIpAddr, const char* szInPortAddr)
+int TCPSocket::Bind(const char* szInPortAddr)
 {
-	sockAddr.SetAddress(szInIpAddr, szInPortAddr);
+	sockAddr.SetAddress(szInPortAddr);
 
 	int iBindResult = bind(hSock, sockAddr.GetAsSockAddr(), sockAddr.GetSize());
 	if (iBindResult >= 0)
@@ -63,7 +63,7 @@ int TCPSocket::Listen(int inBackLog)
 
 int TCPSocket::Connect(const char* szInIpAddr, const char* szInPortAddr)
 {
-	sockAddr.SetAddress(szInIpAddr, szInPortAddr);
+	sockAddr.SetAddress(szInPortAddr);
 
 	int iConnectResult = connect(hSock, sockAddr.GetAsSockAddr(), sockAddr.GetSize());
 	if (iConnectResult >= 0)
