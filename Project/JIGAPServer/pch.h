@@ -16,6 +16,7 @@
 #include <queue>
 #include <list>
 #include <map>
+#include <set>
 #include <crtdbg.h>
 #include <atlconv.h>
 #include <mysql.h>

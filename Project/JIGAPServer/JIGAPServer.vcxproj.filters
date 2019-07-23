@@ -58,6 +58,9 @@
     <Filter Include="JIGAPServer">
       <UniqueIdentifier>{ee04ffd7-2af6-4578-8293-2a5cbbe36c39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JIGAPChattingServer\ChatRoom">
+      <UniqueIdentifier>{a6f2e9ca-4374-4b0f-a5e6-d90e92a2ed0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="JIGAPChatProcess.h">
       <Filter>JIGAPChattingServer\JIGAPChatProcess</Filter>
     </ClInclude>
+    <ClInclude Include="ChatRoom.h">
+      <Filter>JIGAPChattingServer\ChatRoom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -148,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="JIGAPChatProcess.cpp">
       <Filter>JIGAPChattingServer\JIGAPChatProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatRoom.cpp">
+      <Filter>JIGAPChattingServer\ChatRoom</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

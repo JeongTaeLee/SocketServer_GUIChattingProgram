@@ -112,7 +112,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Develop\External\protobuf\protobuf-3.8.0-rc-1\src;E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\libDebug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -234,6 +234,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
@@ -251,6 +252,7 @@
     <ClInclude Include="BaseUserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
