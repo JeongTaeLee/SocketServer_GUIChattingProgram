@@ -12,6 +12,7 @@ public:
 	ChatUserData();
 	virtual ~ChatUserData();
 	
+	ChatRoom* GetCurrentRoom(ChatRoom* inLpCurRoom) { return inLpCurRoom; }
 	void SetCurrentRoom(ChatRoom* inLpCurRoom) { lpCurRoom = inLpCurRoom; };
 };
 

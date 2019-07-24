@@ -18,6 +18,8 @@ bool ChatRoom::AddUser(ChatUserData* inLpChatUserData)
 
 	inLpChatUserData->SetCurrentRoom(this);
 	sChatUserData.insert(inLpChatUserData);
+
+	return true;
 }
 
 void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)

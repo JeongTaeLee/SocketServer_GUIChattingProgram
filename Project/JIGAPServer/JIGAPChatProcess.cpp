@@ -2,9 +2,11 @@
 #include "JIGAPChatProcess.h"
 #include "ObjectPool.h"
 
+#include "UserDataAdmin.h"
 
 void JIGAPChatProcess::OnInitialize()
 {
+	UserDataAdmin<int> a;
 }
 
 void JIGAPChatProcess::OnRelease()
