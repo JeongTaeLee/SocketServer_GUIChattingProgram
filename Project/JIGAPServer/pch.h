@@ -21,22 +21,11 @@
 #include <atlconv.h>
 #include <mysql.h>
 
-#pragma comment(lib, "ws2_32.lib")
-#pragma comment(lib, "libmysql.lib")
-
 #define SAFE_DELETE(s) { if (s) { delete s; s = nullptr; } }
 #define SAFE_DELETE_ARRAY(s) { if (s) { delete[] s; s = nullptr;} } 
 
 #define StartMutex(handler) WaitForSingleObject(handler, INFINITE)
 #define EndMutex(handler) ReleaseMutex(handler)
-
-#ifdef _DEBUG
-#pragma comment(lib, "libprotobufd.lib")
-#pragma comment(lib, "libprotobuf-lited.lib")
-#else
-#pragma comment(lib, "libprotobuf.lib")
-#pragma comment(lib, "libprotobuf-lite.lib")
-#endif
 
 #include "JIGAPPacket.pb.h"
 #include "JIGAPStructure.h"
@@ -44,5 +33,19 @@
 
 #include "ObjectPool.h"
 #include "PacketHandler.h"
+
+#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "libmysql.lib")
+
+
+#ifdef _DEBUG
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
+#pragma comment(lib, "libprotobufd.lib")
+#pragma comment(lib, "libprotobuf-lited.lib")
+#else
+#pragma comment(lib, "libprotobuf.lib")
+#pragma comment(lib, "libprotobuf-lite.lib")
+#endif
 
 #endif PCH_H

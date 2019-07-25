@@ -6,6 +6,9 @@ class TCPSocket;
 class JIGAPBaserProcess
 {
 public:
+	JIGAPBaserProcess() {};
+	virtual ~JIGAPBaserProcess() {};
+
 	virtual void OnInitialize() PURE;
 	virtual void OnRelease()						 PURE;
 	virtual void OnConnect(TCPSocket * lpInSocket)	 PURE;

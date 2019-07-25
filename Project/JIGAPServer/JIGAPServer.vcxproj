@@ -236,7 +236,9 @@
   <ItemGroup>
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
-    <ClInclude Include="JIGAPPacket.pb.h" />
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="JIGAPServer.h" />
     <ClInclude Include="JIGAPBaserProcess.h" />
     <ClInclude Include="JIGAPChatProcess.h" />
@@ -244,6 +246,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PoolObject.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
@@ -254,7 +257,9 @@
   <ItemGroup>
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
-    <ClCompile Include="JIGAPPacket.pb.cc" />
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="JIGAPServer.cpp" />
     <ClCompile Include="JIGAPBaserProcess.cpp" />
     <ClCompile Include="JIGAPChatProcess.cpp" />
@@ -269,6 +274,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PoolObject.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />

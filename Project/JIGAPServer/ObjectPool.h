@@ -1,74 +1,42 @@
 #pragma once
-#include "pch.h"
 
-template <class T >
+class PoolObject;
+
+template <typename T>
 class ObjectPool
 {
 private:
-	std::queue<T*> qUnActivePool;
-	std::list<T*> liActivePool;
+	std::vector<PoolObject*> pool;
 
-	int iPoolSize = 0;
+	int poolSize = 0;
 public:
-	ObjectPool() {}
-	~ObjectPool() {}
-
-	void InitializePool(int inIPoolSize)
+	void InitializePool(int size)
 	{
-		iPoolSize = inIPoolSize;
+		poolSize = size;
 
-		for (int i = 0; i < iPoolSize; ++i)
-			qUnActivePool.push(new T);
+		pool.reserve(size);
+
+		for (int i = 0; i < size; i++)
+		{
+			pool.push_back(new T());
+		}
 	}
+
 	void ReleasePool()
 	{
-		while (true)
+		for (int i = 0; i < poolSize; i++)
 		{
-			if (liActivePool.empty())
-				break;
-
-			qUnActivePool.push((*liActivePool.begin()));
-			liActivePool.erase(liActivePool.begin());
+			SAFE_DELETE(pool[i]);
 		}
 
-		while (true)
-		{
-			if (qUnActivePool.empty())
-				break;
-
-			SAFE_DELETE(qUnActivePool.front());
-			qUnActivePool.pop();
-		}
+		pool.clear();
 	}
 
-	T* GetPoolObject()
+	T* GetItem()
 	{
-		if (qUnActivePool.empty())
+		for (auto Iter : pool)
 		{
-			for (int i = 0; i < 10; ++i)
-				qUnActivePool.push(new T);
-			
-			iPoolSize += 10;
-		}
 
-		T* getObject = qUnActivePool.front();
-		liActivePool.push_back(getObject);
-		qUnActivePool.pop();
-		
-		return getObject;
-	}
-	T* ReturnPoolObject(T* inPoolObject)
-	{
-		for (auto Iter = liActivePool.begin(); Iter != liActivePool.end(); ++Iter)
-		{
-			if ((*Iter) == inPoolObject)
-			{
-				T* findObject = (*Iter);
-				liActivePool.erase(Iter);
-				qUnActivePool.push(findObject);
-				break;
-			}
 		}
 	}
 };
-

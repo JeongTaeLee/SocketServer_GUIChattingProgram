@@ -17,7 +17,7 @@ private:
 	WSABUF wsaBuf;
 public:
 	TCPIOData();
-	~TCPIOData();
+	virtual ~TCPIOData();
 
 
 	friend TCPSocket;

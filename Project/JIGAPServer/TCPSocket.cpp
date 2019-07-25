@@ -20,6 +20,7 @@ TCPSocket::TCPSocket(SOCKET hInSock, const SocketAddress& InAddr)
 TCPSocket::~TCPSocket()
 {
 	delete lpIOData;
+	
 }
 
 int TCPSocket::IOCPSocket()

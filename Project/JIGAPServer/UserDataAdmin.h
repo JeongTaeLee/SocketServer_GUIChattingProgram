@@ -6,24 +6,19 @@ template<class T>
 class UserDataAdmin
 {
 protected:
-	map<SOCKET, T* > mUserDatas;
+	ObjectPool<T> dataObjectPool;
 
 public:
-	UserDataAdmin()
+	inline void InitializeAdmin(int inMaxUserCount)
 	{
-		if constexpr (std::is_base_of<BaseUserData, T>::value == false)
-			throw "UserDataAdmin - T 형식이 BaseUserData의 자식이 아닙니다.";
+		dataObjectPool.InitializePool(inMaxUserCount);
 	}
-	~UserDataAdmin()
+	inline void ReleaseAdmin()
 	{
-
+		dataObjectPool.ReleasePool();
 	}
 
-	void DisconnectAllUser();
-
+	inline T * AddUser(T * user)
+	{
+	}
 };
-
-template<class T>
-inline void UserDataAdmin<T>::DisconnectAllUser()
-{
-}

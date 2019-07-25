@@ -19,9 +19,16 @@ namespace JIGAPServerGUI
             InitializeComponent();
 
             ServerManager.Instance.RegisterLogFunc(ServerLogFunc);
+
+            this.FormClosing += Closing;
         }
 
-       
+        protected virtual new void Closing(object sender, FormClosingEventArgs e)
+        {
+            ServerManager.Instance.CloseServer();
+            ServerManager.Instance.jigapServer.Dispose();
+
+        }
 
         public void ServerLogFunc(IntPtr strLog)
         {

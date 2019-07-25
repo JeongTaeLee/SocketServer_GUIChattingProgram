@@ -1,16 +1,19 @@
 #include "pch.h"
 #include "JIGAPChatProcess.h"
-#include "ObjectPool.h"
-
 #include "UserDataAdmin.h"
+#include "ChatUserData.h"
+
 
 void JIGAPChatProcess::OnInitialize()
 {
-	UserDataAdmin<int> a;
+	lpUserAdmin = new UserDataAdmin<ChatUserData>();
+	lpUserAdmin->InitializeAdmin(100000);
 }
 
 void JIGAPChatProcess::OnRelease()
 {
+	lpUserAdmin->ReleaseAdmin();
+	SAFE_DELETE(lpUserAdmin);
 }
 
 void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
@@ -23,15 +26,5 @@ void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
 
 void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)
 {
-	PacketHeader header;
-	lpHandler->NextParsingHeader(header);
-
-	JIGAPPacket::LoginRequest loginRequest;
-	lpHandler->NextParsingPacket(loginRequest, header.iSize);
-
-	JIGAPPacket::LoginAnswer loginAnswer;
-	loginAnswer.set_success(true);
-
-	lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, loginAnswer);
 }
 

@@ -11,7 +11,7 @@ public:
 
 public:
 	SocketAddress();
-	~SocketAddress();
+	virtual ~SocketAddress();
 
 	void SetAddress(const char* InPortAddr);
 	void SetAddress(const SocketAddress& InSockAddrIn);

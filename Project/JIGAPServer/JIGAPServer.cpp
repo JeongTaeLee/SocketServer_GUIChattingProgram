@@ -1,6 +1,19 @@
 #include "pch.h"
 #include "JIGAPServer.h"
 #include "JIGAPChatProcess.h"
+#include <google/protobuf/stubs/common.h>
+
+
+JIGAPServer::JIGAPServer()
+{
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetBreakAlloc(599);
+}
+
+JIGAPServer::~JIGAPServer()
+{
+	google::protobuf::ShutdownProtobufLibrary();
+}
 
 bool JIGAPServer::CreateServerSocket()
 {
@@ -115,7 +128,6 @@ void JIGAPServer::ServerRelease()
 
 bool JIGAPServer::StartServer(const std::string& inPortAddress)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(1751);
 
 	bServerOn = ServerInitialize(inPortAddress);
@@ -194,7 +206,7 @@ void JIGAPServer::OnRecvPacketTask()
 		if (iRecvByte == 0)
 		{
 			lpServerProcess->OnDisconnect(lpTCPSocket);
-			closesocket(lpTCPSocket->GetSocket());
+			lpTCPSocket->Closesocket();
 			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
 			SAFE_DELETE(lpTCPSocket);
 		}

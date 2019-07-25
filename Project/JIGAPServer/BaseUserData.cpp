@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "BaseUserData.h"
 
-void BaseUserData::DisconnectUser()
+void BaseUserData::OnActiveObject()
 {
-	
 }
+
+void BaseUserData::OnUnActiveObject()
+{
+	strUserId = "None";
+	lpTCPSocket = nullptr;
+
+}
+

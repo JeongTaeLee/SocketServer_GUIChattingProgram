@@ -49,6 +49,9 @@ private:
 	bool ServerInitialize( const std::string& inPortAddress);
 	void ServerRelease();
 public:
+	JIGAPServer();
+	virtual ~JIGAPServer();
+
 	bool StartServer(const std::string& inPortAddress);
 	void CloseServer();
 

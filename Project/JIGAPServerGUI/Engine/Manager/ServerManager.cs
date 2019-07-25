@@ -8,7 +8,7 @@ namespace JIGAPServerGUI
 {
     partial class ServerManager
     {
-        JIGAPServerCLR.JIGAPServerWrap jigapServer = new JIGAPServerCLR.JIGAPServerWrap();
+       public  JIGAPServerCLR.JIGAPServerWrap jigapServer = new JIGAPServerCLR.JIGAPServerWrap();
         JIGAPServerCLR.JIGAPServerWrap.LogFunc logFunc = null;
 
         private static ServerManager instance = null;

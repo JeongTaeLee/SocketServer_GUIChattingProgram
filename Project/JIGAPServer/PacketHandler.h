@@ -21,7 +21,7 @@ private:
 	unsigned int iTotalParsingBufferSize = 0;
 public:
 	PacketHandler();
-	~PacketHandler();
+	virtual ~PacketHandler();
 
 	int ParsingBufferSize(const char* inSzBuffer);
 	void SerializeBufferSize(unsigned int iInSerializeSize);

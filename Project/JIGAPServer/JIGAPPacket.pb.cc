@@ -2,7 +2,6 @@
 // source: JIGAPPacket.proto
 
 #include "JIGAPPacket.pb.h"
-
 #include "pch.h"
 #include <algorithm>
 
@@ -409,6 +408,7 @@ void LoginRequest::Clear() {
   id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   passward_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
+  
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER

@@ -12,15 +12,11 @@
 #include <WinSock2.h>
 #include <Windows.h>
 
-#include <iostream>
 #include <string>
-#include <cstring>
-#include <cstdarg>
+
 #include <thread>
 #include <queue>
 #include <list>
 #include <map>
-#include <crtdbg.h>
-
 
 #endif
