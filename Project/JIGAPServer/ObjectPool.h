@@ -1,6 +1,5 @@
 #pragma once
-
-class PoolObject;
+#include "PoolObject.h"
 
 template <typename T>
 class ObjectPool
@@ -36,7 +35,25 @@ public:
 	{
 		for (auto Iter : pool)
 		{
+			if (!Iter->bIsActive)
+			{
+				Iter->OnActiveObject();
+				Iter->bIsActive = true;
+				return Iter;
+			}
+		}
 
+		return nullptr;
+	}
+
+	void ReturnItem(T * inItem)
+	{
+		if (inItem->bIsActive)
+		{
+			inItem->OnUnActiveObject();
+			inItem->bIsActive = false;
 		}
 	}
+
+	
 };

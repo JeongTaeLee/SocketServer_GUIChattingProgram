@@ -1,7 +1,7 @@
 #pragma once
 class PoolObject
 {
-private:
+public:
 	bool bIsActive = false;
 public:
 	PoolObject();
