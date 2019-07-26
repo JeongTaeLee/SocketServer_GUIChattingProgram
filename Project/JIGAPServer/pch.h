@@ -20,6 +20,7 @@
 #include <crtdbg.h>
 #include <atlconv.h>
 #include <mysql.h>
+#include <hash_map>
 
 #define SAFE_DELETE(s) { if (s) { delete s; s = nullptr; } }
 #define SAFE_DELETE_ARRAY(s) { if (s) { delete[] s; s = nullptr;} } 

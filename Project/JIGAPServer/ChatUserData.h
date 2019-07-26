@@ -8,6 +8,8 @@ class ChatUserData :
 {
 private:
 	ChatRoom* lpCurRoom = nullptr;
+
+
 public:
 	ChatUserData();
 	virtual ~ChatUserData();

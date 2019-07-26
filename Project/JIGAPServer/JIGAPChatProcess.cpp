@@ -18,6 +18,7 @@ void JIGAPChatProcess::OnRelease()
 
 void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
 {
+	lpUserAdmin->AddUser(lpInSocket);
 }
 
 void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
@@ -26,5 +27,25 @@ void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
 
 void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)
 {
+	PacketHeader header;
+	lpHandler->NextParsingHeader(header);
+
+	switch (header.ePacketType)
+	{
+	case JIGAPPacket::Type::eLoginRequest:
+		break;
+	default:
+		break;
+	}
+}
+
+void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)
+{
+	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
+
+	if (!find->GetLogin())
+	{
+
+	}
 }
 

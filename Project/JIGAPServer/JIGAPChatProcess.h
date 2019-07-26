@@ -10,7 +10,7 @@ class JIGAPChatProcess :
 	public JIGAPBaserProcess
 {
 private:
-	UserDataAdmin<ChatUserData> * lpUserAdmin;
+	UserDataAdmin<ChatUserData>* lpUserAdmin;
 public:
 	JIGAPChatProcess() {}
 	virtual ~JIGAPChatProcess() {}
@@ -20,6 +20,9 @@ public:
 	virtual void OnRelease()							override;
 	virtual void OnConnect(TCPSocket* lpInSocket)		override;
 	virtual void OnDisconnect(TCPSocket* lpInSocket)	override;
-	virtual void OnProcess(TCPSocket* lpInTCPSocket, PacketHandler * lpHandler)	override;
+	virtual void OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)	override;
+
+	void OnLoginRequest(TCPSocket * lpInTCPSocket, PacketHandler * lpHandler);
+
 };
 
