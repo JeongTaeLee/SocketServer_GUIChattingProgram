@@ -234,8 +234,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseDB.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
+    <ClInclude Include="DBManager.h" />
     <ClInclude Include="JIGAPPacket.pb.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -243,6 +245,7 @@
     <ClInclude Include="JIGAPBaserProcess.h" />
     <ClInclude Include="JIGAPChatProcess.h" />
     <ClInclude Include="JIGAPStructure.h" />
+    <ClInclude Include="MySqlDB.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
@@ -255,8 +258,10 @@
     <ClInclude Include="BaseUserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseDB.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
+    <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -264,6 +269,7 @@
     <ClCompile Include="JIGAPBaserProcess.cpp" />
     <ClCompile Include="JIGAPChatProcess.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
+    <ClCompile Include="MySqlDB.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="pch.cpp">

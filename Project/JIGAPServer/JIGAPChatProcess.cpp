@@ -43,7 +43,13 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 {
 	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
 
-	if (!find->GetLogin())
+	if (find == nullptr)
+	{
+		DEBUG_LOG("JIGAPChatProcess / OnLoginRequest에서 유저를 찾을 수 없습니다.");
+		return;
+	}
+
+	if (find->GetLogin() == false)
 	{
 
 	}

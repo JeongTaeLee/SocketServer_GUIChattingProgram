@@ -39,7 +39,7 @@ public:
 			{
 				Iter->OnActiveObject();
 				Iter->bIsActive = true;
-				return Iter;
+				return static_cast<T*>(Iter);
 			}
 		}
 

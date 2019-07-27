@@ -23,7 +23,7 @@ public:
 	inline T * AddUser(TCPSocket * lpInTCPSocket)
 	{
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
-			return;
+			return nullptr;
 
 		T* addObject = dataObjectPool.GetItem();
 		addObject->SetTCPSock(lpInTCPSocket);

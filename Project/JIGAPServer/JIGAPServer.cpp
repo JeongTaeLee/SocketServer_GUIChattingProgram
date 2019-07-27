@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "JIGAPServer.h"
 #include "JIGAPChatProcess.h"
-#include <google/protobuf/stubs/common.h>
-
+#include "MySqlDB.h"
 
 JIGAPServer::JIGAPServer()
 {
@@ -128,7 +127,10 @@ void JIGAPServer::ServerRelease()
 
 bool JIGAPServer::StartServer(const std::string& inPortAddress)
 {
-	//_CrtSetBreakAlloc(1751);
+	//_CrtSetBreakAlloc(2411);
+	DBMANAGER.ConnenctToDB();
+	
+	
 
 	bServerOn = ServerInitialize(inPortAddress);
 	return bServerOn;
@@ -137,6 +139,9 @@ bool JIGAPServer::StartServer(const std::string& inPortAddress)
 void JIGAPServer::CloseServer()
 {
 	ServerRelease();
+
+	DBMANAGER.DisconnectDB();
+	DBManager::ReleaseInst();
 }
 
 void JIGAPServer::OnConnectTask()

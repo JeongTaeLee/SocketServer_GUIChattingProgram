@@ -36,6 +36,7 @@ private:
 
 	PacketHandler* lpPacketHandler		= nullptr;
 	JIGAPBaserProcess* lpServerProcess	= nullptr;
+	
 
 	bool bServerOn = false;
 
