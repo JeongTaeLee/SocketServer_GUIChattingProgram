@@ -4,7 +4,6 @@ struct PacketHeader
 {
 	int iSize;
 	JIGAPPacket::Type ePacketType;
-	google::protobuf::Message* lpPacket;
 	
 };
 

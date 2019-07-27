@@ -237,10 +237,7 @@
     <ClInclude Include="BaseDB.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
-    <ClInclude Include="DBManager.h" />
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
     <ClInclude Include="JIGAPBaserProcess.h" />
     <ClInclude Include="JIGAPChatProcess.h" />
@@ -261,10 +258,7 @@
     <ClCompile Include="BaseDB.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
-    <ClCompile Include="DBManager.cpp" />
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
     <ClCompile Include="JIGAPBaserProcess.cpp" />
     <ClCompile Include="JIGAPChatProcess.cpp" />

@@ -6,7 +6,7 @@
 JIGAPServer::JIGAPServer()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtSetBreakAlloc(599);
+	//_CrtSetBreakAlloc(202784);
 }
 
 JIGAPServer::~JIGAPServer()
@@ -127,10 +127,6 @@ void JIGAPServer::ServerRelease()
 
 bool JIGAPServer::StartServer(const std::string& inPortAddress)
 {
-	//_CrtSetBreakAlloc(2411);
-	DBMANAGER.ConnenctToDB();
-	
-	
 
 	bServerOn = ServerInitialize(inPortAddress);
 	return bServerOn;
@@ -139,9 +135,6 @@ bool JIGAPServer::StartServer(const std::string& inPortAddress)
 void JIGAPServer::CloseServer()
 {
 	ServerRelease();
-
-	DBMANAGER.DisconnectDB();
-	DBManager::ReleaseInst();
 }
 
 void JIGAPServer::OnConnectTask()
@@ -217,13 +210,20 @@ void JIGAPServer::OnRecvPacketTask()
 		}
 		else
 		{
-			int iRealRecvSize = lpPacketHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
-			lpPacketHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
-			lpPacketHandler->ClearSerializeBuffer();
+			
+			if (lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
+			{
+				int iRealRecvSize = lpPacketHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
+				lpPacketHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
+				lpPacketHandler->ClearSerializeBuffer();
 
-			lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
+				lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
 
-			lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeRealSize());
+				if (lpPacketHandler->GetSerializeRealSize() <= 0)
+					lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeRealSize());
+			}
+			else
+				lpTCPSocket->IOCPRecv();
 		}
 	}
 }

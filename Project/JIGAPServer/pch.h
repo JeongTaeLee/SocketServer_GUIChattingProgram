@@ -35,14 +35,13 @@
 #include "ObjectPool.h"
 #include "PacketHandler.h"
 
-#include "DBManager.h"
-
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "libmysql.lib")
+#pragma comment(lib , "winmm.lib")
 
 
 #ifdef _DEBUG
-#define DEBUG_LOG(s) std::cout << __FILE__ << " : " << __LINE__ << s << std::endl
+#define DEBUG_LOG(s) std::cout << __FILE__ << " : " << __LINE__ << " " <<  s << std::endl
 
 #pragma comment(lib, "libprotobufd.lib")
 #pragma comment(lib, "libprotobuf-lited.lib")

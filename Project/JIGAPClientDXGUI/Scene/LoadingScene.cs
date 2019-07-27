@@ -16,6 +16,11 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
+            // SingUPScene
+            ImageManager.Instance.LoadTexture("SingUpBackGround", "./Image/SingUpScene/SingUpBackGround.png");
+            ImageManager.Instance.LoadTexture("SingUpTextBox", "./Image/SingUpScene/SingUpTextBox.png");
+            ImageManager.Instance.LoadTexture("SingUpButton", "./Image/SingUpScene/SingUpButton.png");
+            
             // LoginScene
             ImageManager.Instance.LoadTexture("LoginBackGround", "./Image/LoginScene/LoginBackGround.png");
             ImageManager.Instance.LoadTexture("LoginTextBox", "./Image/LoginScene/LoginTextBox.png");
@@ -29,7 +34,7 @@ namespace JIGAPClientDXGUI
             ImageManager.Instance.LoadTexture("ChattingTextBox", "./Image/Ingame/ChattingTextBox.png");
             ImageManager.Instance.LoadTexture("SendButton", "./Image/Ingame/SendButton.png");
 
-            SceneManager.Instance.ChanageScene("LoginScene");
+            SceneManager.Instance.ChanageScene("SingUpScene");
         }
 
         public override void Release()

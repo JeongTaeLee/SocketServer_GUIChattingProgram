@@ -28,7 +28,7 @@ public:
 		T* addObject = dataObjectPool.GetItem();
 		addObject->SetTCPSock(lpInTCPSocket);
 
-		if (addObject)
+		if (!addObject)
 			throw std::exception("서버의 최대 User수를 초과했습니다");
 
 		return mUsers.insert(std::hash_map<SOCKET, T*>::value_type(lpInTCPSocket->GetSocket(), addObject)).first->second;
@@ -38,6 +38,7 @@ public:
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
 		{
 			dataObjectPool.ReturnItem((*Iter).second);
+			mUsers.erase(Iter);
 			return;
 		}
 	}

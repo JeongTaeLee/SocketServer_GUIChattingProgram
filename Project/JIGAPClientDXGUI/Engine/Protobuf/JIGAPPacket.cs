@@ -24,34 +24,47 @@ namespace JIGAPPacket {
     static JIGAPPacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiLAoMTG9naW5SZXF1",
-            "ZXN0EgoKAmlkGAEgASgJEhAKCHBhc3N3YXJkGAIgASgJIh4KC0xvZ2luQW5z",
-            "d2VyEg8KB3N1Y2Nlc3MYASABKAgiHAoIUm9vbUluZm8SEAoIcm9vbW5hbWUY",
-            "ASABKAkiTAoQQ3JlYXRlUm9vbUFuc3dlchInCghyb29tSW5mbxgBIAEoCzIV",
-            "LkpJR0FQUGFja2V0LlJvb21JbmZvEg8KB3N1Y2Nlc3MYAiABKAgiOgoPSm9p",
-            "blJvb21SZXF1ZXN0EicKCHJvb21JbmZvGAEgASgLMhUuSklHQVBQYWNrZXQu",
-            "Um9vbUluZm8iSgoOSm9pblJvb21BbnN3ZXISJwoIcm9vbUluZm8YASABKAsy",
-            "FS5KSUdBUFBhY2tldC5Sb29tSW5mbxIPCgdzdWNjZXNzGAIgASgIIiMKDlJv",
-            "b21MaXN0QW5zd2VyEhEKCXJvb21Db3VudBgBIAEoBSI6Cg9Sb29tTGlzdEVs",
-            "ZW1lbnQSJwoIcm9vbUluZm8YASABKAsyFS5KSUdBUFBhY2tldC5Sb29tSW5m",
-            "byIuCgtFbXB0eVBhY2tldBIfCgR0eXBlGAEgASgOMhEuSklHQVBQYWNrZXQu",
-            "VHlwZSrxAQoEVHlwZRIRCg1lTG9naW5SZXF1ZXN0EAASEAoMZUxvZ2luQW5z",
-            "d2VyEAESFgoSZUNyZWF0ZVJvb21SZXF1ZXN0EAISFQoRZUNyZWF0ZVJvb21B",
-            "bnN3ZXIQAxIUChBlSm9pblJvb21SZXF1ZXN0EAQSEwoPZUpvaW5Sb29tQW5z",
-            "d2VyEAUSFAoQZVJvb21MaXN0UmVxdWVzdBAGEhMKD2VSb29tTGlzdEFuc3dl",
-            "chAHEhQKEGVSb29tTGlzdEVsZW1lbnQQCBIUChBlRXhpdFJvb21SZXF1ZXN0",
-            "EAkSEwoPZUV4aXRSb29tQW5zd2VyEApiBnByb3RvMw=="));
+            "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiJAoIVXNlckRhdGES",
+            "CgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCSJKCg1TaW5nVXBSZXF1ZXN0EicK",
+            "CHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNrZXQuVXNlckRhdGESEAoIcGFz",
+            "c3dhcmQYAiABKAkiHwoMU2luZ1VwQW5zd2VyEg8KB3N1Y2Nlc3MYASABKAgi",
+            "LAoMTG9naW5SZXF1ZXN0EgoKAmlkGAEgASgJEhAKCHBhc3N3YXJkGAIgASgJ",
+            "IkcKC0xvZ2luQW5zd2VyEicKCHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNr",
+            "ZXQuVXNlckRhdGESDwoHc3VjY2VzcxgCIAEoCCIcCghSb29tSW5mbxIQCghy",
+            "b29tbmFtZRgBIAEoCSJMChBDcmVhdGVSb29tQW5zd2VyEicKCHJvb21JbmZv",
+            "GAEgASgLMhUuSklHQVBQYWNrZXQuUm9vbUluZm8SDwoHc3VjY2VzcxgCIAEo",
+            "CCI6Cg9Kb2luUm9vbVJlcXVlc3QSJwoIcm9vbUluZm8YASABKAsyFS5KSUdB",
+            "UFBhY2tldC5Sb29tSW5mbyJKCg5Kb2luUm9vbUFuc3dlchInCghyb29tSW5m",
+            "bxgBIAEoCzIVLkpJR0FQUGFja2V0LlJvb21JbmZvEg8KB3N1Y2Nlc3MYAiAB",
+            "KAgiIwoOUm9vbUxpc3RBbnN3ZXISEQoJcm9vbUNvdW50GAEgASgFIjoKD1Jv",
+            "b21MaXN0RWxlbWVudBInCghyb29tSW5mbxgBIAEoCzIVLkpJR0FQUGFja2V0",
+            "LlJvb21JbmZvIkoKC0NoYXRSZXF1ZXN0EicKCHVzZXJEYXRhGAEgASgLMhUu",
+            "SklHQVBQYWNrZXQuVXNlckRhdGESEgoKc3RyTWVzc2FnZRgCIAEoCSIeCghD",
+            "aGF0RGF0YRISCgpzdHJNZXNzYWdlGAEgASgJIi4KC0VtcHR5UGFja2V0Eh8K",
+            "BHR5cGUYASABKA4yES5KSUdBUFBhY2tldC5UeXBlKrkCCgRUeXBlEhIKDmVT",
+            "aW5nVXBSZXF1ZXN0EAASEQoNZVNpbmdVcEFuc3dlchABEhEKDWVMb2dpblJl",
+            "cXVlc3QQAhIQCgxlTG9naW5BbnN3ZXIQAxIWChJlQ3JlYXRlUm9vbVJlcXVl",
+            "c3QQBBIVChFlQ3JlYXRlUm9vbUFuc3dlchAFEhQKEGVKb2luUm9vbVJlcXVl",
+            "c3QQBhITCg9lSm9pblJvb21BbnN3ZXIQBxIUChBlUm9vbUxpc3RSZXF1ZXN0",
+            "EAgSEwoPZVJvb21MaXN0QW5zd2VyEAkSFAoQZVJvb21MaXN0RWxlbWVudBAK",
+            "EhQKEGVFeGl0Um9vbVJlcXVlc3QQCxITCg9lRXhpdFJvb21BbnN3ZXIQDBIQ",
+            "CgxlQ2hhdFJlcXVlc3QQDRINCgllQ2hhdERhdGEQDmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.UserData), global::JIGAPPacket.UserData.Parser, new[]{ "Id", "Name" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpRequest), global::JIGAPPacket.SingUpRequest.Parser, new[]{ "UserData", "Passward" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpAnswer), global::JIGAPPacket.SingUpAnswer.Parser, new[]{ "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequest), global::JIGAPPacket.LoginRequest.Parser, new[]{ "Id", "Passward" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "UserData", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomRequest), global::JIGAPPacket.JoinRoomRequest.Parser, new[]{ "RoomInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswer), global::JIGAPPacket.JoinRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswer), global::JIGAPPacket.RoomListAnswer.Parser, new[]{ "RoomCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListElement), global::JIGAPPacket.RoomListElement.Parser, new[]{ "RoomInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatRequest), global::JIGAPPacket.ChatRequest.Parser, new[]{ "UserData", "StrMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatData), global::JIGAPPacket.ChatData.Parser, new[]{ "StrMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.EmptyPacket), global::JIGAPPacket.EmptyPacket.Parser, new[]{ "Type" }, null, null, null)
           }));
     }
@@ -60,22 +73,475 @@ namespace JIGAPPacket {
   }
   #region Enums
   public enum Type {
-    [pbr::OriginalName("eLoginRequest")] ELoginRequest = 0,
-    [pbr::OriginalName("eLoginAnswer")] ELoginAnswer = 1,
-    [pbr::OriginalName("eCreateRoomRequest")] ECreateRoomRequest = 2,
-    [pbr::OriginalName("eCreateRoomAnswer")] ECreateRoomAnswer = 3,
-    [pbr::OriginalName("eJoinRoomRequest")] EJoinRoomRequest = 4,
-    [pbr::OriginalName("eJoinRoomAnswer")] EJoinRoomAnswer = 5,
-    [pbr::OriginalName("eRoomListRequest")] ERoomListRequest = 6,
-    [pbr::OriginalName("eRoomListAnswer")] ERoomListAnswer = 7,
-    [pbr::OriginalName("eRoomListElement")] ERoomListElement = 8,
-    [pbr::OriginalName("eExitRoomRequest")] EExitRoomRequest = 9,
-    [pbr::OriginalName("eExitRoomAnswer")] EExitRoomAnswer = 10,
+    [pbr::OriginalName("eSingUpRequest")] ESingUpRequest = 0,
+    [pbr::OriginalName("eSingUpAnswer")] ESingUpAnswer = 1,
+    [pbr::OriginalName("eLoginRequest")] ELoginRequest = 2,
+    [pbr::OriginalName("eLoginAnswer")] ELoginAnswer = 3,
+    [pbr::OriginalName("eCreateRoomRequest")] ECreateRoomRequest = 4,
+    [pbr::OriginalName("eCreateRoomAnswer")] ECreateRoomAnswer = 5,
+    [pbr::OriginalName("eJoinRoomRequest")] EJoinRoomRequest = 6,
+    [pbr::OriginalName("eJoinRoomAnswer")] EJoinRoomAnswer = 7,
+    [pbr::OriginalName("eRoomListRequest")] ERoomListRequest = 8,
+    [pbr::OriginalName("eRoomListAnswer")] ERoomListAnswer = 9,
+    [pbr::OriginalName("eRoomListElement")] ERoomListElement = 10,
+    [pbr::OriginalName("eExitRoomRequest")] EExitRoomRequest = 11,
+    [pbr::OriginalName("eExitRoomAnswer")] EExitRoomAnswer = 12,
+    [pbr::OriginalName("eChatRequest")] EChatRequest = 13,
+    [pbr::OriginalName("eChatData")] EChatData = 14,
   }
 
   #endregion
 
   #region Messages
+  public sealed partial class UserData : pb::IMessage<UserData> {
+    private static readonly pb::MessageParser<UserData> _parser = new pb::MessageParser<UserData>(() => new UserData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<UserData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UserData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UserData(UserData other) : this() {
+      id_ = other.id_;
+      name_ = other.name_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UserData Clone() {
+      return new UserData(this);
+    }
+
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private string id_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Id {
+      get { return id_; }
+      set {
+        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as UserData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(UserData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (Name != other.Name) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id.Length != 0) hash ^= Id.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Id);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(UserData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id.Length != 0) {
+        Id = other.Id;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Id = input.ReadString();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class SingUpRequest : pb::IMessage<SingUpRequest> {
+    private static readonly pb::MessageParser<SingUpRequest> _parser = new pb::MessageParser<SingUpRequest>(() => new SingUpRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<SingUpRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpRequest(SingUpRequest other) : this() {
+      userData_ = other.userData_ != null ? other.userData_.Clone() : null;
+      passward_ = other.passward_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpRequest Clone() {
+      return new SingUpRequest(this);
+    }
+
+    /// <summary>Field number for the "userData" field.</summary>
+    public const int UserDataFieldNumber = 1;
+    private global::JIGAPPacket.UserData userData_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.UserData UserData {
+      get { return userData_; }
+      set {
+        userData_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "passward" field.</summary>
+    public const int PasswardFieldNumber = 2;
+    private string passward_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Passward {
+      get { return passward_; }
+      set {
+        passward_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as SingUpRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(SingUpRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(UserData, other.UserData)) return false;
+      if (Passward != other.Passward) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (userData_ != null) hash ^= UserData.GetHashCode();
+      if (Passward.Length != 0) hash ^= Passward.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (userData_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(UserData);
+      }
+      if (Passward.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Passward);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (userData_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
+      }
+      if (Passward.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Passward);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(SingUpRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.userData_ != null) {
+        if (userData_ == null) {
+          UserData = new global::JIGAPPacket.UserData();
+        }
+        UserData.MergeFrom(other.UserData);
+      }
+      if (other.Passward.Length != 0) {
+        Passward = other.Passward;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (userData_ == null) {
+              UserData = new global::JIGAPPacket.UserData();
+            }
+            input.ReadMessage(UserData);
+            break;
+          }
+          case 18: {
+            Passward = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class SingUpAnswer : pb::IMessage<SingUpAnswer> {
+    private static readonly pb::MessageParser<SingUpAnswer> _parser = new pb::MessageParser<SingUpAnswer>(() => new SingUpAnswer());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<SingUpAnswer> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpAnswer() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpAnswer(SingUpAnswer other) : this() {
+      success_ = other.success_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingUpAnswer Clone() {
+      return new SingUpAnswer(this);
+    }
+
+    /// <summary>Field number for the "success" field.</summary>
+    public const int SuccessFieldNumber = 1;
+    private bool success_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Success {
+      get { return success_; }
+      set {
+        success_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as SingUpAnswer);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(SingUpAnswer other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Success != other.Success) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Success != false) hash ^= Success.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Success != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Success);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Success != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(SingUpAnswer other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Success != false) {
+        Success = other.Success;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Success = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class LoginRequest : pb::IMessage<LoginRequest> {
     private static readonly pb::MessageParser<LoginRequest> _parser = new pb::MessageParser<LoginRequest>(() => new LoginRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -84,7 +550,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[0]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -241,7 +707,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[1]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -258,6 +724,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LoginAnswer(LoginAnswer other) : this() {
+      userData_ = other.userData_ != null ? other.userData_.Clone() : null;
       success_ = other.success_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -267,8 +734,19 @@ namespace JIGAPPacket {
       return new LoginAnswer(this);
     }
 
+    /// <summary>Field number for the "userData" field.</summary>
+    public const int UserDataFieldNumber = 1;
+    private global::JIGAPPacket.UserData userData_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.UserData UserData {
+      get { return userData_; }
+      set {
+        userData_ = value;
+      }
+    }
+
     /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 1;
+    public const int SuccessFieldNumber = 2;
     private bool success_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Success {
@@ -291,6 +769,7 @@ namespace JIGAPPacket {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(UserData, other.UserData)) return false;
       if (Success != other.Success) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -298,6 +777,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (userData_ != null) hash ^= UserData.GetHashCode();
       if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -312,8 +792,12 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (userData_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(UserData);
+      }
       if (Success != false) {
-        output.WriteRawTag(8);
+        output.WriteRawTag(16);
         output.WriteBool(Success);
       }
       if (_unknownFields != null) {
@@ -324,6 +808,9 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (userData_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
+      }
       if (Success != false) {
         size += 1 + 1;
       }
@@ -337,6 +824,12 @@ namespace JIGAPPacket {
     public void MergeFrom(LoginAnswer other) {
       if (other == null) {
         return;
+      }
+      if (other.userData_ != null) {
+        if (userData_ == null) {
+          UserData = new global::JIGAPPacket.UserData();
+        }
+        UserData.MergeFrom(other.UserData);
       }
       if (other.Success != false) {
         Success = other.Success;
@@ -352,7 +845,14 @@ namespace JIGAPPacket {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
+          case 10: {
+            if (userData_ == null) {
+              UserData = new global::JIGAPPacket.UserData();
+            }
+            input.ReadMessage(UserData);
+            break;
+          }
+          case 16: {
             Success = input.ReadBool();
             break;
           }
@@ -370,7 +870,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[2]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -499,7 +999,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[3]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -662,7 +1162,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[4]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -797,7 +1297,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[5]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -960,7 +1460,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[6]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1089,7 +1589,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[7]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1216,6 +1716,298 @@ namespace JIGAPPacket {
 
   }
 
+  public sealed partial class ChatRequest : pb::IMessage<ChatRequest> {
+    private static readonly pb::MessageParser<ChatRequest> _parser = new pb::MessageParser<ChatRequest>(() => new ChatRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ChatRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[11]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatRequest(ChatRequest other) : this() {
+      userData_ = other.userData_ != null ? other.userData_.Clone() : null;
+      strMessage_ = other.strMessage_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatRequest Clone() {
+      return new ChatRequest(this);
+    }
+
+    /// <summary>Field number for the "userData" field.</summary>
+    public const int UserDataFieldNumber = 1;
+    private global::JIGAPPacket.UserData userData_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.UserData UserData {
+      get { return userData_; }
+      set {
+        userData_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "strMessage" field.</summary>
+    public const int StrMessageFieldNumber = 2;
+    private string strMessage_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string StrMessage {
+      get { return strMessage_; }
+      set {
+        strMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ChatRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ChatRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(UserData, other.UserData)) return false;
+      if (StrMessage != other.StrMessage) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (userData_ != null) hash ^= UserData.GetHashCode();
+      if (StrMessage.Length != 0) hash ^= StrMessage.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (userData_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(UserData);
+      }
+      if (StrMessage.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(StrMessage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (userData_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
+      }
+      if (StrMessage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(StrMessage);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ChatRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.userData_ != null) {
+        if (userData_ == null) {
+          UserData = new global::JIGAPPacket.UserData();
+        }
+        UserData.MergeFrom(other.UserData);
+      }
+      if (other.StrMessage.Length != 0) {
+        StrMessage = other.StrMessage;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (userData_ == null) {
+              UserData = new global::JIGAPPacket.UserData();
+            }
+            input.ReadMessage(UserData);
+            break;
+          }
+          case 18: {
+            StrMessage = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ChatData : pb::IMessage<ChatData> {
+    private static readonly pb::MessageParser<ChatData> _parser = new pb::MessageParser<ChatData>(() => new ChatData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ChatData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[12]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatData(ChatData other) : this() {
+      strMessage_ = other.strMessage_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChatData Clone() {
+      return new ChatData(this);
+    }
+
+    /// <summary>Field number for the "strMessage" field.</summary>
+    public const int StrMessageFieldNumber = 1;
+    private string strMessage_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string StrMessage {
+      get { return strMessage_; }
+      set {
+        strMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ChatData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ChatData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (StrMessage != other.StrMessage) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (StrMessage.Length != 0) hash ^= StrMessage.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (StrMessage.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(StrMessage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (StrMessage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(StrMessage);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ChatData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.StrMessage.Length != 0) {
+        StrMessage = other.StrMessage;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            StrMessage = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class EmptyPacket : pb::IMessage<EmptyPacket> {
     private static readonly pb::MessageParser<EmptyPacket> _parser = new pb::MessageParser<EmptyPacket>(() => new EmptyPacket());
     private pb::UnknownFieldSet _unknownFields;
@@ -1224,7 +2016,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[8]; }
+      get { return global::JIGAPPacket.JIGAPPacketReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

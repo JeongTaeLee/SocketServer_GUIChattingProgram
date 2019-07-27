@@ -46,9 +46,6 @@
     <Filter Include="JIGAPChattingServer">
       <UniqueIdentifier>{5e6b3633-9de9-4fb9-a1b0-2cf4f1841b59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JIGAPChattingServer\ChatUserData">
-      <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ServerEngine\JIGAPBaserProcess">
       <UniqueIdentifier>{b2a00a1f-6bc7-4052-9a8c-f83d969ab00b}</UniqueIdentifier>
     </Filter>
@@ -70,8 +67,8 @@
     <Filter Include="JIGAPChattingServer\MySqlDB">
       <UniqueIdentifier>{6e501eaa-dcda-4f4a-955b-23d887b5e83c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\Mananger\DBManager">
-      <UniqueIdentifier>{efcfe673-325e-4d7a-bafd-e857d99764b8}</UniqueIdentifier>
+    <Filter Include="JIGAPChattingServer\ChatRoom\ChatUserData">
+      <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +90,6 @@
     <ClInclude Include="TCPIOData.h">
       <Filter>ServerEngine\Entity\TCPIOData</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="JIGAPServer.h">
       <Filter>JIGAPServer</Filter>
     </ClInclude>
@@ -112,7 +106,7 @@
       <Filter>ServerEngine\Entity\BaseUserData</Filter>
     </ClInclude>
     <ClInclude Include="ChatUserData.h">
-      <Filter>JIGAPChattingServer\ChatUserData</Filter>
+      <Filter>JIGAPChattingServer\ChatRoom\ChatUserData</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPBaserProcess.h">
       <Filter>ServerEngine\JIGAPBaserProcess</Filter>
@@ -132,8 +126,8 @@
     <ClInclude Include="MySqlDB.h">
       <Filter>JIGAPChattingServer\MySqlDB</Filter>
     </ClInclude>
-    <ClInclude Include="DBManager.h">
-      <Filter>ServerEngine\Mananger\DBManager</Filter>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +149,6 @@
     <ClCompile Include="TCPIOData.cpp">
       <Filter>ServerEngine\Entity\TCPIOData</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <Filter>JIGAPPacket</Filter>
-    </ClCompile>
     <ClCompile Include="JIGAPServer.cpp">
       <Filter>JIGAPServer</Filter>
     </ClCompile>
@@ -171,7 +162,7 @@
       <Filter>ServerEngine\Entity\BaseUserData</Filter>
     </ClCompile>
     <ClCompile Include="ChatUserData.cpp">
-      <Filter>JIGAPChattingServer\ChatUserData</Filter>
+      <Filter>JIGAPChattingServer\ChatRoom\ChatUserData</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPBaserProcess.cpp">
       <Filter>ServerEngine\JIGAPBaserProcess</Filter>
@@ -191,8 +182,8 @@
     <ClCompile Include="MySqlDB.cpp">
       <Filter>JIGAPChattingServer\MySqlDB</Filter>
     </ClCompile>
-    <ClCompile Include="DBManager.cpp">
-      <Filter>ServerEngine\Mananger\DBManager</Filter>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -132,6 +132,20 @@ namespace JIGAPClientDXGUI
 
     partial class NetworkManager
     { 
+        public void SendSingUpRequest(string strId, string strPassward, string strName)
+        {
+            PacketHandler.ClearSerializeBuffer();
+
+            JIGAPPacket.SingUpRequest singUpRequest = new JIGAPPacket.SingUpRequest();
+            singUpRequest.UserData = new JIGAPPacket.UserData();
+            singUpRequest.UserData.Id = strId;
+            singUpRequest.UserData.Name = strName;
+            singUpRequest.Passward = strPassward;
+
+            PacketHandler.SerializePacket(JIGAPPacket.Type.ESingUpRequest, singUpRequest);
+
+            OnSendPacket();
+        }
         public void SendLoginRequest(string strId, string strPassward)
         {
             PacketHandler.ClearSerializeBuffer();

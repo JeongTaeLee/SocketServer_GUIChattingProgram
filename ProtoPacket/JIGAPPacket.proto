@@ -5,21 +5,41 @@ package JIGAPPacket;
 
 enum Type
 {
-    eLoginRequest = 0;
-    eLoginAnswer = 1;
+    eSingUpRequest = 0;
+    eSingUpAnswer = 1;
 
-    eCreateRoomRequest = 2;
-    eCreateRoomAnswer = 3;
+    eLoginRequest = 2;
+    eLoginAnswer = 3;
 
-    eJoinRoomRequest = 4;
-    eJoinRoomAnswer = 5; 
+    eCreateRoomRequest = 4;
+    eCreateRoomAnswer = 5;
 
-    eRoomListRequest = 6;
-    eRoomListAnswer= 7;
-    eRoomListElement = 8;
+    eJoinRoomRequest = 6;
+    eJoinRoomAnswer = 7; 
 
-    eExitRoomRequest = 9;
-    eExitRoomAnswer = 10;
+    eRoomListRequest = 8;
+    eRoomListAnswer= 9;
+    eRoomListElement = 10;
+
+    eExitRoomRequest = 11;
+    eExitRoomAnswer = 12;
+
+    eChatRequest = 13;
+    eChatData = 14;
+}
+
+message UserData{
+    string id = 1;
+    string name = 2;
+}
+
+message SingUpRequest{
+    UserData userData = 1;
+    string passward = 2;
+}
+
+message SingUpAnswer{
+    bool success = 1;
 }
 
 message LoginRequest{
@@ -28,7 +48,8 @@ message LoginRequest{
 }
 
 message LoginAnswer{
-    bool success = 1;
+    UserData userData = 1;
+    bool success = 2;
 }
 
 message RoomInfo{
@@ -55,6 +76,15 @@ message RoomListAnswer{
 
 message RoomListElement{
     RoomInfo roomInfo = 1;
+}
+
+message ChatRequest{
+    UserData userData = 1;
+    string strMessage = 2;
+}
+
+message ChatData{
+    string strMessage = 1;
 }
 
 message EmptyPacket{

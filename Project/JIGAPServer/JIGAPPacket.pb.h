@@ -3,7 +3,6 @@
 
 #ifndef GOOGLE_PROTOBUF_INCLUDED_JIGAPPacket_2eproto
 #define GOOGLE_PROTOBUF_INCLUDED_JIGAPPacket_2eproto
-#define PROTOBUF_USE_DLLS
 
 #include <limits>
 #include <string>
@@ -19,7 +18,8 @@
 #error incompatible with your Protocol Buffer headers. Please
 #error regenerate this file with a newer version of protoc.
 #endif
-
+#define PROTOBUF_USE_DLLS
+#define GOOGLE_DCHECK
 
 #include <google/protobuf/port_undef.inc>
 #include <google/protobuf/io/coded_stream.h>
@@ -50,7 +50,7 @@ struct TableStruct_JIGAPPacket_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[14]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +58,12 @@ struct TableStruct_JIGAPPacket_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto;
 namespace JIGAPPacket {
+class ChatData;
+class ChatDataDefaultTypeInternal;
+extern ChatDataDefaultTypeInternal _ChatData_default_instance_;
+class ChatRequest;
+class ChatRequestDefaultTypeInternal;
+extern ChatRequestDefaultTypeInternal _ChatRequest_default_instance_;
 class CreateRoomAnswer;
 class CreateRoomAnswerDefaultTypeInternal;
 extern CreateRoomAnswerDefaultTypeInternal _CreateRoomAnswer_default_instance_;
@@ -85,8 +91,19 @@ extern RoomListAnswerDefaultTypeInternal _RoomListAnswer_default_instance_;
 class RoomListElement;
 class RoomListElementDefaultTypeInternal;
 extern RoomListElementDefaultTypeInternal _RoomListElement_default_instance_;
+class SingUpAnswer;
+class SingUpAnswerDefaultTypeInternal;
+extern SingUpAnswerDefaultTypeInternal _SingUpAnswer_default_instance_;
+class SingUpRequest;
+class SingUpRequestDefaultTypeInternal;
+extern SingUpRequestDefaultTypeInternal _SingUpRequest_default_instance_;
+class UserData;
+class UserDataDefaultTypeInternal;
+extern UserDataDefaultTypeInternal _UserData_default_instance_;
 }  // namespace JIGAPPacket
 PROTOBUF_NAMESPACE_OPEN
+template<> ::JIGAPPacket::ChatData* Arena::CreateMaybeMessage<::JIGAPPacket::ChatData>(Arena*);
+template<> ::JIGAPPacket::ChatRequest* Arena::CreateMaybeMessage<::JIGAPPacket::ChatRequest>(Arena*);
 template<> ::JIGAPPacket::CreateRoomAnswer* Arena::CreateMaybeMessage<::JIGAPPacket::CreateRoomAnswer>(Arena*);
 template<> ::JIGAPPacket::EmptyPacket* Arena::CreateMaybeMessage<::JIGAPPacket::EmptyPacket>(Arena*);
 template<> ::JIGAPPacket::JoinRoomAnswer* Arena::CreateMaybeMessage<::JIGAPPacket::JoinRoomAnswer>(Arena*);
@@ -96,27 +113,34 @@ template<> ::JIGAPPacket::LoginRequest* Arena::CreateMaybeMessage<::JIGAPPacket:
 template<> ::JIGAPPacket::RoomInfo* Arena::CreateMaybeMessage<::JIGAPPacket::RoomInfo>(Arena*);
 template<> ::JIGAPPacket::RoomListAnswer* Arena::CreateMaybeMessage<::JIGAPPacket::RoomListAnswer>(Arena*);
 template<> ::JIGAPPacket::RoomListElement* Arena::CreateMaybeMessage<::JIGAPPacket::RoomListElement>(Arena*);
+template<> ::JIGAPPacket::SingUpAnswer* Arena::CreateMaybeMessage<::JIGAPPacket::SingUpAnswer>(Arena*);
+template<> ::JIGAPPacket::SingUpRequest* Arena::CreateMaybeMessage<::JIGAPPacket::SingUpRequest>(Arena*);
+template<> ::JIGAPPacket::UserData* Arena::CreateMaybeMessage<::JIGAPPacket::UserData>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace JIGAPPacket {
 
 enum Type : int {
-  eLoginRequest = 0,
-  eLoginAnswer = 1,
-  eCreateRoomRequest = 2,
-  eCreateRoomAnswer = 3,
-  eJoinRoomRequest = 4,
-  eJoinRoomAnswer = 5,
-  eRoomListRequest = 6,
-  eRoomListAnswer = 7,
-  eRoomListElement = 8,
-  eExitRoomRequest = 9,
-  eExitRoomAnswer = 10,
+  eSingUpRequest = 0,
+  eSingUpAnswer = 1,
+  eLoginRequest = 2,
+  eLoginAnswer = 3,
+  eCreateRoomRequest = 4,
+  eCreateRoomAnswer = 5,
+  eJoinRoomRequest = 6,
+  eJoinRoomAnswer = 7,
+  eRoomListRequest = 8,
+  eRoomListAnswer = 9,
+  eRoomListElement = 10,
+  eExitRoomRequest = 11,
+  eExitRoomAnswer = 12,
+  eChatRequest = 13,
+  eChatData = 14,
   //Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   //Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Type_IsValid(int value);
-constexpr Type Type_MIN = eLoginRequest;
-constexpr Type Type_MAX = eExitRoomAnswer;
+constexpr Type Type_MIN = eSingUpRequest;
+constexpr Type Type_MAX = eChatData;
 constexpr int Type_ARRAYSIZE = Type_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Type_descriptor();
@@ -134,6 +158,419 @@ inline bool Type_Parse(
     Type_descriptor(), name, value);
 }
 // ===================================================================
+
+class UserData :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.UserData) */ {
+ public:
+  UserData();
+  virtual ~UserData();
+
+  UserData(const UserData& from);
+  UserData(UserData&& from) noexcept
+    : UserData() {
+    *this = ::std::move(from);
+  }
+
+  inline UserData& operator=(const UserData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserData& operator=(UserData&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UserData& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const UserData* internal_default_instance() {
+    return reinterpret_cast<const UserData*>(
+               &_UserData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  void Swap(UserData* other);
+  friend void swap(UserData& a, UserData& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserData* New() const final {
+    return CreateMaybeMessage<UserData>(nullptr);
+  }
+
+  UserData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UserData>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UserData& from);
+  void MergeFrom(const UserData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserData* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.UserData";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  const std::string& id() const;
+  void set_id(const std::string& value);
+  void set_id(std::string&& value);
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  std::string* mutable_id();
+  std::string* release_id();
+  void set_allocated_id(std::string* id);
+
+  // string name = 2;
+  void clear_name();
+  static const int kNameFieldNumber = 2;
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.UserData)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SingUpRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.SingUpRequest) */ {
+ public:
+  SingUpRequest();
+  virtual ~SingUpRequest();
+
+  SingUpRequest(const SingUpRequest& from);
+  SingUpRequest(SingUpRequest&& from) noexcept
+    : SingUpRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SingUpRequest& operator=(const SingUpRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SingUpRequest& operator=(SingUpRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SingUpRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SingUpRequest* internal_default_instance() {
+    return reinterpret_cast<const SingUpRequest*>(
+               &_SingUpRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(SingUpRequest* other);
+  friend void swap(SingUpRequest& a, SingUpRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SingUpRequest* New() const final {
+    return CreateMaybeMessage<SingUpRequest>(nullptr);
+  }
+
+  SingUpRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SingUpRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SingUpRequest& from);
+  void MergeFrom(const SingUpRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SingUpRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.SingUpRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string passward = 2;
+  void clear_passward();
+  static const int kPasswardFieldNumber = 2;
+  const std::string& passward() const;
+  void set_passward(const std::string& value);
+  void set_passward(std::string&& value);
+  void set_passward(const char* value);
+  void set_passward(const char* value, size_t size);
+  std::string* mutable_passward();
+  std::string* release_passward();
+  void set_allocated_passward(std::string* passward);
+
+  // .JIGAPPacket.UserData userData = 1;
+  bool has_userdata() const;
+  void clear_userdata();
+  static const int kUserDataFieldNumber = 1;
+  const ::JIGAPPacket::UserData& userdata() const;
+  ::JIGAPPacket::UserData* release_userdata();
+  ::JIGAPPacket::UserData* mutable_userdata();
+  void set_allocated_userdata(::JIGAPPacket::UserData* userdata);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.SingUpRequest)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr passward_;
+  ::JIGAPPacket::UserData* userdata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SingUpAnswer :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.SingUpAnswer) */ {
+ public:
+  SingUpAnswer();
+  virtual ~SingUpAnswer();
+
+  SingUpAnswer(const SingUpAnswer& from);
+  SingUpAnswer(SingUpAnswer&& from) noexcept
+    : SingUpAnswer() {
+    *this = ::std::move(from);
+  }
+
+  inline SingUpAnswer& operator=(const SingUpAnswer& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SingUpAnswer& operator=(SingUpAnswer&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SingUpAnswer& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SingUpAnswer* internal_default_instance() {
+    return reinterpret_cast<const SingUpAnswer*>(
+               &_SingUpAnswer_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(SingUpAnswer* other);
+  friend void swap(SingUpAnswer& a, SingUpAnswer& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SingUpAnswer* New() const final {
+    return CreateMaybeMessage<SingUpAnswer>(nullptr);
+  }
+
+  SingUpAnswer* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SingUpAnswer>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SingUpAnswer& from);
+  void MergeFrom(const SingUpAnswer& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SingUpAnswer* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.SingUpAnswer";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool success = 1;
+  void clear_success();
+  static const int kSuccessFieldNumber = 1;
+  bool success() const;
+  void set_success(bool value);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.SingUpAnswer)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
 
 class LoginRequest :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.LoginRequest) */ {
@@ -177,7 +614,7 @@ class LoginRequest :
                &_LoginRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    3;
 
   void Swap(LoginRequest* other);
   friend void swap(LoginRequest& a, LoginRequest& b) {
@@ -322,7 +759,7 @@ class LoginAnswer :
                &_LoginAnswer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    4;
 
   void Swap(LoginAnswer* other);
   friend void swap(LoginAnswer& a, LoginAnswer& b) {
@@ -389,9 +826,18 @@ class LoginAnswer :
 
   // accessors -------------------------------------------------------
 
-  // bool success = 1;
+  // .JIGAPPacket.UserData userData = 1;
+  bool has_userdata() const;
+  void clear_userdata();
+  static const int kUserDataFieldNumber = 1;
+  const ::JIGAPPacket::UserData& userdata() const;
+  ::JIGAPPacket::UserData* release_userdata();
+  ::JIGAPPacket::UserData* mutable_userdata();
+  void set_allocated_userdata(::JIGAPPacket::UserData* userdata);
+
+  // bool success = 2;
   void clear_success();
-  static const int kSuccessFieldNumber = 1;
+  static const int kSuccessFieldNumber = 2;
   bool success() const;
   void set_success(bool value);
 
@@ -400,6 +846,7 @@ class LoginAnswer :
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::JIGAPPacket::UserData* userdata_;
   bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
@@ -448,7 +895,7 @@ class RoomInfo :
                &_RoomInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    5;
 
   void Swap(RoomInfo* other);
   friend void swap(RoomInfo& a, RoomInfo& b) {
@@ -580,7 +1027,7 @@ class CreateRoomAnswer :
                &_CreateRoomAnswer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    6;
 
   void Swap(CreateRoomAnswer* other);
   friend void swap(CreateRoomAnswer& a, CreateRoomAnswer& b) {
@@ -716,7 +1163,7 @@ class JoinRoomRequest :
                &_JoinRoomRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    7;
 
   void Swap(JoinRoomRequest* other);
   friend void swap(JoinRoomRequest& a, JoinRoomRequest& b) {
@@ -845,7 +1292,7 @@ class JoinRoomAnswer :
                &_JoinRoomAnswer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    8;
 
   void Swap(JoinRoomAnswer* other);
   friend void swap(JoinRoomAnswer& a, JoinRoomAnswer& b) {
@@ -981,7 +1428,7 @@ class RoomListAnswer :
                &_RoomListAnswer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    9;
 
   void Swap(RoomListAnswer* other);
   friend void swap(RoomListAnswer& a, RoomListAnswer& b) {
@@ -1107,7 +1554,7 @@ class RoomListElement :
                &_RoomListElement_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    10;
 
   void Swap(RoomListElement* other);
   friend void swap(RoomListElement& a, RoomListElement& b) {
@@ -1194,6 +1641,280 @@ class RoomListElement :
 };
 // -------------------------------------------------------------------
 
+class ChatRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.ChatRequest) */ {
+ public:
+  ChatRequest();
+  virtual ~ChatRequest();
+
+  ChatRequest(const ChatRequest& from);
+  ChatRequest(ChatRequest&& from) noexcept
+    : ChatRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ChatRequest& operator=(const ChatRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChatRequest& operator=(ChatRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ChatRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ChatRequest* internal_default_instance() {
+    return reinterpret_cast<const ChatRequest*>(
+               &_ChatRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  void Swap(ChatRequest* other);
+  friend void swap(ChatRequest& a, ChatRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ChatRequest* New() const final {
+    return CreateMaybeMessage<ChatRequest>(nullptr);
+  }
+
+  ChatRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ChatRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ChatRequest& from);
+  void MergeFrom(const ChatRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ChatRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.ChatRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string strMessage = 2;
+  void clear_strmessage();
+  static const int kStrMessageFieldNumber = 2;
+  const std::string& strmessage() const;
+  void set_strmessage(const std::string& value);
+  void set_strmessage(std::string&& value);
+  void set_strmessage(const char* value);
+  void set_strmessage(const char* value, size_t size);
+  std::string* mutable_strmessage();
+  std::string* release_strmessage();
+  void set_allocated_strmessage(std::string* strmessage);
+
+  // .JIGAPPacket.UserData userData = 1;
+  bool has_userdata() const;
+  void clear_userdata();
+  static const int kUserDataFieldNumber = 1;
+  const ::JIGAPPacket::UserData& userdata() const;
+  ::JIGAPPacket::UserData* release_userdata();
+  ::JIGAPPacket::UserData* mutable_userdata();
+  void set_allocated_userdata(::JIGAPPacket::UserData* userdata);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.ChatRequest)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr strmessage_;
+  ::JIGAPPacket::UserData* userdata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ChatData :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.ChatData) */ {
+ public:
+  ChatData();
+  virtual ~ChatData();
+
+  ChatData(const ChatData& from);
+  ChatData(ChatData&& from) noexcept
+    : ChatData() {
+    *this = ::std::move(from);
+  }
+
+  inline ChatData& operator=(const ChatData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChatData& operator=(ChatData&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ChatData& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ChatData* internal_default_instance() {
+    return reinterpret_cast<const ChatData*>(
+               &_ChatData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  void Swap(ChatData* other);
+  friend void swap(ChatData& a, ChatData& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ChatData* New() const final {
+    return CreateMaybeMessage<ChatData>(nullptr);
+  }
+
+  ChatData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ChatData>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ChatData& from);
+  void MergeFrom(const ChatData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ChatData* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "JIGAPPacket.ChatData";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_JIGAPPacket_2eproto);
+    return ::descriptor_table_JIGAPPacket_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string strMessage = 1;
+  void clear_strmessage();
+  static const int kStrMessageFieldNumber = 1;
+  const std::string& strmessage() const;
+  void set_strmessage(const std::string& value);
+  void set_strmessage(std::string&& value);
+  void set_strmessage(const char* value);
+  void set_strmessage(const char* value, size_t size);
+  std::string* mutable_strmessage();
+  std::string* release_strmessage();
+  void set_allocated_strmessage(std::string* strmessage);
+
+  // @@protoc_insertion_point(class_scope:JIGAPPacket.ChatData)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr strmessage_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_JIGAPPacket_2eproto;
+};
+// -------------------------------------------------------------------
+
 class EmptyPacket :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:JIGAPPacket.EmptyPacket) */ {
  public:
@@ -1236,7 +1957,7 @@ class EmptyPacket :
                &_EmptyPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    13;
 
   void Swap(EmptyPacket* other);
   friend void swap(EmptyPacket& a, EmptyPacket& b) {
@@ -1327,6 +2048,236 @@ class EmptyPacket :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// UserData
+
+// string id = 1;
+inline void UserData::clear_id() {
+  id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& UserData::id() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.UserData.id)
+  return id_.GetNoArena();
+}
+inline void UserData::set_id(const std::string& value) {
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.UserData.id)
+}
+inline void UserData::set_id(std::string&& value) {
+  
+  id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.UserData.id)
+}
+inline void UserData::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.UserData.id)
+}
+inline void UserData::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.UserData.id)
+}
+inline std::string* UserData::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.UserData.id)
+  return id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* UserData::release_id() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.UserData.id)
+  
+  return id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void UserData::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.UserData.id)
+}
+
+// string name = 2;
+inline void UserData::clear_name() {
+  name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& UserData::name() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.UserData.name)
+  return name_.GetNoArena();
+}
+inline void UserData::set_name(const std::string& value) {
+  
+  name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.UserData.name)
+}
+inline void UserData::set_name(std::string&& value) {
+  
+  name_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.UserData.name)
+}
+inline void UserData::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.UserData.name)
+}
+inline void UserData::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.UserData.name)
+}
+inline std::string* UserData::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.UserData.name)
+  return name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* UserData::release_name() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.UserData.name)
+  
+  return name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void UserData::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.UserData.name)
+}
+
+// -------------------------------------------------------------------
+
+// SingUpRequest
+
+// .JIGAPPacket.UserData userData = 1;
+inline bool SingUpRequest::has_userdata() const {
+  return this != internal_default_instance() && userdata_ != nullptr;
+}
+inline void SingUpRequest::clear_userdata() {
+  if (GetArenaNoVirtual() == nullptr && userdata_ != nullptr) {
+    delete userdata_;
+  }
+  userdata_ = nullptr;
+}
+inline const ::JIGAPPacket::UserData& SingUpRequest::userdata() const {
+  const ::JIGAPPacket::UserData* p = userdata_;
+  // @@protoc_insertion_point(field_get:JIGAPPacket.SingUpRequest.userData)
+  return p != nullptr ? *p : *reinterpret_cast<const ::JIGAPPacket::UserData*>(
+      &::JIGAPPacket::_UserData_default_instance_);
+}
+inline ::JIGAPPacket::UserData* SingUpRequest::release_userdata() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.SingUpRequest.userData)
+  
+  ::JIGAPPacket::UserData* temp = userdata_;
+  userdata_ = nullptr;
+  return temp;
+}
+inline ::JIGAPPacket::UserData* SingUpRequest::mutable_userdata() {
+  
+  if (userdata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::JIGAPPacket::UserData>(GetArenaNoVirtual());
+    userdata_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.SingUpRequest.userData)
+  return userdata_;
+}
+inline void SingUpRequest::set_allocated_userdata(::JIGAPPacket::UserData* userdata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete userdata_;
+  }
+  if (userdata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      userdata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, userdata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  userdata_ = userdata;
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.SingUpRequest.userData)
+}
+
+// string passward = 2;
+inline void SingUpRequest::clear_passward() {
+  passward_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SingUpRequest::passward() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.SingUpRequest.passward)
+  return passward_.GetNoArena();
+}
+inline void SingUpRequest::set_passward(const std::string& value) {
+  
+  passward_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.SingUpRequest.passward)
+}
+inline void SingUpRequest::set_passward(std::string&& value) {
+  
+  passward_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.SingUpRequest.passward)
+}
+inline void SingUpRequest::set_passward(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  passward_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.SingUpRequest.passward)
+}
+inline void SingUpRequest::set_passward(const char* value, size_t size) {
+  
+  passward_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.SingUpRequest.passward)
+}
+inline std::string* SingUpRequest::mutable_passward() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.SingUpRequest.passward)
+  return passward_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SingUpRequest::release_passward() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.SingUpRequest.passward)
+  
+  return passward_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SingUpRequest::set_allocated_passward(std::string* passward) {
+  if (passward != nullptr) {
+    
+  } else {
+    
+  }
+  passward_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), passward);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.SingUpRequest.passward)
+}
+
+// -------------------------------------------------------------------
+
+// SingUpAnswer
+
+// bool success = 1;
+inline void SingUpAnswer::clear_success() {
+  success_ = false;
+}
+inline bool SingUpAnswer::success() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.SingUpAnswer.success)
+  return success_;
+}
+inline void SingUpAnswer::set_success(bool value) {
+  
+  success_ = value;
+  // @@protoc_insertion_point(field_set:JIGAPPacket.SingUpAnswer.success)
+}
+
+// -------------------------------------------------------------------
+
 // LoginRequest
 
 // string id = 1;
@@ -1435,7 +2386,58 @@ inline void LoginRequest::set_allocated_passward(std::string* passward) {
 
 // LoginAnswer
 
-// bool success = 1;
+// .JIGAPPacket.UserData userData = 1;
+inline bool LoginAnswer::has_userdata() const {
+  return this != internal_default_instance() && userdata_ != nullptr;
+}
+inline void LoginAnswer::clear_userdata() {
+  if (GetArenaNoVirtual() == nullptr && userdata_ != nullptr) {
+    delete userdata_;
+  }
+  userdata_ = nullptr;
+}
+inline const ::JIGAPPacket::UserData& LoginAnswer::userdata() const {
+  const ::JIGAPPacket::UserData* p = userdata_;
+  // @@protoc_insertion_point(field_get:JIGAPPacket.LoginAnswer.userData)
+  return p != nullptr ? *p : *reinterpret_cast<const ::JIGAPPacket::UserData*>(
+      &::JIGAPPacket::_UserData_default_instance_);
+}
+inline ::JIGAPPacket::UserData* LoginAnswer::release_userdata() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.LoginAnswer.userData)
+  
+  ::JIGAPPacket::UserData* temp = userdata_;
+  userdata_ = nullptr;
+  return temp;
+}
+inline ::JIGAPPacket::UserData* LoginAnswer::mutable_userdata() {
+  
+  if (userdata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::JIGAPPacket::UserData>(GetArenaNoVirtual());
+    userdata_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.LoginAnswer.userData)
+  return userdata_;
+}
+inline void LoginAnswer::set_allocated_userdata(::JIGAPPacket::UserData* userdata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete userdata_;
+  }
+  if (userdata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      userdata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, userdata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  userdata_ = userdata;
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.LoginAnswer.userData)
+}
+
+// bool success = 2;
 inline void LoginAnswer::clear_success() {
   success_ = false;
 }
@@ -1772,6 +2774,167 @@ inline void RoomListElement::set_allocated_roominfo(::JIGAPPacket::RoomInfo* roo
 
 // -------------------------------------------------------------------
 
+// ChatRequest
+
+// .JIGAPPacket.UserData userData = 1;
+inline bool ChatRequest::has_userdata() const {
+  return this != internal_default_instance() && userdata_ != nullptr;
+}
+inline void ChatRequest::clear_userdata() {
+  if (GetArenaNoVirtual() == nullptr && userdata_ != nullptr) {
+    delete userdata_;
+  }
+  userdata_ = nullptr;
+}
+inline const ::JIGAPPacket::UserData& ChatRequest::userdata() const {
+  const ::JIGAPPacket::UserData* p = userdata_;
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChatRequest.userData)
+  return p != nullptr ? *p : *reinterpret_cast<const ::JIGAPPacket::UserData*>(
+      &::JIGAPPacket::_UserData_default_instance_);
+}
+inline ::JIGAPPacket::UserData* ChatRequest::release_userdata() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChatRequest.userData)
+  
+  ::JIGAPPacket::UserData* temp = userdata_;
+  userdata_ = nullptr;
+  return temp;
+}
+inline ::JIGAPPacket::UserData* ChatRequest::mutable_userdata() {
+  
+  if (userdata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::JIGAPPacket::UserData>(GetArenaNoVirtual());
+    userdata_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChatRequest.userData)
+  return userdata_;
+}
+inline void ChatRequest::set_allocated_userdata(::JIGAPPacket::UserData* userdata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete userdata_;
+  }
+  if (userdata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      userdata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, userdata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  userdata_ = userdata;
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChatRequest.userData)
+}
+
+// string strMessage = 2;
+inline void ChatRequest::clear_strmessage() {
+  strmessage_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ChatRequest::strmessage() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChatRequest.strMessage)
+  return strmessage_.GetNoArena();
+}
+inline void ChatRequest::set_strmessage(const std::string& value) {
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.ChatRequest.strMessage)
+}
+inline void ChatRequest::set_strmessage(std::string&& value) {
+  
+  strmessage_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.ChatRequest.strMessage)
+}
+inline void ChatRequest::set_strmessage(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.ChatRequest.strMessage)
+}
+inline void ChatRequest::set_strmessage(const char* value, size_t size) {
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.ChatRequest.strMessage)
+}
+inline std::string* ChatRequest::mutable_strmessage() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChatRequest.strMessage)
+  return strmessage_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ChatRequest::release_strmessage() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChatRequest.strMessage)
+  
+  return strmessage_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ChatRequest::set_allocated_strmessage(std::string* strmessage) {
+  if (strmessage != nullptr) {
+    
+  } else {
+    
+  }
+  strmessage_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), strmessage);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChatRequest.strMessage)
+}
+
+// -------------------------------------------------------------------
+
+// ChatData
+
+// string strMessage = 1;
+inline void ChatData::clear_strmessage() {
+  strmessage_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ChatData::strmessage() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChatData.strMessage)
+  return strmessage_.GetNoArena();
+}
+inline void ChatData::set_strmessage(const std::string& value) {
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:JIGAPPacket.ChatData.strMessage)
+}
+inline void ChatData::set_strmessage(std::string&& value) {
+  
+  strmessage_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:JIGAPPacket.ChatData.strMessage)
+}
+inline void ChatData::set_strmessage(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:JIGAPPacket.ChatData.strMessage)
+}
+inline void ChatData::set_strmessage(const char* value, size_t size) {
+  
+  strmessage_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:JIGAPPacket.ChatData.strMessage)
+}
+inline std::string* ChatData::mutable_strmessage() {
+  
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChatData.strMessage)
+  return strmessage_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ChatData::release_strmessage() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChatData.strMessage)
+  
+  return strmessage_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ChatData::set_allocated_strmessage(std::string* strmessage) {
+  if (strmessage != nullptr) {
+    
+  } else {
+    
+  }
+  strmessage_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), strmessage);
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChatData.strMessage)
+}
+
+// -------------------------------------------------------------------
+
 // EmptyPacket
 
 // .JIGAPPacket.Type type = 1;
@@ -1791,6 +2954,16 @@ inline void EmptyPacket::set_type(::JIGAPPacket::Type value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

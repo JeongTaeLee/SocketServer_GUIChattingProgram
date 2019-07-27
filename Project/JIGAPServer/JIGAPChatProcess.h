@@ -2,6 +2,7 @@
 #include "JIGAPBaserProcess.h"
 class TCPSocket;
 class ChatUserData;
+class BaseDB;
 
 template<typename _Ty> class UserDataAdmin;
 
@@ -10,7 +11,9 @@ class JIGAPChatProcess :
 	public JIGAPBaserProcess
 {
 private:
-	UserDataAdmin<ChatUserData>* lpUserAdmin;
+	UserDataAdmin<ChatUserData>* lpUserAdmin = nullptr;
+	BaseDB* lpDB = nullptr;
+	
 public:
 	JIGAPChatProcess() {}
 	virtual ~JIGAPChatProcess() {}
@@ -22,7 +25,8 @@ public:
 	virtual void OnDisconnect(TCPSocket* lpInSocket)	override;
 	virtual void OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)	override;
 
-	void OnLoginRequest(TCPSocket * lpInTCPSocket, PacketHandler * lpHandler);
+	void OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+	void OnLoginRequest(TCPSocket * lpInTCPSocket, PacketHandler * lpHandler, PacketHeader& header);
 
 };
 
