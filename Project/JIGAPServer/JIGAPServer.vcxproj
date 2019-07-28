@@ -235,6 +235,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseDB.h" />
+    <ClInclude Include="BaseQuery.h" />
+    <ClInclude Include="ChatQuery.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
@@ -256,6 +258,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseDB.cpp" />
+    <ClCompile Include="BaseQuery.cpp" />
+    <ClCompile Include="ChatQuery.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />

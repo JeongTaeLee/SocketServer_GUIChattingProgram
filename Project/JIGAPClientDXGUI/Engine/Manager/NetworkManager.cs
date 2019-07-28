@@ -49,8 +49,7 @@ namespace JIGAPClientDXGUI
     partial class NetworkManager : IDisposable
     {
         public void Dispose()
-        {
-            
+        { 
             if (bServerOn)
                 DisconnectServer();
         }
@@ -88,6 +87,7 @@ namespace JIGAPClientDXGUI
                 return;
 
             ServerSock.Close();
+            ServerSock.Dispose();
             bServerOn = false;
         }
     }
@@ -126,6 +126,8 @@ namespace JIGAPClientDXGUI
             }
             else
             {
+                if (!ServerSock.Connected)
+                    ServerSock.Close();
             }
         } 
     }

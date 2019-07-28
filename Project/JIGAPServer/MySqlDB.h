@@ -13,9 +13,9 @@ public:
 	virtual bool ConnectToDB() override;
 	virtual void DisconnectToDB() override;
 
-	virtual bool WriteQuery(const std::string& key);
-	virtual bool ReadRow(const std::string& key, TYPE_ROW & inResult) override;
-	virtual bool ReadTables(const std::string& key, TYPE_ROWS& inResult) override;
+	virtual QUERYRESULT WriteQuery(const std::string& key);
+	virtual QUERYRESULT ReadRow(const std::string& key, TYPE_ROW & inResult) override;
+	virtual QUERYRESULT ReadTables(const std::string& key, TYPE_ROWS& inResult) override;
 
 };
 

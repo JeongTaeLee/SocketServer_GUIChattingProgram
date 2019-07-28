@@ -27,7 +27,6 @@ namespace JIGAPServerGUI
         {
             ServerManager.Instance.CloseServer();
             ServerManager.Instance.jigapServer.Dispose();
-
         }
 
         public void ServerLogFunc(IntPtr strLog)
@@ -63,9 +62,7 @@ namespace JIGAPServerGUI
             else
             {
                 ServerManager.Instance.CloseServer();
-
                 PortTextBox.Enabled = true;
-
                 ServerSwitch.Text = "Open";
             }
         }

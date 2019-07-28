@@ -2,17 +2,15 @@
 #include "JIGAPChatProcess.h"
 #include "UserDataAdmin.h"
 #include "ChatUserData.h"
-#include "MySqlDB.h"
-
+#include "ChatQuery.h"
 
 void JIGAPChatProcess::OnInitialize()
 {
 	lpUserAdmin = new UserDataAdmin<ChatUserData>();
 	lpUserAdmin->InitializeAdmin(100000);
 
-	lpDB = new MySqlDB();
-	lpDB->SetUser("root").SetHost("localhost").SetSqlPort(3306).SetDB("jigapChatserver").SetPassword("@MisterLee8633");
-	lpDB->ConnectToDB();
+	lpQuery = new ChatQuery();
+	lpQuery->InitializeQuery();
 }
 
 void JIGAPChatProcess::OnRelease()
@@ -20,8 +18,8 @@ void JIGAPChatProcess::OnRelease()
 	lpUserAdmin->ReleaseAdmin();
 	SAFE_DELETE(lpUserAdmin);
 
-	lpDB->DisconnectToDB();
-	SAFE_DELETE(lpDB);
+	lpQuery->ReleaseQuery();
+	SAFE_DELETE(lpQuery);
 }
 
 void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
@@ -64,6 +62,16 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 
 	if (find->GetLogin() == false)
 	{
+		JIGAPPacket::SingUpRequest packet;
+		lpHandler->NextParsingPacket(packet, header.iSize);
+
+
+		
+		//packet.userdata().id
+
+
+		JIGAPPacket::UserData * data = packet.release_userdata();
+		SAFE_DELETE(data);
 	}
 }
 
@@ -81,6 +89,8 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	{
 		JIGAPPacket::LoginRequest packet;
 		lpHandler->NextParsingPacket(packet, header.iSize);
+
+
 
 	}
 }

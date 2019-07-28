@@ -2,7 +2,7 @@
 #include "JIGAPBaserProcess.h"
 class TCPSocket;
 class ChatUserData;
-class BaseDB;
+class ChatQuery;
 
 template<typename _Ty> class UserDataAdmin;
 
@@ -12,7 +12,7 @@ class JIGAPChatProcess :
 {
 private:
 	UserDataAdmin<ChatUserData>* lpUserAdmin = nullptr;
-	BaseDB* lpDB = nullptr;
+	ChatQuery* lpQuery = nullptr;
 	
 public:
 	JIGAPChatProcess() {}
@@ -27,6 +27,5 @@ public:
 
 	void OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
 	void OnLoginRequest(TCPSocket * lpInTCPSocket, PacketHandler * lpHandler, PacketHeader& header);
-
 };
 

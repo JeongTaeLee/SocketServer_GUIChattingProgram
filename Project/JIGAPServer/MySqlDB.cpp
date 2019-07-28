@@ -34,16 +34,14 @@ void MySqlDB::DisconnectToDB()
 	mysql_close(mySql);
 }
 
-bool MySqlDB::ReadTables(const std::string& query, TYPE_ROWS& inResult)
+QUERYRESULT MySqlDB::ReadTables(const std::string& query, TYPE_ROWS& inResult)
 {
 	if (mysql_real_query(mySql, query.c_str(), query.size()))
 	{
 		// 실패
 		throw std::exception("Sql 구문 오류");
-		return false;
+		return QUERYRESULT::FAILE;
 	}
-
-	bool bResult = true;
 
 	MYSQL_RES* result = mysql_store_result(&connection);
 	if (result) // 리턴된 결과가 있다.
@@ -53,6 +51,12 @@ bool MySqlDB::ReadTables(const std::string& query, TYPE_ROWS& inResult)
 
 		MYSQL_ROW lpRow = mysql_fetch_row(result);
 		int rowCount = mysql_num_rows(result);
+
+		if (lpRow == nullptr)
+		{
+			mysql_free_result(result);
+			return QUERYRESULT::EMPTY;
+		}
 
 		inResult.resize(rowCount);
 
@@ -76,24 +80,23 @@ bool MySqlDB::ReadTables(const std::string& query, TYPE_ROWS& inResult)
 		else // 무언가 Error가 있을 시.
 		{
 			DEBUG_LOG("MySql Error! : " << mysql_error(&connection));
-			bResult = false;
+			mysql_free_result(result);
+			return QUERYRESULT::FAILE;
 		}
 	}
-	mysql_free_result(result);
 
-	return bResult;
+	mysql_free_result(result);
+	return QUERYRESULT::SUCCESS;
 }
 
-bool MySqlDB::ReadRow(const std::string& query, TYPE_ROW& inResult)
+QUERYRESULT MySqlDB::ReadRow(const std::string& query, TYPE_ROW& inResult)
 {
 	if (mysql_real_query(mySql, query.c_str(), query.size()))
 	{
 		// 실패
 		throw std::exception("Sql 구문 오류");
-		return false;
+		return QUERYRESULT::FAILE;
 	}
-
-	bool bResult = true;
 
 	MYSQL_RES* result = mysql_store_result(&connection);
 	if (result) // 리턴된 로우가 있다.
@@ -104,12 +107,21 @@ bool MySqlDB::ReadRow(const std::string& query, TYPE_ROW& inResult)
 		MYSQL_ROW lpRow = mysql_fetch_row(result);
 		int rowCount = mysql_num_rows(result);
 
-		for (int j = 0; j < fieldCount; ++j)
+		if (lpRow == nullptr)
 		{
-			if (lpRow[j] != nullptr)
-				inResult.insert(TYPE_ROW::value_type(lpField[j].name, lpRow[j]));
-			else
-				inResult.insert(TYPE_ROW::value_type(lpField[j].name, "NULL"));
+			mysql_free_result(result);
+			return QUERYRESULT::EMPTY;
+		}
+
+		if (lpRow != nullptr)
+		{
+			for (int j = 0; j < fieldCount; ++j)
+			{
+				if (lpRow[j] != nullptr)
+					inResult.insert(TYPE_ROW::value_type(lpField[j].name, lpRow[j]));
+				else
+					inResult.insert(TYPE_ROW::value_type(lpField[j].name, "NULL"));
+			}
 		}
 
 	}
@@ -120,36 +132,48 @@ bool MySqlDB::ReadRow(const std::string& query, TYPE_ROW& inResult)
 		else // 무언가 Error가 있을 시.
 		{
 			DEBUG_LOG("MySql Error! : " << mysql_error(&connection));
-			bResult = false;
+
+			mysql_free_result(result);
+			return QUERYRESULT::FAILE;
 		}
 	}
+
 	mysql_free_result(result);
-	
-	return bResult;
+	return QUERYRESULT::SUCCESS;
 }
 
-bool MySqlDB::WriteQuery(const std::string& query)
+QUERYRESULT MySqlDB::WriteQuery(const std::string& query)
 {
 	if (mysql_real_query(mySql, query.c_str(), query.size()))
 	{
 		// 실패
 		throw std::exception("Sql 구문 오류");
-		return false;
+		return QUERYRESULT::FAILE;
 	}
 
-	bool bResult = true;
-
 	MYSQL_RES* result = mysql_store_result(&connection);
-
-	if (mysql_field_count(&connection) == 0) // Row가 리턴되지 않은 쿼리인지.
-		int numRows = mysql_affected_rows(&connection);	// Delete 등에서 몇개의 Row가 영향을 받았는지.
-	else // 무언가 Error가 있을 시.
+	if (result)
 	{
-		DEBUG_LOG("MySql Error! : " << mysql_error(&connection));
-		bResult = false;
+		MYSQL_ROW lpRow = mysql_fetch_row(result);
+		
+		if (lpRow == nullptr)
+		{
+			mysql_free_result(result);
+			return QUERYRESULT::EMPTY;
+		}
+	}
+	else
+	{
+		if (mysql_field_count(&connection) == 0) // Row가 리턴되지 않은 쿼리인지.
+			int numRows = mysql_affected_rows(&connection);	// Delete 등에서 몇개의 Row가 영향을 받았는지.
+		else // 무언가 Error가 있을 시.
+		{
+			DEBUG_LOG("MySql Error! : " << mysql_error(&connection));
+			mysql_free_result(result);
+			return QUERYRESULT::FAILE;
+		}
 	}
 
 	mysql_free_result(result);
-
-	return bResult;
+	return QUERYRESULT::SUCCESS;
 }

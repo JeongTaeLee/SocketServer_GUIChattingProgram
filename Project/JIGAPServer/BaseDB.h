@@ -3,6 +3,13 @@
 using TYPE_ROW = std::hash_map<std::string, std::string>;
 using TYPE_ROWS = std::vector < std::hash_map < std::string, std::string >>;
 
+enum QUERYRESULT
+{
+	FAILE,
+	SUCCESS,
+	EMPTY,
+};
+
 class BaseDB
 {
 protected:
@@ -23,10 +30,9 @@ public:
 	virtual bool ConnectToDB()		PURE;
 	virtual void DisconnectToDB()	PURE;
 
-	virtual bool WriteQuery(const std::string& key) PURE;
-	virtual bool ReadRow(const std::string& key, TYPE_ROW& inResult) PURE;
-	virtual bool ReadTables(const std::string& key, TYPE_ROWS& inResult) PURE;
-
+	virtual QUERYRESULT WriteQuery(const std::string& key) PURE;
+	virtual QUERYRESULT ReadRow(const std::string& key, TYPE_ROW& inResult) PURE;
+	virtual QUERYRESULT ReadTables(const std::string& key, TYPE_ROWS& inResult) PURE;
 
 	BaseDB& SetHost(const std::string& _host) { strHost = _host;  return *this; }
 	BaseDB& SetUser(const std::string& _user) { strUser = _user;  return *this; }

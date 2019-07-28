@@ -9,7 +9,7 @@ class ChatUserData :
 private:
 	ChatRoom* lpCurRoom = nullptr;
 
-
+	std::string strName;
 public:
 	ChatUserData();
 	virtual ~ChatUserData();
@@ -18,5 +18,8 @@ public:
 	
 	ChatRoom* GetCurrentRoom(ChatRoom* inLpCurRoom) { return inLpCurRoom; }
 	void SetCurrentRoom(ChatRoom* inLpCurRoom) { lpCurRoom = inLpCurRoom; };
+
+	std::string& GetName() { return strName; }
+	void SetName(const std::string& strInName) { strName = strInName; }
 };
 

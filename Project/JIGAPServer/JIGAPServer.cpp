@@ -197,6 +197,7 @@ void JIGAPServer::OnRecvPacketTask()
 		//	RegisterServerLog("JIGAPServer.cpp / 패킷을 받는 도중 심각한 문제가 생겼습니다.");
 		//	continue;
 		//}
+		DEBUG_LOG("in");
 
 		if (bServerOn == false)
 			break;
@@ -209,8 +210,7 @@ void JIGAPServer::OnRecvPacketTask()
 			SAFE_DELETE(lpTCPSocket);
 		}
 		else
-		{
-			
+		{	
 			if (lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
 			{
 				int iRealRecvSize = lpPacketHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
@@ -219,8 +219,11 @@ void JIGAPServer::OnRecvPacketTask()
 
 				lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
 
-				if (lpPacketHandler->GetSerializeRealSize() <= 0)
+				// 4Byte는 크기를 나타내는 int형 변수의 바이트 크기임.
+				if (lpPacketHandler->GetSerializeRealSize() > 4)
 					lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeRealSize());
+				else
+					lpTCPSocket->IOCPRecv();
 			}
 			else
 				lpTCPSocket->IOCPRecv();
