@@ -279,7 +279,7 @@ static void InitDefaultsscc_info_UserData_JIGAPPacket_2eproto() {
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_UserData_JIGAPPacket_2eproto}, {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_JIGAPPacket_2eproto[14];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_JIGAPPacket_2eproto[1];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_JIGAPPacket_2eproto[3];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_JIGAPPacket_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_JIGAPPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -303,6 +303,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_JIGAPPacket_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::SingUpAnswer, success_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::SingUpAnswer, singupreason_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -316,6 +317,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_JIGAPPacket_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswer, userdata_),
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswer, loginreason_),
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::LoginAnswer, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::RoomInfo, _internal_metadata_),
@@ -379,17 +381,17 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::JIGAPPacket::UserData)},
   { 7, -1, sizeof(::JIGAPPacket::SingUpRequest)},
   { 14, -1, sizeof(::JIGAPPacket::SingUpAnswer)},
-  { 20, -1, sizeof(::JIGAPPacket::LoginRequest)},
-  { 27, -1, sizeof(::JIGAPPacket::LoginAnswer)},
-  { 34, -1, sizeof(::JIGAPPacket::RoomInfo)},
-  { 40, -1, sizeof(::JIGAPPacket::CreateRoomAnswer)},
-  { 47, -1, sizeof(::JIGAPPacket::JoinRoomRequest)},
-  { 53, -1, sizeof(::JIGAPPacket::JoinRoomAnswer)},
-  { 60, -1, sizeof(::JIGAPPacket::RoomListAnswer)},
-  { 66, -1, sizeof(::JIGAPPacket::RoomListElement)},
-  { 72, -1, sizeof(::JIGAPPacket::ChatRequest)},
-  { 79, -1, sizeof(::JIGAPPacket::ChatData)},
-  { 85, -1, sizeof(::JIGAPPacket::EmptyPacket)},
+  { 21, -1, sizeof(::JIGAPPacket::LoginRequest)},
+  { 28, -1, sizeof(::JIGAPPacket::LoginAnswer)},
+  { 36, -1, sizeof(::JIGAPPacket::RoomInfo)},
+  { 42, -1, sizeof(::JIGAPPacket::CreateRoomAnswer)},
+  { 49, -1, sizeof(::JIGAPPacket::JoinRoomRequest)},
+  { 55, -1, sizeof(::JIGAPPacket::JoinRoomAnswer)},
+  { 62, -1, sizeof(::JIGAPPacket::RoomListAnswer)},
+  { 68, -1, sizeof(::JIGAPPacket::RoomListElement)},
+  { 74, -1, sizeof(::JIGAPPacket::ChatRequest)},
+  { 81, -1, sizeof(::JIGAPPacket::ChatData)},
+  { 87, -1, sizeof(::JIGAPPacket::EmptyPacket)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -413,31 +415,38 @@ const char descriptor_table_protodef_JIGAPPacket_2eproto[] =
   "\n\021JIGAPPacket.proto\022\013JIGAPPacket\"$\n\010User"
   "Data\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"J\n\rSingUp"
   "Request\022\'\n\010userData\030\001 \001(\0132\025.JIGAPPacket."
-  "UserData\022\020\n\010passward\030\002 \001(\t\"\037\n\014SingUpAnsw"
-  "er\022\017\n\007success\030\001 \001(\010\",\n\014LoginRequest\022\n\n\002i"
-  "d\030\001 \001(\t\022\020\n\010passward\030\002 \001(\t\"G\n\013LoginAnswer"
-  "\022\'\n\010userData\030\001 \001(\0132\025.JIGAPPacket.UserDat"
-  "a\022\017\n\007success\030\002 \001(\010\"\034\n\010RoomInfo\022\020\n\010roomna"
-  "me\030\001 \001(\t\"L\n\020CreateRoomAnswer\022\'\n\010roomInfo"
-  "\030\001 \001(\0132\025.JIGAPPacket.RoomInfo\022\017\n\007success"
-  "\030\002 \001(\010\":\n\017JoinRoomRequest\022\'\n\010roomInfo\030\001 "
-  "\001(\0132\025.JIGAPPacket.RoomInfo\"J\n\016JoinRoomAn"
-  "swer\022\'\n\010roomInfo\030\001 \001(\0132\025.JIGAPPacket.Roo"
-  "mInfo\022\017\n\007success\030\002 \001(\010\"#\n\016RoomListAnswer"
-  "\022\021\n\troomCount\030\001 \001(\005\":\n\017RoomListElement\022\'"
-  "\n\010roomInfo\030\001 \001(\0132\025.JIGAPPacket.RoomInfo\""
-  "J\n\013ChatRequest\022\'\n\010userData\030\001 \001(\0132\025.JIGAP"
-  "Packet.UserData\022\022\n\nstrMessage\030\002 \001(\t\"\036\n\010C"
-  "hatData\022\022\n\nstrMessage\030\001 \001(\t\".\n\013EmptyPack"
-  "et\022\037\n\004type\030\001 \001(\0162\021.JIGAPPacket.Type*\271\002\n\004"
-  "Type\022\022\n\016eSingUpRequest\020\000\022\021\n\reSingUpAnswe"
-  "r\020\001\022\021\n\reLoginRequest\020\002\022\020\n\014eLoginAnswer\020\003"
-  "\022\026\n\022eCreateRoomRequest\020\004\022\025\n\021eCreateRoomA"
-  "nswer\020\005\022\024\n\020eJoinRoomRequest\020\006\022\023\n\017eJoinRo"
-  "omAnswer\020\007\022\024\n\020eRoomListRequest\020\010\022\023\n\017eRoo"
-  "mListAnswer\020\t\022\024\n\020eRoomListElement\020\n\022\024\n\020e"
-  "ExitRoomRequest\020\013\022\023\n\017eExitRoomAnswer\020\014\022\020"
-  "\n\014eChatRequest\020\r\022\r\n\teChatData\020\016b\006proto3"
+  "UserData\022\020\n\010passward\030\002 \001(\t\"V\n\014SingUpAnsw"
+  "er\022\017\n\007success\030\001 \001(\010\0225\n\014singUpReason\030\002 \001("
+  "\0162\037.JIGAPPacket.SingUpFailedReason\",\n\014Lo"
+  "ginRequest\022\n\n\002id\030\001 \001(\t\022\020\n\010passward\030\002 \001(\t"
+  "\"|\n\013LoginAnswer\022\'\n\010userData\030\001 \001(\0132\025.JIGA"
+  "PPacket.UserData\0223\n\013loginReason\030\002 \001(\0162\036."
+  "JIGAPPacket.LoginFailedReason\022\017\n\007success"
+  "\030\003 \001(\010\"\034\n\010RoomInfo\022\020\n\010roomname\030\001 \001(\t\"L\n\020"
+  "CreateRoomAnswer\022\'\n\010roomInfo\030\001 \001(\0132\025.JIG"
+  "APPacket.RoomInfo\022\017\n\007success\030\002 \001(\010\":\n\017Jo"
+  "inRoomRequest\022\'\n\010roomInfo\030\001 \001(\0132\025.JIGAPP"
+  "acket.RoomInfo\"J\n\016JoinRoomAnswer\022\'\n\010room"
+  "Info\030\001 \001(\0132\025.JIGAPPacket.RoomInfo\022\017\n\007suc"
+  "cess\030\002 \001(\010\"#\n\016RoomListAnswer\022\021\n\troomCoun"
+  "t\030\001 \001(\005\":\n\017RoomListElement\022\'\n\010roomInfo\030\001"
+  " \001(\0132\025.JIGAPPacket.RoomInfo\"J\n\013ChatReque"
+  "st\022\'\n\010userData\030\001 \001(\0132\025.JIGAPPacket.UserD"
+  "ata\022\022\n\nstrMessage\030\002 \001(\t\"\036\n\010ChatData\022\022\n\ns"
+  "trMessage\030\001 \001(\t\".\n\013EmptyPacket\022\037\n\004type\030\001"
+  " \001(\0162\021.JIGAPPacket.Type*\271\002\n\004Type\022\022\n\016eSin"
+  "gUpRequest\020\000\022\021\n\reSingUpAnswer\020\001\022\021\n\reLogi"
+  "nRequest\020\002\022\020\n\014eLoginAnswer\020\003\022\026\n\022eCreateR"
+  "oomRequest\020\004\022\025\n\021eCreateRoomAnswer\020\005\022\024\n\020e"
+  "JoinRoomRequest\020\006\022\023\n\017eJoinRoomAnswer\020\007\022\024"
+  "\n\020eRoomListRequest\020\010\022\023\n\017eRoomListAnswer\020"
+  "\t\022\024\n\020eRoomListElement\020\n\022\024\n\020eExitRoomRequ"
+  "est\020\013\022\023\n\017eExitRoomAnswer\020\014\022\020\n\014eChatReque"
+  "st\020\r\022\r\n\teChatData\020\016*N\n\022SingUpFailedReaso"
+  "n\022\020\n\014eDuplicateId\020\000\022\022\n\016eDuplicateName\020\001\022"
+  "\022\n\016eDontCondition\020\002*7\n\021LoginFailedReason"
+  "\022\020\n\014eDontMatchId\020\000\022\020\n\014eDontMatchPw\020\001b\006pr"
+  "oto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_JIGAPPacket_2eproto_deps[1] = {
 };
@@ -460,7 +469,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_JIG
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_JIGAPPacket_2eproto_once;
 static bool descriptor_table_JIGAPPacket_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto = {
-  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 1119,
+  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 1364,
   &descriptor_table_JIGAPPacket_2eproto_once, descriptor_table_JIGAPPacket_2eproto_sccs, descriptor_table_JIGAPPacket_2eproto_deps, 14, 0,
   schemas, file_default_instances, TableStruct_JIGAPPacket_2eproto::offsets,
   file_level_metadata_JIGAPPacket_2eproto, 14, file_level_enum_descriptors_JIGAPPacket_2eproto, file_level_service_descriptors_JIGAPPacket_2eproto,
@@ -490,6 +499,35 @@ bool Type_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SingUpFailedReason_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_JIGAPPacket_2eproto);
+  return file_level_enum_descriptors_JIGAPPacket_2eproto[1];
+}
+bool SingUpFailedReason_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LoginFailedReason_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_JIGAPPacket_2eproto);
+  return file_level_enum_descriptors_JIGAPPacket_2eproto[2];
+}
+bool LoginFailedReason_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
       return true;
     default:
       return false;
@@ -1186,6 +1224,7 @@ class SingUpAnswer::HasBitSetters {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SingUpAnswer::kSuccessFieldNumber;
+const int SingUpAnswer::kSingUpReasonFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SingUpAnswer::SingUpAnswer()
@@ -1197,12 +1236,16 @@ SingUpAnswer::SingUpAnswer(const SingUpAnswer& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
+  ::memcpy(&success_, &from.success_,
+    static_cast<size_t>(reinterpret_cast<char*>(&singupreason_) -
+    reinterpret_cast<char*>(&success_)) + sizeof(singupreason_));
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.SingUpAnswer)
 }
 
 void SingUpAnswer::SharedCtor() {
-  success_ = false;
+  ::memset(&success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&singupreason_) -
+      reinterpret_cast<char*>(&success_)) + sizeof(singupreason_));
 }
 
 SingUpAnswer::~SingUpAnswer() {
@@ -1228,7 +1271,9 @@ void SingUpAnswer::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
+  ::memset(&success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&singupreason_) -
+      reinterpret_cast<char*>(&success_)) + sizeof(singupreason_));
   _internal_metadata_.Clear();
 }
 
@@ -1245,6 +1290,14 @@ const char* SingUpAnswer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+          set_singupreason(static_cast<::JIGAPPacket::SingUpFailedReason>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1290,6 +1343,20 @@ bool SingUpAnswer::MergePartialFromCodedStream(
         break;
       }
 
+      // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
+          int value = 0;
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_singupreason(static_cast< ::JIGAPPacket::SingUpFailedReason >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1322,6 +1389,12 @@ void SingUpAnswer::SerializeWithCachedSizes(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(1, this->success(), output);
   }
 
+  // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+  if (this->singupreason() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnum(
+      2, this->singupreason(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1338,6 +1411,12 @@ void SingUpAnswer::SerializeWithCachedSizes(
   // bool success = 1;
   if (this->success() != 0) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->success(), target);
+  }
+
+  // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+  if (this->singupreason() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->singupreason(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1364,6 +1443,12 @@ size_t SingUpAnswer::ByteSizeLong() const {
   // bool success = 1;
   if (this->success() != 0) {
     total_size += 1 + 1;
+  }
+
+  // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+  if (this->singupreason() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->singupreason());
   }
 
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
@@ -1396,6 +1481,9 @@ void SingUpAnswer::MergeFrom(const SingUpAnswer& from) {
   if (from.success() != 0) {
     set_success(from.success());
   }
+  if (from.singupreason() != 0) {
+    set_singupreason(from.singupreason());
+  }
 }
 
 void SingUpAnswer::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1424,6 +1512,7 @@ void SingUpAnswer::InternalSwap(SingUpAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(success_, other->success_);
+  swap(singupreason_, other->singupreason_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SingUpAnswer::GetMetadata() const {
@@ -1789,6 +1878,7 @@ LoginAnswer::HasBitSetters::userdata(const LoginAnswer* msg) {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int LoginAnswer::kUserDataFieldNumber;
+const int LoginAnswer::kLoginReasonFieldNumber;
 const int LoginAnswer::kSuccessFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1806,7 +1896,9 @@ LoginAnswer::LoginAnswer(const LoginAnswer& from)
   } else {
     userdata_ = nullptr;
   }
-  success_ = from.success_;
+  ::memcpy(&loginreason_, &from.loginreason_,
+    static_cast<size_t>(reinterpret_cast<char*>(&success_) -
+    reinterpret_cast<char*>(&loginreason_)) + sizeof(success_));
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.LoginAnswer)
 }
 
@@ -1845,7 +1937,9 @@ void LoginAnswer::Clear() {
     delete userdata_;
   }
   userdata_ = nullptr;
-  success_ = false;
+  ::memset(&loginreason_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&success_) -
+      reinterpret_cast<char*>(&loginreason_)) + sizeof(success_));
   _internal_metadata_.Clear();
 }
 
@@ -1864,9 +1958,17 @@ const char* LoginAnswer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool success = 2;
+      // .JIGAPPacket.LoginFailedReason loginReason = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+          set_loginreason(static_cast<::JIGAPPacket::LoginFailedReason>(val));
+        } else goto handle_unusual;
+        continue;
+      // bool success = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -1912,9 +2014,23 @@ bool LoginAnswer::MergePartialFromCodedStream(
         break;
       }
 
-      // bool success = 2;
+      // .JIGAPPacket.LoginFailedReason loginReason = 2;
       case 2: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
+          int value = 0;
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_loginreason(static_cast< ::JIGAPPacket::LoginFailedReason >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bool success = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
 
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
@@ -1958,9 +2074,15 @@ void LoginAnswer::SerializeWithCachedSizes(
       1, HasBitSetters::userdata(this), output);
   }
 
-  // bool success = 2;
+  // .JIGAPPacket.LoginFailedReason loginReason = 2;
+  if (this->loginreason() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnum(
+      2, this->loginreason(), output);
+  }
+
+  // bool success = 3;
   if (this->success() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(2, this->success(), output);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(3, this->success(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1983,9 +2105,15 @@ void LoginAnswer::SerializeWithCachedSizes(
         1, HasBitSetters::userdata(this), target);
   }
 
-  // bool success = 2;
+  // .JIGAPPacket.LoginFailedReason loginReason = 2;
+  if (this->loginreason() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->loginreason(), target);
+  }
+
+  // bool success = 3;
   if (this->success() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->success(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->success(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2016,7 +2144,13 @@ size_t LoginAnswer::ByteSizeLong() const {
         *userdata_);
   }
 
-  // bool success = 2;
+  // .JIGAPPacket.LoginFailedReason loginReason = 2;
+  if (this->loginreason() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->loginreason());
+  }
+
+  // bool success = 3;
   if (this->success() != 0) {
     total_size += 1 + 1;
   }
@@ -2051,6 +2185,9 @@ void LoginAnswer::MergeFrom(const LoginAnswer& from) {
   if (from.has_userdata()) {
     mutable_userdata()->::JIGAPPacket::UserData::MergeFrom(from.userdata());
   }
+  if (from.loginreason() != 0) {
+    set_loginreason(from.loginreason());
+  }
   if (from.success() != 0) {
     set_success(from.success());
   }
@@ -2082,6 +2219,7 @@ void LoginAnswer::InternalSwap(LoginAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(userdata_, other->userdata_);
+  swap(loginreason_, other->loginreason_);
   swap(success_, other->success_);
 }
 

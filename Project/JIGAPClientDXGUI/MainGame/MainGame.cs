@@ -14,15 +14,14 @@ namespace JIGAPClientDXGUI.Engine
 {
     class MainGame : IDisposable
     {
+        public bool IsInitialize = false;
+
         public bool Initialize()
         {
-
             if (!NetworkManager.Instance.ConnectServer())
-            {
-                System.Windows.Forms.Application.Exit();
                 return false;
-            }
 
+            IsInitialize = true;
 
             DXManager.Instance.Initialize("JIGAPChattingGame", 1280, 720);
 
@@ -59,12 +58,16 @@ namespace JIGAPClientDXGUI.Engine
 
         public void Dispose()
         {
-            NetworkManager.Instance.Dispose();
-            ObjectManager.Instance.Dispose();
-            ImageManager.Instance.Dispose();
-            SceneManager.Instance.Dispose();
-            InputManager.Instance.Dispose();
-            DXManager.Instance.Dispose();
+            NetworkManager.Instance?.Dispose();
+
+            if (IsInitialize)
+            {
+                ObjectManager.Instance?.Dispose();
+                ImageManager.Instance?.Dispose();
+                SceneManager.Instance?.Dispose();
+                InputManager.Instance?.Dispose();
+                DXManager.Instance?.Dispose();
+            }
         }
     }
 }

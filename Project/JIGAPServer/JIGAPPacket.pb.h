@@ -21,6 +21,8 @@
 #define PROTOBUF_USE_DLLS
 #define GOOGLE_DCHECK
 
+
+
 #include <google/protobuf/port_undef.inc>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
@@ -135,8 +137,8 @@ enum Type : int {
   eExitRoomAnswer = 12,
   eChatRequest = 13,
   eChatData = 14,
-  //Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   //Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  //Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
 };
 bool Type_IsValid(int value);
 constexpr Type Type_MIN = eSingUpRequest;
@@ -156,6 +158,57 @@ inline bool Type_Parse(
     const std::string& name, Type* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Type>(
     Type_descriptor(), name, value);
+}
+enum SingUpFailedReason : int {
+  eDuplicateId = 0,
+  eDuplicateName = 1,
+  eDontCondition = 2,
+ // SingUpFailedReason_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+ // SingUpFailedReason_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool SingUpFailedReason_IsValid(int value);
+constexpr SingUpFailedReason SingUpFailedReason_MIN = eDuplicateId;
+constexpr SingUpFailedReason SingUpFailedReason_MAX = eDontCondition;
+constexpr int SingUpFailedReason_ARRAYSIZE = SingUpFailedReason_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SingUpFailedReason_descriptor();
+template<typename T>
+inline const std::string& SingUpFailedReason_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SingUpFailedReason>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SingUpFailedReason_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    SingUpFailedReason_descriptor(), enum_t_value);
+}
+inline bool SingUpFailedReason_Parse(
+    const std::string& name, SingUpFailedReason* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<SingUpFailedReason>(
+    SingUpFailedReason_descriptor(), name, value);
+}
+enum LoginFailedReason : int {
+  eDontMatchId = 0,
+  eDontMatchPw = 1,
+ // LoginFailedReason_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+ // LoginFailedReason_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool LoginFailedReason_IsValid(int value);
+constexpr LoginFailedReason LoginFailedReason_MIN = eDontMatchId;
+constexpr LoginFailedReason LoginFailedReason_MAX = eDontMatchPw;
+constexpr int LoginFailedReason_ARRAYSIZE = LoginFailedReason_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LoginFailedReason_descriptor();
+template<typename T>
+inline const std::string& LoginFailedReason_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, LoginFailedReason>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function LoginFailedReason_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    LoginFailedReason_descriptor(), enum_t_value);
+}
+inline bool LoginFailedReason_Parse(
+    const std::string& name, LoginFailedReason* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LoginFailedReason>(
+    LoginFailedReason_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -561,12 +614,19 @@ class SingUpAnswer :
   bool success() const;
   void set_success(bool value);
 
+  // .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+  void clear_singupreason();
+  static const int kSingUpReasonFieldNumber = 2;
+  ::JIGAPPacket::SingUpFailedReason singupreason() const;
+  void set_singupreason(::JIGAPPacket::SingUpFailedReason value);
+
   // @@protoc_insertion_point(class_scope:JIGAPPacket.SingUpAnswer)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   bool success_;
+  int singupreason_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
@@ -835,9 +895,15 @@ class LoginAnswer :
   ::JIGAPPacket::UserData* mutable_userdata();
   void set_allocated_userdata(::JIGAPPacket::UserData* userdata);
 
-  // bool success = 2;
+  // .JIGAPPacket.LoginFailedReason loginReason = 2;
+  void clear_loginreason();
+  static const int kLoginReasonFieldNumber = 2;
+  ::JIGAPPacket::LoginFailedReason loginreason() const;
+  void set_loginreason(::JIGAPPacket::LoginFailedReason value);
+
+  // bool success = 3;
   void clear_success();
-  static const int kSuccessFieldNumber = 2;
+  static const int kSuccessFieldNumber = 3;
   bool success() const;
   void set_success(bool value);
 
@@ -847,6 +913,7 @@ class LoginAnswer :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::JIGAPPacket::UserData* userdata_;
+  int loginreason_;
   bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
@@ -2276,6 +2343,20 @@ inline void SingUpAnswer::set_success(bool value) {
   // @@protoc_insertion_point(field_set:JIGAPPacket.SingUpAnswer.success)
 }
 
+// .JIGAPPacket.SingUpFailedReason singUpReason = 2;
+inline void SingUpAnswer::clear_singupreason() {
+  singupreason_ = 0;
+}
+inline ::JIGAPPacket::SingUpFailedReason SingUpAnswer::singupreason() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.SingUpAnswer.singUpReason)
+  return static_cast< ::JIGAPPacket::SingUpFailedReason >(singupreason_);
+}
+inline void SingUpAnswer::set_singupreason(::JIGAPPacket::SingUpFailedReason value) {
+  
+  singupreason_ = value;
+  // @@protoc_insertion_point(field_set:JIGAPPacket.SingUpAnswer.singUpReason)
+}
+
 // -------------------------------------------------------------------
 
 // LoginRequest
@@ -2437,7 +2518,21 @@ inline void LoginAnswer::set_allocated_userdata(::JIGAPPacket::UserData* userdat
   // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.LoginAnswer.userData)
 }
 
-// bool success = 2;
+// .JIGAPPacket.LoginFailedReason loginReason = 2;
+inline void LoginAnswer::clear_loginreason() {
+  loginreason_ = 0;
+}
+inline ::JIGAPPacket::LoginFailedReason LoginAnswer::loginreason() const {
+  // @@protoc_insertion_point(field_get:JIGAPPacket.LoginAnswer.loginReason)
+  return static_cast< ::JIGAPPacket::LoginFailedReason >(loginreason_);
+}
+inline void LoginAnswer::set_loginreason(::JIGAPPacket::LoginFailedReason value) {
+  
+  loginreason_ = value;
+  // @@protoc_insertion_point(field_set:JIGAPPacket.LoginAnswer.loginReason)
+}
+
+// bool success = 3;
 inline void LoginAnswer::clear_success() {
   success_ = false;
 }
@@ -2991,6 +3086,16 @@ template <> struct is_proto_enum< ::JIGAPPacket::Type> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::JIGAPPacket::Type>() {
   return ::JIGAPPacket::Type_descriptor();
+}
+template <> struct is_proto_enum< ::JIGAPPacket::SingUpFailedReason> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::JIGAPPacket::SingUpFailedReason>() {
+  return ::JIGAPPacket::SingUpFailedReason_descriptor();
+}
+template <> struct is_proto_enum< ::JIGAPPacket::LoginFailedReason> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::JIGAPPacket::LoginFailedReason>() {
+  return ::JIGAPPacket::LoginFailedReason_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

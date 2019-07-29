@@ -5,8 +5,13 @@ class TCPSocket;
 
 class JIGAPBaserProcess
 {
+	protected:
+	JIGAPServer* lpJIGAPServer = nullptr;
+
+private:
+	JIGAPBaserProcess() {} 
 public:
-	JIGAPBaserProcess() {};
+	JIGAPBaserProcess(JIGAPServer* inLpJIGAPServer) { lpJIGAPServer = inLpJIGAPServer; };
 	virtual ~JIGAPBaserProcess() {};
 
 	virtual void OnInitialize() PURE;
@@ -14,5 +19,6 @@ public:
 	virtual void OnConnect(TCPSocket * lpInSocket)	 PURE;
 	virtual void OnDisconnect(TCPSocket* lpInSocket) PURE;
 	virtual void OnProcess(TCPSocket * lpInTCPSocket, PacketHandler* lpHandler) PURE;
+
 };
 

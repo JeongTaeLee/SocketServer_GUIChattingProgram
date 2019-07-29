@@ -8,6 +8,8 @@ namespace JIGAPClientDXGUI
 {
     class PacketProcess
     {
+        public UserData UserData = new UserData();
+
         public void OnRecvProcess(PacketHandler inHandler)
         {
             PacketHeader header = new PacketHeader();
@@ -40,7 +42,7 @@ namespace JIGAPClientDXGUI
             if (singUpAnswer.Success)
                 NetworkManager.Instance.InvokeSingUpSuccess();
             else
-                NetworkManager.Instance.InvokeSingUpFailed();
+                NetworkManager.Instance.InvokeSingUpFailed(singUpAnswer.SingUpReason);
         }
 
         public void OnLoginAnswer(PacketHandler inHandler, int inSize)
@@ -49,9 +51,14 @@ namespace JIGAPClientDXGUI
             inHandler.ParsingPacket(ref loginAnswer, inSize);
 
             if (loginAnswer.Success)
+            {
+                UserData.userId = loginAnswer.UserData.Id;
+                UserData.userName = loginAnswer.UserData.Name;
+
                 NetworkManager.Instance.InvokeLoginSuccess();
+            }
             else
-                NetworkManager.Instance.InvokeLoginFailed();
+                NetworkManager.Instance.InvokeLoginFailed(loginAnswer.LoginReason);
         }
 
         

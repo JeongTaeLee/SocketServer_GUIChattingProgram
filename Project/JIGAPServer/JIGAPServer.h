@@ -37,11 +37,10 @@ private:
 	PacketHandler* lpPacketHandler		= nullptr;
 	JIGAPBaserProcess* lpServerProcess	= nullptr;
 	
-
 	bool bServerOn = false;
 
-	//C# 에서 CalLBack
 private:
+	//C# 에서 CalLBack
 	LogFunc lpLogFunc = nullptr;
 
 private:

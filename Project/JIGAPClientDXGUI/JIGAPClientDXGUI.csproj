@@ -132,6 +132,7 @@
     <Compile Include="Component\SingUpLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />
     <Compile Include="Engine\Component\SpriteRenderer.cs" />
+    <Compile Include="Engine\Component\TapControlAdmin.cs" />
     <Compile Include="Engine\Component\Text.cs" />
     <Compile Include="Engine\Component\TextField.cs" />
     <Compile Include="Engine\Component\UIRenderer.cs" />

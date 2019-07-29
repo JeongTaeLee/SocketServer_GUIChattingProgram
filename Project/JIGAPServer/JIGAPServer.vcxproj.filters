@@ -132,14 +132,14 @@
     <ClInclude Include="MySqlDB.h">
       <Filter>ServerEngine\MySqlDB</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="BaseQuery.h">
       <Filter>ServerEngine\BaseQuery</Filter>
     </ClInclude>
     <ClInclude Include="ChatQuery.h">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,14 +194,14 @@
     <ClCompile Include="MySqlDB.cpp">
       <Filter>ServerEngine\MySqlDB</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <Filter>JIGAPPacket</Filter>
-    </ClCompile>
     <ClCompile Include="BaseQuery.cpp">
       <Filter>ServerEngine\BaseQuery</Filter>
     </ClCompile>
     <ClCompile Include="ChatQuery.cpp">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "JIGAPChatProcess.h"
+#include "JIGAPServer.h"
 #include "UserDataAdmin.h"
 #include "ChatUserData.h"
 #include "ChatQuery.h"
@@ -60,42 +61,62 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		return;
 	}
 
-	if (find->GetLogin() == false)
+	if (find->GetLogin()) return;
+
+	JIGAPPacket::SingUpRequest packet;
+	JIGAPPacket::SingUpAnswer answer;
+	lpHandler->NextParsingPacket(packet, header.iSize);
+
+	if (packet.userdata().id().size() > 20
+		|| packet.userdata().name().size() > 20
+		|| packet.passward().size() > 20)
 	{
-		JIGAPPacket::SingUpAnswer answer;
-		JIGAPPacket::SingUpRequest packet;
-		lpHandler->NextParsingPacket(packet, header.iSize);
+		answer.set_success(false);
+		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDontCondition);
 
-		if (lpQuery->CheckUserDataToDB(packet.userdata().id()))
-		{
-			answer.set_success(false);
-			lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
-
-			JIGAPPacket::UserData* lpUser = packet.release_userdata();
-			SAFE_DELETE(lpUser);
-			return;
-		}
-
-		if (!lpQuery->InsertUserDataToDB(packet.userdata().id(), packet.passward(), packet.userdata().name()))
-		{
-			answer.set_success(false);
-			lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
-			
-			JIGAPPacket::UserData* lpUser = packet.release_userdata();
-			SAFE_DELETE(lpUser);
-			return;
-		}
-
-		DEBUG_LOG("Insert User" << packet.userdata().id() << " " << packet.passward() << " " << packet.userdata().name());
-		answer.set_success(true);
 		lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
-
-		JIGAPPacket::UserData* lpUser = packet.release_userdata();
-		SAFE_DELETE(lpUser);
+		return;
 	}
+
+	TYPE_ROW row;
+	if (lpQuery->FindUserDataToDB(packet.userdata().id(), row))
+	{
+		if (row["name"] == packet.userdata().name())
+		{
+			answer.set_success(false);
+			answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateName);
+
+			lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+
+			return;
+		}
+
+		answer.set_success(false);
+		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
+
+		lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+		return;
+	}
+
+
+	if (!lpQuery->InsertUserDataToDB(packet.userdata().id(), packet.passward(), packet.userdata().name()))
+	{
+		answer.set_success(false);
+		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
+
+		lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+		return;
+	}
+
+	answer.set_success(true);
+	lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client singup server", packet.userdata().name().c_str(), packet.userdata().id().c_str());
+
+	lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+
+	return;
 }
 
-void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader & header)
+void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
 {
 	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
 
@@ -105,32 +126,46 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 		return;
 	}
 
-	if (find->GetLogin() == false)
+	if (find->GetLogin()) return;
+
+	JIGAPPacket::LoginAnswer answer;
+	JIGAPPacket::LoginRequest packet;
+	lpHandler->NextParsingPacket(packet, header.iSize);
+
+	TYPE_ROW row;
+	if (lpQuery->FindUserDataToDB(packet.id(), row) == false)
 	{
-		JIGAPPacket::LoginAnswer answer;
-		JIGAPPacket::LoginRequest packet;
-		lpHandler->NextParsingPacket(packet, header.iSize);
-
-		TYPE_ROW row;
-		if (lpQuery->FindUserDataToDB(packet.id(), row))
-		{
-			if (row["password"] == packet.passward())
-			{
-				JIGAPPacket::UserData* userdata = answer.mutable_userdata();
-				answer.set_success(true);
-				userdata->set_id(row["id"]);
-				userdata->set_name(row["name"]);
-				
-				lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
-
-				userdata = answer.release_userdata();
-				SAFE_DELETE(userdata);
-				return;
-			}
-		}
-
 		answer.set_success(false);
+		answer.set_loginreason(JIGAPPacket::LoginFailedReason::eDontMatchId);
+
 		lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
+		return;
 	}
+
+	if (row["password"] == packet.passward())
+	{
+		JIGAPPacket::UserData* userdata = answer.mutable_userdata();
+
+		answer.set_success(true);
+		userdata->set_id(row["id"]);
+		userdata->set_name(row["name"]);
+
+		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client login server", row["name"].c_str(), row["id"].c_str());
+
+		lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
+
+		userdata = answer.release_userdata();
+		SAFE_DELETE(userdata);
+		return;
+	}
+	else
+	{
+		answer.set_success(false);
+		answer.set_loginreason(JIGAPPacket::LoginFailedReason::eDontMatchPw);
+
+		lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
+		return;
+	}
+
 }
 

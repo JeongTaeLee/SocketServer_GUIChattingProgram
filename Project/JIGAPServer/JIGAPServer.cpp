@@ -69,7 +69,7 @@ bool JIGAPServer::CreateServerSocket()
 
 bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 {
-	lpServerProcess = new JIGAPChatProcess();
+	lpServerProcess = new JIGAPChatProcess(this);
 	lpServerProcess->OnInitialize();
 	
 	serverData.SetServerData(inPortAddress);
@@ -229,6 +229,7 @@ void JIGAPServer::OnRecvPacketTask()
 				lpTCPSocket->IOCPRecv();
 		}
 	}
+
 }
 
 void JIGAPServer::RegisterServerLog(const char* fmt, ...)

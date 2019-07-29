@@ -23,20 +23,20 @@ namespace JIGAPClientDXGUI
 
         public override void Init()
         {
-  
+
             GameObject backGround = ObjectManager.Instance.RegisterObject();
             backGround.AddComponent<UIRenderer>().Texture = ImageManager.Instance.LoadTexture("LoginBackGround");
 
             GameObject fieldObject = ObjectManager.Instance.RegisterObject();
             TextField loginField = fieldObject.AddComponent<TextField>();
-            CreateLoginTextBox(fieldObject, loginField, new SharpDX.Vector3(340, 268, 0f), null);
+            CreateLoginTextBox(fieldObject, loginField, new SharpDX.Vector3(340, 268, 0f));
 
             fieldObject = ObjectManager.Instance.RegisterObject();
-            TextField passwordField  = fieldObject.AddComponent<TextField>();
-            CreateLoginTextBox(fieldObject, passwordField, new SharpDX.Vector3(340, 410, 0f), null);
+            TextField passwordField = fieldObject.AddComponent<TextField>();
+            CreateLoginTextBox(fieldObject, passwordField, new SharpDX.Vector3(340, 410, 0f));
 
             GameObject loginButton = ObjectManager.Instance.RegisterObject();
-            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 528f, 481f, 223, 58, 
+            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 528f, 481f, 223, 58,
                 () => { OnLoginRequest(loginField.String, passwordField.String); });
 
             GameObject singUpButton = ObjectManager.Instance.RegisterObject();
@@ -56,11 +56,10 @@ namespace JIGAPClientDXGUI
             NetworkManager.Instance.SendLoginRequest(inid, inpassword);
         }
 
-        private void CreateLoginTextBox(GameObject inObject, TextField inField, SharpDX.Vector3 v3, Action<string> _delgate)
+        private void CreateLoginTextBox(GameObject inObject, TextField inField, SharpDX.Vector3 v3)
         {
             inField.Texture = ImageManager.Instance.LoadTexture("LoginTextBox");
             inField.String = "Empty";
-            inField.EnterBehavior = (string _inStr) => _delgate(_inStr);
             inObject.transform.position = v3;
 
         }

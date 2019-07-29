@@ -28,6 +28,19 @@ enum Type
     eChatData = 14;
 }
 
+enum SingUpFailedReason
+{
+    eDuplicateId = 0;
+    eDuplicateName =  1;
+    eDontCondition = 2;
+}
+
+enum LoginFailedReason
+{
+    eDontMatchId = 0;
+    eDontMatchPw = 1;
+}
+
 message UserData{
     string id = 1;
     string name = 2;
@@ -40,6 +53,7 @@ message SingUpRequest{
 
 message SingUpAnswer{
     bool success = 1;
+    SingUpFailedReason singUpReason = 2;
 }
 
 message LoginRequest{
@@ -49,7 +63,8 @@ message LoginRequest{
 
 message LoginAnswer{
     UserData userData = 1;
-    bool success = 2;
+    LoginFailedReason loginReason = 2;
+    bool success = 3;
 }
 
 message RoomInfo{

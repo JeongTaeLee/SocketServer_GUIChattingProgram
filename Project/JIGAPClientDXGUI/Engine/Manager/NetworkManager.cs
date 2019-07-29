@@ -11,24 +11,33 @@ using System.IO;
 
 namespace JIGAPClientDXGUI
 {
+    public struct UserData
+    {
+        public string userName { get; set; }
+        public string userId { get; set; }
+    }
+
     //Delegate & Event
     partial class NetworkManager
     {
-        public delegate void SingUpCallBack();
-        public delegate void LoginCallBack();
+        public delegate void SingUpSuccessCallBack();
+        public delegate void SingUpFailedCallBack(JIGAPPacket.SingUpFailedReason reason);
+
+        public delegate void LoginSuccessCallBack();
+        public delegate void LoginFailedCallBack(JIGAPPacket.LoginFailedReason reason);
 
         public void InvokeSingUpSuccess() { singUpSuccess?.Invoke(); }
-        public event SingUpCallBack singUpSuccess;
-        public void InvokeSingUpFailed() { singUpFailed?.Invoke(); }
-        public event SingUpCallBack singUpFailed;
+        public event SingUpSuccessCallBack singUpSuccess;
+        public void InvokeSingUpFailed(JIGAPPacket.SingUpFailedReason reason) { singUpFailed?.Invoke(reason); }
+        public event SingUpFailedCallBack singUpFailed;
 
         public void InvokeLoginSuccess() { LoginSuccess?.Invoke(); }
-        public event LoginCallBack LoginSuccess;
+        public event LoginSuccessCallBack LoginSuccess;
 
-        public void InvokeLoginFailed() { LoginFailed?.Invoke(); }
-        public event LoginCallBack LoginFailed;        
+        public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { LoginFailed?.Invoke(reason); }
+        public event LoginFailedCallBack LoginFailed;        
     }
-    
+
 
     partial class NetworkManager : IDisposable
     {
@@ -37,7 +46,7 @@ namespace JIGAPClientDXGUI
         {
             get
             {
-                
+
                 if (instance == null)
                     instance = new NetworkManager();
 
@@ -50,6 +59,7 @@ namespace JIGAPClientDXGUI
         public PacketHandler PacketHandler { get; private set; } = new PacketHandler();
         public ConnectDataInfo connectDataInfo { get; private set; } = new ConnectDataInfo();
         public PacketProcess PacketProcess { get; private set; } = new PacketProcess();
+        public UserData UserData { get => PacketProcess.UserData; }
     }
 
     partial class NetworkManager : IDisposable
@@ -127,8 +137,9 @@ namespace JIGAPClientDXGUI
             {
                 int paketSize = PacketHandler.ParsingTotalPacketSize(e.Buffer);
                 PacketHandler.ClearParsingBuffer(e.Buffer, paketSize);
-
                 PacketProcess.OnRecvProcess(PacketHandler);
+
+                OnRecvPacket();
             }
             else
             {
@@ -140,7 +151,7 @@ namespace JIGAPClientDXGUI
 
     partial class NetworkManager
     { 
-        public void SendSingUpRequest(string strId, string strPassward, string strName)
+        public void SendSingUpRequest(string strName, string strId, string strPassword)
         {
             PacketHandler.ClearSerializeBuffer();
 
@@ -148,7 +159,7 @@ namespace JIGAPClientDXGUI
             singUpRequest.UserData = new JIGAPPacket.UserData();
             singUpRequest.UserData.Id = strId;
             singUpRequest.UserData.Name = strName;
-            singUpRequest.Passward = strPassward;
+            singUpRequest.Passward = strPassword;
 
             PacketHandler.SerializePacket(JIGAPPacket.Type.ESingUpRequest, singUpRequest);
 

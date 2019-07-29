@@ -17,14 +17,11 @@ namespace JIGAPClientDXGUI
     {
         public static void Main(string[] args)
         {
-
             using (MainGame mainGame = new MainGame())
             {
                 if(mainGame.Initialize())
                     mainGame.Run();
             }
-
-            Console.WriteLine();
         }
     }
 }

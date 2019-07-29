@@ -1,5 +1,7 @@
 #pragma once
 #include "JIGAPBaserProcess.h"
+
+class JIGAPServer;
 class TCPSocket;
 class ChatUserData;
 class ChatQuery;
@@ -14,8 +16,12 @@ private:
 	UserDataAdmin<ChatUserData>* lpUserAdmin = nullptr;
 	ChatQuery* lpQuery = nullptr;
 	
+private:
+	JIGAPChatProcess() 
+		:JIGAPBaserProcess(nullptr){ }
+
 public:
-	JIGAPChatProcess() {}
+	JIGAPChatProcess(JIGAPServer * inLpJIGAPServer) : JIGAPBaserProcess(inLpJIGAPServer) {}
 	virtual ~JIGAPChatProcess() {}
 
 	// JIGAPServerBase을(를) 통해 상속됨

@@ -19,7 +19,7 @@ namespace JIGAPClientDXGUI
         private GameObject textChild = null;
         private UIRenderer UIRenderer = null;
         private Text Text = null;
-        private bool pickBox = false;
+        private bool ActiveBox = false;
 
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
@@ -101,9 +101,6 @@ namespace JIGAPClientDXGUI
                 Text.DrawFlag = value;
             }
         }
-
-        public FieldBehavior EnterBehavior { private get; set; } = null;
-
     }
 
 
@@ -125,7 +122,7 @@ namespace JIGAPClientDXGUI
 
             TextOffset = new Vector3(5f, -2f, 0f);
 
-            pickBox = false;
+            ActiveBox = false;
             UIRenderer.Color = new Color(150, 150, 150);
         }
         public override void Release()
@@ -142,34 +139,38 @@ namespace JIGAPClientDXGUI
             if (InputManager.Instance.GetMouseDown(InputManager.MouseButtonType.Left))
             {
                 if (boxRange.Contains(cursorPoint.X, cursorPoint.Y))
-                {
-                    pickBox = true;
-                    UIRenderer.Color = new Color(255, 255, 255);
-                }
+                    OnActiveBox();
                 else
-                {
-                    pickBox = false;
-                    UIRenderer.Color = new Color(150, 150, 150);
-                }
+                    OnUnActiveBox();
 
-            }
-
-            if (pickBox && EnterBehavior != null)
-            {
-                if (InputManager.Instance.GetKeyDown(SharpDX.DirectInput.Key.Return))
-                    EnterBehavior(String);
             }
         }
 
-        public void Renew()
+        /*움직였을 경우 위치나 충돌 범위 업데이트*/
+        private void Renew()
         {
             boxRange = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
             Text.Range = new SharpDX.Mathematics.Interop.RawRectangle(0, 0, Width - 10, Height);
         }
 
-        public void AppendText(char c)
+        public void OnActiveBox()
         {
-            if (!pickBox)
+            if (ActiveBox) return;
+
+            ActiveBox = true;
+            UIRenderer.Color = new Color(255, 255, 255);
+        }
+        public void OnUnActiveBox()
+        {
+            if (!ActiveBox) return;
+
+            ActiveBox = false;
+            UIRenderer.Color = new Color(150, 150, 150);
+        }
+
+        private void AppendText(char c)
+        {
+            if (!ActiveBox)
                 return;
 
             switch ((int)c)

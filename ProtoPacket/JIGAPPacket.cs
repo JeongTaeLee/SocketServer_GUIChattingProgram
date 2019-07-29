@@ -27,36 +27,42 @@ namespace JIGAPPacket {
             "ChFKSUdBUFBhY2tldC5wcm90bxILSklHQVBQYWNrZXQiJAoIVXNlckRhdGES",
             "CgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCSJKCg1TaW5nVXBSZXF1ZXN0EicK",
             "CHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNrZXQuVXNlckRhdGESEAoIcGFz",
-            "c3dhcmQYAiABKAkiHwoMU2luZ1VwQW5zd2VyEg8KB3N1Y2Nlc3MYASABKAgi",
-            "LAoMTG9naW5SZXF1ZXN0EgoKAmlkGAEgASgJEhAKCHBhc3N3YXJkGAIgASgJ",
-            "IkcKC0xvZ2luQW5zd2VyEicKCHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNr",
-            "ZXQuVXNlckRhdGESDwoHc3VjY2VzcxgCIAEoCCIcCghSb29tSW5mbxIQCghy",
-            "b29tbmFtZRgBIAEoCSJMChBDcmVhdGVSb29tQW5zd2VyEicKCHJvb21JbmZv",
-            "GAEgASgLMhUuSklHQVBQYWNrZXQuUm9vbUluZm8SDwoHc3VjY2VzcxgCIAEo",
-            "CCI6Cg9Kb2luUm9vbVJlcXVlc3QSJwoIcm9vbUluZm8YASABKAsyFS5KSUdB",
-            "UFBhY2tldC5Sb29tSW5mbyJKCg5Kb2luUm9vbUFuc3dlchInCghyb29tSW5m",
-            "bxgBIAEoCzIVLkpJR0FQUGFja2V0LlJvb21JbmZvEg8KB3N1Y2Nlc3MYAiAB",
-            "KAgiIwoOUm9vbUxpc3RBbnN3ZXISEQoJcm9vbUNvdW50GAEgASgFIjoKD1Jv",
-            "b21MaXN0RWxlbWVudBInCghyb29tSW5mbxgBIAEoCzIVLkpJR0FQUGFja2V0",
-            "LlJvb21JbmZvIkoKC0NoYXRSZXF1ZXN0EicKCHVzZXJEYXRhGAEgASgLMhUu",
-            "SklHQVBQYWNrZXQuVXNlckRhdGESEgoKc3RyTWVzc2FnZRgCIAEoCSIeCghD",
-            "aGF0RGF0YRISCgpzdHJNZXNzYWdlGAEgASgJIi4KC0VtcHR5UGFja2V0Eh8K",
-            "BHR5cGUYASABKA4yES5KSUdBUFBhY2tldC5UeXBlKrkCCgRUeXBlEhIKDmVT",
-            "aW5nVXBSZXF1ZXN0EAASEQoNZVNpbmdVcEFuc3dlchABEhEKDWVMb2dpblJl",
-            "cXVlc3QQAhIQCgxlTG9naW5BbnN3ZXIQAxIWChJlQ3JlYXRlUm9vbVJlcXVl",
-            "c3QQBBIVChFlQ3JlYXRlUm9vbUFuc3dlchAFEhQKEGVKb2luUm9vbVJlcXVl",
-            "c3QQBhITCg9lSm9pblJvb21BbnN3ZXIQBxIUChBlUm9vbUxpc3RSZXF1ZXN0",
-            "EAgSEwoPZVJvb21MaXN0QW5zd2VyEAkSFAoQZVJvb21MaXN0RWxlbWVudBAK",
-            "EhQKEGVFeGl0Um9vbVJlcXVlc3QQCxITCg9lRXhpdFJvb21BbnN3ZXIQDBIQ",
-            "CgxlQ2hhdFJlcXVlc3QQDRINCgllQ2hhdERhdGEQDmIGcHJvdG8z"));
+            "c3dhcmQYAiABKAkiVgoMU2luZ1VwQW5zd2VyEg8KB3N1Y2Nlc3MYASABKAgS",
+            "NQoMc2luZ1VwUmVhc29uGAIgASgOMh8uSklHQVBQYWNrZXQuU2luZ1VwRmFp",
+            "bGVkUmVhc29uIiwKDExvZ2luUmVxdWVzdBIKCgJpZBgBIAEoCRIQCghwYXNz",
+            "d2FyZBgCIAEoCSJ8CgtMb2dpbkFuc3dlchInCgh1c2VyRGF0YRgBIAEoCzIV",
+            "LkpJR0FQUGFja2V0LlVzZXJEYXRhEjMKC2xvZ2luUmVhc29uGAIgASgOMh4u",
+            "SklHQVBQYWNrZXQuTG9naW5GYWlsZWRSZWFzb24SDwoHc3VjY2VzcxgDIAEo",
+            "CCIcCghSb29tSW5mbxIQCghyb29tbmFtZRgBIAEoCSJMChBDcmVhdGVSb29t",
+            "QW5zd2VyEicKCHJvb21JbmZvGAEgASgLMhUuSklHQVBQYWNrZXQuUm9vbUlu",
+            "Zm8SDwoHc3VjY2VzcxgCIAEoCCI6Cg9Kb2luUm9vbVJlcXVlc3QSJwoIcm9v",
+            "bUluZm8YASABKAsyFS5KSUdBUFBhY2tldC5Sb29tSW5mbyJKCg5Kb2luUm9v",
+            "bUFuc3dlchInCghyb29tSW5mbxgBIAEoCzIVLkpJR0FQUGFja2V0LlJvb21J",
+            "bmZvEg8KB3N1Y2Nlc3MYAiABKAgiIwoOUm9vbUxpc3RBbnN3ZXISEQoJcm9v",
+            "bUNvdW50GAEgASgFIjoKD1Jvb21MaXN0RWxlbWVudBInCghyb29tSW5mbxgB",
+            "IAEoCzIVLkpJR0FQUGFja2V0LlJvb21JbmZvIkoKC0NoYXRSZXF1ZXN0EicK",
+            "CHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNrZXQuVXNlckRhdGESEgoKc3Ry",
+            "TWVzc2FnZRgCIAEoCSIeCghDaGF0RGF0YRISCgpzdHJNZXNzYWdlGAEgASgJ",
+            "Ii4KC0VtcHR5UGFja2V0Eh8KBHR5cGUYASABKA4yES5KSUdBUFBhY2tldC5U",
+            "eXBlKrkCCgRUeXBlEhIKDmVTaW5nVXBSZXF1ZXN0EAASEQoNZVNpbmdVcEFu",
+            "c3dlchABEhEKDWVMb2dpblJlcXVlc3QQAhIQCgxlTG9naW5BbnN3ZXIQAxIW",
+            "ChJlQ3JlYXRlUm9vbVJlcXVlc3QQBBIVChFlQ3JlYXRlUm9vbUFuc3dlchAF",
+            "EhQKEGVKb2luUm9vbVJlcXVlc3QQBhITCg9lSm9pblJvb21BbnN3ZXIQBxIU",
+            "ChBlUm9vbUxpc3RSZXF1ZXN0EAgSEwoPZVJvb21MaXN0QW5zd2VyEAkSFAoQ",
+            "ZVJvb21MaXN0RWxlbWVudBAKEhQKEGVFeGl0Um9vbVJlcXVlc3QQCxITCg9l",
+            "RXhpdFJvb21BbnN3ZXIQDBIQCgxlQ2hhdFJlcXVlc3QQDRINCgllQ2hhdERh",
+            "dGEQDipOChJTaW5nVXBGYWlsZWRSZWFzb24SEAoMZUR1cGxpY2F0ZUlkEAAS",
+            "EgoOZUR1cGxpY2F0ZU5hbWUQARISCg5lRG9udENvbmRpdGlvbhACKjcKEUxv",
+            "Z2luRmFpbGVkUmVhc29uEhAKDGVEb250TWF0Y2hJZBAAEhAKDGVEb250TWF0",
+            "Y2hQdxABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), typeof(global::JIGAPPacket.SingUpFailedReason), typeof(global::JIGAPPacket.LoginFailedReason), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.UserData), global::JIGAPPacket.UserData.Parser, new[]{ "Id", "Name" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpRequest), global::JIGAPPacket.SingUpRequest.Parser, new[]{ "UserData", "Passward" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpAnswer), global::JIGAPPacket.SingUpAnswer.Parser, new[]{ "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpAnswer), global::JIGAPPacket.SingUpAnswer.Parser, new[]{ "Success", "SingUpReason" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequest), global::JIGAPPacket.LoginRequest.Parser, new[]{ "Id", "Passward" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "UserData", "Success" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "UserData", "LoginReason", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomRequest), global::JIGAPPacket.JoinRoomRequest.Parser, new[]{ "RoomInfo" }, null, null, null),
@@ -88,6 +94,17 @@ namespace JIGAPPacket {
     [pbr::OriginalName("eExitRoomAnswer")] EExitRoomAnswer = 12,
     [pbr::OriginalName("eChatRequest")] EChatRequest = 13,
     [pbr::OriginalName("eChatData")] EChatData = 14,
+  }
+
+  public enum SingUpFailedReason {
+    [pbr::OriginalName("eDuplicateId")] EDuplicateId = 0,
+    [pbr::OriginalName("eDuplicateName")] EDuplicateName = 1,
+    [pbr::OriginalName("eDontCondition")] EDontCondition = 2,
+  }
+
+  public enum LoginFailedReason {
+    [pbr::OriginalName("eDontMatchId")] EDontMatchId = 0,
+    [pbr::OriginalName("eDontMatchPw")] EDontMatchPw = 1,
   }
 
   #endregion
@@ -439,6 +456,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public SingUpAnswer(SingUpAnswer other) : this() {
       success_ = other.success_;
+      singUpReason_ = other.singUpReason_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -458,6 +476,17 @@ namespace JIGAPPacket {
       }
     }
 
+    /// <summary>Field number for the "singUpReason" field.</summary>
+    public const int SingUpReasonFieldNumber = 2;
+    private global::JIGAPPacket.SingUpFailedReason singUpReason_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.SingUpFailedReason SingUpReason {
+      get { return singUpReason_; }
+      set {
+        singUpReason_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as SingUpAnswer);
@@ -472,6 +501,7 @@ namespace JIGAPPacket {
         return true;
       }
       if (Success != other.Success) return false;
+      if (SingUpReason != other.SingUpReason) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -479,6 +509,7 @@ namespace JIGAPPacket {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
+      if (SingUpReason != 0) hash ^= SingUpReason.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -496,6 +527,10 @@ namespace JIGAPPacket {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
+      if (SingUpReason != 0) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) SingUpReason);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -506,6 +541,9 @@ namespace JIGAPPacket {
       int size = 0;
       if (Success != false) {
         size += 1 + 1;
+      }
+      if (SingUpReason != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) SingUpReason);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -521,6 +559,9 @@ namespace JIGAPPacket {
       if (other.Success != false) {
         Success = other.Success;
       }
+      if (other.SingUpReason != 0) {
+        SingUpReason = other.SingUpReason;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -534,6 +575,10 @@ namespace JIGAPPacket {
             break;
           case 8: {
             Success = input.ReadBool();
+            break;
+          }
+          case 16: {
+            SingUpReason = (global::JIGAPPacket.SingUpFailedReason) input.ReadEnum();
             break;
           }
         }
@@ -725,6 +770,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LoginAnswer(LoginAnswer other) : this() {
       userData_ = other.userData_ != null ? other.userData_.Clone() : null;
+      loginReason_ = other.loginReason_;
       success_ = other.success_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -745,8 +791,19 @@ namespace JIGAPPacket {
       }
     }
 
+    /// <summary>Field number for the "loginReason" field.</summary>
+    public const int LoginReasonFieldNumber = 2;
+    private global::JIGAPPacket.LoginFailedReason loginReason_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.LoginFailedReason LoginReason {
+      get { return loginReason_; }
+      set {
+        loginReason_ = value;
+      }
+    }
+
     /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 2;
+    public const int SuccessFieldNumber = 3;
     private bool success_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Success {
@@ -770,6 +827,7 @@ namespace JIGAPPacket {
         return true;
       }
       if (!object.Equals(UserData, other.UserData)) return false;
+      if (LoginReason != other.LoginReason) return false;
       if (Success != other.Success) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -778,6 +836,7 @@ namespace JIGAPPacket {
     public override int GetHashCode() {
       int hash = 1;
       if (userData_ != null) hash ^= UserData.GetHashCode();
+      if (LoginReason != 0) hash ^= LoginReason.GetHashCode();
       if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -796,8 +855,12 @@ namespace JIGAPPacket {
         output.WriteRawTag(10);
         output.WriteMessage(UserData);
       }
-      if (Success != false) {
+      if (LoginReason != 0) {
         output.WriteRawTag(16);
+        output.WriteEnum((int) LoginReason);
+      }
+      if (Success != false) {
+        output.WriteRawTag(24);
         output.WriteBool(Success);
       }
       if (_unknownFields != null) {
@@ -810,6 +873,9 @@ namespace JIGAPPacket {
       int size = 0;
       if (userData_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
+      }
+      if (LoginReason != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LoginReason);
       }
       if (Success != false) {
         size += 1 + 1;
@@ -830,6 +896,9 @@ namespace JIGAPPacket {
           UserData = new global::JIGAPPacket.UserData();
         }
         UserData.MergeFrom(other.UserData);
+      }
+      if (other.LoginReason != 0) {
+        LoginReason = other.LoginReason;
       }
       if (other.Success != false) {
         Success = other.Success;
@@ -853,6 +922,10 @@ namespace JIGAPPacket {
             break;
           }
           case 16: {
+            LoginReason = (global::JIGAPPacket.LoginFailedReason) input.ReadEnum();
+            break;
+          }
+          case 24: {
             Success = input.ReadBool();
             break;
           }

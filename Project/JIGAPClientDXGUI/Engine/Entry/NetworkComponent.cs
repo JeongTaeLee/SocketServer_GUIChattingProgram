@@ -32,7 +32,7 @@ namespace JIGAPClientDXGUI
         {
 
         }
-        public virtual void OnSingUpFailed()
+        public virtual void OnSingUpFailed(JIGAPPacket.SingUpFailedReason reason)
         {
 
         }
@@ -41,7 +41,7 @@ namespace JIGAPClientDXGUI
         {
 
         }
-        public virtual void OnLoginFailed()
+        public virtual void OnLoginFailed(JIGAPPacket.LoginFailedReason reason)
         {
 
         }
