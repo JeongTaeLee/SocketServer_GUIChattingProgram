@@ -11,16 +11,30 @@ namespace JIGAPClientDXGUI
 
         public NetworkComponent()
         {
+            NetworkManager.Instance.singUpSuccess += OnSingUpScuccess;
+            NetworkManager.Instance.singUpFailed += OnSingUpFailed;
             NetworkManager.Instance.LoginSuccess += OnLoginSuccess;
             NetworkManager.Instance.LoginFailed += OnLoginFailed;
+
         }
 
         public override void Release()
         {
             base.Release();
 
+            NetworkManager.Instance.singUpSuccess -= OnSingUpScuccess;
+            NetworkManager.Instance.singUpFailed -= OnSingUpFailed;
             NetworkManager.Instance.LoginSuccess -= OnLoginSuccess;
             NetworkManager.Instance.LoginFailed -= OnLoginFailed;
+        }
+
+        public virtual void OnSingUpScuccess()
+        {
+
+        }
+        public virtual void OnSingUpFailed()
+        {
+
         }
 
         public virtual void OnLoginSuccess()

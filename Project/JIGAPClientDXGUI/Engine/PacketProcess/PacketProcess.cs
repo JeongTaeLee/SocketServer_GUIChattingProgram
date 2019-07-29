@@ -18,6 +18,9 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.Type.ELoginAnswer:
                     OnLoginAnswer(inHandler, header.PacketSize);
                     break;
+                case JIGAPPacket.Type.ESingUpAnswer:
+                    OnSingUpAnswer(inHandler, header.PacketSize);
+                    break;
                 case JIGAPPacket.Type.ECreateRoomAnswer:
                     break;
                 case JIGAPPacket.Type.EJoinRoomAnswer:
@@ -27,6 +30,17 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.Type.EExitRoomAnswer:
                     break;
             }
+        }
+        
+        public void OnSingUpAnswer(PacketHandler inHandler, int inSize)
+        {
+            JIGAPPacket.SingUpAnswer singUpAnswer = new JIGAPPacket.SingUpAnswer();
+            inHandler.ParsingPacket(ref singUpAnswer, inSize);
+
+            if (singUpAnswer.Success)
+                NetworkManager.Instance.InvokeSingUpSuccess();
+            else
+                NetworkManager.Instance.InvokeSingUpFailed();
         }
 
         public void OnLoginAnswer(PacketHandler inHandler, int inSize)
@@ -39,5 +53,7 @@ namespace JIGAPClientDXGUI
             else
                 NetworkManager.Instance.InvokeLoginFailed();
         }
+
+        
     }
 }

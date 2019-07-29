@@ -23,6 +23,7 @@ namespace JIGAPClientDXGUI
 
         public override void Init()
         {
+  
             GameObject backGround = ObjectManager.Instance.RegisterObject();
             backGround.AddComponent<UIRenderer>().Texture = ImageManager.Instance.LoadTexture("LoginBackGround");
 
@@ -37,6 +38,10 @@ namespace JIGAPClientDXGUI
             GameObject loginButton = ObjectManager.Instance.RegisterObject();
             loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginButton"), 528f, 481f, 223, 58, 
                 () => { OnLoginRequest(loginField.String, passwordField.String); });
+
+            GameObject singUpButton = ObjectManager.Instance.RegisterObject();
+            singUpButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("LoginSingUpButton"), 1057, 0, 223, 58,
+                () => { SceneManager.Instance.ChanageScene("SingUpScene"); });
 
             ObjectManager.Instance.RegisterObject().AddComponent<LoginLauncher>();
 

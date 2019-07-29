@@ -62,16 +62,36 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 
 	if (find->GetLogin() == false)
 	{
+		JIGAPPacket::SingUpAnswer answer;
 		JIGAPPacket::SingUpRequest packet;
 		lpHandler->NextParsingPacket(packet, header.iSize);
 
+		if (lpQuery->CheckUserDataToDB(packet.userdata().id()))
+		{
+			answer.set_success(false);
+			lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
 
-		
-		//packet.userdata().id
+			JIGAPPacket::UserData* lpUser = packet.release_userdata();
+			SAFE_DELETE(lpUser);
+			return;
+		}
 
+		if (!lpQuery->InsertUserDataToDB(packet.userdata().id(), packet.passward(), packet.userdata().name()))
+		{
+			answer.set_success(false);
+			lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+			
+			JIGAPPacket::UserData* lpUser = packet.release_userdata();
+			SAFE_DELETE(lpUser);
+			return;
+		}
 
-		JIGAPPacket::UserData * data = packet.release_userdata();
-		SAFE_DELETE(data);
+		DEBUG_LOG("Insert User" << packet.userdata().id() << " " << packet.passward() << " " << packet.userdata().name());
+		answer.set_success(true);
+		lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
+
+		JIGAPPacket::UserData* lpUser = packet.release_userdata();
+		SAFE_DELETE(lpUser);
 	}
 }
 
@@ -87,11 +107,30 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 
 	if (find->GetLogin() == false)
 	{
+		JIGAPPacket::LoginAnswer answer;
 		JIGAPPacket::LoginRequest packet;
 		lpHandler->NextParsingPacket(packet, header.iSize);
 
+		TYPE_ROW row;
+		if (lpQuery->FindUserDataToDB(packet.id(), row))
+		{
+			if (row["password"] == packet.passward())
+			{
+				JIGAPPacket::UserData* userdata = answer.mutable_userdata();
+				answer.set_success(true);
+				userdata->set_id(row["id"]);
+				userdata->set_name(row["name"]);
+				
+				lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
 
+				userdata = answer.release_userdata();
+				SAFE_DELETE(userdata);
+				return;
+			}
+		}
 
+		answer.set_success(false);
+		lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
 	}
 }
 

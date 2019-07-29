@@ -20,11 +20,13 @@ namespace JIGAPClientDXGUI
             ImageManager.Instance.LoadTexture("SingUpBackGround", "./Image/SingUpScene/SingUpBackGround.png");
             ImageManager.Instance.LoadTexture("SingUpTextBox", "./Image/SingUpScene/SingUpTextBox.png");
             ImageManager.Instance.LoadTexture("SingUpButton", "./Image/SingUpScene/SingUpButton.png");
+            ImageManager.Instance.LoadTexture("SingUpLoginButton", "./Image/SingUpScene/Login.png");
             
             // LoginScene
             ImageManager.Instance.LoadTexture("LoginBackGround", "./Image/LoginScene/LoginBackGround.png");
             ImageManager.Instance.LoadTexture("LoginTextBox", "./Image/LoginScene/LoginTextBox.png");
             ImageManager.Instance.LoadTexture("LoginButton", "./Image/LoginScene/LoginButton.png");
+            ImageManager.Instance.LoadTexture("LoginSingUpButton", "./Image/LoginScene/SingUp.png");
 
             // IngameScene
             ImageManager.Instance.LoadTexture("IngameBackGround", "./Image/Ingame/IngameBackGround.png");
@@ -34,7 +36,7 @@ namespace JIGAPClientDXGUI
             ImageManager.Instance.LoadTexture("ChattingTextBox", "./Image/Ingame/ChattingTextBox.png");
             ImageManager.Instance.LoadTexture("SendButton", "./Image/Ingame/SendButton.png");
 
-            SceneManager.Instance.ChanageScene("SingUpScene");
+            SceneManager.Instance.ChanageScene("LoginScene");
         }
 
         public override void Release()

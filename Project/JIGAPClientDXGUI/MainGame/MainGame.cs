@@ -16,6 +16,14 @@ namespace JIGAPClientDXGUI.Engine
     {
         public bool Initialize()
         {
+
+            if (!NetworkManager.Instance.ConnectServer())
+            {
+                System.Windows.Forms.Application.Exit();
+                return false;
+            }
+
+
             DXManager.Instance.Initialize("JIGAPChattingGame", 1280, 720);
 
             SceneManager.Instance.AddScene("LoadingScene", new LoadingScene());

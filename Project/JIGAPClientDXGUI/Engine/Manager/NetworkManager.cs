@@ -14,13 +14,19 @@ namespace JIGAPClientDXGUI
     //Delegate & Event
     partial class NetworkManager
     {
+        public delegate void SingUpCallBack();
         public delegate void LoginCallBack();
+
+        public void InvokeSingUpSuccess() { singUpSuccess?.Invoke(); }
+        public event SingUpCallBack singUpSuccess;
+        public void InvokeSingUpFailed() { singUpFailed?.Invoke(); }
+        public event SingUpCallBack singUpFailed;
 
         public void InvokeLoginSuccess() { LoginSuccess?.Invoke(); }
         public event LoginCallBack LoginSuccess;
 
         public void InvokeLoginFailed() { LoginFailed?.Invoke(); }
-        public event LoginCallBack LoginFailed;
+        public event LoginCallBack LoginFailed;        
     }
     
 

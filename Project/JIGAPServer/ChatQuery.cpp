@@ -2,6 +2,7 @@
 #include "ChatQuery.h"
 #include "MySqlDB.h"
 #include "ChatUserData.h"
+#include "BaseDB.h"
 
 void ChatQuery::InitializeQuery()
 {
@@ -32,12 +33,11 @@ bool ChatQuery::CheckUserDataToDB(const std::string& strInId)
 	return true;
 }
 
-bool ChatQuery::FindUserDataToDB(const std::string& strInId, ChatUserData* lpInUser)
+bool ChatQuery::FindUserDataToDB(const std::string& strInId, TYPE_ROW & row)
 {
 	char ch[256];
 	sprintf(ch, "select * from userdatas where id='%s'", strInId.c_str());
 	
-	TYPE_ROW row;
 	QUERYRESULT result = lpDB->ReadRow(ch, row);
 
 	if (result == QUERYRESULT::FAILE)
@@ -45,9 +45,6 @@ bool ChatQuery::FindUserDataToDB(const std::string& strInId, ChatUserData* lpInU
 
 	if (result == QUERYRESULT::EMPTY)
 		return false;
-
-	lpInUser->SetUserID(strInId);
-	lpInUser->SetUserID(row["id"]);
 
 	return true;
 }

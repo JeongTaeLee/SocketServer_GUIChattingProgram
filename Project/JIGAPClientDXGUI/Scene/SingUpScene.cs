@@ -10,11 +10,6 @@ namespace JIGAPClientDXGUI
     {
         public override void Init()
         {
-            if (!NetworkManager.Instance.ConnectServer())
-            {
-                 System.Windows.Forms.Application.Exit();
-                 return;
-            }
 
             GameObject backGround = ObjectManager.Instance.RegisterObject();
             backGround.AddComponent<UIRenderer>().Texture = ImageManager.Instance.LoadTexture("SingUpBackGround");
@@ -31,11 +26,15 @@ namespace JIGAPClientDXGUI
             TextField passwordField = fieldObject.AddComponent<TextField>();
             CreateLoginTextBox(fieldObject, passwordField, new SharpDX.Vector3(340, 550, 0f), null);
 
-            GameObject loginButton = ObjectManager.Instance.RegisterObject();
-            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("SingUpButton"), 528f, 641f, 223, 58,
+            GameObject singUpButton = ObjectManager.Instance.RegisterObject();
+            singUpButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("SingUpButton"), 528f, 641f, 223, 58,
                 () => { OnSingUpRequest(nameField.String, idField.String, passwordField.String); });
 
-            ObjectManager.Instance.RegisterObject().AddComponent<LoginLauncher>();
+            GameObject loginButton = ObjectManager.Instance.RegisterObject();
+            loginButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("SingUpLoginButton"), 1057, 0, 223, 58,
+                () => { SceneManager.Instance.ChanageScene("LoginScene"); });
+
+            ObjectManager.Instance.RegisterObject().AddComponent<SingUpLauncher>();
 
         }
         public override void Release()

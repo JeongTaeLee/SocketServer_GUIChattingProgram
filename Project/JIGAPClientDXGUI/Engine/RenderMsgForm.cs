@@ -24,6 +24,7 @@ namespace JIGAPClientDXGUI
     {
         public const int VK_BACKSPACE = 8;
         public const int VK_SPACE = 32;
+        public const int VK_TAB = 9;
     }
 
 

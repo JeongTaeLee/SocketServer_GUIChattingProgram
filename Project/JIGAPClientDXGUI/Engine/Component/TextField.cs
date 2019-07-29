@@ -10,6 +10,7 @@ using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI
 {
+   
     partial class TextField : Component
     {
         public delegate void FieldBehavior(string str);
@@ -171,13 +172,18 @@ namespace JIGAPClientDXGUI
             if (!pickBox)
                 return;
 
-            if (c == KeyType.VK_BACKSPACE)
+            switch ((int)c)
             {
-                if (Text.text.Length > 0)
-                    Text.text.Remove(Text.text.Length - 1, 1);
+                case KeyType.VK_TAB:
+                    break;
+                case KeyType.VK_BACKSPACE:
+                    if (Text.text.Length > 0)
+                        Text.text.Remove(Text.text.Length - 1, 1);
+                    break;
+                default:
+                    Text.text.Append(c);
+                    break;
             }
-            else
-                Text.text.Append(c);
         }
 
         private void WndProc(object sender, Message msg)

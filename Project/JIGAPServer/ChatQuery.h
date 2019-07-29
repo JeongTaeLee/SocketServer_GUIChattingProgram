@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseQuery.h"
-
+#include "BaseDB.h"
 
 class ChatUserData;
 
@@ -16,7 +16,7 @@ public:
 	TRUE : 유저가 존재합니다
 	FALSE : 유저가 존재하지 않습니다*/
 	bool CheckUserDataToDB(const std::string & strInId);
-	bool FindUserDataToDB(const std::string& strInId, ChatUserData * lpInUser);
+	bool FindUserDataToDB(const std::string& strInId, TYPE_ROW& row);
 	bool InsertUserDataToDB(const std::string& strInId, const std::string& strInPassword, const std::string& strInName);
 };
 
