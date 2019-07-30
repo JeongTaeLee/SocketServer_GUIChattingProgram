@@ -16,7 +16,7 @@ public:
 
 	virtual void OnUnActiveObject() override;
 	
-	ChatRoom* GetCurrentRoom(ChatRoom* inLpCurRoom) { return inLpCurRoom; }
+	ChatRoom* GetCurrentRoom() { return lpCurRoom; }
 	void SetCurrentRoom(ChatRoom* inLpCurRoom) { lpCurRoom = inLpCurRoom; };
 
 	std::string& GetName() { return strName; }

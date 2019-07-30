@@ -3,6 +3,7 @@
 
 class JIGAPServer;
 class TCPSocket;
+class ChatRoomAdmin;
 class ChatUserData;
 class ChatQuery;
 
@@ -14,14 +15,15 @@ class JIGAPChatProcess :
 {
 private:
 	UserDataAdmin<ChatUserData>* lpUserAdmin = nullptr;
+	ChatRoomAdmin* lpChatRoomAdmin = nullptr;
 	ChatQuery* lpQuery = nullptr;
-	
+
 private:
-	JIGAPChatProcess() 
-		:JIGAPBaserProcess(nullptr){ }
+	JIGAPChatProcess()
+		:JIGAPBaserProcess(nullptr) { }
 
 public:
-	JIGAPChatProcess(JIGAPServer * inLpJIGAPServer) : JIGAPBaserProcess(inLpJIGAPServer) {}
+	JIGAPChatProcess(JIGAPServer* inLpJIGAPServer) : JIGAPBaserProcess(inLpJIGAPServer) {}
 	virtual ~JIGAPChatProcess() {}
 
 	// JIGAPServerBase을(를) 통해 상속됨
@@ -32,6 +34,11 @@ public:
 	virtual void OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler)	override;
 
 	void OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
-	void OnLoginRequest(TCPSocket * lpInTCPSocket, PacketHandler * lpHandler, PacketHeader& header);
+	void OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+	void OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+
+public:
+	void PutUserIntoRoom(PacketHandler* inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName);
+
 };
 

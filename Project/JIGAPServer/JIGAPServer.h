@@ -34,7 +34,6 @@ private:
 	std::thread hConnectThread;
 	std::thread hRecvThread;
 
-	PacketHandler* lpPacketHandler		= nullptr;
 	JIGAPBaserProcess* lpServerProcess	= nullptr;
 	
 	bool bServerOn = false;

@@ -79,7 +79,7 @@ namespace JIGAPClientDXGUI
 
             ServerSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(connectDataInfo.strIpAddress), Convert.ToInt32(connectDataInfo.strPortAddress));
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(connectDataInfo.strIpAddress), int.Parse(connectDataInfo.strPortAddress));
 
             try
             {
@@ -87,7 +87,7 @@ namespace JIGAPClientDXGUI
             }
             catch (Exception e)
             {
-                MessageBox.Show("서버에 접속 할 수 없습니다 " + e.Message,"Error!");
+                MessageBox.Show($"서버에 접속 할 수 없습니다.\n{e.Message}", "Error!");
                 return false;
             }
 

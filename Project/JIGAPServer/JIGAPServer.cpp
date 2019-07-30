@@ -74,8 +74,6 @@ bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 	
 	serverData.SetServerData(inPortAddress);
 	
-	lpPacketHandler = new PacketHandler();
-	
 	if (CreateServerSocket() == false)
 	{	
 		RegisterServerLog("Server initiliaze failed");
@@ -102,7 +100,6 @@ void JIGAPServer::ServerRelease()
 	
 	lpServerProcess->OnRelease();
 	SAFE_DELETE(lpServerProcess);
-	SAFE_DELETE(lpPacketHandler);
 	
 	if (lpServerSocket)
 	{
@@ -184,6 +181,8 @@ void JIGAPServer::OnRecvPacketTask()
 {
 	RegisterServerLog("Start Recv Thread");
 
+	PacketHandler *packetHandler = new PacketHandler();
+
 	while (true)
 	{
 		DWORD iRecvByte = 0;
@@ -193,11 +192,6 @@ void JIGAPServer::OnRecvPacketTask()
 
 		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
 			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
-		//{
-		//	RegisterServerLog("JIGAPServer.cpp / 패킷을 받는 도중 심각한 문제가 생겼습니다.");
-		//	continue;
-		//}
-		DEBUG_LOG("in");
 
 		if (bServerOn == false)
 			break;
@@ -213,23 +207,19 @@ void JIGAPServer::OnRecvPacketTask()
 		{	
 			if (lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
 			{
-				int iRealRecvSize = lpPacketHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
-				lpPacketHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
-				lpPacketHandler->ClearSerializeBuffer();
+				int iRealRecvSize = packetHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
+				packetHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
+				packetHandler->ClearSerializeBuffer();
 
-				lpServerProcess->OnProcess(lpTCPSocket, lpPacketHandler);
-
-				// 4Byte는 크기를 나타내는 int형 변수의 바이트 크기임.
-				if (lpPacketHandler->GetSerializeRealSize() > 4)
-					lpTCPSocket->IOCPSend(lpPacketHandler->GetSerializeBufferData(), lpPacketHandler->GetSerializeRealSize());
-				else
-					lpTCPSocket->IOCPRecv();
+				lpServerProcess->OnProcess(lpTCPSocket, packetHandler);
 			}
 			else
 				lpTCPSocket->IOCPRecv();
 		}
+
 	}
 
+	SAFE_DELETE(packetHandler);
 }
 
 void JIGAPServer::RegisterServerLog(const char* fmt, ...)

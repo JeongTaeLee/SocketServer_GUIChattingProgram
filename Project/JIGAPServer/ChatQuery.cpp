@@ -49,6 +49,22 @@ bool ChatQuery::FindUserDataToDB(const std::string& strInId, TYPE_ROW & row)
 	return true;
 }
 
+bool ChatQuery::CheckDuplicationUserName(const std::string& strInId)
+{
+	char ch[256];
+	sprintf(ch, "select * from userdatas where name='%s'", strInId.c_str());
+
+	QUERYRESULT result = lpDB->WriteQuery(ch);
+
+	if (result == QUERYRESULT::FAILE)
+		return false;
+
+	if (result == QUERYRESULT::EMPTY)
+		return false;
+
+	return true;
+}
+
 bool ChatQuery::InsertUserDataToDB(const std::string& strInId, const std::string & strInPassword, const std::string & strInName)
 {
 	if (CheckUserDataToDB(strInId)) {

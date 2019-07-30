@@ -93,7 +93,7 @@ int TCPSocket::IOCPRecv()
 	return 0;
 }
 
-int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
+int TCPSocket::IOCPSend(PacketHandler * inLpPacketHandler, const char* szInStream, int iInSendSize)
 {
 	lpIOData->wsaBuf.len = iInSendSize;
 	memcpy(lpIOData->szBuffer, szInStream, iInSendSize);

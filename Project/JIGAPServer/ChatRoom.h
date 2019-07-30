@@ -10,7 +10,7 @@ private:
 	std::set<ChatUserData*> sChatUserData;
 
 public:
-	ChatRoom(const std::string & inStrRoomName);
+	ChatRoom(const std::string& inStrRoomName);
 	virtual ~ChatRoom();
 
 	bool AddUser(ChatUserData* inLpChatUserData);

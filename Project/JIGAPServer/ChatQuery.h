@@ -17,6 +17,7 @@ public:
 	FALSE : 유저가 존재하지 않습니다*/
 	bool CheckUserDataToDB(const std::string & strInId);
 	bool FindUserDataToDB(const std::string& strInId, TYPE_ROW& row);
+	bool CheckDuplicationUserName(const std::string& strInId);
 	bool InsertUserDataToDB(const std::string& strInId, const std::string& strInPassword, const std::string& strInName);
 };
 

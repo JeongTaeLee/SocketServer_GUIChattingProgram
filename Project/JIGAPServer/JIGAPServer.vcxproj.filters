@@ -76,6 +76,9 @@
     <Filter Include="JIGAPChattingServer\ChatUserData">
       <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JIGAPChattingServer\ChatRoomAdmin">
+      <UniqueIdentifier>{f5656c0c-e067-479f-8530-2e74d745329b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -141,6 +144,9 @@
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
     </ClInclude>
+    <ClInclude Include="ChatRoomAdmin.h">
+      <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatRoomAdmin.cpp">
+      <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
