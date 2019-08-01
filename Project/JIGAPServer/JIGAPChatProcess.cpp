@@ -7,18 +7,26 @@
 #include "ChatRoomAdmin.h"
 #include "ChatQuery.h"
 
+const char* lobbyName = "Lobby";
+const char* baseRoom01 = "Public01";
+const char* baseRoom02 = "Public02";
+const char* baseRoom03 = "Public03";
+const char* baseRoom04 = "Public04";
+const char* baseRoom05 = "Public05";
+
+
 void JIGAPChatProcess::OnInitialize()
 {
 	lpUserAdmin = new UserDataAdmin<ChatUserData>();
 	lpUserAdmin->InitializeAdmin(100000);
 
 	lpChatRoomAdmin = new ChatRoomAdmin();
-	lpChatRoomAdmin->CreateLobby("Lobby");
-	lpChatRoomAdmin->CreateRoom("Public01");
-	lpChatRoomAdmin->CreateRoom("Public02");
-	lpChatRoomAdmin->CreateRoom("Public03");
-	lpChatRoomAdmin->CreateRoom("Public04");
-	lpChatRoomAdmin->CreateRoom("Public05");
+	lpChatRoomAdmin->CreateLobby(lobbyName);
+	lpChatRoomAdmin->CreateRoom(baseRoom01);
+	lpChatRoomAdmin->CreateRoom(baseRoom02);
+	lpChatRoomAdmin->CreateRoom(baseRoom03);
+	lpChatRoomAdmin->CreateRoom(baseRoom04);
+	lpChatRoomAdmin->CreateRoom(baseRoom05);
 
 
 	lpQuery = new ChatQuery();
@@ -144,7 +152,7 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 		userdata->set_id(row["id"]);
 		userdata->set_name(row["name"]);
 
-		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client login server", row["name"].c_str(), row["id"].c_str());
+		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client login server", row["name"].c_str(), row["id"].c_str());;
 }
 	else
 	{
@@ -152,11 +160,11 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 		answer.set_loginreason(JIGAPPacket::LoginFailedReason::eDontMatchPw);
 	}
 
-	userdata = answer.release_userdata();
-	SAFE_DELETE(userdata);
-
 	lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
 	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+
+	if (answer.success())
+		PutUserIntoRoom(lpHandler, find, lobbyName);
 }
 
 void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
@@ -176,8 +184,15 @@ void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData
 	if (findRoom)
 	{
 		findRoom->AddUser(inLpChatUserData);
+		
+		JIGAPPacket::JoinRoomAnswer answer;
+		JIGAPPacket::RoomInfo* info = answer.mutable_roominfo();
 
+		answer.set_success(true);
+		info->set_roomname(inStrRoomName);
 
+		inLpHandler->SerializePacket(JIGAPPacket::Type::eJoinRoomAnswer, answer);
+		inLpChatUserData->GetTCPSocket()->IOCPSend(inLpHandler, inLpHandler->GetSerializeBufferData(), inLpHandler->GetSerializeRealSize());
 	}
 }
 

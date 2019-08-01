@@ -108,6 +108,8 @@ int TCPSocket::IOCPSend(PacketHandler * inLpPacketHandler, const char* szInStrea
 			return WSAGetLastError();
 	}
 
+	inLpPacketHandler->ClearSerializeBuffer();
+
 	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;
 	return 0;
 }

@@ -128,6 +128,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\ChatLauncher.cs" />
     <Compile Include="Component\LoginLauncher.cs" />
     <Compile Include="Component\SingUpLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />

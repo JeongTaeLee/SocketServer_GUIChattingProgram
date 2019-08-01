@@ -15,7 +15,8 @@ namespace JIGAPClientDXGUI
             NetworkManager.Instance.singUpFailed += OnSingUpFailed;
             NetworkManager.Instance.LoginSuccess += OnLoginSuccess;
             NetworkManager.Instance.LoginFailed += OnLoginFailed;
-
+            NetworkManager.Instance.JoinRoomSuccess += OnJoinRoomSuccess;
+            NetworkManager.Instance.JoinRoomFailed += OnJoinRoomFailed;
         }
 
         public override void Release()
@@ -26,6 +27,8 @@ namespace JIGAPClientDXGUI
             NetworkManager.Instance.singUpFailed -= OnSingUpFailed;
             NetworkManager.Instance.LoginSuccess -= OnLoginSuccess;
             NetworkManager.Instance.LoginFailed -= OnLoginFailed;
+            NetworkManager.Instance.JoinRoomSuccess -= OnJoinRoomSuccess;
+            NetworkManager.Instance.JoinRoomFailed -= OnJoinRoomFailed;
         }
 
         public virtual void OnSingUpScuccess()
@@ -34,16 +37,21 @@ namespace JIGAPClientDXGUI
         }
         public virtual void OnSingUpFailed(JIGAPPacket.SingUpFailedReason reason)
         {
-
         }
 
         public virtual void OnLoginSuccess()
         {
-
         }
         public virtual void OnLoginFailed(JIGAPPacket.LoginFailedReason reason)
         {
+        }
 
+        public virtual void OnJoinRoomSuccess(string roomName)
+        {
+        }
+
+        public virtual void OnJoinRoomFailed()
+        {
         }
     }
 }

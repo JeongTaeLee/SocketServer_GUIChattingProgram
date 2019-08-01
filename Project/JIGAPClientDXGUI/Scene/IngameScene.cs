@@ -35,6 +35,8 @@ namespace JIGAPClientDXGUI
             SendButton.AddComponent<Button>().SetButton(ImageManager.Instance.LoadTexture("SendButton"),
                 916, 672, 77, 38, null);
 
+
+
         }
 
         public override void Release()

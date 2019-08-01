@@ -26,6 +26,7 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.Type.ECreateRoomAnswer:
                     break;
                 case JIGAPPacket.Type.EJoinRoomAnswer:
+
                     break;
                 case JIGAPPacket.Type.ERoomListAnswer:
                     break;
@@ -59,6 +60,17 @@ namespace JIGAPClientDXGUI
             }
             else
                 NetworkManager.Instance.InvokeLoginFailed(loginAnswer.LoginReason);
+        }
+
+        public void OnJoinRoomAnswer(PacketHandler inHandler, int inSize)
+        {
+            JIGAPPacket.JoinRoomAnswer joinAnswer = new JIGAPPacket.JoinRoomAnswer();
+            inHandler.ParsingPacket(ref joinAnswer, inSize);
+
+            if (joinAnswer.Success)
+                NetworkManager.Instance.InvokeJoinRoomSuccess(joinAnswer.RoomInfo.Roomname);
+            else
+                NetworkManager.Instance.InvokeJoinRoomFailed();
         }
 
         

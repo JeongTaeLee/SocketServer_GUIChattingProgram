@@ -26,6 +26,9 @@ namespace JIGAPClientDXGUI
         public delegate void LoginSuccessCallBack();
         public delegate void LoginFailedCallBack(JIGAPPacket.LoginFailedReason reason);
 
+        public delegate void JoinRoomSuccessCallBack(string roomName);
+        public delegate void JoinRoomFailedCallBack();
+
         public void InvokeSingUpSuccess() { singUpSuccess?.Invoke(); }
         public event SingUpSuccessCallBack singUpSuccess;
         public void InvokeSingUpFailed(JIGAPPacket.SingUpFailedReason reason) { singUpFailed?.Invoke(reason); }
@@ -35,7 +38,14 @@ namespace JIGAPClientDXGUI
         public event LoginSuccessCallBack LoginSuccess;
 
         public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { LoginFailed?.Invoke(reason); }
-        public event LoginFailedCallBack LoginFailed;        
+        public event LoginFailedCallBack LoginFailed;
+
+        public void InvokeJoinRoomSuccess(string roomName) { JoinRoomSuccess?.Invoke(roomName); }
+        public event JoinRoomSuccessCallBack JoinRoomSuccess;
+
+        public void InvokeJoinRoomFailed() { JoinRoomFailed?.Invoke(); }
+        public event JoinRoomFailedCallBack JoinRoomFailed;
+
     }
 
 
