@@ -26,7 +26,7 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.Type.ECreateRoomAnswer:
                     break;
                 case JIGAPPacket.Type.EJoinRoomAnswer:
-
+                    OnJoinRoomAnswer(inHandler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.ERoomListAnswer:
                     break;

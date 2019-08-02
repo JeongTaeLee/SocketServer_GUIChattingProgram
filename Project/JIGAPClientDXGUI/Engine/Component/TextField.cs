@@ -181,6 +181,8 @@ namespace JIGAPClientDXGUI
                     if (Text.text.Length > 0)
                         Text.text.Remove(Text.text.Length - 1, 1);
                     break;
+                case KeyType.VK_ENTER:
+                    break;
                 default:
                     Text.text.Append(c);
                     break;

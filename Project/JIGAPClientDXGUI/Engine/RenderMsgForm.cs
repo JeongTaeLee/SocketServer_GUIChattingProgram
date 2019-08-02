@@ -23,6 +23,7 @@ namespace JIGAPClientDXGUI
     public class KeyType
     {
         public const int VK_BACKSPACE = 8;
+        public const int VK_ENTER = 13;
         public const int VK_SPACE = 32;
         public const int VK_TAB = 9;
     }

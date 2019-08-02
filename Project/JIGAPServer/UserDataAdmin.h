@@ -7,7 +7,7 @@ class UserDataAdmin
 {
 protected:
 	ObjectPool<T> dataObjectPool;
-	std::mutex userMutex;
+	std::mutex userMutex = std::mutex();
 
 	std::hash_map < SOCKET, T* > mUsers;
 public:
@@ -57,10 +57,9 @@ public:
 
 	inline T* FindUser(TCPSocket* lpInTCPSocket)
 	{
-		userMutex.lock();
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
 			return (*Iter).second;
-		userMutex.unlock();
+		
 		return nullptr;
 	}
 };
