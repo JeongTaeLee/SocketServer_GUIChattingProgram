@@ -28,5 +28,6 @@ void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)
 	{
 		inLpChatUserData->SetCurrentRoom(nullptr);
 		sChatUserData.erase(find);
+		
 	}
 }

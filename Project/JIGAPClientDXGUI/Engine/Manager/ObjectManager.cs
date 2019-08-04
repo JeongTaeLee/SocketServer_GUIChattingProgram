@@ -26,8 +26,8 @@ namespace JIGAPClientDXGUI
         }
 
         private LinkedList<GameObject> Objects = new LinkedList<GameObject>();
-        private LinkedList<SpriteRenderer> SpriteRenderers = new LinkedList<SpriteRenderer>();
-        private LinkedList<UIRenderer> UIRenderers = new LinkedList<UIRenderer>();
+        private LinkedList<IRenderer> SpriteRenderers = new LinkedList<IRenderer>();
+        private LinkedList<IRenderer> UIRenderers = new LinkedList<IRenderer>();
     }
 
     partial class ObjectManager : IDisposable
@@ -46,20 +46,20 @@ namespace JIGAPClientDXGUI
             Objects.Remove(gameObject);
         }
 
-        public void RegisterSpriteRenderer(SpriteRenderer spriteRenderer)
+        public void RegisterSpriteRenderer(IRenderer spriteRenderer)
         {
             SpriteRenderers.AddLast(spriteRenderer);
         }
-        public void RegisterUIRenderer(UIRenderer inUIRenderer)
+        public void RegisterUIRenderer(IRenderer inUIRenderer)
         {
             UIRenderers.AddLast(inUIRenderer);
         }
 
-        public void UnRegisterSpriteRenderer(SpriteRenderer inSpriteRenderer)
+        public void UnRegisterSpriteRenderer(IRenderer inSpriteRenderer)
         {
             SpriteRenderers.Remove(inSpriteRenderer);
         }
-        public void UnRegisterUIRenderer(UIRenderer inUIRenderer)
+        public void UnRegisterUIRenderer(IRenderer inUIRenderer)
         {
             UIRenderers.Remove(inUIRenderer);
         }
@@ -84,10 +84,12 @@ namespace JIGAPClientDXGUI
                 }
                 else
                 {
-                    node.Value.ComponentUpdate();
-                    node.Value.transform.TransformUpdate();
+                    if (node.Value.Active)
+                    {
+                        node.Value.ComponentUpdate();
+                        node.Value.transform.TransformUpdate();
+                    }
                     node = node.Next;
-                    
                 }
             }
         }
@@ -96,20 +98,30 @@ namespace JIGAPClientDXGUI
         {
             DXManager.Instance.d3dSprite.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend | SharpDX.Direct3D9.SpriteFlags.ObjectSpace);
 
-            foreach(SpriteRenderer obj in SpriteRenderers)
+            foreach(IRenderer obj in SpriteRenderers)
             {
-                DXManager.Instance.d3dSprite.Transform = obj.gameObject.transform.matWorld;
-                obj.Render();
+                Component com = obj as Component;
+
+                if (com.Enable && com.gameObject.Active)
+                {
+                    DXManager.Instance.d3dSprite.Transform = com.gameObject.transform.matWorld;
+                    obj.Render();
+                }
             }
 
             DXManager.Instance.d3dSprite.End();
 
             DXManager.Instance.d3dSprite.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend);
 
-            foreach (UIRenderer obj in UIRenderers)
+            foreach (IRenderer obj in UIRenderers)
             {
-                DXManager.Instance.d3dSprite.Transform = obj.gameObject.transform.matWorld;
-                obj.Render();
+                Component com = obj as Component;
+
+                if (com.Enable && com.gameObject.Active)
+                {
+                    DXManager.Instance.d3dSprite.Transform = com.gameObject.transform.matWorld;
+                    obj.Render();
+                }
             }
 
             DXManager.Instance.d3dSprite.End();

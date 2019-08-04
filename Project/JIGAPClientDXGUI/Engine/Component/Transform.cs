@@ -62,5 +62,12 @@ namespace JIGAPClientDXGUI
             }
             ChildList.Clear();
         }
+
+        public void SetActiveChild(bool inActive)
+        {
+            foreach(Transform temp in ChildList)
+                temp.gameObject.Active = inActive;
+        }
+
     }
 }

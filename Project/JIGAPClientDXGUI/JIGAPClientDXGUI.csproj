@@ -129,9 +129,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\ChatLauncher.cs" />
+    <Compile Include="Component\Element\RoomListElement.cs" />
+    <Compile Include="Component\IngamePanel\IngameChattingPanel.cs" />
     <Compile Include="Component\LoginLauncher.cs" />
+    <Compile Include="Component\IngamePanel\CreateRoomPanel.cs" />
+    <Compile Include="Component\IngamePanel\RoomListPanel.cs" />
     <Compile Include="Component\SingUpLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />
+    <Compile Include="Engine\Component\ListView.cs" />
     <Compile Include="Engine\Component\SpriteRenderer.cs" />
     <Compile Include="Engine\Component\TapControlAdmin.cs" />
     <Compile Include="Engine\Component\Text.cs" />
@@ -142,10 +147,13 @@
     <Compile Include="Engine\Entry\GameObject.cs" />
     <Compile Include="Engine\Component\Transform.cs" />
     <Compile Include="Engine\Entry\NetworkComponent.cs" />
-    <Compile Include="Engine\PacketProcess\PacketProcess.cs" />
+    <Compile Include="Engine\Interface\IRenderer.cs" />
+    <Compile Include="Engine\Process\BaseProcess.cs" />
+    <Compile Include="Engine\Process\RecvProcess.cs" />
+    <Compile Include="Engine\Process\SendProcess.cs" />
     <Compile Include="Engine\Protobuf\JIGAPPacket.cs" />
     <Compile Include="MainGame\MainGame.cs" />
-    <Compile Include="Engine\Manager\ImageManager.cs" />
+    <Compile Include="Engine\Manager\ResourceManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />
     <Compile Include="Engine\Manager\NetworkManager.cs" />
     <Compile Include="Engine\Manager\ObjectManager.cs" />

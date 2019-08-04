@@ -17,24 +17,31 @@ namespace JIGAPClientDXGUI
         public override void Init()
         {
             // SingUPScene
-            ImageManager.Instance.LoadTexture("SingUpBackGround", "./Image/SingUpScene/SingUpBackGround.png");
-            ImageManager.Instance.LoadTexture("SingUpTextBox", "./Image/SingUpScene/SingUpTextBox.png");
-            ImageManager.Instance.LoadTexture("SingUpButton", "./Image/SingUpScene/SingUpButton.png");
-            ImageManager.Instance.LoadTexture("SingUpLoginButton", "./Image/SingUpScene/Login.png");
+            ResourceManager.Instance.LoadTexture("SingUpBackGround", "./Image/SingUpScene/SingUpBackGround.png");
+            ResourceManager.Instance.LoadTexture("SingUpTextBox", "./Image/SingUpScene/SingUpTextBox.png");
+            ResourceManager.Instance.LoadTexture("SingUpButton", "./Image/SingUpScene/SingUpButton.png");
+            ResourceManager.Instance.LoadTexture("SingUpLoginButton", "./Image/SingUpScene/Login.png");
             
             // LoginScene
-            ImageManager.Instance.LoadTexture("LoginBackGround", "./Image/LoginScene/LoginBackGround.png");
-            ImageManager.Instance.LoadTexture("LoginTextBox", "./Image/LoginScene/LoginTextBox.png");
-            ImageManager.Instance.LoadTexture("LoginButton", "./Image/LoginScene/LoginButton.png");
-            ImageManager.Instance.LoadTexture("LoginSingUpButton", "./Image/LoginScene/SingUp.png");
+            ResourceManager.Instance.LoadTexture("LoginBackGround", "./Image/LoginScene/LoginBackGround.png");
+            ResourceManager.Instance.LoadTexture("LoginTextBox", "./Image/LoginScene/LoginTextBox.png");
+            ResourceManager.Instance.LoadTexture("LoginButton", "./Image/LoginScene/LoginButton.png");
+            ResourceManager.Instance.LoadTexture("LoginSingUpButton", "./Image/LoginScene/SingUp.png");
 
             // IngameScene
-            ImageManager.Instance.LoadTexture("IngameBackGround", "./Image/Ingame/IngameBackGround.png");
-            ImageManager.Instance.LoadTexture("CreateRoomTextBox", "./Image/Ingame/CreateRoomTextBox.png");
-            ImageManager.Instance.LoadTexture("CreateRoomButton", "./Image/Ingame/CreateRoomButton.png");
-            ImageManager.Instance.LoadTexture("RoomListElement", "./Image/Ingame/RoomListElement.png");
-            ImageManager.Instance.LoadTexture("ChattingTextBox", "./Image/Ingame/ChattingTextBox.png");
-            ImageManager.Instance.LoadTexture("SendButton", "./Image/Ingame/SendButton.png");
+            ResourceManager.Instance.LoadTexture("IngameBackGround", "./Image/Ingame/IngameBackGround.png");
+            ResourceManager.Instance.LoadTexture("CreateRoomTextBox", "./Image/Ingame/CreateRoomTextBox.png");
+            ResourceManager.Instance.LoadTexture("CreateRoomButton", "./Image/Ingame/CreateRoomButton.png");
+            ResourceManager.Instance.LoadTexture("RoomListElement", "./Image/Ingame/RoomListElement.png");
+            ResourceManager.Instance.LoadTexture("ChattingTextBox", "./Image/Ingame/ChattingTextBox.png");
+            ResourceManager.Instance.LoadTexture("SendButton", "./Image/Ingame/SendButton.png");
+            ResourceManager.Instance.LoadTexture("RoomListRevertButton", "./Image/Ingame/RoomListRevertButton.png");
+            ResourceManager.Instance.LoadTexture("RoomListNextButton", "./Image/Ingame/RoomListNextButton.png");
+
+
+            //ResourceManager 
+            ResourceManager.Instance.LoadFont("Default", 50);
+            ResourceManager.Instance.LoadFont("RoomListElement", 40);
 
             SceneManager.Instance.ChanageScene("LoginScene");
         }

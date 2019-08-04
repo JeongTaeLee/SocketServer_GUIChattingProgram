@@ -12,7 +12,7 @@ namespace JIGAPClientDXGUI
 
         public Transform transform { get; private set; } = null;
 
-        bool Enable { get; set; } = true;
+        public bool Enable { get; set; } = true;
 
         ~Component()
         {
@@ -26,7 +26,6 @@ namespace JIGAPClientDXGUI
         public virtual void Init() { }
         public virtual void Release() { }
         public virtual void Update() { }
-        public virtual void Render() { }
         
         public void SettingComponent(GameObject inGameObject, Transform inTransform)
         {

@@ -2,6 +2,15 @@
 #include "ChatRoomAdmin.h"
 #include "ChatRoom.h"
 
+void ChatRoomAdmin::Release()
+{
+	for (auto Iter : rooms)
+	{
+		SAFE_DELETE(Iter.second);
+	}
+	rooms.clear();
+}
+
 ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
 {
 	if (lpLobby) return lpLobby;

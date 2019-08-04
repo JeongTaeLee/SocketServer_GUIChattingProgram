@@ -13,8 +13,9 @@ namespace JIGAPClientDXGUI
 {
     public struct UserData
     {
-        public string userName { get; set; }
-        public string userId { get; set; }
+        public string UserName { get; set; }
+        public string UserId { get; set; }
+        public string RoomName { get; set; }
     }
 
     //Delegate & Event
@@ -40,12 +41,11 @@ namespace JIGAPClientDXGUI
         public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { LoginFailed?.Invoke(reason); }
         public event LoginFailedCallBack LoginFailed;
 
-        public void InvokeJoinRoomSuccess(string roomName) { JoinRoomSuccess?.Invoke(roomName); }
+        public void InvokeJoinRoomSuccess(string roomName) {JoinRoomSuccess?.Invoke(roomName);}
         public event JoinRoomSuccessCallBack JoinRoomSuccess;
 
         public void InvokeJoinRoomFailed() { JoinRoomFailed?.Invoke(); }
         public event JoinRoomFailedCallBack JoinRoomFailed;
-
     }
 
 
@@ -63,13 +63,20 @@ namespace JIGAPClientDXGUI
                 return instance;
             }
         }
-        public Socket ServerSock { get; private set; } = null;
+
+        private Socket serverSock = null;
+        private PacketHandler handler = new PacketHandler();
+        private ConnectDataInfo connectDataInfo = new ConnectDataInfo();
+
+        public RecvProcess RecvProcess { get; private set; } = new RecvProcess();
+        public SendProcess SendProcess { get; private set; } = new SendProcess();
+
+        private UserData userData = new UserData();
+        public string UserName { get => userData.UserName; set => userData.UserName = value; }
+        public string RoomName { get => userData.RoomName; set => userData.RoomName = value; }
+        public string UserId { get => userData.UserId; set => userData.UserId = value; }
         public bool bServerOn { get; private set; } = false;
 
-        public PacketHandler PacketHandler { get; private set; } = new PacketHandler();
-        public ConnectDataInfo connectDataInfo { get; private set; } = new ConnectDataInfo();
-        public PacketProcess PacketProcess { get; private set; } = new PacketProcess();
-        public UserData UserData { get => PacketProcess.UserData; }
     }
 
     partial class NetworkManager : IDisposable
@@ -86,14 +93,13 @@ namespace JIGAPClientDXGUI
                 return false;
 
             connectDataInfo.ParseConnectDataInfo();
-
-            ServerSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(connectDataInfo.strIpAddress), int.Parse(connectDataInfo.strPortAddress));
 
             try
             {
-                ServerSock.Connect(localEndPoint);
+                serverSock.Connect(localEndPoint);
             }
             catch (Exception e)
             {
@@ -103,7 +109,11 @@ namespace JIGAPClientDXGUI
 
             bServerOn = true;
 
+            RecvProcess.InitProcess(serverSock, handler);
+            SendProcess.InitProcess(serverSock, handler);
+
             OnRecvPacket();
+
             return bServerOn;
         }
 
@@ -112,80 +122,39 @@ namespace JIGAPClientDXGUI
             if (!bServerOn)
                 return;
 
-            ServerSock.Close();
-            ServerSock.Dispose();
+            serverSock.Close();
+            serverSock.Dispose();
             bServerOn = false;
         }
-    }
 
-    partial class NetworkManager
-    {
-        private void OnSendPacket()
+
+        public void OnRecvPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
 
-            args.SetBuffer(PacketHandler.serializeBuffer, 0, PacketHandler.serializePosition);
-
-            ServerSock.SendAsync(args);
-        }
-
-        private void OnRecvPacket()
-        {
-            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-            
             args.Completed += OnRecvComplete;
-            
+
             byte[] recvBuffer = new byte[PacketHandler.bufferSize];
             args.SetBuffer(recvBuffer, 0, PacketHandler.bufferSize);
-            ServerSock.ReceiveAsync(args);
+            serverSock.ReceiveAsync(args);
         }
 
         private void OnRecvComplete(object sender, SocketAsyncEventArgs e)
         {
-
-            if (ServerSock.Connected && e.BytesTransferred > 0)
+            if (serverSock.Connected && e.BytesTransferred > 0)
             {
-                int paketSize = PacketHandler.ParsingTotalPacketSize(e.Buffer);
-                PacketHandler.ClearParsingBuffer(e.Buffer, paketSize);
-                PacketProcess.OnRecvProcess(PacketHandler);
+                int paketSize = handler.ParsingTotalPacketSize(e.Buffer);
+                handler.ClearParsingBuffer(e.Buffer, paketSize);
+
+                RecvProcess.OnRecvProcess();
 
                 OnRecvPacket();
             }
             else
             {
-                if (!ServerSock.Connected)
-                    ServerSock.Close();
+                if (!serverSock.Connected)
+                    serverSock.Close();
             }
-        } 
-    }
-
-    partial class NetworkManager
-    { 
-        public void SendSingUpRequest(string strName, string strId, string strPassword)
-        {
-            PacketHandler.ClearSerializeBuffer();
-
-            JIGAPPacket.SingUpRequest singUpRequest = new JIGAPPacket.SingUpRequest();
-            singUpRequest.UserData = new JIGAPPacket.UserData();
-            singUpRequest.UserData.Id = strId;
-            singUpRequest.UserData.Name = strName;
-            singUpRequest.Passward = strPassword;
-
-            PacketHandler.SerializePacket(JIGAPPacket.Type.ESingUpRequest, singUpRequest);
-
-            OnSendPacket();
-        }
-        public void SendLoginRequest(string strId, string strPassward)
-        {
-            PacketHandler.ClearSerializeBuffer();
-
-            JIGAPPacket.LoginRequest loginRequest = new JIGAPPacket.LoginRequest();
-            loginRequest.Id         = strId;
-            loginRequest.Passward   = strPassward;
-
-            PacketHandler.SerializePacket(JIGAPPacket.Type.ELoginRequest, loginRequest);
-
-            OnSendPacket();
         }
     }
 }

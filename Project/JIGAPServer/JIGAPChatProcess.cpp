@@ -38,6 +38,9 @@ void JIGAPChatProcess::OnRelease()
 	lpUserAdmin->ReleaseAdmin();
 	SAFE_DELETE(lpUserAdmin);
 
+	lpChatRoomAdmin->Release();
+	SAFE_DELETE(lpChatRoomAdmin);
+
 	lpQuery->ReleaseQuery();
 	SAFE_DELETE(lpQuery);
 }

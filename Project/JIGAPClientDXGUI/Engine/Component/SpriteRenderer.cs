@@ -32,7 +32,7 @@ namespace JIGAPClientDXGUI
     }
 
 
-    partial class SpriteRenderer : Component
+    partial class SpriteRenderer : Component, IRenderer
     {
         public override void Init()
         {
@@ -43,7 +43,7 @@ namespace JIGAPClientDXGUI
             ObjectManager.Instance.UnRegisterSpriteRenderer(this);
         }
 
-        public override void Render()
+        public void Render()
         {
             DXManager.Instance.d3dSprite.Draw(Texture.d3dTex, Color, SrcRect, CenterPos);
         }

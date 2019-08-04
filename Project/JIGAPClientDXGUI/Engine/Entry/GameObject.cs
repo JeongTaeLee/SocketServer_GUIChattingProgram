@@ -10,9 +10,21 @@ namespace JIGAPClientDXGUI
     partial class GameObject
     {
         private LinkedList<Component> Components = new LinkedList<Component>();
-
         public Transform transform { get; private set; } = null;
-        public bool Active { get; set; } = true;
+
+        private bool active = true;
+        public bool Active
+        {
+            get
+            {
+                return active;
+            }
+            set
+            {
+                active = value;
+                transform.SetActiveChild(value);
+            }
+        }
         public bool Destroy { get; set; } = false;
    
     }
@@ -39,12 +51,10 @@ namespace JIGAPClientDXGUI
         public void ComponentUpdate()
         {
             foreach (Component Com in Components)
-                Com.Update();
-        }
-        public void ComponentRender()
-        {
-            foreach (Component Com in Components)
-                Com.Render();
+            {
+                if (Com.Enable)
+                    Com.Update();
+            }
         }
 
         public T AddComponent<T>()

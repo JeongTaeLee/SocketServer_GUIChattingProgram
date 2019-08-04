@@ -10,6 +10,8 @@ private:
 
 	ChatRoom* lpLobby = nullptr;
 public:
+	void Release();
+
 	ChatRoom* CreateLobby(const std::string & inStrRoomName);
 	ChatRoom* CreateRoom(const std::string& inStrRoomName);
 	ChatRoom* FindRoom(const std::string& inStrRoomName);

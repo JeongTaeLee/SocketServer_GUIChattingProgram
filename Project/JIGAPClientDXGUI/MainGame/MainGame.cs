@@ -18,6 +18,8 @@ namespace JIGAPClientDXGUI.Engine
 
         public bool Initialize()
         {
+
+
             if (!NetworkManager.Instance.ConnectServer())
                 return false;
 
@@ -63,7 +65,7 @@ namespace JIGAPClientDXGUI.Engine
             if (IsInitialize)
             {
                 ObjectManager.Instance?.Dispose();
-                ImageManager.Instance?.Dispose();
+                ResourceManager.Instance?.Dispose();
                 SceneManager.Instance?.Dispose();
                 InputManager.Instance?.Dispose();
                 DXManager.Instance?.Dispose();

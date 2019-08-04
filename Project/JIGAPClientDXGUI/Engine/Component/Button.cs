@@ -67,16 +67,14 @@ namespace JIGAPClientDXGUI
             }
         }
 
-        public void SetButton(texture inTexture, float x, float y, int inWidth, int inHeight, ButtonEvent inButtonEvent)
+        public void SetButton(texture inTexture, ButtonEvent inButtonEvent)
         {
             UIRenderer.Texture = inTexture;
 
-            Width   = inWidth;
-            Height  = inHeight;
+            Width   = inTexture.d3dInfo.Width;
+            Height  = inTexture.d3dInfo.Height;
 
-            transform.position = new Vector3(x, y, 0f);
-
-            rectangle = new Rectangle((int)x, (int)y, inWidth, inHeight);
+            rectangle = new Rectangle((int)0, (int)0, Width, Width);
 
             buttonEvent = inButtonEvent;
         }
@@ -86,7 +84,7 @@ namespace JIGAPClientDXGUI
          */
         public void RenewButton()
         {
-            rectangle = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
+            rectangle = new Rectangle((int)transform.worldPos.X, (int)transform.worldPos.Y, Width, Height);
         }
 
     }
