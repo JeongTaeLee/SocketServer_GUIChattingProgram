@@ -94,6 +94,7 @@ namespace JIGAPClientDXGUI
 
             ElementList.Add(inObject);
         }
+        
         public void SettingList()
         {
             DisplayPage();

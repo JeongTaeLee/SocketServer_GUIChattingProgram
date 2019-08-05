@@ -15,5 +15,7 @@ public:
 
 	bool AddUser(ChatUserData* inLpChatUserData);
 	void DeleteUser(ChatUserData* inLpChatUserData);
+
+	const std::string& GetRoomName() { return strRoomName; }
 };
 

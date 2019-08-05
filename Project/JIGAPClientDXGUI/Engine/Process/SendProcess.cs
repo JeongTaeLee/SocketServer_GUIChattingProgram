@@ -38,6 +38,16 @@ namespace JIGAPClientDXGUI
             OnSendPacket();
         }
 
+        public void SendRoomListRequest()
+        {
+            handler.ClearSerializeBuffer();
+
+            JIGAPPacket.EmptyPacket emptyPacket = new JIGAPPacket.EmptyPacket();
+            emptyPacket.Type = JIGAPPacket.Type.ERoomListRequest;
+            handler.SerializePacket(JIGAPPacket.Type.ERoomListRequest, emptyPacket);
+
+            OnSendPacket();
+        }
         private void OnSendPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();

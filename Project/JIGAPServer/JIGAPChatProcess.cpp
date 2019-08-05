@@ -72,6 +72,9 @@ void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHand
 		break;
 	case JIGAPPacket::Type::eJoinRoomRequest:
 		break;
+	case JIGAPPacket::Type::eRoomListRequest:
+		OnRoomListRequest(lpInTCPSocket, lpHandler, header);
+		break;
 	default:
 		break;
 	}
@@ -93,8 +96,6 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 	JIGAPPacket::SingUpAnswer answer;
 	lpHandler->NextParsingPacket(packet, header.iSize);
 
-	JIGAPPacket::UserData* userData = packet.mutable_userdata();
-
 	TYPE_ROW row;
 	TYPE_ROW nameRow;
 	
@@ -105,17 +106,17 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		answer.set_success(false);
 		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDontCondition);
 	}
-	else if (lpQuery->FindUserDataToDB(userData->id(), row))
+	else if (lpQuery->FindUserDataToDB(packet.userdata().id(), row))
 	{
 		answer.set_success(false);
 		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
 	}
-	else if (lpQuery->CheckDuplicationUserName(userData->name()))
+	else if (lpQuery->CheckDuplicationUserName(packet.userdata().name()))
 	{
 		answer.set_success(false);
 		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateName);
 	}
-	else if (lpQuery->InsertUserDataToDB(userData->id(), packet.passward(), userData->name()) == false)
+	else if (lpQuery->InsertUserDataToDB(packet.userdata().id(), packet.passward(), packet.userdata().name()) == false)
 	{
 		answer.set_success(false);
 		answer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
@@ -123,11 +124,9 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 	else
 	{
 		answer.set_success(true);
-		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client singup server", userData->name().c_str(), userData->id().c_str());
+		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client singup server", packet.userdata().name().c_str(), packet.userdata().id().c_str());
 	}
 
-	userData = packet.release_userdata();
-	SAFE_DELETE(userData);
 
 	lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
 	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
@@ -142,8 +141,9 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	if (find->GetLogin()) return;
 
 	JIGAPPacket::LoginRequest packet;
+
 	JIGAPPacket::LoginAnswer answer;
-	JIGAPPacket::UserData* userdata = answer.mutable_userdata();
+	JIGAPPacket::UserData* answerUserData = answer.mutable_userdata();
 
 	lpHandler->NextParsingPacket(packet, header.iSize);
 
@@ -156,8 +156,10 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	else if (row["password"] == packet.passward())
 	{
 		answer.set_success(true);
-		userdata->set_id(row["id"]);
-		userdata->set_name(row["name"]);
+		
+		answerUserData->set_id(row["id"]);
+		answerUserData->set_name(row["name"]);
+
 
 		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client login server", row["name"].c_str(), row["id"].c_str());;
 }
@@ -170,15 +172,52 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
 	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 
-	userdata = answer.release_userdata();
-	SAFE_DELETE(userdata);
+	answerUserData = answer.release_userdata();
+	SAFE_DELETE(answerUserData);
 
 	if (answer.success())
+	{
+		find->SetLogin(true);
 		PutUserIntoRoom(lpHandler, find, lobbyName);
+	}
 }
 
 void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
 {
+}
+
+void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
+{
+	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
+	if (find->GetLogin() == false) 
+		return;
+
+	JIGAPPacket::EmptyPacket emptyPacket;
+	lpHandler->NextParsingPacket(emptyPacket, header.iSize);
+
+	if (emptyPacket.type() == JIGAPPacket::Type::eRoomListRequest)
+	{
+		JIGAPPacket::RoomListAnswer answer;
+
+		answer.set_roomcount(lpChatRoomAdmin->GetRooms().size());
+		lpHandler->SerializePacket(JIGAPPacket::Type::eRoomListAnswer, answer);
+
+		for (auto Iter : lpChatRoomAdmin->GetRooms())
+		{
+			JIGAPPacket::RoomListElement element;
+			JIGAPPacket::RoomInfo* info = element.mutable_roominfo();
+
+			info->set_roomname(Iter.second->GetRoomName());
+			lpHandler->SerializePacket(JIGAPPacket::Type::eRoomListElement, element);;
+		
+			info = element.release_roominfo();
+			SAFE_DELETE(info);
+		}
+
+		lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+	}
+	else
+		lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)

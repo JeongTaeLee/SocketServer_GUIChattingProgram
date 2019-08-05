@@ -18,5 +18,6 @@ public:
 	void DeleteRoom(const std::string& inStrRoomName);
 
 	ChatRoom* GetLobby() { return lpLobby; }
+	const std::hash_map<std::string, ChatRoom*> GetRooms() { return rooms; }
 };
 

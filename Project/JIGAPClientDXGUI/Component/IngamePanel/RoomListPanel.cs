@@ -33,20 +33,24 @@ namespace JIGAPClientDXGUI
             buttonObj.transform.position = new SharpDX.Vector3(1024f, 670f, 0f);
             buttonObj.AddComponent<UIRenderer>();
             revertButton = buttonObj.AddComponent<Button>();
-            revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), roomListView.RevertPage); 
+            revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), roomListView.RevertPage);
 
+            NetworkManager.Instance.SendProcess.SendRoomListRequest();
+        }
 
-            for (int i = 0; i < 5000; ++i)
+        public override void OnRoomListSuccess(ref List<string> roomNameList)
+        {
+            base.OnRoomListSuccess(ref roomNameList);
+
+            foreach (string roomname in roomNameList)
             {
                 GameObject obj = ObjectManager.Instance.RegisterObject();
                 RoomListElement element = obj.AddComponent<RoomListElement>();
-                element.SetRoomTitle(i.ToString());
+                element.SetRoomTitle(roomname);
                 roomListView.AddListObject(obj);
             }
             roomListView.SettingList();
         }
-
-
 
     }
 }

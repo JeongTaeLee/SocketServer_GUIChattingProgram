@@ -25,11 +25,13 @@ namespace JIGAPClientDXGUI
                     OnSingUpAnswer(handler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.ECreateRoomAnswer:
+                    
                     break;
                 case JIGAPPacket.Type.EJoinRoomAnswer:
                     OnJoinRoomAnswer(handler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.ERoomListAnswer:
+                    OnRoomListAnswer(handler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.EExitRoomAnswer:
                     break;
@@ -75,6 +77,30 @@ namespace JIGAPClientDXGUI
             }
             else
                 NetworkManager.Instance.InvokeJoinRoomFailed();
+        }
+
+        private void OnRoomListAnswer(PacketHandler inHandler, int inSize)
+        {
+            JIGAPPacket.RoomListAnswer answer = new JIGAPPacket.RoomListAnswer();
+            inHandler.ParsingPacket(ref answer, inSize);
+
+            List<string> strList = new List<string>();
+
+            for (int i = 0; i < answer.RoomCount; ++i)
+            {
+                PacketHeader header = new PacketHeader();
+                inHandler.ParsingHeader(ref header);
+
+                if (header.Type == JIGAPPacket.Type.ERoomListElement)
+                {
+                    JIGAPPacket.RoomListElement element = new JIGAPPacket.RoomListElement();
+                    inHandler.ParsingPacket(ref element, header.PacketSize);
+                    strList.Add(element.RoomInfo.Roomname);
+                }
+            }
+
+            NetworkManager.Instance.InvokeRoomListSuccess(ref strList);
+
         }
     }
 }
