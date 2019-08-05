@@ -149,7 +149,7 @@ void JIGAPServer::OnConnectTask()
 		{
 			HANDLE hHandle = CreateIoCompletionPort((HANDLE)acceptSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)acceptSocket, NULL);
 		
-			if (hCompletionHandle == nullptr)
+			if (hHandle == nullptr)
 			{	
 				RegisterServerLog("JIGAPServer.cpp  / CompletionPort Connect NewClient failed (SOCKET : %d)", acceptSocket->GetSocket());
 				acceptSocket->Closesocket();
@@ -190,8 +190,17 @@ void JIGAPServer::OnRecvPacketTask()
 		TCPSocket* lpTCPSocket = nullptr;
 		TCPIOData* lpTCPIoData = nullptr;
 
-		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
-			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
+		if (GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
+			(LPOVERLAPPED*)& lpTCPIoData, INFINITE) == false)
+		{
+			lpServerProcess->OnDisconnect(lpTCPSocket);
+			
+			lpTCPSocket->Closesocket();
+			
+			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
+			SAFE_DELETE(lpTCPSocket);
+			return;
+		}
 
 		if (bServerOn == false)
 			break;
@@ -199,7 +208,9 @@ void JIGAPServer::OnRecvPacketTask()
 		if (iRecvByte == 0)
 		{
 			lpServerProcess->OnDisconnect(lpTCPSocket);
+
 			lpTCPSocket->Closesocket();
+			
 			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
 			SAFE_DELETE(lpTCPSocket);
 		}

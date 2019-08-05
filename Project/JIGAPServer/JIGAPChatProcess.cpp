@@ -76,6 +76,7 @@ void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHand
 		OnRoomListRequest(lpInTCPSocket, lpHandler, header);
 		break;
 	default:
+		lpInTCPSocket->IOCPRecv();
 		break;
 	}
 }
@@ -87,11 +88,15 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 	if (find == nullptr)
 	{
 		DEBUG_LOG("유저를 찾을 수 없습니다.");
+		lpInTCPSocket->IOCPRecv();
 		return;
 	}
 
-	if (find->GetLogin()) return;
-
+	if (find->GetLogin())
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
 	JIGAPPacket::SingUpRequest packet;
 	JIGAPPacket::SingUpAnswer answer;
 	lpHandler->NextParsingPacket(packet, header.iSize);
@@ -137,8 +142,16 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 {
 	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
 
-	if (find == nullptr) return;
-	if (find->GetLogin()) return;
+	if (find == nullptr)
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
+	if (find->GetLogin())
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
 
 	JIGAPPacket::LoginRequest packet;
 
@@ -190,7 +203,10 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 {
 	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
 	if (find->GetLogin() == false) 
+	{
 		return;
+		lpInTCPSocket->IOCPRecv();
+	}
 
 	JIGAPPacket::EmptyPacket emptyPacket;
 	lpHandler->NextParsingPacket(emptyPacket, header.iSize);
@@ -213,11 +229,8 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 			info = element.release_roominfo();
 			SAFE_DELETE(info);
 		}
-
-		lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 	}
-	else
-		lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)
