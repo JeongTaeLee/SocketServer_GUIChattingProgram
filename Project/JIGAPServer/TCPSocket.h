@@ -67,6 +67,7 @@ public:
 	int Connect(const char* szInIpAddr, const char* szInPortAddr);
 
 	void Closesocket();
+	void Shutdownsocket(int i);
 public:
 	/*IOCP 방식로 데이터를 수신합니다.
 	성공 : 0

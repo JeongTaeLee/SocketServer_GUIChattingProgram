@@ -77,6 +77,11 @@ void TCPSocket::Closesocket()
 	closesocket(hSock);
 }
 
+void TCPSocket::Shutdownsocket(int i)
+{
+	shutdown(hSock, i);
+}
+
 int TCPSocket::IOCPRecv()
 {
 	DWORD dwFlag = 0;

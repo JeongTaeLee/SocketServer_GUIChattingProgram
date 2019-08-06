@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+
 
 using System.Net;
 using System.Net.Sockets;
@@ -73,6 +75,7 @@ namespace JIGAPClientDXGUI
         private Socket serverSock = null;
         private PacketHandler handler = new PacketHandler();
         private ConnectDataInfo connectDataInfo = new ConnectDataInfo();
+        private Thread recvThread = null;
 
         public RecvProcess RecvProcess { get; private set; } = new RecvProcess();
         public SendProcess SendProcess { get; private set; } = new SendProcess();
@@ -128,8 +131,8 @@ namespace JIGAPClientDXGUI
             if (!bServerOn)
                 return;
 
-            serverSock.Close();
             serverSock.Dispose();
+
             bServerOn = false;
         }
 
@@ -137,9 +140,9 @@ namespace JIGAPClientDXGUI
         public void OnRecvPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-
+            
             args.Completed += OnRecvComplete;
-
+            
             byte[] recvBuffer = new byte[PacketHandler.bufferSize];
             args.SetBuffer(recvBuffer, 0, PacketHandler.bufferSize);
             serverSock.ReceiveAsync(args);
@@ -156,11 +159,7 @@ namespace JIGAPClientDXGUI
 
                 OnRecvPacket();
             }
-            else
-            {
-                if (!serverSock.Connected)
-                    serverSock.Close();
-            }
+           
         }
     }
 }

@@ -25,6 +25,7 @@ namespace JIGAPClientDXGUI
             roomListPanel = ObjectManager.Instance.RegisterObject().AddComponent<RoomListPanel>();
             chattingPanel = ObjectManager.Instance.RegisterObject().AddComponent<IngameChattingPanel>();
 
+            NetworkManager.Instance.SendProcess.SendJoinRoom("Lobby");
         }
 
         public override void Release()

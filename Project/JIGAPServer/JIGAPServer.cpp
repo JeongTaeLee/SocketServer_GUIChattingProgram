@@ -43,6 +43,13 @@ bool JIGAPServer::CreateServerSocket()
 
 	RegisterServerLog("Socket bind success");
 
+	LINGER LingerStruct;
+
+	LingerStruct.l_onoff = 1;
+	LingerStruct.l_linger = 0;
+	::setsockopt(lpServerSocket->GetSocket(), SOL_SOCKET, SO_LINGER, (char*)& LingerStruct, sizeof(LingerStruct));
+
+
 	hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 	if (hCompletionHandle == nullptr)
 	{
@@ -190,25 +197,20 @@ void JIGAPServer::OnRecvPacketTask()
 		TCPSocket* lpTCPSocket = nullptr;
 		TCPIOData* lpTCPIoData = nullptr;
 
-		if (GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
-			(LPOVERLAPPED*)& lpTCPIoData, INFINITE) == false)
-		{
-			lpServerProcess->OnDisconnect(lpTCPSocket);
-			
-			lpTCPSocket->Closesocket();
-			
-			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
-			SAFE_DELETE(lpTCPSocket);
-			return;
-		}
+		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
+			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
 
 		if (bServerOn == false)
 			break;
 		
 		if (iRecvByte == 0)
 		{
+			if (lpTCPSocket->GetSocket() == INVALID_SOCKET)
+				continue;
+
 			lpServerProcess->OnDisconnect(lpTCPSocket);
 
+			lpTCPSocket->Shutdownsocket(SD_SEND);
 			lpTCPSocket->Closesocket();
 			
 			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());

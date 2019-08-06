@@ -191,12 +191,42 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	if (answer.success())
 	{
 		find->SetLogin(true);
-		PutUserIntoRoom(lpHandler, find, lobbyName);
+		//PutUserIntoRoom(lpHandler, find, lobbyName);
 	}
 }
 
 void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
 {
+	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
+	if (find->GetLogin() == false)
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
+
+	JIGAPPacket::JoinRoomRequest joinRoomRequest;
+	lpHandler->NextParsingPacket(joinRoomRequest, header.iSize);
+
+	JIGAPPacket::JoinRoomAnswer joinRoomAnswer;
+	joinRoomAnswer.set_success(true);
+	
+	JIGAPPacket::RoomInfo * answerRoomInfo =  joinRoomAnswer.mutable_roominfo();
+	JIGAPPacket::RoomInfo* requestRoomInfo = joinRoomRequest.mutable_roominfo();
+
+	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(requestRoomInfo->roomname());
+
+	if (lpFindRoom == nullptr)
+	{
+		joinRoomAnswer.set_success(false);
+		answerRoomInfo->set_roomname("Null");
+	}
+	else
+	{
+
+	}
+	
+
+
 }
 
 void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
@@ -204,8 +234,8 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
 	if (find->GetLogin() == false) 
 	{
-		return;
 		lpInTCPSocket->IOCPRecv();
+		return;
 	}
 
 	JIGAPPacket::EmptyPacket emptyPacket;

@@ -35,7 +35,7 @@ namespace JIGAPClientDXGUI
             revertButton = buttonObj.AddComponent<Button>();
             revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), roomListView.RevertPage);
 
-            NetworkManager.Instance.SendProcess.SendRoomListRequest();
+           NetworkManager.Instance.SendProcess.SendRoomListRequest();
         }
 
         public override void OnRoomListSuccess(ref List<string> roomNameList)
