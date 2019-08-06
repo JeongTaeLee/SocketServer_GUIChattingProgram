@@ -9,15 +9,16 @@ namespace JIGAPClientDXGUI
 {
     partial class Button : Component
     {
-        public delegate void ButtonEvent();
+        public delegate void ButtonEventCalLBack();
 
         public UIRenderer UIRenderer { get; set; } = null;
         public int Width { get; set; } = 10;
         public int Height { get; set; } = 10;
+        public ButtonEventCalLBack ButtonEvent { get => buttonEvent; set => buttonEvent = value; }
 
         private Rectangle rectangle = new Rectangle();
 
-        private ButtonEvent buttonEvent = null;
+        private ButtonEventCalLBack buttonEvent = null;
 
         private bool buttonStart = false;
     }
@@ -67,7 +68,7 @@ namespace JIGAPClientDXGUI
             }
         }
 
-        public void SetButton(texture inTexture, ButtonEvent inButtonEvent)
+        public void SetButton(texture inTexture, ButtonEventCalLBack inButtonEvent)
         {
             UIRenderer.Texture = inTexture;
 
@@ -86,6 +87,7 @@ namespace JIGAPClientDXGUI
         {
             rectangle = new Rectangle((int)transform.worldPos.X, (int)transform.worldPos.Y, Width, Height);
         }
+
 
     }
 }

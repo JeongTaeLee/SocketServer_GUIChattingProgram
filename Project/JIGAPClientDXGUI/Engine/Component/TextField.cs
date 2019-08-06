@@ -20,6 +20,7 @@ namespace JIGAPClientDXGUI
         private UIRenderer UIRenderer = null;
         private Text Text = null;
         private bool ActiveBox = false;
+        private FieldBehavior enterBehavior = null;
 
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
@@ -100,6 +101,12 @@ namespace JIGAPClientDXGUI
             {
                 Text.DrawFlag = value;
             }
+        }
+
+        public FieldBehavior EnterBehavior
+        {
+            get => enterBehavior;
+            set => enterBehavior = value;
         }
     }
 
@@ -182,6 +189,8 @@ namespace JIGAPClientDXGUI
                         Text.text.Remove(Text.text.Length - 1, 1);
                     break;
                 case KeyType.VK_ENTER:
+                    if (ActiveBox)
+                        enterBehavior?.Invoke(Text.text.ToString());
                     break;
                 default:
                     Text.text.Append(c);

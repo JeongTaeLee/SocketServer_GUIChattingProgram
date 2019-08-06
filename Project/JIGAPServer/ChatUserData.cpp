@@ -13,5 +13,6 @@ ChatUserData::~ChatUserData()
 void ChatUserData::OnUnActiveObject()
 {
 	BaseUserData::OnUnActiveObject();
-	lpCurRoom = nullptr;
+	bLogin		= false;
+	lpCurRoom	= nullptr;
 }

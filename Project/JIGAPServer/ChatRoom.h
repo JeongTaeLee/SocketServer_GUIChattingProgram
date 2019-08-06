@@ -16,6 +16,9 @@ public:
 	bool AddUser(ChatUserData* inLpChatUserData);
 	void DeleteUser(ChatUserData* inLpChatUserData);
 
+	void SendMessageInUsers(PacketHandler * inHandler);
+
+
 	const std::string& GetRoomName() { return strRoomName; }
 };
 

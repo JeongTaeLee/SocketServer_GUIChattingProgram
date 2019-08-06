@@ -184,12 +184,13 @@ inline bool SingUpFailedReason_Parse(
 enum LoginFailedReason : int {
   eDontMatchId = 0,
   eDontMatchPw = 1,
+  eOverlapConnect = 2,
   LoginFailedReason_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   LoginFailedReason_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool LoginFailedReason_IsValid(int value);
 constexpr LoginFailedReason LoginFailedReason_MIN = eDontMatchId;
-constexpr LoginFailedReason LoginFailedReason_MAX = eDontMatchPw;
+constexpr LoginFailedReason LoginFailedReason_MAX = eOverlapConnect;
 constexpr int LoginFailedReason_ARRAYSIZE = LoginFailedReason_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LoginFailedReason_descriptor();
@@ -1955,9 +1956,9 @@ class ChatData :
 
   // accessors -------------------------------------------------------
 
-  // string strMessage = 1;
+  // string strMessage = 2;
   void clear_strmessage();
-  static const int kStrMessageFieldNumber = 1;
+  static const int kStrMessageFieldNumber = 2;
   const std::string& strmessage() const;
   void set_strmessage(const std::string& value);
   void set_strmessage(std::string&& value);
@@ -1967,12 +1968,22 @@ class ChatData :
   std::string* release_strmessage();
   void set_allocated_strmessage(std::string* strmessage);
 
+  // .JIGAPPacket.UserData userData = 1;
+  bool has_userdata() const;
+  void clear_userdata();
+  static const int kUserDataFieldNumber = 1;
+  const ::JIGAPPacket::UserData& userdata() const;
+  ::JIGAPPacket::UserData* release_userdata();
+  ::JIGAPPacket::UserData* mutable_userdata();
+  void set_allocated_userdata(::JIGAPPacket::UserData* userdata);
+
   // @@protoc_insertion_point(class_scope:JIGAPPacket.ChatData)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr strmessage_;
+  ::JIGAPPacket::UserData* userdata_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_JIGAPPacket_2eproto;
 };
@@ -2973,7 +2984,58 @@ inline void ChatRequest::set_allocated_strmessage(std::string* strmessage) {
 
 // ChatData
 
-// string strMessage = 1;
+// .JIGAPPacket.UserData userData = 1;
+inline bool ChatData::has_userdata() const {
+  return this != internal_default_instance() && userdata_ != nullptr;
+}
+inline void ChatData::clear_userdata() {
+  if (GetArenaNoVirtual() == nullptr && userdata_ != nullptr) {
+    delete userdata_;
+  }
+  userdata_ = nullptr;
+}
+inline const ::JIGAPPacket::UserData& ChatData::userdata() const {
+  const ::JIGAPPacket::UserData* p = userdata_;
+  // @@protoc_insertion_point(field_get:JIGAPPacket.ChatData.userData)
+  return p != nullptr ? *p : *reinterpret_cast<const ::JIGAPPacket::UserData*>(
+      &::JIGAPPacket::_UserData_default_instance_);
+}
+inline ::JIGAPPacket::UserData* ChatData::release_userdata() {
+  // @@protoc_insertion_point(field_release:JIGAPPacket.ChatData.userData)
+  
+  ::JIGAPPacket::UserData* temp = userdata_;
+  userdata_ = nullptr;
+  return temp;
+}
+inline ::JIGAPPacket::UserData* ChatData::mutable_userdata() {
+  
+  if (userdata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::JIGAPPacket::UserData>(GetArenaNoVirtual());
+    userdata_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:JIGAPPacket.ChatData.userData)
+  return userdata_;
+}
+inline void ChatData::set_allocated_userdata(::JIGAPPacket::UserData* userdata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete userdata_;
+  }
+  if (userdata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      userdata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, userdata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  userdata_ = userdata;
+  // @@protoc_insertion_point(field_set_allocated:JIGAPPacket.ChatData.userData)
+}
+
+// string strMessage = 2;
 inline void ChatData::clear_strmessage() {
   strmessage_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }

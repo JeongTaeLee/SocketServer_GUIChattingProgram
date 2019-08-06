@@ -69,11 +69,16 @@ void JIGAPChatProcess::OnProcess(TCPSocket* lpInTCPSocket, PacketHandler* lpHand
 		OnLoginRequest(lpInTCPSocket, lpHandler, header);
 		break;
 	case JIGAPPacket::Type::eCreateRoomRequest:
+		OnCreateRoomRequest(lpInTCPSocket, lpHandler, header);
 		break;
 	case JIGAPPacket::Type::eJoinRoomRequest:
+		OnJoinRoomRequest(lpInTCPSocket, lpHandler, header);
 		break;
 	case JIGAPPacket::Type::eRoomListRequest:
 		OnRoomListRequest(lpInTCPSocket, lpHandler, header);
+		break;
+	case JIGAPPacket::Type::eChatRequest:
+		OnChatRequest(lpInTCPSocket, lpHandler, header);
 		break;
 	default:
 		lpInTCPSocket->IOCPRecv();
@@ -161,7 +166,12 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	lpHandler->NextParsingPacket(packet, header.iSize);
 
 	TYPE_ROW row;
-	if (lpQuery->FindUserDataToDB(packet.id(), row) == false)
+	if (lpUserAdmin->FindUserInId(packet.id()))
+	{
+		answer.set_success(false);
+		answer.set_loginreason(JIGAPPacket::LoginFailedReason::eOverlapConnect);
+	}
+	else if (lpQuery->FindUserDataToDB(packet.id(), row) == false)
 	{
 		answer.set_success(false);
 		answer.set_loginreason(JIGAPPacket::LoginFailedReason::eDontMatchId);
@@ -175,7 +185,7 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 
 
 		lpJIGAPServer->RegisterServerLog("'%s(id : %s)' client login server", row["name"].c_str(), row["id"].c_str());;
-}
+	}
 	else
 	{
 		answer.set_success(false);
@@ -190,8 +200,9 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 
 	if (answer.success())
 	{
+		find->SetUserID(row["id"]);
+		find->SetName(row["name"]);
 		find->SetLogin(true);
-		//PutUserIntoRoom(lpHandler, find, lobbyName);
 	}
 }
 
@@ -208,12 +219,10 @@ void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	lpHandler->NextParsingPacket(joinRoomRequest, header.iSize);
 
 	JIGAPPacket::JoinRoomAnswer joinRoomAnswer;
-	joinRoomAnswer.set_success(true);
-	
 	JIGAPPacket::RoomInfo * answerRoomInfo =  joinRoomAnswer.mutable_roominfo();
-	JIGAPPacket::RoomInfo* requestRoomInfo = joinRoomRequest.mutable_roominfo();
+	
 
-	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(requestRoomInfo->roomname());
+	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(joinRoomRequest.roominfo().roomname());
 
 	if (lpFindRoom == nullptr)
 	{
@@ -222,11 +231,17 @@ void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	}
 	else
 	{
+		lpFindRoom->AddUser(find);
 
+		joinRoomAnswer.set_success(true);
+		answerRoomInfo->set_roomname(lpFindRoom->GetRoomName());
 	}
 	
+	lpHandler->SerializePacket(JIGAPPacket::Type::eJoinRoomAnswer, joinRoomAnswer);
+	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 
-
+	answerRoomInfo = joinRoomAnswer.release_roominfo();
+	SAFE_DELETE(answerRoomInfo);
 }
 
 void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
@@ -261,6 +276,47 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 		}
 	}
 	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+}
+
+void JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
+{
+}
+
+void JIGAPChatProcess::OnChatRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
+{
+	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
+	auto findRoom = find->GetCurrentRoom();
+	if (find == nullptr)
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
+	else if (find->GetLogin() == false)
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
+	else if (findRoom == nullptr)
+	{
+		lpInTCPSocket->IOCPRecv();
+		return;
+	}
+
+	JIGAPPacket::ChatRequest request;
+	lpHandler->NextParsingPacket(request, header.iSize);
+
+	JIGAPPacket::ChatData answer;
+	JIGAPPacket::UserData* answerUserData = answer.mutable_userdata();
+
+	answer.set_strmessage(request.strmessage());
+	answerUserData->set_id(request.userdata().id());
+	answerUserData->set_name(request.userdata().name());
+	lpHandler->SerializePacket(JIGAPPacket::Type::eChatData, answer);
+
+	findRoom->SendMessageInUsers(lpHandler);
+
+	answerUserData = answer.release_userdata();
+	SAFE_DELETE(answerUserData);
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)

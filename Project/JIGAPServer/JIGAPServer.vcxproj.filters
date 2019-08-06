@@ -141,11 +141,11 @@
     <ClInclude Include="ChatQuery.h">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="ChatRoomAdmin.h">
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,11 +206,11 @@
     <ClCompile Include="ChatQuery.cpp">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <Filter>JIGAPPacket</Filter>
-    </ClCompile>
     <ClCompile Include="ChatRoomAdmin.cpp">
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

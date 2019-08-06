@@ -19,7 +19,7 @@ namespace JIGAPClientDXGUI
             base.Init();
             uiRenderer = gameObject.AddComponent<UIRenderer>();
             button = gameObject.AddComponent<Button>();
-            button.SetButton( ResourceManager.Instance.LoadTexture("RoomListElement"), null);
+            button.SetButton( ResourceManager.Instance.LoadTexture("RoomListElement"), () => { ClickRoomButton(text.text.ToString()); });
 
             text = ObjectManager.Instance.RegisterObject().AddComponent<Text>();
             text.transform.Parent = transform;
@@ -34,11 +34,12 @@ namespace JIGAPClientDXGUI
         {
             text.text.Clear();
             text.text.Append(inRoomTitle);
+            
         }
 
         private void ClickRoomButton(string roomName)
         {
-
+            NetworkManager.Instance.SendProcess.SendJoinRoom(roomName);
         }
 
     }

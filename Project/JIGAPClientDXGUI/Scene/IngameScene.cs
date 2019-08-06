@@ -10,7 +10,7 @@ namespace JIGAPClientDXGUI
 {
     class IngameScene : Scene
     {
-        CreateRoomPanel createRoomPanel = null;
+        RoomUIPanel createRoomPanel = null;
         IngameChattingPanel chattingPanel = null;
         RoomListPanel roomListPanel = null;
 
@@ -21,7 +21,7 @@ namespace JIGAPClientDXGUI
 
             ObjectManager.Instance.RegisterObject().AddComponent<ChatLauncher>();
 
-            createRoomPanel = ObjectManager.Instance.RegisterObject().AddComponent<CreateRoomPanel>();
+            createRoomPanel = ObjectManager.Instance.RegisterObject().AddComponent<RoomUIPanel>();
             roomListPanel = ObjectManager.Instance.RegisterObject().AddComponent<RoomListPanel>();
             chattingPanel = ObjectManager.Instance.RegisterObject().AddComponent<IngameChattingPanel>();
 

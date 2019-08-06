@@ -75,8 +75,6 @@ namespace JIGAPClientDXGUI
         private Socket serverSock = null;
         private PacketHandler handler = new PacketHandler();
         private ConnectDataInfo connectDataInfo = new ConnectDataInfo();
-        private Thread recvThread = null;
-
         public RecvProcess RecvProcess { get; private set; } = new RecvProcess();
         public SendProcess SendProcess { get; private set; } = new SendProcess();
 

@@ -43,9 +43,10 @@ namespace JIGAPClientDXGUI
             handler.ClearSerializeBuffer();
 
             JIGAPPacket.JoinRoomRequest joinRoomrequest = new JIGAPPacket.JoinRoomRequest();
+            joinRoomrequest.RoomInfo = new JIGAPPacket.RoomInfo();
             joinRoomrequest.RoomInfo.Roomname = roomName;
 
-            handler.SerializePacket(JIGAPPacket.Type.ERoomListRequest, joinRoomrequest);
+            handler.SerializePacket(JIGAPPacket.Type.EJoinRoomRequest, joinRoomrequest);
             OnSendPacket();
         }
 
@@ -59,6 +60,19 @@ namespace JIGAPClientDXGUI
             handler.SerializePacket(JIGAPPacket.Type.ERoomListRequest, emptyPacket);
             OnSendPacket();
         }
+        public void SendChatRequest(string inUserId, string inUserName, string inMessage)
+        {
+            handler.ClearSerializeBuffer();
+
+            JIGAPPacket.ChatRequest request = new JIGAPPacket.ChatRequest();
+            request.StrMessage = inMessage;
+            request.UserData = new JIGAPPacket.UserData();
+            request.UserData.Id = inUserId;
+            request.UserData.Name = inUserName;
+
+            handler.SerializePacket(JIGAPPacket.Type.EChatRequest, request);
+            OnSendPacket();
+        }
         private void OnSendPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
@@ -67,6 +81,7 @@ namespace JIGAPClientDXGUI
 
             socket.SendAsync(args);
         }
+
 
     }
 }

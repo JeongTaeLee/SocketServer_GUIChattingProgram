@@ -19,7 +19,7 @@ public:
 	ChatRoom* GetCurrentRoom() { return lpCurRoom; }
 	void SetCurrentRoom(ChatRoom* inLpCurRoom) { lpCurRoom = inLpCurRoom; };
 
-	std::string& GetName() { return strName; }
+	const std::string& GetName() { return strName; }
 	void SetName(const std::string& strInName) { strName = strInName; }
 };
 

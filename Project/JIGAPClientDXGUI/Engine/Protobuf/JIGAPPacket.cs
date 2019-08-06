@@ -42,18 +42,20 @@ namespace JIGAPPacket {
             "bUNvdW50GAEgASgFIjoKD1Jvb21MaXN0RWxlbWVudBInCghyb29tSW5mbxgB",
             "IAEoCzIVLkpJR0FQUGFja2V0LlJvb21JbmZvIkoKC0NoYXRSZXF1ZXN0EicK",
             "CHVzZXJEYXRhGAEgASgLMhUuSklHQVBQYWNrZXQuVXNlckRhdGESEgoKc3Ry",
-            "TWVzc2FnZRgCIAEoCSIeCghDaGF0RGF0YRISCgpzdHJNZXNzYWdlGAEgASgJ",
-            "Ii4KC0VtcHR5UGFja2V0Eh8KBHR5cGUYASABKA4yES5KSUdBUFBhY2tldC5U",
-            "eXBlKrkCCgRUeXBlEhIKDmVTaW5nVXBSZXF1ZXN0EAASEQoNZVNpbmdVcEFu",
-            "c3dlchABEhEKDWVMb2dpblJlcXVlc3QQAhIQCgxlTG9naW5BbnN3ZXIQAxIW",
-            "ChJlQ3JlYXRlUm9vbVJlcXVlc3QQBBIVChFlQ3JlYXRlUm9vbUFuc3dlchAF",
-            "EhQKEGVKb2luUm9vbVJlcXVlc3QQBhITCg9lSm9pblJvb21BbnN3ZXIQBxIU",
-            "ChBlUm9vbUxpc3RSZXF1ZXN0EAgSEwoPZVJvb21MaXN0QW5zd2VyEAkSFAoQ",
-            "ZVJvb21MaXN0RWxlbWVudBAKEhQKEGVFeGl0Um9vbVJlcXVlc3QQCxITCg9l",
-            "RXhpdFJvb21BbnN3ZXIQDBIQCgxlQ2hhdFJlcXVlc3QQDRINCgllQ2hhdERh",
-            "dGEQDio6ChJTaW5nVXBGYWlsZWRSZWFzb24SEAoMZUR1cGxpY2F0ZUlkEAAS",
-            "EgoOZUR1cGxpY2F0ZU5hbWUQASo3ChFMb2dpbkZhaWxlZFJlYXNvbhIQCgxl",
-            "RG9udE1hdGNoSWQQABIQCgxlRG9udE1hdGNoUHcQAWIGcHJvdG8z"));
+            "TWVzc2FnZRgCIAEoCSJHCghDaGF0RGF0YRInCgh1c2VyRGF0YRgBIAEoCzIV",
+            "LkpJR0FQUGFja2V0LlVzZXJEYXRhEhIKCnN0ck1lc3NhZ2UYAiABKAkiLgoL",
+            "RW1wdHlQYWNrZXQSHwoEdHlwZRgBIAEoDjIRLkpJR0FQUGFja2V0LlR5cGUq",
+            "uQIKBFR5cGUSEgoOZVNpbmdVcFJlcXVlc3QQABIRCg1lU2luZ1VwQW5zd2Vy",
+            "EAESEQoNZUxvZ2luUmVxdWVzdBACEhAKDGVMb2dpbkFuc3dlchADEhYKEmVD",
+            "cmVhdGVSb29tUmVxdWVzdBAEEhUKEWVDcmVhdGVSb29tQW5zd2VyEAUSFAoQ",
+            "ZUpvaW5Sb29tUmVxdWVzdBAGEhMKD2VKb2luUm9vbUFuc3dlchAHEhQKEGVS",
+            "b29tTGlzdFJlcXVlc3QQCBITCg9lUm9vbUxpc3RBbnN3ZXIQCRIUChBlUm9v",
+            "bUxpc3RFbGVtZW50EAoSFAoQZUV4aXRSb29tUmVxdWVzdBALEhMKD2VFeGl0",
+            "Um9vbUFuc3dlchAMEhAKDGVDaGF0UmVxdWVzdBANEg0KCWVDaGF0RGF0YRAO",
+            "Kk4KElNpbmdVcEZhaWxlZFJlYXNvbhIQCgxlRHVwbGljYXRlSWQQABISCg5l",
+            "RHVwbGljYXRlTmFtZRABEhIKDmVEb250Q29uZGl0aW9uEAIqTAoRTG9naW5G",
+            "YWlsZWRSZWFzb24SEAoMZURvbnRNYXRjaElkEAASEAoMZURvbnRNYXRjaFB3",
+            "EAESEwoPZU92ZXJsYXBDb25uZWN0EAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), typeof(global::JIGAPPacket.SingUpFailedReason), typeof(global::JIGAPPacket.LoginFailedReason), }, new pbr::GeneratedClrTypeInfo[] {
@@ -69,7 +71,7 @@ namespace JIGAPPacket {
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswer), global::JIGAPPacket.RoomListAnswer.Parser, new[]{ "RoomCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListElement), global::JIGAPPacket.RoomListElement.Parser, new[]{ "RoomInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatRequest), global::JIGAPPacket.ChatRequest.Parser, new[]{ "UserData", "StrMessage" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatData), global::JIGAPPacket.ChatData.Parser, new[]{ "StrMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatData), global::JIGAPPacket.ChatData.Parser, new[]{ "UserData", "StrMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.EmptyPacket), global::JIGAPPacket.EmptyPacket.Parser, new[]{ "Type" }, null, null, null)
           }));
     }
@@ -98,11 +100,13 @@ namespace JIGAPPacket {
   public enum SingUpFailedReason {
     [pbr::OriginalName("eDuplicateId")] EDuplicateId = 0,
     [pbr::OriginalName("eDuplicateName")] EDuplicateName = 1,
+    [pbr::OriginalName("eDontCondition")] EDontCondition = 2,
   }
 
   public enum LoginFailedReason {
     [pbr::OriginalName("eDontMatchId")] EDontMatchId = 0,
     [pbr::OriginalName("eDontMatchPw")] EDontMatchPw = 1,
+    [pbr::OriginalName("eOverlapConnect")] EOverlapConnect = 2,
   }
 
   #endregion
@@ -1975,6 +1979,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ChatData(ChatData other) : this() {
+      userData_ = other.userData_ != null ? other.userData_.Clone() : null;
       strMessage_ = other.strMessage_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1984,8 +1989,19 @@ namespace JIGAPPacket {
       return new ChatData(this);
     }
 
+    /// <summary>Field number for the "userData" field.</summary>
+    public const int UserDataFieldNumber = 1;
+    private global::JIGAPPacket.UserData userData_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::JIGAPPacket.UserData UserData {
+      get { return userData_; }
+      set {
+        userData_ = value;
+      }
+    }
+
     /// <summary>Field number for the "strMessage" field.</summary>
-    public const int StrMessageFieldNumber = 1;
+    public const int StrMessageFieldNumber = 2;
     private string strMessage_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string StrMessage {
@@ -2008,6 +2024,7 @@ namespace JIGAPPacket {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(UserData, other.UserData)) return false;
       if (StrMessage != other.StrMessage) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -2015,6 +2032,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (userData_ != null) hash ^= UserData.GetHashCode();
       if (StrMessage.Length != 0) hash ^= StrMessage.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2029,8 +2047,12 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (StrMessage.Length != 0) {
+      if (userData_ != null) {
         output.WriteRawTag(10);
+        output.WriteMessage(UserData);
+      }
+      if (StrMessage.Length != 0) {
+        output.WriteRawTag(18);
         output.WriteString(StrMessage);
       }
       if (_unknownFields != null) {
@@ -2041,6 +2063,9 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (userData_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
+      }
       if (StrMessage.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(StrMessage);
       }
@@ -2054,6 +2079,12 @@ namespace JIGAPPacket {
     public void MergeFrom(ChatData other) {
       if (other == null) {
         return;
+      }
+      if (other.userData_ != null) {
+        if (userData_ == null) {
+          UserData = new global::JIGAPPacket.UserData();
+        }
+        UserData.MergeFrom(other.UserData);
       }
       if (other.StrMessage.Length != 0) {
         StrMessage = other.StrMessage;
@@ -2070,6 +2101,13 @@ namespace JIGAPPacket {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            if (userData_ == null) {
+              UserData = new global::JIGAPPacket.UserData();
+            }
+            input.ReadMessage(UserData);
+            break;
+          }
+          case 18: {
             StrMessage = input.ReadString();
             break;
           }

@@ -58,8 +58,23 @@ public:
 	inline T* FindUser(TCPSocket* lpInTCPSocket)
 	{
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
+		{
 			return (*Iter).second;
+		}
+
 		
+		
+		return nullptr;
+	}
+
+	inline T* FindUserInId(const std::string & stdId)
+	{
+		for (auto Iter : mUsers)
+		{
+			if (Iter.second->GetUserID() == stdId)
+				return Iter.second;
+		}
+
 		return nullptr;
 	}
 };

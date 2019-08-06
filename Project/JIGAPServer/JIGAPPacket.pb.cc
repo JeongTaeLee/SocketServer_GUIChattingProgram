@@ -87,8 +87,9 @@ static void InitDefaultsscc_info_ChatData_JIGAPPacket_2eproto() {
   ::JIGAPPacket::ChatData::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ChatData_JIGAPPacket_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_ChatData_JIGAPPacket_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ChatData_JIGAPPacket_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsscc_info_ChatData_JIGAPPacket_2eproto}, {
+      &scc_info_UserData_JIGAPPacket_2eproto.base,}};
 
 static void InitDefaultsscc_info_ChatRequest_JIGAPPacket_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -370,6 +371,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_JIGAPPacket_2eproto::offsets[]
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChatData, userdata_),
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::ChatData, strmessage_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::JIGAPPacket::EmptyPacket, _internal_metadata_),
@@ -392,7 +394,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 68, -1, sizeof(::JIGAPPacket::RoomListElement)},
   { 74, -1, sizeof(::JIGAPPacket::ChatRequest)},
   { 81, -1, sizeof(::JIGAPPacket::ChatData)},
-  { 87, -1, sizeof(::JIGAPPacket::EmptyPacket)},
+  { 88, -1, sizeof(::JIGAPPacket::EmptyPacket)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -433,21 +435,22 @@ const char descriptor_table_protodef_JIGAPPacket_2eproto[] =
   "t\030\001 \001(\005\":\n\017RoomListElement\022\'\n\010roomInfo\030\001"
   " \001(\0132\025.JIGAPPacket.RoomInfo\"J\n\013ChatReque"
   "st\022\'\n\010userData\030\001 \001(\0132\025.JIGAPPacket.UserD"
-  "ata\022\022\n\nstrMessage\030\002 \001(\t\"\036\n\010ChatData\022\022\n\ns"
-  "trMessage\030\001 \001(\t\".\n\013EmptyPacket\022\037\n\004type\030\001"
-  " \001(\0162\021.JIGAPPacket.Type*\271\002\n\004Type\022\022\n\016eSin"
-  "gUpRequest\020\000\022\021\n\reSingUpAnswer\020\001\022\021\n\reLogi"
-  "nRequest\020\002\022\020\n\014eLoginAnswer\020\003\022\026\n\022eCreateR"
-  "oomRequest\020\004\022\025\n\021eCreateRoomAnswer\020\005\022\024\n\020e"
-  "JoinRoomRequest\020\006\022\023\n\017eJoinRoomAnswer\020\007\022\024"
-  "\n\020eRoomListRequest\020\010\022\023\n\017eRoomListAnswer\020"
-  "\t\022\024\n\020eRoomListElement\020\n\022\024\n\020eExitRoomRequ"
-  "est\020\013\022\023\n\017eExitRoomAnswer\020\014\022\020\n\014eChatReque"
-  "st\020\r\022\r\n\teChatData\020\016*N\n\022SingUpFailedReaso"
-  "n\022\020\n\014eDuplicateId\020\000\022\022\n\016eDuplicateName\020\001\022"
-  "\022\n\016eDontCondition\020\002*7\n\021LoginFailedReason"
-  "\022\020\n\014eDontMatchId\020\000\022\020\n\014eDontMatchPw\020\001b\006pr"
-  "oto3"
+  "ata\022\022\n\nstrMessage\030\002 \001(\t\"G\n\010ChatData\022\'\n\010u"
+  "serData\030\001 \001(\0132\025.JIGAPPacket.UserData\022\022\n\n"
+  "strMessage\030\002 \001(\t\".\n\013EmptyPacket\022\037\n\004type\030"
+  "\001 \001(\0162\021.JIGAPPacket.Type*\271\002\n\004Type\022\022\n\016eSi"
+  "ngUpRequest\020\000\022\021\n\reSingUpAnswer\020\001\022\021\n\reLog"
+  "inRequest\020\002\022\020\n\014eLoginAnswer\020\003\022\026\n\022eCreate"
+  "RoomRequest\020\004\022\025\n\021eCreateRoomAnswer\020\005\022\024\n\020"
+  "eJoinRoomRequest\020\006\022\023\n\017eJoinRoomAnswer\020\007\022"
+  "\024\n\020eRoomListRequest\020\010\022\023\n\017eRoomListAnswer"
+  "\020\t\022\024\n\020eRoomListElement\020\n\022\024\n\020eExitRoomReq"
+  "uest\020\013\022\023\n\017eExitRoomAnswer\020\014\022\020\n\014eChatRequ"
+  "est\020\r\022\r\n\teChatData\020\016*N\n\022SingUpFailedReas"
+  "on\022\020\n\014eDuplicateId\020\000\022\022\n\016eDuplicateName\020\001"
+  "\022\022\n\016eDontCondition\020\002*L\n\021LoginFailedReaso"
+  "n\022\020\n\014eDontMatchId\020\000\022\020\n\014eDontMatchPw\020\001\022\023\n"
+  "\017eOverlapConnect\020\002b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_JIGAPPacket_2eproto_deps[1] = {
 };
@@ -470,7 +473,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_JIG
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_JIGAPPacket_2eproto_once;
 static bool descriptor_table_JIGAPPacket_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_JIGAPPacket_2eproto = {
-  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 1364,
+  &descriptor_table_JIGAPPacket_2eproto_initialized, descriptor_table_protodef_JIGAPPacket_2eproto, "JIGAPPacket.proto", 1426,
   &descriptor_table_JIGAPPacket_2eproto_once, descriptor_table_JIGAPPacket_2eproto_sccs, descriptor_table_JIGAPPacket_2eproto_deps, 14, 0,
   schemas, file_default_instances, TableStruct_JIGAPPacket_2eproto::offsets,
   file_level_metadata_JIGAPPacket_2eproto, 14, file_level_enum_descriptors_JIGAPPacket_2eproto, file_level_service_descriptors_JIGAPPacket_2eproto,
@@ -529,6 +532,7 @@ bool LoginFailedReason_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -4288,12 +4292,20 @@ void ChatRequest::InternalSwap(ChatRequest* other) {
 // ===================================================================
 
 void ChatData::InitAsDefaultInstance() {
+  ::JIGAPPacket::_ChatData_default_instance_._instance.get_mutable()->userdata_ = const_cast< ::JIGAPPacket::UserData*>(
+      ::JIGAPPacket::UserData::internal_default_instance());
 }
 class ChatData::HasBitSetters {
  public:
+  static const ::JIGAPPacket::UserData& userdata(const ChatData* msg);
 };
 
+const ::JIGAPPacket::UserData&
+ChatData::HasBitSetters::userdata(const ChatData* msg) {
+  return *msg->userdata_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ChatData::kUserDataFieldNumber;
 const int ChatData::kStrMessageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -4310,12 +4322,18 @@ ChatData::ChatData(const ChatData& from)
   if (from.strmessage().size() > 0) {
     strmessage_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.strmessage_);
   }
+  if (from.has_userdata()) {
+    userdata_ = new ::JIGAPPacket::UserData(*from.userdata_);
+  } else {
+    userdata_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.ChatData)
 }
 
 void ChatData::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ChatData_JIGAPPacket_2eproto.base);
   strmessage_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  userdata_ = nullptr;
 }
 
 ChatData::~ChatData() {
@@ -4325,6 +4343,7 @@ ChatData::~ChatData() {
 
 void ChatData::SharedDtor() {
   strmessage_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete userdata_;
 }
 
 void ChatData::SetCachedSize(int size) const {
@@ -4343,6 +4362,10 @@ void ChatData::Clear() {
   (void) cached_has_bits;
 
   strmessage_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == nullptr && userdata_ != nullptr) {
+    delete userdata_;
+  }
+  userdata_ = nullptr;
   _internal_metadata_.Clear();
 }
 
@@ -4354,9 +4377,16 @@ const char* ChatData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string strMessage = 1;
+      // .JIGAPPacket.UserData userData = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(mutable_userdata(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string strMessage = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_strmessage(), ptr, ctx, "JIGAPPacket.ChatData.strMessage");
           CHK_(ptr);
         } else goto handle_unusual;
@@ -4391,9 +4421,20 @@ bool ChatData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string strMessage = 1;
+      // .JIGAPPacket.UserData userData = 1;
       case 1: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
+               input, mutable_userdata()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string strMessage = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
                 input, this->mutable_strmessage()));
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -4433,14 +4474,20 @@ void ChatData::SerializeWithCachedSizes(
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string strMessage = 1;
+  // .JIGAPPacket.UserData userData = 1;
+  if (this->has_userdata()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, HasBitSetters::userdata(this), output);
+  }
+
+  // string strMessage = 2;
   if (this->strmessage().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->strmessage().data(), static_cast<int>(this->strmessage().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "JIGAPPacket.ChatData.strMessage");
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->strmessage(), output);
+      2, this->strmessage(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4456,7 +4503,14 @@ void ChatData::SerializeWithCachedSizes(
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string strMessage = 1;
+  // .JIGAPPacket.UserData userData = 1;
+  if (this->has_userdata()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, HasBitSetters::userdata(this), target);
+  }
+
+  // string strMessage = 2;
   if (this->strmessage().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->strmessage().data(), static_cast<int>(this->strmessage().length()),
@@ -4464,7 +4518,7 @@ void ChatData::SerializeWithCachedSizes(
       "JIGAPPacket.ChatData.strMessage");
     target =
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        1, this->strmessage(), target);
+        2, this->strmessage(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4488,11 +4542,18 @@ size_t ChatData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string strMessage = 1;
+  // string strMessage = 2;
   if (this->strmessage().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->strmessage());
+  }
+
+  // .JIGAPPacket.UserData userData = 1;
+  if (this->has_userdata()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *userdata_);
   }
 
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
@@ -4526,6 +4587,9 @@ void ChatData::MergeFrom(const ChatData& from) {
 
     strmessage_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.strmessage_);
   }
+  if (from.has_userdata()) {
+    mutable_userdata()->::JIGAPPacket::UserData::MergeFrom(from.userdata());
+  }
 }
 
 void ChatData::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -4555,6 +4619,7 @@ void ChatData::InternalSwap(ChatData* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   strmessage_.Swap(&other->strmessage_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(userdata_, other->userdata_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ChatData::GetMetadata() const {

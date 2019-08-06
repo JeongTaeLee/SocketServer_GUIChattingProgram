@@ -132,7 +132,7 @@
     <Compile Include="Component\Element\RoomListElement.cs" />
     <Compile Include="Component\IngamePanel\IngameChattingPanel.cs" />
     <Compile Include="Component\LoginLauncher.cs" />
-    <Compile Include="Component\IngamePanel\CreateRoomPanel.cs" />
+    <Compile Include="Component\IngamePanel\RoomUIPanel.cs" />
     <Compile Include="Component\IngamePanel\RoomListPanel.cs" />
     <Compile Include="Component\SingUpLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />

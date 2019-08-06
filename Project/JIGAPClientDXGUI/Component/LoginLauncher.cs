@@ -25,6 +25,9 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.LoginFailedReason.EDontMatchPw:
                     System.Windows.Forms.MessageBox.Show("패스워드를 잘못 입력하였습니다.", "로그인");
                     break;
+                case JIGAPPacket.LoginFailedReason.EOverlapConnect:
+                    System.Windows.Forms.MessageBox.Show("이미 접속되어 있는 아이디입니다.", "로그인");
+                    break;
             }
         }
     }

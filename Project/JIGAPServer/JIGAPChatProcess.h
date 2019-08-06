@@ -37,6 +37,9 @@ public:
 	void OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
 	void OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
 	void OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+	void OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+	void OnChatRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
+
 
 public:
 	void PutUserIntoRoom(PacketHandler* inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName);

@@ -31,3 +31,9 @@ void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)
 		
 	}
 }
+
+void ChatRoom::SendMessageInUsers(PacketHandler* inHandler)
+{
+	for (auto Iter : sChatUserData)
+		Iter->GetTCPSocket()->IOCPSend(inHandler->GetSerializeBufferData(), inHandler->GetSerializeRealSize());
+}

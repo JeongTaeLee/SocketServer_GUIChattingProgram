@@ -27,6 +27,9 @@ namespace JIGAPClientDXGUI
                 case JIGAPPacket.Type.ECreateRoomAnswer:
                     
                     break;
+                case JIGAPPacket.Type.EChatData:
+                    OnChatData(handler, header.PacketSize);
+                    break;
                 case JIGAPPacket.Type.EJoinRoomAnswer:
                     OnJoinRoomAnswer(handler, header.PacketSize);
                     break;
@@ -101,6 +104,13 @@ namespace JIGAPClientDXGUI
 
             NetworkManager.Instance.InvokeRoomListSuccess(ref strList);
 
+        }
+        private void OnChatData(PacketHandler inHandler, int inSize)
+        {
+            JIGAPPacket.ChatData answer = new JIGAPPacket.ChatData();
+            inHandler.ParsingPacket(ref answer, inSize);
+
+            return;
         }
     }
 }

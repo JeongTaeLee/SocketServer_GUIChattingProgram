@@ -8,16 +8,17 @@ using SharpDX.Direct3D9;
 
 namespace JIGAPClientDXGUI
 {
-    class CreateRoomPanel : NetworkComponent
+    class RoomUIPanel : NetworkComponent
     { 
         private Text roomTitleText = null;
         private TextField createRoomTitleField = null;
-
+        //private Button button = 
         public override void Init()
         {
             base.Init();
 
             Button button = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
+            
             button.transform.position = new SharpDX.Vector3(1062f, 143f, 0f);
             button.transform.Parent = transform;
             button.SetButton(ResourceManager.Instance.LoadTexture("CreateRoomButton"), null);
@@ -48,6 +49,7 @@ namespace JIGAPClientDXGUI
             base.OnJoinRoomSuccess(roomName);
             roomTitleText.text.Clear();
             roomTitleText.text.Append(roomName);
+
         }
 
         public override void OnJoinRoomFailed()

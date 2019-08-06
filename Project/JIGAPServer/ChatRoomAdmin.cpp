@@ -17,6 +17,7 @@ ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
 
 	roomsMutex.lock();
 	lpLobby = rooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, new ChatRoom(inStrRoomName))).first->second;
+	
 	roomsMutex.unlock();
 	return lpLobby;
 }

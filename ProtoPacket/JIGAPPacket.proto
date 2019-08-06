@@ -39,6 +39,7 @@ enum LoginFailedReason
 {
     eDontMatchId = 0;
     eDontMatchPw = 1;
+    eOverlapConnect = 2;
 }
 
 message UserData{
@@ -99,7 +100,8 @@ message ChatRequest{
 }
 
 message ChatData{
-    string strMessage = 1;
+    UserData userData = 1;
+    string strMessage = 2;
 }
 
 message EmptyPacket{
