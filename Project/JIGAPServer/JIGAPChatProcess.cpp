@@ -134,7 +134,7 @@ void JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 
 
 	lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, answer);
-	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 	return;
 }
 
@@ -183,7 +183,7 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	}
 
 	lpHandler->SerializePacket(JIGAPPacket::Type::eLoginAnswer, answer);
-	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 
 	answerUserData = answer.release_userdata();
 	SAFE_DELETE(answerUserData);
@@ -230,7 +230,7 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 			SAFE_DELETE(info);
 		}
 	}
-	lpInTCPSocket->IOCPSend(lpHandler, lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)
@@ -253,8 +253,9 @@ void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData
 		answer.set_success(true);
 		info->set_roomname(inStrRoomName);
 
+		inLpHandler->ClearSerializeBuffer();
 		inLpHandler->SerializePacket(JIGAPPacket::Type::eJoinRoomAnswer, answer);
-		inLpChatUserData->GetTCPSocket()->IOCPSend(inLpHandler, inLpHandler->GetSerializeBufferData(), inLpHandler->GetSerializeRealSize());
+		inLpChatUserData->GetTCPSocket()->IOCPSend(inLpHandler->GetSerializeBufferData(), inLpHandler->GetSerializeRealSize());
 	}
 }
 

@@ -93,7 +93,7 @@ int TCPSocket::IOCPRecv()
 	return 0;
 }
 
-int TCPSocket::IOCPSend(PacketHandler * inLpPacketHandler, const char* szInStream, int iInSendSize)
+int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
 {
 	lpIOData->wsaBuf.len = iInSendSize;
 	memcpy(lpIOData->szBuffer, szInStream, iInSendSize);
@@ -107,8 +107,6 @@ int TCPSocket::IOCPSend(PacketHandler * inLpPacketHandler, const char* szInStrea
 		if (WSAGetLastError() != WSA_IO_PENDING)
 			return WSAGetLastError();
 	}
-
-	inLpPacketHandler->ClearSerializeBuffer();
 
 	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;
 	return 0;

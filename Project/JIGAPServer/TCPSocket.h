@@ -78,7 +78,7 @@ public:
 	성공 : 0.
 	실패 : WSAGetLastError()
 	*/
-	int IOCPSend(PacketHandler* inLpPacketHandler, const char * szInStream, int iInSendSize);
+	int IOCPSend(const char * szInStream, int iInSendSize);
 	
 	/*동기 방식로 데이터를 수신합니다.
 	성공 : 수신된 데이터 크기
