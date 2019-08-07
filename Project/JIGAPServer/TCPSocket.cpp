@@ -20,6 +20,7 @@ TCPSocket::TCPSocket(SOCKET hInSock, const SocketAddress& InAddr)
 TCPSocket::~TCPSocket()
 {
 	delete lpIOData;
+	lpIOData = nullptr;
 	
 }
 
@@ -87,10 +88,17 @@ int TCPSocket::IOCPRecv()
 	DWORD dwFlag = 0;
 	lpIOData->wsaBuf.len = MAXBUFFERSIZE;
 
-	if (WSARecv(hSock, &lpIOData->wsaBuf, 1, nullptr, &dwFlag, lpIOData, nullptr) == SOCKET_ERROR)
+	try
 	{
-		if (WSAGetLastError() != WSA_IO_PENDING)
-			return WSAGetLastError();
+		if (WSARecv(hSock, &lpIOData->wsaBuf, 1, nullptr, &dwFlag, lpIOData, nullptr) == SOCKET_ERROR)
+		{
+			if (WSAGetLastError() != WSA_IO_PENDING)
+				throw WSAGetLastError();
+		}
+	}
+	catch (int i)
+	{
+		std::exception("Server IO ERROR!");
 	}
 
 	lpIOData->eIOMode = IOMODE::E_IOMODE_RECV;
@@ -104,13 +112,20 @@ int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
 	memcpy(lpIOData->szBuffer, szInStream, iInSendSize);
 
 	DWORD dwRecvByte = 0;
-	DWORD dwFlag = 0;	
+	DWORD dwFlag = 0;
 
-	
-	if (WSASend(hSock, &lpIOData->wsaBuf, 1, &dwRecvByte, dwFlag, (OVERLAPPED*)lpIOData, nullptr) == SOCKET_ERROR)
+
+	try
 	{
-		if (WSAGetLastError() != WSA_IO_PENDING)
-			return WSAGetLastError();
+		if (WSASend(hSock, &lpIOData->wsaBuf, 1, &dwRecvByte, dwFlag, (OVERLAPPED*)lpIOData, nullptr) == SOCKET_ERROR)
+		{
+			if (WSAGetLastError() != WSA_IO_PENDING)
+				throw WSAGetLastError();
+		}
+	}
+	catch (int i)
+	{
+		std::exception("Server IO ERROR!");
 	}
 
 	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;

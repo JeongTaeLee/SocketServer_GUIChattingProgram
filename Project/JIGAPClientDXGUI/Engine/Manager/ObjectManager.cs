@@ -26,13 +26,13 @@ namespace JIGAPClientDXGUI
             }  
         }
 
-        private LinkedList<GameObject> Objects = new LinkedList<GameObject>();
-        private LinkedList<IRenderer> SpriteRenderers = new LinkedList<IRenderer>();
-        private LinkedList<IRenderer> UIRenderers = new LinkedList<IRenderer>();
+        private LinkedList<GameObject> _objectsList = new LinkedList<GameObject>();
+        private LinkedList<IRenderer> _spriteRenderer = new LinkedList<IRenderer>();
+        private LinkedList<IRenderer> _uiRenderer = new LinkedList<IRenderer>();
 
-        private Mutex objectMutex = new Mutex(false, "objectMutex");
-        private Mutex rendererMutex = new Mutex(false, "rendererMutex");
-        private Mutex uiRendererMutex = new Mutex(false, "uiRendererMutex");
+        private Mutex _objectMutex = new Mutex(false, "objectMutex");
+        private Mutex _rendererMutex = new Mutex(false, "rendererMutex");
+        private Mutex _uiRendererMutex = new Mutex(false, "uiRendererMutex");
     }
 
     partial class ObjectManager : IDisposable
@@ -41,9 +41,9 @@ namespace JIGAPClientDXGUI
         {
             GameObject gameObject = new GameObject();
 
-            objectMutex.WaitOne();
-            Objects.AddLast(gameObject);
-            objectMutex.ReleaseMutex();
+            _objectMutex.WaitOne();
+            _objectsList.AddLast(gameObject);
+            _objectMutex.ReleaseMutex();
 
             gameObject.Init();
 
@@ -53,57 +53,57 @@ namespace JIGAPClientDXGUI
         {
             gameObject.Release();
 
-            objectMutex.WaitOne();
-            Objects.Remove(gameObject);
-            objectMutex.ReleaseMutex();
+            _objectMutex.WaitOne();
+            _objectsList.Remove(gameObject);
+            _objectMutex.ReleaseMutex();
         }
 
         public void RegisterSpriteRenderer(IRenderer spriteRenderer)
         {
-            rendererMutex.WaitOne();
-            SpriteRenderers.AddLast(spriteRenderer);
-            rendererMutex.ReleaseMutex();
+            _rendererMutex.WaitOne();
+            _spriteRenderer.AddLast(spriteRenderer);
+            _rendererMutex.ReleaseMutex();
         }
         public void RegisterUIRenderer(IRenderer inUIRenderer)
         {
-            uiRendererMutex.WaitOne();
-            UIRenderers.AddLast(inUIRenderer);
-            uiRendererMutex.ReleaseMutex();
+            _uiRendererMutex.WaitOne();
+            _uiRenderer.AddLast(inUIRenderer);
+            _uiRendererMutex.ReleaseMutex();
         }
 
         public void UnRegisterSpriteRenderer(IRenderer inSpriteRenderer)
         {
-            rendererMutex.WaitOne();
-            SpriteRenderers.Remove(inSpriteRenderer);
-            rendererMutex.ReleaseMutex();
+            _rendererMutex.WaitOne();
+            _spriteRenderer.Remove(inSpriteRenderer);
+            _rendererMutex.ReleaseMutex();
         }
         public void UnRegisterUIRenderer(IRenderer inUIRenderer)
         {
-            uiRendererMutex.WaitOne();
-            UIRenderers.Remove(inUIRenderer);
-            uiRendererMutex.ReleaseMutex();
+            _uiRendererMutex.WaitOne();
+            _uiRenderer.Remove(inUIRenderer);
+            _uiRendererMutex.ReleaseMutex();
         }
 
         public void ClearObjects()
         {
-            objectMutex.WaitOne();
-            foreach (GameObject obj in Objects)
+            _objectMutex.WaitOne();
+            foreach (GameObject obj in _objectsList)
                 obj.Release();
-            Objects.Clear();
-            objectMutex.ReleaseMutex();
+            _objectsList.Clear();
+            _objectMutex.ReleaseMutex();
 
         }
 
         public void Update()
         {
-            objectMutex.WaitOne();
-            for (LinkedListNode<GameObject> node = Objects.First; node != null; )
+            _objectMutex.WaitOne();
+            for (LinkedListNode<GameObject> node = _objectsList.First; node != null; )
             {
                 if (node.Value.Destroy)
                 {
                     node.Value.Release();
                     node = node.Next;
-                    Objects.Remove(node);
+                    _objectsList.Remove(node);
                 }
                 else
                 {
@@ -115,15 +115,15 @@ namespace JIGAPClientDXGUI
                     node = node.Next;
                 }
             }
-            objectMutex.ReleaseMutex();
+            _objectMutex.ReleaseMutex();
         }
 
         public void Render()
         {
             DXManager.Instance.d3dSprite.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend | SharpDX.Direct3D9.SpriteFlags.ObjectSpace);
 
-            rendererMutex.WaitOne();
-            foreach(IRenderer obj in SpriteRenderers)
+            _rendererMutex.WaitOne();
+            foreach(IRenderer obj in _spriteRenderer)
             {
                 Component com = obj as Component;
 
@@ -133,14 +133,14 @@ namespace JIGAPClientDXGUI
                     obj.Render();
                 }
             }
-            rendererMutex.ReleaseMutex();
+            _rendererMutex.ReleaseMutex();
 
             DXManager.Instance.d3dSprite.End();
 
             DXManager.Instance.d3dSprite.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend);
 
-            uiRendererMutex.WaitOne();
-            foreach (IRenderer obj in UIRenderers)
+            _uiRendererMutex.WaitOne();
+            foreach (IRenderer obj in _uiRenderer)
             {
                 Component com = obj as Component;
 
@@ -150,7 +150,7 @@ namespace JIGAPClientDXGUI
                     obj.Render();
                 }
             }
-            uiRendererMutex.ReleaseMutex();
+            _uiRendererMutex.ReleaseMutex();
 
             DXManager.Instance.d3dSprite.End();
 
@@ -158,9 +158,9 @@ namespace JIGAPClientDXGUI
 
         public void Dispose()
         {
-            foreach (GameObject obj in Objects)
+            foreach (GameObject obj in _objectsList)
                 obj.Release();
-            Objects.Clear();
+            _objectsList.Clear();
 
             
 

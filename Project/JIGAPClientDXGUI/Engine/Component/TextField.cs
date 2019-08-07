@@ -25,19 +25,6 @@ namespace JIGAPClientDXGUI
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
 
-        public int FontSize
-        {
-            get
-            {
-                return Text.FontSize;
-            }
-
-            set
-            {
-                Text.FontSize = value;
-            }
-        }
-
         public texture Texture
         {
             get
@@ -82,11 +69,11 @@ namespace JIGAPClientDXGUI
         {
             get
             {
-                return Text.Color;
+                return Text.color;
             }
             set
             {
-                Text.Color = value;
+                Text.color = value;
             }
         }
 
@@ -95,11 +82,11 @@ namespace JIGAPClientDXGUI
         {
             get
             {
-                return Text.DrawFlag;
+                return Text.drawFlag;
             }
             set
             {
-                Text.DrawFlag = value;
+                Text.drawFlag = value;
             }
         }
 
@@ -157,7 +144,7 @@ namespace JIGAPClientDXGUI
         private void Renew()
         {
             boxRange = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
-            Text.Range = new SharpDX.Mathematics.Interop.RawRectangle(0, 0, Width - 10, Height);
+            Text.range = new SharpDX.Mathematics.Interop.RawRectangle(0, 0, Width - 10, Height);
         }
 
         public void OnActiveBox()

@@ -52,6 +52,15 @@ void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
 
 void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
 {
+	ChatUserData * data =lpUserAdmin->FindUser(lpInSocket);
+
+	if (data)
+	{
+		ChatRoom* chatRoom = data->GetCurrentRoom();
+		if (chatRoom)
+			chatRoom->DeleteUser(data);
+	}
+
 	lpUserAdmin->DeleteUser(lpInSocket);
 }
 

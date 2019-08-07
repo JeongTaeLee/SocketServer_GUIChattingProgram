@@ -8,26 +8,38 @@ namespace JIGAPClientDXGUI
 {
     class ChatText : Component
     {
-        private Text chatText;
+        private Text _chatText;
+
+        private bool _mine;
+        public bool mine { get => _mine; }
 
         public override void Init()
         {
             base.Init();
-            chatText = gameObject.AddComponent<Text>();
+            _chatText = gameObject.AddComponent<Text>();
         }
 
-        public void SetChatText(bool inMy, string inId, string inName, string inMessage)
+        public void Initialize(bool inMy, int inTextRangeW, int inTextRangeH, string inId, string inName, string inMessage)
         {
-            if (inMy)
+            _mine = inMy;
+            _chatText.font = ResourceManager.Instance.LoadFont("Chatting");
+            _chatText.range = new SharpDX.Rectangle(0, 0, inTextRangeW, inTextRangeH);
+
+            string text;
+
+            if (mine)
             {
-                string text = $"{inName}({inId}) : {inMessage}";
-                chatText.text.Append(text);
+                text = $"{inName}({inId}) : {inMessage}";
+                _chatText.drawFlag = SharpDX.Direct3D9.FontDrawFlags.Left;
+    
             }
             else
             {
-                string text = $"{inMessage} : ({inId}){inName}";
-                chatText.text.Append(text);
+                text = $"{inMessage} : ({inId}){inName}";
+                _chatText.drawFlag = SharpDX.Direct3D9.FontDrawFlags.Right;
             }
+
+             _chatText.text.Append(text);
         }
     }
 }

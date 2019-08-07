@@ -56,8 +56,8 @@ namespace JIGAPClientDXGUI
         }
 
 
-        private Dictionary<string, texture> textures = new Dictionary<string, texture>();
-        private Dictionary<string, Font> fonts = new Dictionary<string, Font>();
+        private Dictionary<string, texture> _textures = new Dictionary<string, texture>();
+        private Dictionary<string, Font> _fonts = new Dictionary<string, Font>();
     }
 
 
@@ -68,7 +68,7 @@ namespace JIGAPClientDXGUI
         {
             texture myTex = null;
           
-            if (!textures.TryGetValue(key, out myTex))
+            if (!_textures.TryGetValue(key, out myTex))
             { 
                 ImageInformation info;
 
@@ -77,7 +77,7 @@ namespace JIGAPClientDXGUI
 
                 myTex = new texture(d3dTex, info);
 
-                textures.Add(key, myTex);
+                _textures.Add(key, myTex);
             }
 
             return myTex;
@@ -86,7 +86,7 @@ namespace JIGAPClientDXGUI
         {
             Font font = null;
 
-            if (!fonts.TryGetValue(key, out font))
+            if (!_fonts.TryGetValue(key, out font))
             {
                 font = new Font(DXManager.Instance.d3dDevice, inFontSize,
                 0,
@@ -99,7 +99,7 @@ namespace JIGAPClientDXGUI
                 FontPitchAndFamily.Default,
                 "맑은 고딕");
 
-                fonts.Add(key, font);
+                _fonts.Add(key, font);
             }
 
             return font;
@@ -108,16 +108,16 @@ namespace JIGAPClientDXGUI
 
         public void Dispose()
         {
-            foreach(KeyValuePair<string, texture> tex in textures)
+            foreach(KeyValuePair<string, texture> tex in _textures)
                 tex.Value.Dispose();
 
-            foreach (KeyValuePair<string, Font> font in fonts)
+            foreach (KeyValuePair<string, Font> font in _fonts)
                 font.Value.Dispose();
 
 
 
-            textures.Clear();
-            fonts.Clear();
+            _textures.Clear();
+            _fonts.Clear();
             GC.SuppressFinalize(this);
         }
     }

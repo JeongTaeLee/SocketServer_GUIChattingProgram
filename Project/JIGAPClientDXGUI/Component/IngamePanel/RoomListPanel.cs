@@ -8,32 +8,32 @@ namespace JIGAPClientDXGUI
 {
     class RoomListPanel : NetworkComponent
     {
-        private ListView roomListView;
-        private Button nextButton;
-        private Button revertButton;
+        private ListView _roomListView;
+        private Button _nextButton;
+        private Button _revertButton;
 
         public override void Init()
         {
             base.Init();
 
-            roomListView = ObjectManager.Instance.RegisterObject().AddComponent<ListView>();
-            roomListView.transform.Parent = transform;
-            roomListView.transform.position = new SharpDX.Vector3(1006f, 270f, 0f);
-            roomListView.PageMaxElementSize = 8;
+            _roomListView = ObjectManager.Instance.RegisterObject().AddComponent<ListView>();
+            _roomListView.transform.Parent = transform;
+            _roomListView.transform.position = new SharpDX.Vector3(1006f, 270f, 0f);
+            _roomListView.PageMaxElementSize = 8;
 
             GameObject buttonObj = ObjectManager.Instance.RegisterObject();
             buttonObj.transform.Parent = transform;
             buttonObj.transform.position = new SharpDX.Vector3(1175f, 670f, 0f);
             buttonObj.AddComponent<UIRenderer>();
-            nextButton = buttonObj.AddComponent<Button>();
-            nextButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListNextButton"), roomListView.NextPage);
+            _nextButton = buttonObj.AddComponent<Button>();
+            _nextButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListNextButton"), _roomListView.NextPage);
 
             buttonObj = ObjectManager.Instance.RegisterObject();
             buttonObj.transform.Parent = transform;
             buttonObj.transform.position = new SharpDX.Vector3(1024f, 670f, 0f);
             buttonObj.AddComponent<UIRenderer>();
-            revertButton = buttonObj.AddComponent<Button>();
-            revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), roomListView.RevertPage);
+            _revertButton = buttonObj.AddComponent<Button>();
+            _revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), _roomListView.RevertPage);
 
            NetworkManager.Instance.SendProcess.SendRoomListRequest();
         }
@@ -47,9 +47,9 @@ namespace JIGAPClientDXGUI
                 GameObject obj = ObjectManager.Instance.RegisterObject();
                 RoomListElement element = obj.AddComponent<RoomListElement>();
                 element.SetRoomTitle(roomname);
-                roomListView.AddListObject(obj);
+                _roomListView.AddListObject(obj);
             }
-            roomListView.SettingList();
+            _roomListView.SettingList();
         }
 
     }

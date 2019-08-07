@@ -8,25 +8,30 @@ namespace JIGAPClientDXGUI
 {
     class IngameChattingPanel : NetworkComponent
     {
-        TextField ChattingTextField = null;
+        private TextField _chattingInputField = null;
+        private ChatView _chatView = null;
         
         public override void Init()
         {
+            //FirstY 620;
+            // 10 Owner 980
+
             base.Init();
 
-            ChattingTextField = ObjectManager.Instance.RegisterObject().AddComponent<TextField>();
-            ChattingTextField.transform.Parent = transform;
-            ChattingTextField.transform.position = new SharpDX.Vector3(10f, 672f, 0f);
-            ChattingTextField.Texture = ResourceManager.Instance.LoadTexture("ChattingTextBox");
-            ChattingTextField.FontSize = 35;
-            ChattingTextField.EnterBehavior = (string str) => { SendChatting(str); };
+            _chattingInputField = ObjectManager.Instance.RegisterObject().AddComponent<TextField>();
+            _chattingInputField.transform.Parent = transform;
+            _chattingInputField.transform.position = new SharpDX.Vector3(10f, 672f, 0f);
+            _chattingInputField.Texture = ResourceManager.Instance.LoadTexture("ChattingTextBox");
+            _chattingInputField.EnterBehavior = (string str) => { SendChatting(str); };
 
             Button button = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
             button.transform.Parent = transform;
             button.transform.position = new SharpDX.Vector3(916f, 672f, 0f);
             button.SetButton(ResourceManager.Instance.LoadTexture("SendButton"), 
-                () => { SendChatting(ChattingTextField.String); });
+                () => { SendChatting(_chattingInputField.String); });
 
+            _chatView = ObjectManager.Instance.RegisterObject().AddComponent<ChatView>();
+            _chatView.Initialize(10, 620, 10, 35f, 980, 35);
         }
 
         private void SendChatting(string inMessage)

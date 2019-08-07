@@ -36,29 +36,29 @@ namespace JIGAPClientDXGUI
 
         public delegate void ChatArriveCallBack(string inId, string inName, string inMessage);
 
-        public void InvokeSingUpSuccess() { singUpSuccess?.Invoke(); }
-        public event SingUpSuccessCallBack singUpSuccess;
+        public void InvokeSingUpSuccess() { _singUpSuccess?.Invoke(); }
+        public event SingUpSuccessCallBack _singUpSuccess;
 
-        public void InvokeSingUpFailed(JIGAPPacket.SingUpFailedReason reason) { singUpFailed?.Invoke(reason); }
-        public event SingUpFailedCallBack singUpFailed;
+        public void InvokeSingUpFailed(JIGAPPacket.SingUpFailedReason reason) { _singUpFailed?.Invoke(reason); }
+        public event SingUpFailedCallBack _singUpFailed;
 
-        public void InvokeLoginSuccess() { LoginSuccess?.Invoke(); }
-        public event LoginSuccessCallBack LoginSuccess;
+        public void InvokeLoginSuccess() { _LoginSuccess?.Invoke(); }
+        public event LoginSuccessCallBack _LoginSuccess;
 
-        public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { LoginFailed?.Invoke(reason); }
-        public event LoginFailedCallBack LoginFailed;
+        public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { _LoginFailed?.Invoke(reason); }
+        public event LoginFailedCallBack _LoginFailed;
 
-        public void InvokeJoinRoomSuccess(string roomName) { JoinRoomSuccess?.Invoke(roomName); }
-        public event JoinRoomSuccessCallBack JoinRoomSuccess;
+        public void InvokeJoinRoomSuccess(string roomName) { _JoinRoomSuccess?.Invoke(roomName); }
+        public event JoinRoomSuccessCallBack _JoinRoomSuccess;
 
-        public void InvokeJoinRoomFailed() { JoinRoomFailed?.Invoke(); }
-        public event JoinRoomFailedCallBack JoinRoomFailed;
+        public void InvokeJoinRoomFailed() { _JoinRoomFailed?.Invoke(); }
+        public event JoinRoomFailedCallBack _JoinRoomFailed;
 
-        public void InvokeRoomListSuccess(ref List<string> roomNameList) { roomListSuccess?.Invoke(ref roomNameList); }
-        public event RoomListSuccessCallBack roomListSuccess;
+        public void InvokeRoomListSuccess(ref List<string> roomNameList) { _roomListSuccess?.Invoke(ref roomNameList); }
+        public event RoomListSuccessCallBack _roomListSuccess;
 
-        public void InvokeChatArrive(string inId, string inName, string InMessage) { chatArriveSuccess?.Invoke(inId, inName, InMessage); }
-        public event ChatArriveCallBack chatArriveSuccess;
+        public void InvokeChatArrive(string inId, string inName, string InMessage) { _chatArriveSuccess?.Invoke(inId, inName, InMessage); }
+        public event ChatArriveCallBack _chatArriveSuccess;
 
     }
 

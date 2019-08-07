@@ -205,16 +205,15 @@ void JIGAPServer::OnRecvPacketTask()
 		
 		if (iRecvByte == 0)
 		{
-			if (lpTCPSocket->GetSocket() == INVALID_SOCKET)
-				continue;
-
 			lpServerProcess->OnDisconnect(lpTCPSocket);
 
 			lpTCPSocket->Shutdownsocket(SD_SEND);
 			lpTCPSocket->Closesocket();
 			
 			RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
+			
 			SAFE_DELETE(lpTCPSocket);
+			lpTCPSocket = nullptr;
 		}
 		else
 		{	

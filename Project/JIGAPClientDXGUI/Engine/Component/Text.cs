@@ -12,13 +12,20 @@ namespace JIGAPClientDXGUI
 {
     class Text : Component, IRenderer
     {
-        public StringBuilder text { get; set; } = new StringBuilder();
-        public int FontSize { get; set; } = 50;
-        public FontWeight FontWeight { get; set; } = FontWeight.Bold;
-        public FontDrawFlags DrawFlag { get; set; } = FontDrawFlags.Left | FontDrawFlags.Top;
-        public Rectangle Range { get; set; } = new Rectangle();
-        public Color Color { get; set; } = Color.Black;
-        public Font Font { get; set; } = ResourceManager.Instance.LoadFont("Default");
+        public StringBuilder text { get => _text; set => _text = value; }
+        private StringBuilder _text = new StringBuilder();
+
+        public FontDrawFlags drawFlag { get => _drawFlag; set => _drawFlag = value; }
+        private FontDrawFlags _drawFlag = FontDrawFlags.Left | FontDrawFlags.Top;
+
+        public Rectangle range { get => _range;  set => _range = value; }
+        private Rectangle _range = new Rectangle();
+
+        public Color color { get => _color; set => _color = value; }
+        private Color _color = Color.Black;
+
+        public Font font { get => _font; set => _font = value; }
+        private Font _font = ResourceManager.Instance.LoadFont("Default");
 
         public override void Init()
         {
@@ -32,7 +39,7 @@ namespace JIGAPClientDXGUI
         public void Render()
         {
             if (text.Length > 0)
-                Font.DrawText(DXManager.Instance.d3dSprite, text.ToString(), Range, DrawFlag, Color);
+                font.DrawText(DXManager.Instance.d3dSprite, _text.ToString(), _range, _drawFlag, _color);
         }
     }
 }

@@ -11,28 +11,28 @@ namespace JIGAPClientDXGUI
 
         public NetworkComponent()
         {
-            NetworkManager.Instance.singUpSuccess += OnSingUpScuccess;
-            NetworkManager.Instance.singUpFailed += OnSingUpFailed;
-            NetworkManager.Instance.LoginSuccess += OnLoginSuccess;
-            NetworkManager.Instance.LoginFailed += OnLoginFailed;
-            NetworkManager.Instance.JoinRoomSuccess += OnJoinRoomSuccess;
-            NetworkManager.Instance.JoinRoomFailed += OnJoinRoomFailed;
-            NetworkManager.Instance.roomListSuccess += OnRoomListSuccess;
-            NetworkManager.Instance.chatArriveSuccess += OnChatArrive;
+            NetworkManager.Instance._singUpSuccess += OnSingUpScuccess;
+            NetworkManager.Instance._singUpFailed += OnSingUpFailed;
+            NetworkManager.Instance._LoginSuccess += OnLoginSuccess;
+            NetworkManager.Instance._LoginFailed += OnLoginFailed;
+            NetworkManager.Instance._JoinRoomSuccess += OnJoinRoomSuccess;
+            NetworkManager.Instance._JoinRoomFailed += OnJoinRoomFailed;
+            NetworkManager.Instance._roomListSuccess += OnRoomListSuccess;
+            NetworkManager.Instance._chatArriveSuccess += OnChatArrive;
         }
 
         public override void Release()
         {
             base.Release();
 
-            NetworkManager.Instance.singUpSuccess -= OnSingUpScuccess;
-            NetworkManager.Instance.singUpFailed -= OnSingUpFailed;
-            NetworkManager.Instance.LoginSuccess -= OnLoginSuccess;
-            NetworkManager.Instance.LoginFailed -= OnLoginFailed;
-            NetworkManager.Instance.JoinRoomSuccess -= OnJoinRoomSuccess;
-            NetworkManager.Instance.JoinRoomFailed -= OnJoinRoomFailed;
-            NetworkManager.Instance.roomListSuccess -= OnRoomListSuccess;
-            NetworkManager.Instance.chatArriveSuccess -= OnChatArrive;
+            NetworkManager.Instance._singUpSuccess -= OnSingUpScuccess;
+            NetworkManager.Instance._singUpFailed -= OnSingUpFailed;
+            NetworkManager.Instance._LoginSuccess -= OnLoginSuccess;
+            NetworkManager.Instance._LoginFailed -= OnLoginFailed;
+            NetworkManager.Instance._JoinRoomSuccess -= OnJoinRoomSuccess;
+            NetworkManager.Instance._JoinRoomFailed -= OnJoinRoomFailed;
+            NetworkManager.Instance._roomListSuccess -= OnRoomListSuccess;
+            NetworkManager.Instance._chatArriveSuccess -= OnChatArrive;
         }
 
         public virtual void OnSingUpScuccess()
