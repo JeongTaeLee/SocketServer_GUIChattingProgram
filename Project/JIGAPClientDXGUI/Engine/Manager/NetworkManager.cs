@@ -34,6 +34,8 @@ namespace JIGAPClientDXGUI
 
         public delegate void RoomListSuccessCallBack(ref List<string> roomNameList);
 
+        public delegate void ChatArriveCallBack(string inId, string inName, string inMessage);
+
         public void InvokeSingUpSuccess() { singUpSuccess?.Invoke(); }
         public event SingUpSuccessCallBack singUpSuccess;
 
@@ -46,7 +48,7 @@ namespace JIGAPClientDXGUI
         public void InvokeLoginFailed(JIGAPPacket.LoginFailedReason reason) { LoginFailed?.Invoke(reason); }
         public event LoginFailedCallBack LoginFailed;
 
-        public void InvokeJoinRoomSuccess(string roomName) {JoinRoomSuccess?.Invoke(roomName);}
+        public void InvokeJoinRoomSuccess(string roomName) { JoinRoomSuccess?.Invoke(roomName); }
         public event JoinRoomSuccessCallBack JoinRoomSuccess;
 
         public void InvokeJoinRoomFailed() { JoinRoomFailed?.Invoke(); }
@@ -54,6 +56,10 @@ namespace JIGAPClientDXGUI
 
         public void InvokeRoomListSuccess(ref List<string> roomNameList) { roomListSuccess?.Invoke(ref roomNameList); }
         public event RoomListSuccessCallBack roomListSuccess;
+
+        public void InvokeChatArrive(string inId, string inName, string InMessage) { chatArriveSuccess?.Invoke(inId, inName, InMessage); }
+        public event ChatArriveCallBack chatArriveSuccess;
+
     }
 
 

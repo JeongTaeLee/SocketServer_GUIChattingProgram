@@ -19,8 +19,6 @@ namespace JIGAPClientDXGUI
             GameObject BackGround = ObjectManager.Instance.RegisterObject();
             BackGround.AddComponent<UIRenderer>().Texture = ResourceManager.Instance.LoadTexture("IngameBackGround");
 
-            ObjectManager.Instance.RegisterObject().AddComponent<ChatLauncher>();
-
             createRoomPanel = ObjectManager.Instance.RegisterObject().AddComponent<RoomUIPanel>();
             roomListPanel = ObjectManager.Instance.RegisterObject().AddComponent<RoomListPanel>();
             chattingPanel = ObjectManager.Instance.RegisterObject().AddComponent<IngameChattingPanel>();

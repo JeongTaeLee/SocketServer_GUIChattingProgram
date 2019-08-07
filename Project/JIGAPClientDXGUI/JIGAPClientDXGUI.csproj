@@ -128,7 +128,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Component\ChatLauncher.cs" />
+    <Compile Include="Component\Element\ChatText.cs" />
+    <Compile Include="Component\Element\ChatView.cs" />
     <Compile Include="Component\Element\RoomListElement.cs" />
     <Compile Include="Component\IngamePanel\IngameChattingPanel.cs" />
     <Compile Include="Component\LoginLauncher.cs" />
