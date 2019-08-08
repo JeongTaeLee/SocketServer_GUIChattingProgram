@@ -21,12 +21,12 @@ void JIGAPChatProcess::OnInitialize()
 	lpUserAdmin->InitializeAdmin(100000);
 
 	lpChatRoomAdmin = new ChatRoomAdmin();
-	lpChatRoomAdmin->CreateLobby(lobbyName);
-	lpChatRoomAdmin->CreateRoom(baseRoom01);
-	lpChatRoomAdmin->CreateRoom(baseRoom02);
-	lpChatRoomAdmin->CreateRoom(baseRoom03);
-	lpChatRoomAdmin->CreateRoom(baseRoom04);
-	lpChatRoomAdmin->CreateRoom(baseRoom05);
+	lpChatRoomAdmin->CreateLobby(lobbyName)->SetBaseRoom();
+	lpChatRoomAdmin->CreateRoom(baseRoom01)->SetBaseRoom();
+	lpChatRoomAdmin->CreateRoom(baseRoom02)->SetBaseRoom();
+	lpChatRoomAdmin->CreateRoom(baseRoom03)->SetBaseRoom();
+	lpChatRoomAdmin->CreateRoom(baseRoom04)->SetBaseRoom();
+	lpChatRoomAdmin->CreateRoom(baseRoom05)->SetBaseRoom();
 
 
 	lpQuery = new ChatQuery();
@@ -55,11 +55,7 @@ void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
 	ChatUserData * data =lpUserAdmin->FindUser(lpInSocket);
 
 	if (data)
-	{
-		ChatRoom* chatRoom = data->GetCurrentRoom();
-		if (chatRoom)
-			chatRoom->DeleteUser(data);
-	}
+		ExitRoom(lpInSocket);
 
 	lpUserAdmin->DeleteUser(lpInSocket);
 }
@@ -212,6 +208,8 @@ void JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 		find->SetUserID(row["id"]);
 		find->SetName(row["name"]);
 		find->SetLogin(true);
+
+		PutUserIntoRoom(lpHandler, find, lobbyName);
 	}
 }
 
@@ -229,7 +227,9 @@ void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 
 	JIGAPPacket::JoinRoomAnswer joinRoomAnswer;
 	JIGAPPacket::RoomInfo * answerRoomInfo =  joinRoomAnswer.mutable_roominfo();
-	
+
+	if (find->GetCurrentRoom())
+		ExitRoom(lpInTCPSocket);
 
 	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(joinRoomRequest.roominfo().roomname());
 
@@ -289,6 +289,36 @@ void JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 
 void JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
 {
+	auto find = lpUserAdmin->FindUser(lpInTCPSocket);
+	if (find == nullptr)
+		return;
+
+	if (!find->GetLogin())
+		return;
+
+	JIGAPPacket::RoomInfo request;
+	JIGAPPacket::CreateRoomAnswer answer;
+	lpHandler->NextParsingPacket(request, header.iSize);
+
+	JIGAPPacket::RoomInfo * answerInfo = answer.mutable_roominfo();
+
+	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(request.roomname());
+	if (lpFindRoom != nullptr)
+	{
+		answer.set_success(false);
+		answerInfo->set_roomname("None");
+	}
+	else
+	{
+		answer.set_success(true);
+		answerInfo->set_roomname(request.roomname());
+	}
+
+	lpHandler->SerializePacket(JIGAPPacket::Type::eCreateRoomAnswer, answer);
+	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
+
+	answerInfo = answer.release_roominfo();
+	SAFE_DELETE(answerInfo);
 }
 
 void JIGAPChatProcess::OnChatRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header)
@@ -326,6 +356,24 @@ void JIGAPChatProcess::OnChatRequest(TCPSocket* lpInTCPSocket, PacketHandler* lp
 
 	answerUserData = answer.release_userdata();
 	SAFE_DELETE(answerUserData);
+}
+
+void JIGAPChatProcess::ExitRoom(TCPSocket* lpInTCPSocket)
+{
+	auto findUser = lpUserAdmin->FindUser(lpInTCPSocket);
+
+	if (findUser == nullptr)
+		return;
+
+	auto findRoom = findUser->GetCurrentRoom();
+
+	if (findRoom == nullptr)
+		return;
+
+	findRoom->DeleteUser(findUser);
+
+	if (findRoom->GetRoomUserCount() <= 0)
+		lpChatRoomAdmin->DeleteRoom(findRoom->GetRoomName());
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)

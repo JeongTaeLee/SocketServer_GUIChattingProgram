@@ -16,6 +16,9 @@ protected:
 
 	TCPIOData * lpIOData;
 
+	int iIOReference = 0;
+
+	bool Recving = false;
 public:	
 	TCPSocket();
 	TCPSocket(SOCKET InSocket);
@@ -93,10 +96,22 @@ public:
 	*/
 	int SYNCSend(const char* szInBuf, int iInBufSize = MAXBUFFERSIZE);
 
+	/*
+	소켓에 레퍼런스 카운트를 감소시킵니다.
+	*/
+	void DownReferenceCount() { --iIOReference; };
+
+
+	/*
+	Recving중을 알리는 변수를 꺼짐으로 초기화 해줍니다.
+	*/
+	void OffRecvingFlag() { Recving = false; }
+
+
 public:
 	const SOCKET& GetSocket() { return hSock; }
-
 	const IOMODE& GetIOMode();
+	int GetReferenceCount() { return iIOReference; }
 	char* GetBufferData();
 };
 

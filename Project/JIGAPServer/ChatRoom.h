@@ -9,6 +9,7 @@ private:
 
 	std::set<ChatUserData*> sChatUserData;
 
+	bool bBaseRoom = false;
 public:
 	ChatRoom(const std::string& inStrRoomName);
 	virtual ~ChatRoom();
@@ -17,8 +18,9 @@ public:
 	void DeleteUser(ChatUserData* inLpChatUserData);
 
 	void SendMessageInUsers(PacketHandler * inHandler);
-
-
+	void SetBaseRoom() { bBaseRoom = true; };
+	
+	int GetRoomUserCount() { return sChatUserData.size(); }
 	const std::string& GetRoomName() { return strRoomName; }
 };
 

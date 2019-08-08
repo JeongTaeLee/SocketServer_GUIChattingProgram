@@ -73,6 +73,17 @@ namespace JIGAPClientDXGUI
             handler.SerializePacket(JIGAPPacket.Type.EChatRequest, request);
             OnSendPacket();
         }
+
+        public void SendCreateRoomRequest(string inRoomName)
+        {
+            handler.ClearSerializeBuffer();
+
+            JIGAPPacket.RoomInfo request = new JIGAPPacket.RoomInfo();
+            request.Roomname = inRoomName;
+
+            handler.SerializePacket(JIGAPPacket.Type.ECreateRoomRequest, request);
+            OnSendPacket();
+        }
         private void OnSendPacket()
         {
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();

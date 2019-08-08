@@ -105,6 +105,14 @@ namespace JIGAPClientDXGUI
             NetworkManager.Instance.InvokeRoomListSuccess(ref strList);
 
         }
+
+        private void OnCreateRoomAnswer(PacketHandler inHandler, int inSize)
+        {
+            JIGAPPacket.CreateRoomAnswer answer = new JIGAPPacket.CreateRoomAnswer();
+            inHandler.ParsingPacket(ref answer, inSize);
+
+
+        }
         private void OnChatArrive(PacketHandler inHandler, int inSize)
         {
             JIGAPPacket.ChatData answer = new JIGAPPacket.ChatData();

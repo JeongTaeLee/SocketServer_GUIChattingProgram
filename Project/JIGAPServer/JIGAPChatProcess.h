@@ -40,6 +40,7 @@ public:
 	void OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
 	void OnChatRequest(TCPSocket* lpInTCPSocket, PacketHandler* lpHandler, PacketHeader& header);
 
+	void ExitRoom(TCPSocket* lpInTCPSocket);
 
 public:
 	void PutUserIntoRoom(PacketHandler* inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName);
