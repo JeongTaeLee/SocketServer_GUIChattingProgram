@@ -12,6 +12,8 @@ private:
 public:
 	void Release();
 
+	void SerialieRoomList(PacketHandler* inLpHandler);
+
 	ChatRoom* CreateLobby(const std::string & inStrRoomName);
 	ChatRoom* CreateRoom(const std::string& inStrRoomName);
 	ChatRoom* FindRoom(const std::string& inStrRoomName);

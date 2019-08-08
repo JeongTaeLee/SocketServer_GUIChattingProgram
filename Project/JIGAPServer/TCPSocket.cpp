@@ -98,9 +98,8 @@ int TCPSocket::IOCPRecv()
 		}
 
 		++iIOReference;
-
-		lpIOData->eIOMode = IOMODE::E_IOMODE_RECV;
 	}
+	lpIOData->eIOMode = IOMODE::E_IOMODE_RECV;
 
 	return 0;
 }

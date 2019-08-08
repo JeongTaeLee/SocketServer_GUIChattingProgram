@@ -40,6 +40,9 @@ namespace JIGAPClientDXGUI
 
         public void SendJoinRoom(string roomName)
         {
+            if (NetworkManager.Instance.RoomName == roomName)
+                return;
+
             handler.ClearSerializeBuffer();
 
             JIGAPPacket.JoinRoomRequest joinRoomrequest = new JIGAPPacket.JoinRoomRequest();

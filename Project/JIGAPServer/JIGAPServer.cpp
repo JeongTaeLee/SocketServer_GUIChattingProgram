@@ -175,6 +175,7 @@ void JIGAPServer::OnRecvPacketTask()
 		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
 			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
 
+
 		if (bServerOn == false)
 			break;
 		
@@ -185,11 +186,9 @@ void JIGAPServer::OnRecvPacketTask()
 			{	
 				lpServerProcess->OnDisconnect(lpTCPSocket);
 
-				RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
-
 				lpTCPSocket->Shutdownsocket(SD_SEND);
 				lpTCPSocket->Closesocket();
-
+				RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
 				
 				SAFE_DELETE(lpTCPSocket);
 				lpTCPSocket = nullptr;

@@ -32,6 +32,7 @@ void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)
 	}
 }
 
+
 void ChatRoom::SendMessageInUsers(PacketHandler* inHandler)
 {
 	for (auto Iter : sChatUserData)

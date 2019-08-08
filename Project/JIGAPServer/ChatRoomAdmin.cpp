@@ -4,11 +4,32 @@
 
 void ChatRoomAdmin::Release()
 {
+	roomsMutex.lock();
 	for (auto Iter : rooms)
 	{
 		SAFE_DELETE(Iter.second);
 	}
 	rooms.clear();
+	roomsMutex.unlock();
+}
+
+void ChatRoomAdmin::SerialieRoomList(PacketHandler* inLpHandler)
+{
+	roomsMutex.lock();
+
+	for (auto Iter : rooms)
+	{
+		JIGAPPacket::RoomListElement element;
+		JIGAPPacket::RoomInfo* info = element.mutable_roominfo();
+
+		info->set_roomname(Iter.second->GetRoomName());
+		inLpHandler->SerializePacket(JIGAPPacket::Type::eRoomListElement, element);;
+
+		info = element.release_roominfo();
+		SAFE_DELETE(info);
+	}
+
+	roomsMutex.unlock();
 }
 
 ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)

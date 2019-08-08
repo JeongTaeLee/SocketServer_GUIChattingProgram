@@ -17,6 +17,7 @@ public:
 	bool AddUser(ChatUserData* inLpChatUserData);
 	void DeleteUser(ChatUserData* inLpChatUserData);
 
+
 	void SendMessageInUsers(PacketHandler * inHandler);
 	void SetBaseRoom() { bBaseRoom = true; };
 	
