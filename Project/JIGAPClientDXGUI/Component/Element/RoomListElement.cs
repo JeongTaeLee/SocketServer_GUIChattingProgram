@@ -42,5 +42,7 @@ namespace JIGAPClientDXGUI
             NetworkManager.Instance.SendProcess.SendJoinRoom(roomName);
         }
 
+        
+
     }
 }

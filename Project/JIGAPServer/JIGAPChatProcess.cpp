@@ -310,6 +310,8 @@ void JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandl
 	}
 	else
 	{
+		lpChatRoomAdmin->CreateRoom(request.roomname());
+
 		answer.set_success(true);
 		answerInfo->set_roomname(request.roomname());
 	}
@@ -372,8 +374,12 @@ void JIGAPChatProcess::ExitRoom(TCPSocket* lpInTCPSocket)
 
 	findRoom->DeleteUser(findUser);
 
-	if (findRoom->GetRoomUserCount() <= 0)
-		lpChatRoomAdmin->DeleteRoom(findRoom->GetRoomName());
+
+	if (!findRoom->GetBaseRoom())
+	{
+		if (findRoom->GetRoomUserCount() <= 0)
+			lpChatRoomAdmin->DeleteRoom(findRoom->GetRoomName());
+	}
 }
 
 void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData* inLpChatUserData, const std::string& inStrRoomName)

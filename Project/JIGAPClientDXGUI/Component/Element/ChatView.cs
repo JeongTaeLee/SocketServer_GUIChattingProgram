@@ -58,6 +58,17 @@ namespace JIGAPClientDXGUI
             _chatTextsMutex.ReleaseMutex();
 
         }
+        public override void OnJoinRoomSuccess(string roomName)
+        {
+            base.OnJoinRoomSuccess(roomName);
+      
+            base.OnJoinRoomFailed();
+
+            foreach (var chatText in _chatTexts)
+                chatText.gameObject.Destroy = true;
+            _chatTexts.Clear();
+        }
+
         public override void OnChatArrive(string inId, string inName, string inMessage)
         {
             //FirstY 620;

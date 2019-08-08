@@ -102,8 +102,9 @@ namespace JIGAPClientDXGUI
                 if (node.Value.Destroy)
                 {
                     node.Value.Release();
+                    LinkedListNode<GameObject> oldNode = node;
                     node = node.Next;
-                    _objectsList.Remove(node);
+                    _objectsList.Remove(oldNode);
                 }
                 else
                 {

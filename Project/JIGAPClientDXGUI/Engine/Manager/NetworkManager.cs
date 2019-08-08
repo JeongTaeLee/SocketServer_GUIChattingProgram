@@ -36,6 +36,9 @@ namespace JIGAPClientDXGUI
 
         public delegate void ChatArriveCallBack(string inId, string inName, string inMessage);
 
+        public delegate void CreateRoomSuccess(string inRoomName);
+        public delegate void CreateRoomFailed();
+
         public void InvokeSingUpSuccess() { _singUpSuccess?.Invoke(); }
         public event SingUpSuccessCallBack _singUpSuccess;
 
@@ -59,6 +62,12 @@ namespace JIGAPClientDXGUI
 
         public void InvokeChatArrive(string inId, string inName, string InMessage) { _chatArriveSuccess?.Invoke(inId, inName, InMessage); }
         public event ChatArriveCallBack _chatArriveSuccess;
+
+        public void InvokeSuccessCreateRoom(string roomName) { _createRoomSuccess?.Invoke(roomName); }
+        public event CreateRoomSuccess _createRoomSuccess;
+
+        public void InvokeFailedCreateRoom() { _createRoomFailed?.Invoke(); }
+        public event CreateRoomFailed _createRoomFailed;
 
     }
 

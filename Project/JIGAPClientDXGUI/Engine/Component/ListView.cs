@@ -84,6 +84,7 @@ namespace JIGAPClientDXGUI
         {
             foreach (var element in ElementList)
                 element.Destroy = true;
+            ElementList.Clear();
         }
         public void AddListObject(GameObject inObject)
         {

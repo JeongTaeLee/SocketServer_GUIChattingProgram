@@ -21,6 +21,7 @@ public:
 	void SetBaseRoom() { bBaseRoom = true; };
 	
 	int GetRoomUserCount() { return sChatUserData.size(); }
+	bool GetBaseRoom() { return bBaseRoom; }
 	const std::string& GetRoomName() { return strRoomName; }
 };
 

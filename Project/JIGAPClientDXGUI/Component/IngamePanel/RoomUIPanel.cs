@@ -21,13 +21,14 @@ namespace JIGAPClientDXGUI
             
             button.transform.position = new SharpDX.Vector3(1062f, 143f, 0f);
             button.transform.Parent = transform;
-            button.SetButton(ResourceManager.Instance.LoadTexture("CreateRoomButton"), null);
+            button.SetButton(ResourceManager.Instance.LoadTexture("CreateRoomButton"), SendCreateRoomPacket);
 
             #region CreateRoomTitleField
             _createRoomTitleField = ObjectManager.Instance.RegisterObject().AddComponent<TextField>();
             _createRoomTitleField.transform.Parent = this.transform;
             _createRoomTitleField.transform.position = new Vector3(1026f, 67f, 0f);
             _createRoomTitleField.Texture = ResourceManager.Instance.LoadTexture("CreateRoomTextBox");
+            _createRoomTitleField.EnterBehavior = SendCreateRoomPacket;
             #endregion
 
             #region RoomTitle 
@@ -42,6 +43,17 @@ namespace JIGAPClientDXGUI
 
         }
 
+        public void SendCreateRoomPacket()
+        {
+            if (_createRoomTitleField.String.Length > 0)
+                NetworkManager.Instance.SendProcess.SendCreateRoomRequest(_createRoomTitleField.String);
+        }
+        public void SendCreateRoomPacket(string str)
+        {
+            if (_createRoomTitleField.String.Length > 0)
+                NetworkManager.Instance.SendProcess.SendCreateRoomRequest(_createRoomTitleField.String);
+        }
+
         public override void OnJoinRoomSuccess(string roomName)
         {
             base.OnJoinRoomSuccess(roomName);
@@ -54,6 +66,17 @@ namespace JIGAPClientDXGUI
         {
             base.OnJoinRoomFailed();
             System.Windows.Forms.MessageBox.Show($"방 입장 실패. 방 목록을 갱신합니다.", "Test");
+        }
+
+        public override void OnCreateRoomSuccess(string inRoomName)
+        {
+            base.OnCreateRoomSuccess(inRoomName);
+            NetworkManager.Instance.SendProcess.SendJoinRoom(inRoomName);
+        }
+        public override void OnCreateRoomFailed()
+        {
+            base.OnCreateRoomFailed();
+            System.Windows.Forms.MessageBox.Show("방 생성 실패", "방 생성");
         }
     }
 }

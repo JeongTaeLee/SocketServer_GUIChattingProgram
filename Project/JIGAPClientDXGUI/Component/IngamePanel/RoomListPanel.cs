@@ -42,6 +42,8 @@ namespace JIGAPClientDXGUI
         {
             base.OnRoomListSuccess(ref roomNameList);
 
+            _roomListView.ClearListObject();
+
             foreach (string roomname in roomNameList)
             {
                 GameObject obj = ObjectManager.Instance.RegisterObject();
@@ -52,5 +54,10 @@ namespace JIGAPClientDXGUI
             _roomListView.SettingList();
         }
 
+        public override void OnJoinRoomSuccess(string roomName)
+        {
+            base.OnJoinRoomSuccess(roomName);
+            NetworkManager.Instance.SendProcess.SendRoomListRequest();
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace JIGAPClientDXGUI
                     OnSingUpAnswer(handler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.ECreateRoomAnswer:
-                    
+                    OnCreateRoomAnswer(handler, header.PacketSize);
                     break;
                 case JIGAPPacket.Type.EChatData:
                     OnChatArrive(handler, header.PacketSize);
@@ -111,6 +111,10 @@ namespace JIGAPClientDXGUI
             JIGAPPacket.CreateRoomAnswer answer = new JIGAPPacket.CreateRoomAnswer();
             inHandler.ParsingPacket(ref answer, inSize);
 
+            if (answer.Success)
+                NetworkManager.Instance.InvokeSuccessCreateRoom(answer.RoomInfo.Roomname);
+            else
+                NetworkManager.Instance.InvokeFailedCreateRoom();
 
         }
         private void OnChatArrive(PacketHandler inHandler, int inSize)
