@@ -37,7 +37,7 @@ namespace JIGAPClientDXGUI
             ResourceManager.Instance.LoadTexture("SendButton", "./Image/Ingame/SendButton.png");
             ResourceManager.Instance.LoadTexture("RoomListRevertButton", "./Image/Ingame/RoomListRevertButton.png");
             ResourceManager.Instance.LoadTexture("RoomListNextButton", "./Image/Ingame/RoomListNextButton.png");
-
+            ResourceManager.Instance.LoadTexture("RoomListReLoadButton", "./Image/Ingame/ReRoom.png");
 
             //ResourceManager 
             ResourceManager.Instance.LoadFont("Default", 50);

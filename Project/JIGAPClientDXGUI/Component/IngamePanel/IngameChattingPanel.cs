@@ -31,7 +31,7 @@ namespace JIGAPClientDXGUI
                 () => { SendChatting(_chattingInputField.String); });
 
             _chatView = ObjectManager.Instance.RegisterObject().AddComponent<ChatView>();
-            _chatView.Initialize(10, 620, 10, 35f, 980, 35);
+            _chatView.Initialize(10, 55, 620, 10, 35f, 980, 35);
         }
 
         private void SendChatting(string inMessage)

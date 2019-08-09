@@ -66,6 +66,7 @@ namespace JIGAPClientDXGUI
         {
             base.OnJoinRoomFailed();
             System.Windows.Forms.MessageBox.Show($"방 입장 실패. 방 목록을 갱신합니다.", "Test");
+            NetworkManager.Instance.SendProcess.SendRoomListRequest();
         }
 
         public override void OnCreateRoomSuccess(string inRoomName)

@@ -11,14 +11,16 @@ enum IOMODE
 class TCPIOData : public OVERLAPPED
 {
 private:
-	IOMODE eIOMode;
-
 	char szBuffer[MAXBUFFERSIZE];
 	WSABUF wsaBuf;
+	
+	IOMODE eIOMode;
 public:
 	TCPIOData();
 	virtual ~TCPIOData();
 
+	IOMODE GetIOMode() { return eIOMode; }
+	void SetIOMode(IOMODE mode) { eIOMode = mode; }
 
 	friend TCPSocket;
 };

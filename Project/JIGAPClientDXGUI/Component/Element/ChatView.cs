@@ -18,6 +18,9 @@ namespace JIGAPClientDXGUI
         public float textMinY { get => _textMinY; set => _textMinY = value; }
         private float _textMinY = 0f;
 
+        public float textMaxY { get => _textMaxY; set => _textMaxY = value; }
+        private float _textMaxY = 0f;
+
         public int chatViewCount { get => _chatViewCount; set => _chatViewCount = value; }
         private int _chatViewCount = 0;
 
@@ -30,10 +33,11 @@ namespace JIGAPClientDXGUI
         public int textRangeH { get => _textRangeH; set => _textRangeH = value; }
         private int _textRangeH = 0;
 
-        public void Initialize(float inTextX, float inTextMinHeight, int inChatViewCount, float inTextYDistance,
+        public void Initialize(float inTextX, float inTextMaxHeight, float inTextMinHeight, int inChatViewCount, float inTextYDistance,
             int inTextRangeW, int inTextRangeH)
         {
-            _textX            = inTextX;
+            _textX              = inTextX;
+            _textMaxY           = inTextMaxHeight;
             _textMinY           = inTextMinHeight;
             _chatViewCount      = inChatViewCount;
             _textYDistance      = inTextYDistance;
@@ -47,15 +51,22 @@ namespace JIGAPClientDXGUI
 
             float firstY = _textMinY;
 
+            List<ChatText> deleteObjs = new List<ChatText>();
+
             foreach (var chatText in _chatTexts)
             {
- 
                 chatText.transform.position = new SharpDX.Vector3(_textX, firstY, 0f);
-
                 firstY -= _textYDistance;
+
+                if (firstY <= _textMaxY)
+                    deleteObjs.Add(chatText);
             }
 
             _chatTextsMutex.ReleaseMutex();
+
+            foreach(var chatText in deleteObjs)
+                chatText.gameObject.Destroy = true;
+            
 
         }
         public override void OnJoinRoomSuccess(string roomName)

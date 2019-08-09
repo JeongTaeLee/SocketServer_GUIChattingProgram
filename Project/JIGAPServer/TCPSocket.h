@@ -14,7 +14,8 @@ protected:
 	SOCKET hSock;
 	SocketAddress sockAddr;
 
-	TCPIOData * lpIOData;
+	TCPIOData * lpRecvData;
+	//TCPIOData* lpSendData;
 
 	int iIOReference = 0;
 

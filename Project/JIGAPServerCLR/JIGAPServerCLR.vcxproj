@@ -91,6 +91,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\ReleaseServer\</OutDir>
     <LibraryPath>$(SolutionDir)\lib\libRelease\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

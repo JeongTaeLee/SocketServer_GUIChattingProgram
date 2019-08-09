@@ -2,25 +2,25 @@
 #include "TCPSocket.h"
 
 TCPSocket::TCPSocket()
-	:hSock(NULL), lpIOData(new TCPIOData)
+	:hSock(NULL), lpRecvData(new TCPIOData)//, lpSendData(new TCPIOData)
 {
 }
 
 TCPSocket::TCPSocket(SOCKET InSocket)
-	:hSock(InSocket), lpIOData(new TCPIOData)
+	:hSock(InSocket), lpRecvData(new TCPIOData)//, lpSendData(new TCPIOData)
 {
 }
 
 TCPSocket::TCPSocket(SOCKET hInSock, const SocketAddress& InAddr)
-	:hSock(hInSock), lpIOData(new TCPIOData)
+	:hSock(hInSock), lpRecvData(new TCPIOData)//, lpSendData(new TCPIOData)
 {
 	sockAddr.SetAddress(InAddr);
 }
 
 TCPSocket::~TCPSocket()
 {
-	delete lpIOData;
-	lpIOData = nullptr;
+	delete lpRecvData;
+	lpRecvData = nullptr;
 	
 }
 
@@ -87,11 +87,11 @@ int TCPSocket::IOCPRecv()
 {
 	if (Recving == false)
 	{
-		Recving = true;
 		DWORD dwFlag = 0;
-		lpIOData->wsaBuf.len = MAXBUFFERSIZE;
-
-		if (WSARecv(hSock, &lpIOData->wsaBuf, 1, nullptr, &dwFlag, lpIOData, nullptr) == SOCKET_ERROR)
+		Recving = true;
+		lpRecvData->wsaBuf.len = MAXBUFFERSIZE;
+		
+		if (WSARecv(hSock, &lpRecvData->wsaBuf, 1, nullptr, &dwFlag, lpRecvData, nullptr) == SOCKET_ERROR)
 		{
 			if (WSAGetLastError() != WSA_IO_PENDING)
 				return WSAGetLastError();
@@ -99,28 +99,26 @@ int TCPSocket::IOCPRecv()
 
 		++iIOReference;
 	}
-	lpIOData->eIOMode = IOMODE::E_IOMODE_RECV;
-
+	lpRecvData->eIOMode = IOMODE::E_IOMODE_RECV;
 	return 0;
 }
 
 int TCPSocket::IOCPSend(const char* szInStream, int iInSendSize)
 {
-	lpIOData->wsaBuf.len = iInSendSize;
-	memcpy(lpIOData->szBuffer, szInStream, iInSendSize);
+	//memcpy(lpSendData->szBuffer, szInStream, iInSendSize);
+	memcpy(lpRecvData->szBuffer, szInStream, iInSendSize);
 
 	DWORD dwRecvByte = 0;
 	DWORD dwFlag = 0;
 
-	if (WSASend(hSock, &lpIOData->wsaBuf, 1, &dwRecvByte, dwFlag, lpIOData, nullptr) == SOCKET_ERROR)
+	if (WSASend(hSock, &lpRecvData->wsaBuf, 1, &dwRecvByte, dwFlag, lpRecvData, nullptr) == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
 			return WSAGetLastError();
 	}
 
+	lpRecvData->eIOMode = IOMODE::E_IOMODE_SEND;
 	++iIOReference;
-
-	lpIOData->eIOMode = IOMODE::E_IOMODE_SEND;
 
 	return 0;
 }
@@ -137,10 +135,10 @@ int TCPSocket::SYNCSend(const char* szInBuf, int iInBufSize)
 
 const IOMODE& TCPSocket::GetIOMode()
 {
-	return lpIOData->eIOMode;
+	return lpRecvData->eIOMode;
 }
 
 char* TCPSocket::GetBufferData()
 {
-	return lpIOData->szBuffer;
+	return lpRecvData->szBuffer;
 }

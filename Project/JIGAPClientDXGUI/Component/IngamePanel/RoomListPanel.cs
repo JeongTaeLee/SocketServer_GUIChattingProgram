@@ -11,6 +11,7 @@ namespace JIGAPClientDXGUI
         private ListView _roomListView;
         private Button _nextButton;
         private Button _revertButton;
+        private Button _reRoomButton;
 
         public override void Init()
         {
@@ -35,7 +36,14 @@ namespace JIGAPClientDXGUI
             _revertButton = buttonObj.AddComponent<Button>();
             _revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), _roomListView.RevertPage);
 
-           NetworkManager.Instance.SendProcess.SendRoomListRequest();
+            buttonObj = ObjectManager.Instance.RegisterObject();
+            buttonObj.transform.Parent = transform;
+            buttonObj.transform.position = new SharpDX.Vector3(1221f, 217f, 0f);
+            buttonObj.AddComponent<UIRenderer>();
+            _reRoomButton = buttonObj.AddComponent<Button>();
+            _reRoomButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListReLoadButton"), NetworkManager.Instance.SendProcess.SendRoomListRequest);
+
+            NetworkManager.Instance.SendProcess.SendRoomListRequest();
         }
 
         public override void OnRoomListSuccess(ref List<string> roomNameList)

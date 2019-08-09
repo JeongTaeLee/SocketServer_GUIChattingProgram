@@ -172,8 +172,8 @@ void JIGAPServer::OnRecvPacketTask()
 		TCPSocket* lpTCPSocket = nullptr;
 		TCPIOData* lpTCPIoData = nullptr;
 
-		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
-			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
+		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)&lpTCPSocket,
+			(LPOVERLAPPED*)&lpTCPIoData, INFINITE);
 
 
 		if (bServerOn == false)
