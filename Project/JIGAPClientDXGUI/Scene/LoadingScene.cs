@@ -39,10 +39,17 @@ namespace JIGAPClientDXGUI
             ResourceManager.Instance.LoadTexture("RoomListNextButton", "./Image/Ingame/RoomListNextButton.png");
             ResourceManager.Instance.LoadTexture("RoomListReLoadButton", "./Image/Ingame/ReRoom.png");
 
+            //MessageBox
+            ResourceManager.Instance.LoadTexture("MessageBox", "./Image/MessageBox/MessageBox.png");
+            ResourceManager.Instance.LoadTexture("OkButton", "./Image//MessageBox/OkButton.png");
+
+
             //ResourceManager 
             ResourceManager.Instance.LoadFont("Default", 50);
             ResourceManager.Instance.LoadFont("RoomListElement", 40);
             ResourceManager.Instance.LoadFont("Chatting", 30);
+            ResourceManager.Instance.LoadFont("MessageBoxTitle", 50);
+            ResourceManager.Instance.LoadFont("MessageBox", 30);
 
             SceneManager.Instance.ChanageScene("LoginScene");
         }

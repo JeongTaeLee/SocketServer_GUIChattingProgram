@@ -79,6 +79,12 @@
     <Filter Include="JIGAPChattingServer\ChatRoomAdmin">
       <UniqueIdentifier>{f5656c0c-e067-479f-8530-2e74d745329b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServerEngine\IniReader">
+      <UniqueIdentifier>{512a0bb8-f651-4fb4-a084-649587c6458a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\iniWriter">
+      <UniqueIdentifier>{11e0d005-4a11-4506-abf1-e342b4ff1438}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -147,6 +153,12 @@
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
     </ClInclude>
+    <ClInclude Include="iniReader.h">
+      <Filter>ServerEngine\IniReader</Filter>
+    </ClInclude>
+    <ClInclude Include="iniWriter.h">
+      <Filter>ServerEngine\iniWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -211,6 +223,12 @@
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="iniReader.cpp">
+      <Filter>ServerEngine\IniReader</Filter>
+    </ClCompile>
+    <ClCompile Include="iniWriter.cpp">
+      <Filter>ServerEngine\iniWriter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

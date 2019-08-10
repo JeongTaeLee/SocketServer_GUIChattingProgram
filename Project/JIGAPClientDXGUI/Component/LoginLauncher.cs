@@ -20,13 +20,13 @@ namespace JIGAPClientDXGUI
             switch (reason)
             {
                 case JIGAPPacket.LoginFailedReason.EDontMatchId:
-                    System.Windows.Forms.MessageBox.Show("아이디를 잘못 입력하였습니다.", "로그인");
+                    MyMessageBox.Show("로그인", "아이디를 잘못 입력하였습니다.");
                     break;
                 case JIGAPPacket.LoginFailedReason.EDontMatchPw:
-                    System.Windows.Forms.MessageBox.Show("패스워드를 잘못 입력하였습니다.", "로그인");
+                    MyMessageBox.Show("로그인", "패스워드를 잘못 입력하였습니다.");
                     break;
                 case JIGAPPacket.LoginFailedReason.EOverlapConnect:
-                    System.Windows.Forms.MessageBox.Show("이미 접속되어 있는 아이디입니다.", "로그인");
+                    MyMessageBox.Show("로그인", "이미 접속되어 있는 아이디입니다.");
                     break;
             }
         }

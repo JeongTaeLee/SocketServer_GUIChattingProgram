@@ -1,1 +1,0 @@
-protoc -I=E:\Develop\CompanyHomework\SocketServer_GUIChattingProgram\ProtoPacket\ --csharp_out=E:\Develop\CompanyHomework\SocketServer_GUIChattingProgram\ProtoPacket\ E:\Develop\CompanyHomework\SocketServer_GUIChattingProgram\ProtoPacket\JIGAPPacket.proto

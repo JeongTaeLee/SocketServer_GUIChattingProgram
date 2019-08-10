@@ -125,7 +125,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\ReleaseServer\</OutDir>
-    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Develop\External\Protobuf\protobuf-3.8.0\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Develop\External\protobuf\protobuf-3.8.0-rc-1\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\libRelease\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -242,6 +242,8 @@
     <ClInclude Include="ChatQuery.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
+    <ClInclude Include="iniReader.h" />
+    <ClInclude Include="iniWriter.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
     <ClInclude Include="JIGAPServer.h" />
     <ClInclude Include="JIGAPBaserProcess.h" />
@@ -266,6 +268,8 @@
     <ClCompile Include="ChatQuery.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
+    <ClCompile Include="iniReader.cpp" />
+    <ClCompile Include="iniWriter.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
     <ClCompile Include="JIGAPServer.cpp" />
     <ClCompile Include="JIGAPBaserProcess.cpp" />

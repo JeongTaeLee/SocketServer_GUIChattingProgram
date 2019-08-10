@@ -25,21 +25,18 @@ namespace JIGAPClientDXGUI
             GameObject buttonObj = ObjectManager.Instance.RegisterObject();
             buttonObj.transform.Parent = transform;
             buttonObj.transform.position = new SharpDX.Vector3(1175f, 670f, 0f);
-            buttonObj.AddComponent<UIRenderer>();
             _nextButton = buttonObj.AddComponent<Button>();
             _nextButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListNextButton"), _roomListView.NextPage);
 
             buttonObj = ObjectManager.Instance.RegisterObject();
             buttonObj.transform.Parent = transform;
             buttonObj.transform.position = new SharpDX.Vector3(1024f, 670f, 0f);
-            buttonObj.AddComponent<UIRenderer>();
             _revertButton = buttonObj.AddComponent<Button>();
             _revertButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListRevertButton"), _roomListView.RevertPage);
 
             buttonObj = ObjectManager.Instance.RegisterObject();
             buttonObj.transform.Parent = transform;
             buttonObj.transform.position = new SharpDX.Vector3(1221f, 217f, 0f);
-            buttonObj.AddComponent<UIRenderer>();
             _reRoomButton = buttonObj.AddComponent<Button>();
             _reRoomButton.SetButton(ResourceManager.Instance.LoadTexture("RoomListReLoadButton"), NetworkManager.Instance.SendProcess.SendRoomListRequest);
 
@@ -67,5 +64,12 @@ namespace JIGAPClientDXGUI
             base.OnJoinRoomSuccess(roomName);
             NetworkManager.Instance.SendProcess.SendRoomListRequest();
         }
+        public override void OnJoinRoomFailed()
+        {
+            base.OnJoinRoomFailed();
+            MyMessageBox.Show("Test", "방 입장 실패. 방 목록을 갱신해주세요");
+            NetworkManager.Instance.SendProcess.SendRoomListRequest();
+        }
+        
     }
 }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E944187B-A758-4AB7-A315-05BC25B628EF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>JIGAPClientDXGUI</RootNamespace>
     <AssemblyName>JIGAPClientDXGUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -66,7 +66,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>..\Build\ClientBuild\</OutputPath>
+    <OutputPath>..\Build\ReleaseClient\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -138,6 +138,7 @@
     <Compile Include="Component\SingUpLauncher.cs" />
     <Compile Include="Engine\Component\Button.cs" />
     <Compile Include="Engine\Component\ListView.cs" />
+    <Compile Include="Engine\Component\MyMessageBox.cs" />
     <Compile Include="Engine\Component\SpriteRenderer.cs" />
     <Compile Include="Engine\Component\TapControlAdmin.cs" />
     <Compile Include="Engine\Component\Text.cs" />

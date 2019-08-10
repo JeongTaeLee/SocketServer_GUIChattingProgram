@@ -15,10 +15,10 @@ namespace JIGAPClientDXGUI
             switch (reason)
             {
                 case JIGAPPacket.SingUpFailedReason.EDuplicateId:
-                    System.Windows.Forms.MessageBox.Show("이미 가입된 아이디입니다.", "회원가입", System.Windows.Forms.MessageBoxButtons.OK);
+                    MyMessageBox.Show("회원가입", "이미 가입된 아이디입니다.");
                     break;
                 case JIGAPPacket.SingUpFailedReason.EDuplicateName:
-                    System.Windows.Forms.MessageBox.Show("이미 가입된 이름입니다.", "회원가입", System.Windows.Forms.MessageBoxButtons.OK);
+                    MyMessageBox.Show("회원가입", "이미 가입된 이름입니다.");
                     break;
             }
 
@@ -27,7 +27,7 @@ namespace JIGAPClientDXGUI
         public override void OnSingUpScuccess()
         {
             base.OnSingUpScuccess();
-            System.Windows.Forms.MessageBox.Show("회원 가입 성공!", "회원가입", System.Windows.Forms.MessageBoxButtons.OK);
+            MyMessageBox.Show("회원가입", "회원 가입 성공!");
             SceneManager.Instance.ChanageScene("LoginScene");
         }
     }

@@ -1,0 +1,110 @@
+
+syntax = "proto3";
+
+package JIGAPPacket;
+
+enum Type
+{
+    eSingUpRequest = 0;
+    eSingUpAnswer = 1;
+
+    eLoginRequest = 2;
+    eLoginAnswer = 3;
+
+    eCreateRoomRequest = 4;
+    eCreateRoomAnswer = 5;
+
+    eJoinRoomRequest = 6;
+    eJoinRoomAnswer = 7; 
+
+    eRoomListRequest = 8;
+    eRoomListAnswer= 9;
+    eRoomListElement = 10;
+
+    eExitRoomRequest = 11;
+    eExitRoomAnswer = 12;
+
+    eChatRequest = 13;
+    eChatData = 14;
+}
+
+enum SingUpFailedReason
+{
+    eDuplicateId = 0;
+    eDuplicateName =  1;
+    eDontCondition = 2;
+}
+
+enum LoginFailedReason
+{
+    eDontMatchId = 0;
+    eDontMatchPw = 1;
+    eOverlapConnect = 2;
+}
+
+message UserData{
+    string id = 1;
+    string name = 2;
+}
+
+message SingUpRequest{
+    UserData userData = 1;
+    string passward = 2;
+}
+
+message SingUpAnswer{
+    bool success = 1;
+    SingUpFailedReason singUpReason = 2;
+}
+
+message LoginRequest{
+    string id = 1;
+    string passward = 2;
+}
+
+message LoginAnswer{
+    UserData userData = 1;
+    LoginFailedReason loginReason = 2;
+    bool success = 3;
+}
+
+message RoomInfo{
+    string roomname = 1;
+}
+
+message CreateRoomAnswer{
+    RoomInfo roomInfo = 1;
+    bool success = 2;
+}
+
+message JoinRoomRequest{
+    RoomInfo roomInfo = 1;
+}
+
+message JoinRoomAnswer{
+    RoomInfo roomInfo = 1;
+    bool success = 2;
+}
+
+message RoomListAnswer{
+    int32 roomCount = 1;
+}
+
+message RoomListElement{
+    RoomInfo roomInfo = 1;
+}
+
+message ChatRequest{
+    UserData userData = 1;
+    string strMessage = 2;
+}
+
+message ChatData{
+    UserData userData = 1;
+    string strMessage = 2;
+}
+
+message EmptyPacket{
+    Type type = 1;
+}
+

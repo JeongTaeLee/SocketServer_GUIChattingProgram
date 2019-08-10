@@ -8,7 +8,7 @@ class ChatQuery :
 	public BaseQuery
 {
 public:
-	virtual void InitializeQuery() override;
+	virtual bool InitializeQuery() override;
 	virtual void ReleaseQuery() override;
 
 	
