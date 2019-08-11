@@ -43,6 +43,8 @@ namespace JIGAPClientDXGUI
                 NetworkManager.Instance.UserId,
                 NetworkManager.Instance.UserName,
                 inMessage);
+
+            _chattingInputField.String = "";
         }
     }
 }
