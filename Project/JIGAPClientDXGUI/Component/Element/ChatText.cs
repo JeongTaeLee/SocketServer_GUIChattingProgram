@@ -39,7 +39,7 @@ namespace JIGAPClientDXGUI
                 _chatText.drawFlag = SharpDX.Direct3D9.FontDrawFlags.Right;
             }
 
-             _chatText.text.Append(text);
+             _chatText.SetString(text);
         }
     }
 }

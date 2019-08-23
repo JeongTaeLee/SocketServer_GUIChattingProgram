@@ -15,85 +15,43 @@ namespace JIGAPClientDXGUI
     {
         public delegate void FieldBehavior(string str);
 
-        private Rectangle boxRange = new Rectangle();
-        private GameObject textChild = null;
-        private UIRenderer UIRenderer = null;
-        private Text Text = null;
-        private bool ActiveBox = false;
-        private FieldBehavior enterBehavior = null;
+        private Rectangle _boxRange = new Rectangle();
+        private UIRenderer _uiRenderer = null;
+        private Text _textComponent = null;
+        private bool _activeBox = false;
+        private FieldBehavior _enterBehavior = null;
 
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
 
-        public texture Texture
+        public texture texture
         {
             get
             {
-                return UIRenderer.Texture;
+                return _uiRenderer.Texture;
             }
             set
             {
                 Width = value.d3dInfo.Width;
                 Height = value.d3dInfo.Height;
 
-                UIRenderer.Texture = value;
+                _uiRenderer.Texture = value;
             }
         }
 
-        public string String
+        public Text textComponent
         {
             get
             {
-                return Text.text.ToString();
-            }
-            set
-            {
-                Text.text.Clear();
-                Text.text.Append(value);
-            }
-        }
-
-        public Vector3 TextOffset
-        {
-            get
-            {
-                return textChild.transform.position;
-            }
-
-            set
-            {
-                textChild.transform.position = value;
-            }
-        }
-        public Color TextColor
-        {
-            get
-            {
-                return Text.color;
-            }
-            set
-            {
-                Text.color = value;
+                return _textComponent;
             }
         }
 
 
-        public FontDrawFlags TextDrawFlag
+        public FieldBehavior enterBehavior
         {
-            get
-            {
-                return Text.drawFlag;
-            }
-            set
-            {
-                Text.drawFlag = value;
-            }
-        }
-
-        public FieldBehavior EnterBehavior
-        {
-            get => enterBehavior;
-            set => enterBehavior = value;
+            get => _enterBehavior;
+            set => _enterBehavior = value;
         }
     }
 
@@ -105,19 +63,18 @@ namespace JIGAPClientDXGUI
         {
             DXManager.Instance.RegisterWndProc(WndProc);
 
-            UIRenderer = gameObject.GetComponent<UIRenderer>();
+            _uiRenderer = gameObject.GetComponent<UIRenderer>();
 
-            if (UIRenderer == null)
-                UIRenderer = gameObject.AddComponent<UIRenderer>();
+            if (_uiRenderer == null)
+                _uiRenderer = gameObject.AddComponent<UIRenderer>();
 
-            textChild = ObjectManager.Instance.RegisterObject();
-            textChild.transform.Parent = this.transform;
-            Text = textChild.AddComponent<Text>();
+            _textComponent = ObjectManager.Instance.RegisterObject().AddComponent<Text>();
+            _textComponent.transform.Parent = transform;
 
-            TextOffset = new Vector3(5f, -2f, 0f);
+            _textComponent.transform.position = new Vector3(5f, -2f, 0f);
 
-            ActiveBox = false;
-            UIRenderer.Color = new Color(150, 150, 150);
+            _activeBox = false;
+            _uiRenderer.Color = new Color(150, 150, 150);
         }
         public override void Release()
         {
@@ -132,7 +89,7 @@ namespace JIGAPClientDXGUI
 
             if (InputManager.Instance.GetMouseDown(InputManager.MouseButtonType.Left))
             {
-                if (boxRange.Contains(cursorPoint.X, cursorPoint.Y))
+                if (_boxRange.Contains(cursorPoint.X, cursorPoint.Y))
                     OnActiveBox();
                 else
                     OnUnActiveBox();
@@ -143,28 +100,28 @@ namespace JIGAPClientDXGUI
         /*움직였을 경우 위치나 충돌 범위 업데이트*/
         private void Renew()
         {
-            boxRange = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
-            Text.range = new SharpDX.Mathematics.Interop.RawRectangle(0, 0, Width - 10, Height);
+            _boxRange = new Rectangle((int)transform.position.X, (int)transform.position.Y, Width, Height);
+            _textComponent.range = new SharpDX.Mathematics.Interop.RawRectangle(0, 0, Width - 10, Height);
         }
 
         public void OnActiveBox()
         {
-            if (ActiveBox) return;
+            if (_activeBox) return;
 
-            ActiveBox = true;
-            UIRenderer.Color = new Color(255, 255, 255);
+            _activeBox = true;
+            _uiRenderer.Color = new Color(255, 255, 255);
         }
         public void OnUnActiveBox()
         {
-            if (!ActiveBox) return;
+            if (!_activeBox) return;
 
-            ActiveBox = false;
-            UIRenderer.Color = new Color(150, 150, 150);
+            _activeBox = false;
+            _uiRenderer.Color = new Color(150, 150, 150);
         }
 
         private void AppendText(char c)
         {
-            if (!ActiveBox)
+            if (!_activeBox)
                 return;
 
             switch ((int)c)
@@ -172,15 +129,15 @@ namespace JIGAPClientDXGUI
                 case KeyType.VK_TAB:
                     break;
                 case KeyType.VK_BACKSPACE:
-                    if (Text.text.Length > 0)
-                        Text.text.Remove(Text.text.Length - 1, 1);
+                    if (_textComponent.str.Length > 0)
+                        _textComponent.DeleteCharInString();
                     break;
                 case KeyType.VK_ENTER:
-                    if (ActiveBox)
-                        enterBehavior?.Invoke(Text.text.ToString());
+                    if (_activeBox)
+                        _enterBehavior?.Invoke(_textComponent.str);
                     break;
                 default:
-                    Text.text.Append(c);
+                    _textComponent.SetAddString(c);
                     break;
             }
         }

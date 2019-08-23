@@ -47,7 +47,8 @@ namespace JIGAPClientDXGUI
             //ResourceManager 
             ResourceManager.Instance.LoadFont("Default", 50);
             ResourceManager.Instance.LoadFont("RoomListElement", 40);
-            ResourceManager.Instance.LoadFont("Chatting", 30);
+            ResourceManager.Instance.LoadFont("Chatting", 25);
+            ResourceManager.Instance.LoadFont("ChattingInput", 30);
             ResourceManager.Instance.LoadFont("MessageBoxTitle", 50);
             ResourceManager.Instance.LoadFont("MessageBox", 30);
 

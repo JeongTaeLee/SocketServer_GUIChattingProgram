@@ -19,7 +19,7 @@ namespace JIGAPClientDXGUI
             base.Init();
             _uiRenderer = gameObject.AddComponent<UIRenderer>();
             _button = gameObject.AddComponent<Button>();
-            _button.SetButton( ResourceManager.Instance.LoadTexture("RoomListElement"), () => { ClickRoomButton(_text.text.ToString()); });
+            _button.SetButton( ResourceManager.Instance.LoadTexture("RoomListElement"), () => { ClickRoomButton(_text.str); });
 
             _text = ObjectManager.Instance.RegisterObject().AddComponent<Text>();
             _text.transform.Parent = transform;
@@ -27,14 +27,12 @@ namespace JIGAPClientDXGUI
             _text.drawFlag = SharpDX.Direct3D9.FontDrawFlags.Center | SharpDX.Direct3D9.FontDrawFlags.VerticalCenter | SharpDX.Direct3D9.FontDrawFlags.NoClip;
             _text.font = ResourceManager.Instance.LoadFont("RoomListElement");
 
-            _text.text.Append("Test");
+            _text.SetString("Test");
         }
 
         public void SetRoomTitle(string inRoomTitle)
         {
-            _text.text.Clear();
-            _text.text.Append(inRoomTitle);
-            
+            _text.SetString(inRoomTitle);
         }
 
         private void ClickRoomButton(string roomName)

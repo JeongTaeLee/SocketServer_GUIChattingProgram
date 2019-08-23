@@ -38,7 +38,7 @@ namespace JIGAPClientDXGUI
             Button loginButton = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
             loginButton.transform.position = new SharpDX.Vector3(528f, 481f, 0f);
             loginButton.SetButton(ResourceManager.Instance.LoadTexture("LoginButton"), 
-                () => { OnLoginRequest(loginField.String, passwordField.String); });
+                () => { OnLoginRequest(loginField.textComponent.str, passwordField.textComponent.str); });
 
             Button singUpButton = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
             singUpButton.transform.position = new SharpDX.Vector3(1057, 0, 0f);
@@ -60,8 +60,8 @@ namespace JIGAPClientDXGUI
 
         private void CreateLoginTextBox(GameObject inObject, TextField inField, SharpDX.Vector3 v3)
         {
-            inField.Texture = ResourceManager.Instance.LoadTexture("LoginTextBox");
-            inField.String = "Empty";
+            inField.texture = ResourceManager.Instance.LoadTexture("LoginTextBox");
+            inField.textComponent.SetString("Empty");
             inObject.transform.position = v3;
 
         }

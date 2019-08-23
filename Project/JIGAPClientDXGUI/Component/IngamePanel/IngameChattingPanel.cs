@@ -21,14 +21,17 @@ namespace JIGAPClientDXGUI
             _chattingInputField = ObjectManager.Instance.RegisterObject().AddComponent<TextField>();
             _chattingInputField.transform.Parent = transform;
             _chattingInputField.transform.position = new SharpDX.Vector3(10f, 672f, 0f);
-            _chattingInputField.Texture = ResourceManager.Instance.LoadTexture("ChattingTextBox");
-            _chattingInputField.EnterBehavior = (string str) => { SendChatting(str); };
+            _chattingInputField.texture = ResourceManager.Instance.LoadTexture("ChattingTextBox");
+            _chattingInputField.enterBehavior = (string str) => { SendChatting(str); };
+            _chattingInputField.textComponent.font = ResourceManager.Instance.LoadFont("ChattingInput");
+
+            //_chattingInputField.text.
 
             Button button = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
             button.transform.Parent = transform;
             button.transform.position = new SharpDX.Vector3(916f, 672f, 0f);
             button.SetButton(ResourceManager.Instance.LoadTexture("SendButton"), 
-                () => { SendChatting(_chattingInputField.String); });
+                () => { SendChatting(_chattingInputField.textComponent.ToString()); });
 
             _chatView = ObjectManager.Instance.RegisterObject().AddComponent<ChatView>();
             _chatView.Initialize(10, 55, 620, 10, 35f, 980, 35);
@@ -44,7 +47,7 @@ namespace JIGAPClientDXGUI
                 NetworkManager.Instance.UserName,
                 inMessage);
 
-            _chattingInputField.String = "";
+            _chattingInputField.textComponent.SetString("");
         }
     }
 }

@@ -12,8 +12,9 @@ namespace JIGAPClientDXGUI
 {
     class Text : Component, IRenderer
     {
-        public StringBuilder text { get => _text; set => _text = value; }
-        private StringBuilder _text = new StringBuilder();
+        private StringBuilder _stringBuilder = new StringBuilder();
+
+        public string str { get => _stringBuilder.ToString();}
 
         public FontDrawFlags drawFlag { get => _drawFlag; set => _drawFlag = value; }
         private FontDrawFlags _drawFlag = FontDrawFlags.Left | FontDrawFlags.Top;
@@ -36,10 +37,24 @@ namespace JIGAPClientDXGUI
             ObjectManager.Instance.UnRegisterUIRenderer(this);
         }
 
+        public void SetString(string inText)
+        {
+            _stringBuilder.Clear();
+            _stringBuilder.Append(inText);
+        }
+        public void SetAddString(char c)
+        {
+            _stringBuilder.Append(c);
+        }   
+        public void DeleteCharInString()
+        {
+            _stringBuilder.Remove(_stringBuilder.Length - 1, 1);
+        }
+
         public void Render()
         {
-            if (text.Length > 0)
-                font.DrawText(DXManager.Instance.d3dSprite, _text.ToString(), _range, _drawFlag, _color);
+            if (_stringBuilder.Length > 0)
+                font.DrawText(DXManager.Instance.d3dSprite, _stringBuilder.ToString(), _range, _drawFlag, _color);
         }
     }
 }

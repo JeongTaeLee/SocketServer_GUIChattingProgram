@@ -47,8 +47,8 @@ namespace JIGAPClientDXGUI
 
         public void Initialize(string inTitle, string inStr)
         {
-            _titleText.text.Append(inTitle);
-            _strText.text.Append(inStr);
+            _titleText.SetString(inTitle);
+            _strText.SetString(inStr);
         }
 
 
