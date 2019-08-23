@@ -4,7 +4,7 @@
 
 void ChatRoomAdmin::Release()
 {
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 
 	for (auto Iter : rooms)
 	{
@@ -15,7 +15,7 @@ void ChatRoomAdmin::Release()
 
 void ChatRoomAdmin::SerialieRoomList(PacketHandler* inLpHandler)
 {
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 
 	for (auto Iter : rooms)
 	{
@@ -34,7 +34,7 @@ ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
 {
 	if (lpLobby) return lpLobby;
 
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 	lpLobby = rooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, new ChatRoom(inStrRoomName))).first->second;
 	
 	return lpLobby;
@@ -42,7 +42,7 @@ ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
 
 ChatRoom* ChatRoomAdmin::CreateRoom(const std::string& inStrRoomName)
 {
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 
 	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
 		return find->second;
@@ -54,7 +54,7 @@ ChatRoom* ChatRoomAdmin::CreateRoom(const std::string& inStrRoomName)
 
 ChatRoom* ChatRoomAdmin::FindRoom(const std::string& inStrRoomName)
 {
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 
 	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
 		return find->second;
@@ -64,7 +64,7 @@ ChatRoom* ChatRoomAdmin::FindRoom(const std::string& inStrRoomName)
 
 void ChatRoomAdmin::DeleteRoom(const std::string& inStrRoomName)
 {
-	std::lock_guard gd(roomsMutex);
+	std::lock_guard gd(roomAdminMutex);
 	
 	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
 		rooms.erase(find);

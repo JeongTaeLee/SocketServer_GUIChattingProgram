@@ -8,6 +8,8 @@ private:
 	std::string strRoomName;
 
 	std::set<ChatUserData*> sChatUserData;
+	
+	std::mutex roomUserMutex;
 
 	bool bBaseRoom = false;
 public:

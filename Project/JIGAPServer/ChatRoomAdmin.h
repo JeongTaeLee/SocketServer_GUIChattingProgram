@@ -9,7 +9,7 @@ private:
 
 	ChatRoom* lpLobby = nullptr;
 	
-	std::mutex roomsMutex;
+	std::mutex roomAdminMutex;
 public:
 	void Release();
 
