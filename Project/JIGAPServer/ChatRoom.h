@@ -14,7 +14,7 @@ public:
 	ChatRoom(const std::string& inStrRoomName);
 	virtual ~ChatRoom();
 
-	bool AddUser(ChatUserData* inLpChatUserData);
+	bool AddUserInRoom(ChatUserData* inLpChatUserData);
 	void DeleteUser(ChatUserData* inLpChatUserData);
 
 

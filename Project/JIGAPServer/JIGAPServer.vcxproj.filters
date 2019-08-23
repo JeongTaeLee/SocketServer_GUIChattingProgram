@@ -85,6 +85,9 @@
     <Filter Include="ServerEngine\iniWriter">
       <UniqueIdentifier>{11e0d005-4a11-4506-abf1-e342b4ff1438}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ExceptionLoger">
+      <UniqueIdentifier>{fc9e2676-2049-4c3a-a283-f07ef342186e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -159,6 +162,9 @@
     <ClInclude Include="iniWriter.h">
       <Filter>ServerEngine\iniWriter</Filter>
     </ClInclude>
+    <ClInclude Include="ExceptionLoger.h">
+      <Filter>ExceptionLoger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -229,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="iniWriter.cpp">
       <Filter>ServerEngine\iniWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ExceptionLoger.cpp">
+      <Filter>ExceptionLoger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

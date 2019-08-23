@@ -11,7 +11,7 @@ ChatRoom::~ChatRoom()
 {
 }
 
-bool ChatRoom::AddUser(ChatUserData* inLpChatUserData)
+bool ChatRoom::AddUserInRoom(ChatUserData* inLpChatUserData)
 {
 	if (auto find = sChatUserData.find(inLpChatUserData); find != sChatUserData.end())
 		return false;

@@ -62,6 +62,9 @@ public:
 		SOCKET sock = accept(hSock, addr.GetAsSockAddr(), &size);
 		if (sock != INVALID_SOCKET)
 			return new T(sock, addr);
+		else
+			throw std::exception("Accept가 실패했습니다.");
+	
 		return nullptr;
 	}
 

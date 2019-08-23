@@ -240,7 +240,7 @@ void JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	else
 	{
 		if (find->GetCurrentRoom() != lpFindRoom)
-			lpFindRoom->AddUser(find);
+			lpFindRoom->AddUserInRoom(find);
 
 		joinRoomAnswer.set_success(true);
 		answerRoomInfo->set_roomname(lpFindRoom->GetRoomName());
@@ -394,7 +394,7 @@ void JIGAPChatProcess::PutUserIntoRoom(PacketHandler * inLpHandler, ChatUserData
 
 	if (findRoom)
 	{
-		findRoom->AddUser(inLpChatUserData);
+		findRoom->AddUserInRoom(inLpChatUserData);
 		
 		JIGAPPacket::JoinRoomAnswer answer;
 		JIGAPPacket::RoomInfo* info = answer.mutable_roominfo();

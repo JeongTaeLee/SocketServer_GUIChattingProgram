@@ -13,12 +13,14 @@
 #include <cstdarg>
 #include <thread>
 #include <functional>
+#include <fstream>
 #include <queue>
 #include <list>
 #include <map>
 #include <set>
 #include <crtdbg.h>
 #include <atlconv.h>
+#include <exception>
 #include <mysql.h>
 #include <hash_map>
 #include <io.h>

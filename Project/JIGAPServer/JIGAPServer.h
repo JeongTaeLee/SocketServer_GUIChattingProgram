@@ -23,6 +23,7 @@ public:
 class TCPSocket;
 class JIGAPBaserProcess;
 class PacketHandler;
+class ExceptionLoger;
 
 class JIGAPServer
 {
@@ -30,6 +31,7 @@ private:
 	TCPSocket* lpServerSocket	= nullptr;
 	HANDLE hCompletionHandle	= nullptr;
 	ServerData serverData		= {};
+	ExceptionLoger* lpExceptionLogger = nullptr;
 
 	std::thread hConnectThread;
 	std::thread hRecvThread;
