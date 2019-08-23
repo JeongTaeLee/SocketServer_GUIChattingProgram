@@ -3,12 +3,15 @@
 class BaseUserData;
 
 template<class T>
+
 class UserDataAdmin
 {
 protected:
 	ObjectPool<T> dataObjectPool;
 
 	std::hash_map < SOCKET, T* > mUsers;
+
+	mutable std::mutex userDataMutex;
 public:
 	inline void InitializeAdmin(int inMaxUserCount)
 	{
@@ -32,8 +35,9 @@ public:
 		if (!addObject)
 			throw std::exception("서버의 최대 User수를 초과했습니다");
 
+		userDataMutex.lock();
 		T* t = mUsers.insert(std::hash_map<SOCKET, T*>::value_type(lpInTCPSocket->GetSocket(), addObject)).first->second;
-
+		userDataMutex.unlock();
 		return t;
 	}
 	inline void DeleteUser(TCPSocket* lpInTCPSocket)
@@ -41,7 +45,10 @@ public:
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
 		{
 			dataObjectPool.ReturnItem((*Iter).second);
+
+			userDataMutex.lock();
 			mUsers.erase(Iter);
+			userDataMutex.unlock();
 		}
 	}
 
@@ -55,6 +62,7 @@ public:
 
 	inline T* FindUserInId(const std::string & stdId)
 	{
+		std::lock_guard guard(userDataMutex);
 		for (auto Iter : mUsers)
 		{
 			if (Iter.second->GetUserID() == stdId)

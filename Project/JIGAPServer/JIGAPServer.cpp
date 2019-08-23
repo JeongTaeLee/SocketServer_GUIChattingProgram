@@ -7,9 +7,6 @@
 JIGAPServer::JIGAPServer()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(302926);
-
-	lpExceptionLogger = new ExceptionLoger("ExceptionLogger");
 }
 
 JIGAPServer::~JIGAPServer()
@@ -62,7 +59,7 @@ bool JIGAPServer::CreateServerSocket()
 
 bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 {
-	
+	lpExceptionLogger = new ExceptionLoger("ExceptionLogger");
 
 	lpServerProcess = new JIGAPChatProcess(this);
 	lpServerProcess->OnInitialize();
@@ -99,10 +96,11 @@ void JIGAPServer::ServerRelease()
 		hConnectThread.join();
 	if (hRecvThread.joinable())
 		hRecvThread.join();
+
+	SAFE_DELETE(lpExceptionLogger);
 	
 	RegisterServerLog("Success End Server");
 }
-
 
 bool JIGAPServer::StartServer(const std::string& inPortAddress)
 {
@@ -158,7 +156,6 @@ void JIGAPServer::OnConnectTask()
 	}
 
 	RegisterServerLog("Success To End ConnectTask");
-
 }
 
 void JIGAPServer::OnRecvPacketTask()
@@ -225,7 +222,6 @@ void JIGAPServer::OnRecvPacketTask()
 	}
 
 	SAFE_DELETE(packetHandler);
-
 	RegisterServerLog("Success To End RecvTask");
 }
 

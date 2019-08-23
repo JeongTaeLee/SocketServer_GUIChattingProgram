@@ -41,7 +41,7 @@ namespace JIGAPClientDXGUI
 
             //MessageBox
             ResourceManager.Instance.LoadTexture("MessageBox", "./Image/MessageBox/MessageBox.png");
-            ResourceManager.Instance.LoadTexture("OkButton", "./Image//MessageBox/OkButton.png");
+            ResourceManager.Instance.LoadTexture("OkButton", "./Image/MessageBox/OkButton.png");
 
 
             //ResourceManager 

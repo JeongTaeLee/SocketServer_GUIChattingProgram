@@ -6,9 +6,10 @@ class ChatRoomAdmin
 {
 private:
 	std::hash_map<std::string, ChatRoom*> rooms;
-	std::mutex roomsMutex;
 
 	ChatRoom* lpLobby = nullptr;
+	
+	std::mutex roomsMutex;
 public:
 	void Release();
 
