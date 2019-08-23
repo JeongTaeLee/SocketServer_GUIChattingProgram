@@ -5,57 +5,71 @@ template <typename T>
 class ObjectPool
 {
 private:
-	std::vector<PoolObject*> pool;
+	std::vector<PoolObject*> vPool;
 
 	std::mutex poolMutex;
 
-	int poolSize = 0;
+	int iPoolSize = 0;
 public:
 	void InitializePool(int size)
 	{
-		poolSize = size;
-		pool.reserve(size);
+		iPoolSize = size;
+		vPool.reserve(size);
 
 		std::lock_guard gd(poolMutex);
 
 		for (int i = 0; i < size; i++)
-			pool.push_back(new T());
+		{
+			T * t = CreateItem();
+			t->SetActive(false);
+		}
 	}
 
 	void ReleasePool()
 	{
 		std::lock_guard gd(poolMutex);
 
-		for (int i = 0; i < poolSize; i++)
-			SAFE_DELETE(pool[i]);
+		for (int i = 0; i < iPoolSize; i++)
+			SAFE_DELETE(vPool[i]);
 
-		pool.clear();
+		vPool.clear();
 	}
 
 	T* GetItem()
 	{
 		std::lock_guard gd(poolMutex);
 	
-		for (auto Iter : pool)
+		T* returnItem = nullptr;
+
+		for (auto Iter : vPool)
 		{
-			if (!Iter->bIsActive)
+			if (!Iter->GetActive())
 			{
-				Iter->OnActiveObject();
-				Iter->bIsActive = true;
-				return static_cast<T*>(Iter);
+				returnItem = static_cast<T*>(Iter);
+				returnItem->SetActive(true);
+				break;
 			}
 		}
 
-		return nullptr;
+		if (returnItem == nullptr)
+		{
+			returnItem = CreateItem();
+			returnItem->SetActive(true);
+		}
+
+		return returnItem;
 	}
 
-	void ReturnItem(T * inItem)
+private:
+	T* CreateItem()
 	{
-		if (inItem->bIsActive)
-		{
-			inItem->OnUnActiveObject();
-			inItem->bIsActive = false;
-		}
+		T* create = new T();
+
+		vPool.push_back(create);
+		
+		create->SetActive(true);
+		
+		return create;
 	}
 
 	

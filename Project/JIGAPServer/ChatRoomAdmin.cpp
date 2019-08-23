@@ -7,9 +7,8 @@ void ChatRoomAdmin::Release()
 	std::lock_guard gd(roomAdminMutex);
 
 	for (auto Iter : rooms)
-	{
 		SAFE_DELETE(Iter.second);
-	}
+	
 	rooms.clear();
 }
 

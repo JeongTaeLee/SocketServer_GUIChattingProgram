@@ -81,22 +81,21 @@ void JIGAPServer::ServerRelease()
 	bServerOn = false;
 	
 	lpServerProcess->OnRelease();
-	SAFE_DELETE(lpServerProcess);
-	
+
 	if (hCompletionHandle != INVALID_HANDLE_VALUE)
 		CloseHandle(hCompletionHandle);
 
 	if (lpServerSocket)
-	{
 		lpServerSocket->Closesocket();
-		SAFE_DELETE(lpServerSocket);
-	}
-	
+
 	if (hConnectThread.joinable())
 		hConnectThread.join();
 	if (hRecvThread.joinable())
 		hRecvThread.join();
 
+
+	SAFE_DELETE(lpServerProcess);
+	SAFE_DELETE(lpServerSocket);
 	SAFE_DELETE(lpExceptionLogger);
 	
 	RegisterServerLog("Success End Server");
@@ -125,32 +124,34 @@ void JIGAPServer::OnConnectTask()
 		{
 			acceptSocket = lpServerSocket->Accept<TCPSocket>();
 
-			if (bServerOn == false)
-				break;
-
 			HANDLE hHandle = CreateIoCompletionPort((HANDLE)acceptSocket->GetSocket(), hCompletionHandle, (ULONG_PTR)acceptSocket, NULL);
 
 			if (hHandle == nullptr)
-				throw std::exception("CreateIoCompletionPort ErrorCode - %d");
+				throw std::exception("[JIGAPServer.OnConnectTask] Fail Register Socket in CreateIoCompletionPort");
 
 			if (acceptSocket->IOCPRecv() != 0)
-				throw std::exception("IOCPRecv ErrorCode - %d");
+				throw std::exception("[JIGAPServer.OnConnectTask] Fail Start IOCPRecv");
 
 			RegisterServerLog("Success To Connect Client (Socket : %d)", acceptSocket->GetSocket());
 
 			if (lpServerProcess)
 				lpServerProcess->OnConnect(acceptSocket);
 		}
-		catch (std::exception e)
+		catch (std::exception & e)
 		{
-			if (accept)
+			if (acceptSocket)
 			{
 				acceptSocket->Closesocket();
 				SAFE_DELETE(acceptSocket);
 			}
 
+			if (!bServerOn)
+				break;
+
 			lpExceptionLogger->ExceptionLog(__FILE__, __LINE__, e.what());
+			
 			continue;
+
 		}
 
 	}
@@ -171,14 +172,14 @@ void JIGAPServer::OnRecvPacketTask()
 		TCPSocket* lpTCPSocket = nullptr;
 		TCPIOData* lpTCPIoData = nullptr;
 
+		GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
+			(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
+
+		if (!bServerOn)
+			break;
+
 		try
 		{
-			GetQueuedCompletionStatus(hCompletionHandle, &iRecvByte, (PULONG_PTR)& lpTCPSocket,
-				(LPOVERLAPPED*)& lpTCPIoData, INFINITE);
-
-			if (bServerOn == false)
-				break;
-
 			if (iRecvByte == 0)
 			{
 				lpTCPSocket->DownReferenceCount();
@@ -190,7 +191,6 @@ void JIGAPServer::OnRecvPacketTask()
 					RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
 
 					SAFE_DELETE(lpTCPSocket);
-					lpTCPSocket = nullptr;
 				}
 			}
 			else
@@ -213,12 +213,12 @@ void JIGAPServer::OnRecvPacketTask()
 				}
 			}
 		}
-		catch (std::exception & ex)
+		catch (std::exception& ex)
 		{
 
 			lpExceptionLogger->ExceptionLog(__FILE__, __LINE__, ex.what());
 		}
-
+	
 	}
 
 	SAFE_DELETE(packetHandler);

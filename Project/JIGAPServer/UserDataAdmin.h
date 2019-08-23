@@ -44,7 +44,7 @@ public:
 	{
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
 		{
-			dataObjectPool.ReturnItem((*Iter).second);
+			Iter->second->SetActive(false);
 
 			userDataMutex.lock();
 			mUsers.erase(Iter);

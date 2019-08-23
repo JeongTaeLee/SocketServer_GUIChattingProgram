@@ -10,9 +10,18 @@ ChatUserData::~ChatUserData()
 {
 }
 
+void ChatUserData::OnActiveObject()
+{
+	BaseUserData::OnActiveObject();
+
+	bLogin = false;
+	lpCurRoom = nullptr;
+}
+
 void ChatUserData::OnUnActiveObject()
 {
 	BaseUserData::OnUnActiveObject();
-	bLogin		= false;
-	lpCurRoom	= nullptr;
+
+	bLogin = false;
+	lpCurRoom = nullptr;
 }

@@ -1,7 +1,8 @@
 #pragma once
-class PoolObject
+
+class PoolObject 
 {
-public:
+private:
 	bool bIsActive = false;
 public:
 	PoolObject();
@@ -9,5 +10,8 @@ public:
 
 	virtual void OnActiveObject();
 	virtual void OnUnActiveObject();
+
+	void SetActive(bool bInIsActive);
+	bool GetActive() { return bIsActive; }
 };
 

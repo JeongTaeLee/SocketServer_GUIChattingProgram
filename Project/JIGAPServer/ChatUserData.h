@@ -14,6 +14,7 @@ public:
 	ChatUserData();
 	virtual ~ChatUserData();
 
+	virtual void OnActiveObject() override;
 	virtual void OnUnActiveObject() override;
 	
 	ChatRoom* GetCurrentRoom() { return lpCurRoom; }

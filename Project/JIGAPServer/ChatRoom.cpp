@@ -27,7 +27,7 @@ bool ChatRoom::AddUserInRoom(ChatUserData* inLpChatUserData)
 
 void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)
 {
-	std::lock_guard(roomUserMutex);
+	std::lock_guard gd(roomUserMutex);
 
 	if (auto find = sChatUserData.find(inLpChatUserData); find != sChatUserData.end())
 	{
@@ -39,7 +39,7 @@ void ChatRoom::DeleteUser(ChatUserData* inLpChatUserData)
 
 void ChatRoom::SendMessageInUsers(PacketHandler* inHandler)
 {
-	std::lock_guard(roomUserMutex);
+	std::lock_guard gd(roomUserMutex);
 
 	for (auto Iter : sChatUserData)
 		Iter->GetTCPSocket()->IOCPSend(inHandler->GetSerializeBufferData(), inHandler->GetSerializeRealSize());

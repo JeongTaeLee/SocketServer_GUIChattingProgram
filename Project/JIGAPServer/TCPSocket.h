@@ -52,6 +52,7 @@ public:
 	* 실패  : NULL
 	* 이 함수에 템플릿을 사용한 이유? TCPSocket 상속받는
 	* 모든 자식함수의 타입으로 반환하기 위함입니다.
+	* 예외 1 (str "Failed Accept")
 	*/
 	template <class T>
 	T* Accept()
@@ -60,10 +61,11 @@ public:
 		int size = addr.GetSize();
 
 		SOCKET sock = accept(hSock, addr.GetAsSockAddr(), &size);
+
 		if (sock != INVALID_SOCKET)
 			return new T(sock, addr);
 		else
-			throw std::exception("Accept가 실패했습니다.");
+			throw std::exception("Accept Func return invalidSocket");
 	
 		return nullptr;
 	}

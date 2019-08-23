@@ -3,12 +3,14 @@
 
 void BaseUserData::OnActiveObject()
 {
+	strUserId = "None";
+	lpTCPSocket = nullptr;
+
 }
 
 void BaseUserData::OnUnActiveObject()
 {
 	strUserId = "None";
 	lpTCPSocket = nullptr;
-
 }
 

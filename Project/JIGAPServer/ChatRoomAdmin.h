@@ -5,6 +5,7 @@ class ChatRoom;
 class ChatRoomAdmin
 {
 private:
+
 	std::hash_map<std::string, ChatRoom*> rooms;
 
 	ChatRoom* lpLobby = nullptr;
