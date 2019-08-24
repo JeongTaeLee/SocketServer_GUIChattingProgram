@@ -172,7 +172,9 @@ namespace JIGAPClientDXGUI
 
                 OnRecvPacket();
             }
-           
+            else
+                MyMessageBox.Show("연결 종료", "서버가 종료되었습니다", ()=> { Application.Exit(); });
+
         }
     }
 }

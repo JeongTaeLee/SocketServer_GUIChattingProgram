@@ -9,7 +9,7 @@ class UserDataAdmin
 protected:
 	ObjectPool<T> dataPool;
 
-	std::hash_map < SOCKET, T* > mUsers;
+	std::hash_map < SOCKET, T* > hmUsers;
 
 	mutable std::mutex userDataMutex;
 public:
@@ -19,13 +19,17 @@ public:
 	}
 	inline void ReleaseAdmin()
 	{
+		for (auto Iter : hmUsers)
+			Iter.second->CloseTCPSocket();
+		hmUsers.clear();
+		
 		dataPool.ReleasePool();
 	}
 
 	/*반환 받은 객체를 초기화 해줘야합니다.*/
 	inline T * AddUser(TCPSocket * lpInTCPSocket)
 	{
-		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
+		if (auto Iter = hmUsers.find(lpInTCPSocket->GetSocket()); Iter != hmUsers.end())
 			return nullptr;
 
 		T* addObject = dataPool.GetItem();
@@ -36,25 +40,26 @@ public:
 			throw std::exception("서버의 최대 User수를 초과했습니다");
 
 		userDataMutex.lock();
-		T* t = mUsers.insert(std::hash_map<SOCKET, T*>::value_type(lpInTCPSocket->GetSocket(), addObject)).first->second;
+		T* t = hmUsers.insert(std::hash_map<SOCKET, T*>::value_type(lpInTCPSocket->GetSocket(), addObject)).first->second;
 		userDataMutex.unlock();
 		return t;
 	}
 	inline void DeleteUser(TCPSocket* lpInTCPSocket)
 	{
-		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
+		if (auto Iter = hmUsers.find(lpInTCPSocket->GetSocket()); Iter != hmUsers.end())
 		{
+			Iter->second->CloseTCPSocket();
 			Iter->second->SetActive(false);
 
 			userDataMutex.lock();
-			mUsers.erase(Iter);
+			hmUsers.erase(Iter);
 			userDataMutex.unlock();
 		}
 	}
 
 	inline T* FindUser(TCPSocket* lpInTCPSocket)
 	{
-		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
+		if (auto Iter = hmUsers.find(lpInTCPSocket->GetSocket()); Iter != hmUsers.end())
 			return (*Iter).second;
 
 		return nullptr;
@@ -63,7 +68,7 @@ public:
 	inline T* FindUserInId(const std::string & stdId)
 	{
 		std::lock_guard guard(userDataMutex);
-		for (auto Iter : mUsers)
+		for (auto Iter : hmUsers)
 		{
 			if (Iter.second->GetUserID() == stdId)
 				return Iter.second;

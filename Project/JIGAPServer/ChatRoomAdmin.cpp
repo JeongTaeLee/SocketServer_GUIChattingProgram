@@ -5,15 +5,15 @@
 
 void ChatRoomAdmin::Initialize(int inIRoomname)
 {
-	roomPool.InitializePool(10000);
+	roomPool.InitializePool(inIRoomname);
 }
 
 void ChatRoomAdmin::Release()
 {
 	std::lock_guard gd(roomAdminMutex);
 
-	roomPool.ReleasePool();
 	hmRooms.clear();
+	roomPool.ReleasePool();
 }
 
 ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
@@ -44,8 +44,7 @@ ChatRoom* ChatRoomAdmin::CreateRoom(const std::string& inStrRoomName, bool InBIs
 	
 	returnRoom->SetRoomName(inStrRoomName);
 
-	if (InBIsBaseRoom)
-		returnRoom->SetBaseRoom();
+	if (InBIsBaseRoom) returnRoom->SetBaseRoom();
 
 	hmRooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, returnRoom));
 	
@@ -75,15 +74,17 @@ void ChatRoomAdmin::SerialieRoomList(PacketHandler* inLpHandler)
 {
 	std::lock_guard gd(roomAdminMutex);
 
+	JIGAPPacket::RoomListAnswer answer;
+	answer.set_roomcount(hmRooms.size());
+
+	inLpHandler->SerializePacket(JIGAPPacket::Type::eRoomListAnswer, answer);
+
 	for (auto Iter : hmRooms)
 	{
 		JIGAPPacket::RoomListElement element;
 		JIGAPPacket::RoomInfo* info = element.mutable_roominfo();
 
 		info->set_roomname(Iter.second->GetRoomName());
-		inLpHandler->SerializePacket(JIGAPPacket::Type::eRoomListElement, element);;
-
-		info = element.release_roominfo();
-		SAFE_DELETE(info);
+		inLpHandler->SerializePacket(JIGAPPacket::Type::eRoomListElement, element);
 	}
 }

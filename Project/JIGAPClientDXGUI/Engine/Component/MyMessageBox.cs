@@ -8,10 +8,13 @@ namespace JIGAPClientDXGUI
 {
     class MyMessageBox : Component 
     {
+        public delegate void OkBehavior();
+
         private UIRenderer  _uiRenderer = null;
         private Button      _button = null;
         private Text        _titleText = null;
         private Text        _strText = null;
+        private OkBehavior  _okBehavior = null;
 
         public override void Init()
         {
@@ -26,7 +29,13 @@ namespace JIGAPClientDXGUI
             _button = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
             _button.transform.Parent = transform;
             _button.transform.position = new SharpDX.Vector3(148f, 244f, 0f);
-            _button.SetButton(ResourceManager.Instance.LoadTexture("OkButton"), () => { gameObject.Destroy = true; });
+            _button.SetButton(ResourceManager.Instance.LoadTexture("OkButton"), () => {
+
+                if (_okBehavior != null)
+                    _okBehavior();
+
+                gameObject.Destroy = true;
+            });
 
 
             _titleText = ObjectManager.Instance.RegisterObject().AddComponent<Text>();
@@ -45,17 +54,19 @@ namespace JIGAPClientDXGUI
             transform.position = new SharpDX.Vector3(416f, 214f, 0f);
         }
 
-        public void Initialize(string inTitle, string inStr)
+        public void Initialize(string inTitle, string inStr, OkBehavior inBehavior = null)
         {
             _titleText.SetString(inTitle);
             _strText.SetString(inStr);
+
+            _okBehavior = inBehavior;
         }
 
 
-        public static MyMessageBox Show(string inTile, string inStr)
+        public static MyMessageBox Show(string inTile, string inStr, OkBehavior inBehavior = null)
         {
             MyMessageBox box = ObjectManager.Instance.RegisterObject().AddComponent<MyMessageBox>();
-            box.Initialize(inTile, inStr);
+            box.Initialize(inTile, inStr, inBehavior);
             return box;
         }
     }

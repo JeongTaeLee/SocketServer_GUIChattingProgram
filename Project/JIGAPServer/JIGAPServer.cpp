@@ -7,7 +7,7 @@
 JIGAPServer::JIGAPServer()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(302876);
+	//_CrtSetBreakAlloc(342898);
 }
 
 JIGAPServer::~JIGAPServer()
@@ -91,9 +91,9 @@ void JIGAPServer::ServerRelease()
 
 	if (hConnectThread.joinable())
 		hConnectThread.join();
+
 	if (hRecvThread.joinable())
 		hRecvThread.join();
-
 
 	SAFE_DELETE(lpServerProcess);
 	SAFE_DELETE(lpServerSocket);
@@ -187,11 +187,7 @@ void JIGAPServer::OnRecvPacketTask()
 				if (lpTCPSocket->GetReferenceCount() <= 0)
 				{
 					lpServerProcess->OnDisconnect(lpTCPSocket);
-
-					lpTCPSocket->Closesocket();
 					RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
-
-					SAFE_DELETE(lpTCPSocket);
 				}
 			}
 			else
@@ -216,7 +212,6 @@ void JIGAPServer::OnRecvPacketTask()
 		}
 		catch (std::exception& ex)
 		{
-
 			lpExceptionLogger->ExceptionLog(__FILE__, __LINE__, ex.what());
 		}
 	

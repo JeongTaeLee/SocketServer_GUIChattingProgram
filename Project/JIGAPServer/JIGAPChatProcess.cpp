@@ -21,7 +21,8 @@ void JIGAPChatProcess::OnInitialize()
 	lpUserAdmin->InitializeAdmin(100000);
 
 	lpChatRoomAdmin = new ChatRoomAdmin();
-	lpChatRoomAdmin->Initialize(10000);
+	lpChatRoomAdmin->Initialize(100000);
+
 	lpChatRoomAdmin->CreateLobby(lobbyName);
 	lpChatRoomAdmin->CreateRoom(baseRoom01, true);
 	lpChatRoomAdmin->CreateRoom(baseRoom02, true);
@@ -29,13 +30,14 @@ void JIGAPChatProcess::OnInitialize()
 	lpChatRoomAdmin->CreateRoom(baseRoom04, true);
 	lpChatRoomAdmin->CreateRoom(baseRoom05, true);
 
-
 	lpQuery = new ChatQuery();
 	lpQuery->InitializeQuery();
 }
 
 void JIGAPChatProcess::OnRelease()
 {
+
+
 	lpUserAdmin->ReleaseAdmin();
 	SAFE_DELETE(lpUserAdmin);
 
@@ -269,15 +271,7 @@ bool JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	lpHandler->NextParsingPacket(emptyPacket, header.iSize);
 
 	if (emptyPacket.type() == JIGAPPacket::Type::eRoomListRequest)
-	{
-		JIGAPPacket::RoomListAnswer answer;
-
-		answer.set_roomcount(lpChatRoomAdmin->GetRooms().size());
-		lpHandler->SerializePacket(JIGAPPacket::Type::eRoomListAnswer, answer);
-
 		lpChatRoomAdmin->SerialieRoomList(lpHandler);
-
-	}
 
 	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 

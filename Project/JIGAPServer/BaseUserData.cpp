@@ -14,3 +14,9 @@ void BaseUserData::OnUnActiveObject()
 	lpTCPSocket = nullptr;
 }
 
+void BaseUserData::CloseTCPSocket()
+{
+	lpTCPSocket->Closesocket();
+	SAFE_DELETE(lpTCPSocket);
+}
+

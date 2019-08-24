@@ -18,8 +18,6 @@ namespace JIGAPClientDXGUI.Engine
 
         public bool Initialize()
         {
-
-
             if (!NetworkManager.Instance.ConnectServer())
                 return false;
 

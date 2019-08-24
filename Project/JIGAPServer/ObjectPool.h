@@ -9,11 +9,9 @@ private:
 
 	std::mutex poolMutex;
 
-	int iPoolSize = 0;
 public:
 	void InitializePool(int size)
 	{
-		iPoolSize = size;
 		vPool.reserve(size);
 
 		std::lock_guard gd(poolMutex);
@@ -29,8 +27,11 @@ public:
 	{
 		std::lock_guard gd(poolMutex);
 
-		for (int i = 0; i < iPoolSize; i++)
+		for (int i = 0; i < vPool.size(); i++)
+		{
+			vPool[i]->SetActive(false);
 			SAFE_DELETE(vPool[i]);
+		}
 
 		vPool.clear();
 	}
@@ -66,7 +67,7 @@ private:
 		T* create = new T();
 
 		vPool.push_back(create);
-		
+
 		create->SetActive(true);
 		
 		return create;

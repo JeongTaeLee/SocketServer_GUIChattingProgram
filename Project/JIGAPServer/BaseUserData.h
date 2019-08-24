@@ -17,6 +17,8 @@ public:
 	virtual void OnActiveObject() override;
 	virtual void OnUnActiveObject() override;
 
+	void CloseTCPSocket();
+
 	const std::string& GetUserID() { return strUserId; }
 	TCPSocket* GetTCPSocket() { return lpTCPSocket; }
 	bool GetLogin() { return bLogin; }
