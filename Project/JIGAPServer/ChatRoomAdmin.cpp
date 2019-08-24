@@ -1,22 +1,81 @@
 #include "pch.h"
 #include "ChatRoomAdmin.h"
 #include "ChatRoom.h"
+#include "ObjectPool.h"
+
+void ChatRoomAdmin::Initialize(int inIRoomname)
+{
+	roomPool.InitializePool(10000);
+}
 
 void ChatRoomAdmin::Release()
 {
 	std::lock_guard gd(roomAdminMutex);
 
-	for (auto Iter : rooms)
-		SAFE_DELETE(Iter.second);
+	roomPool.ReleasePool();
+	hmRooms.clear();
+}
+
+ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
+{
+	if (lpLobby) return lpLobby;
+
+	std::lock_guard gd(roomAdminMutex);
+
+	ChatRoom* returnRoom = roomPool.GetItem();
+	returnRoom->SetRoomName(inStrRoomName);
+	returnRoom->SetBaseRoom();
 	
-	rooms.clear();
+	hmRooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, returnRoom));
+
+	lpLobby = returnRoom;
+	
+	return lpLobby;
+}
+
+ChatRoom* ChatRoomAdmin::CreateRoom(const std::string& inStrRoomName, bool InBIsBaseRoom)
+{
+	std::lock_guard gd(roomAdminMutex);
+
+	if (auto find = hmRooms.find(inStrRoomName); find != hmRooms.end())
+		return find->second;
+
+	ChatRoom* returnRoom = roomPool.GetItem();
+	
+	returnRoom->SetRoomName(inStrRoomName);
+
+	if (InBIsBaseRoom)
+		returnRoom->SetBaseRoom();
+
+	hmRooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, returnRoom));
+	
+	return returnRoom;
+}
+
+ChatRoom* ChatRoomAdmin::FindRoom(const std::string& inStrRoomName)
+{
+	if (auto find = hmRooms.find(inStrRoomName); find != hmRooms.end())
+		return find->second;
+
+	return nullptr;
+}
+
+void ChatRoomAdmin::DeleteRoom(const std::string& inStrRoomName)
+{
+	std::lock_guard gd(roomAdminMutex);
+	
+	if (auto find = hmRooms.find(inStrRoomName); find != hmRooms.end())
+	{
+		find->second->SetActive(false);
+		hmRooms.erase(find);
+	}
 }
 
 void ChatRoomAdmin::SerialieRoomList(PacketHandler* inLpHandler)
 {
 	std::lock_guard gd(roomAdminMutex);
 
-	for (auto Iter : rooms)
+	for (auto Iter : hmRooms)
 	{
 		JIGAPPacket::RoomListElement element;
 		JIGAPPacket::RoomInfo* info = element.mutable_roominfo();
@@ -27,44 +86,4 @@ void ChatRoomAdmin::SerialieRoomList(PacketHandler* inLpHandler)
 		info = element.release_roominfo();
 		SAFE_DELETE(info);
 	}
-}
-
-ChatRoom* ChatRoomAdmin::CreateLobby(const std::string& inStrRoomName)
-{
-	if (lpLobby) return lpLobby;
-
-	std::lock_guard gd(roomAdminMutex);
-	lpLobby = rooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, new ChatRoom(inStrRoomName))).first->second;
-	
-	return lpLobby;
-}
-
-ChatRoom* ChatRoomAdmin::CreateRoom(const std::string& inStrRoomName)
-{
-	std::lock_guard gd(roomAdminMutex);
-
-	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
-		return find->second;
-
-	ChatRoom* createRoom = rooms.insert(std::hash_map<std::string, ChatRoom*>::value_type(inStrRoomName, new ChatRoom(inStrRoomName))).first->second;
-	
-	return createRoom;
-}
-
-ChatRoom* ChatRoomAdmin::FindRoom(const std::string& inStrRoomName)
-{
-	std::lock_guard gd(roomAdminMutex);
-
-	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
-		return find->second;
-
-	return nullptr;
-}
-
-void ChatRoomAdmin::DeleteRoom(const std::string& inStrRoomName)
-{
-	std::lock_guard gd(roomAdminMutex);
-	
-	if (auto find = rooms.find(inStrRoomName); find != rooms.end())
-		rooms.erase(find);
 }

@@ -2,13 +2,24 @@
 #include "ChatRoom.h"
 #include "ChatUserData.h"
 
-ChatRoom::ChatRoom(const std::string& inStrRoomName)
-	:strRoomName(inStrRoomName)
+ChatRoom::ChatRoom()
 {
 }
 
 ChatRoom::~ChatRoom()
 {
+}
+
+void ChatRoom::OnActiveObject()
+{
+	strRoomName = "None";
+	bBaseRoom = false;
+}
+
+void ChatRoom::OnUnActiveObject()
+{
+	strRoomName = "None";
+	bBaseRoom = false;
 }
 
 bool ChatRoom::AddUserInRoom(ChatUserData* inLpChatUserData)

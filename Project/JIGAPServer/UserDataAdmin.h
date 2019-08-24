@@ -7,7 +7,7 @@ template<class T>
 class UserDataAdmin
 {
 protected:
-	ObjectPool<T> dataObjectPool;
+	ObjectPool<T> dataPool;
 
 	std::hash_map < SOCKET, T* > mUsers;
 
@@ -15,11 +15,11 @@ protected:
 public:
 	inline void InitializeAdmin(int inMaxUserCount)
 	{
-		dataObjectPool.InitializePool(inMaxUserCount);
+		dataPool.InitializePool(inMaxUserCount);
 	}
 	inline void ReleaseAdmin()
 	{
-		dataObjectPool.ReleasePool();
+		dataPool.ReleasePool();
 	}
 
 	/*반환 받은 객체를 초기화 해줘야합니다.*/
@@ -28,7 +28,7 @@ public:
 		if (auto Iter = mUsers.find(lpInTCPSocket->GetSocket()); Iter != mUsers.end())
 			return nullptr;
 
-		T* addObject = dataObjectPool.GetItem();
+		T* addObject = dataPool.GetItem();
 		
 		addObject->SetTCPSock(lpInTCPSocket);
 

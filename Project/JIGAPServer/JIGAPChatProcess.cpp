@@ -21,12 +21,13 @@ void JIGAPChatProcess::OnInitialize()
 	lpUserAdmin->InitializeAdmin(100000);
 
 	lpChatRoomAdmin = new ChatRoomAdmin();
-	lpChatRoomAdmin->CreateLobby(lobbyName)->SetBaseRoom();
-	lpChatRoomAdmin->CreateRoom(baseRoom01)->SetBaseRoom();
-	lpChatRoomAdmin->CreateRoom(baseRoom02)->SetBaseRoom();
-	lpChatRoomAdmin->CreateRoom(baseRoom03)->SetBaseRoom();
-	lpChatRoomAdmin->CreateRoom(baseRoom04)->SetBaseRoom();
-	lpChatRoomAdmin->CreateRoom(baseRoom05)->SetBaseRoom();
+	lpChatRoomAdmin->Initialize(10000);
+	lpChatRoomAdmin->CreateLobby(lobbyName);
+	lpChatRoomAdmin->CreateRoom(baseRoom01, true);
+	lpChatRoomAdmin->CreateRoom(baseRoom02, true);
+	lpChatRoomAdmin->CreateRoom(baseRoom03, true);
+	lpChatRoomAdmin->CreateRoom(baseRoom04, true);
+	lpChatRoomAdmin->CreateRoom(baseRoom05, true);
 
 
 	lpQuery = new ChatQuery();
@@ -294,10 +295,9 @@ bool JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandl
 		return false;
 
 	JIGAPPacket::RoomInfo request;
-	
-	JIGAPPacket::CreateRoomAnswer answer;
 	lpHandler->NextParsingPacket(request, header.iSize);
 
+	JIGAPPacket::CreateRoomAnswer answer;
 	JIGAPPacket::RoomInfo * answerInfo = answer.mutable_roominfo();
 
 	ChatRoom* lpFindRoom = lpChatRoomAdmin->FindRoom(request.roomname());

@@ -1,8 +1,9 @@
 #pragma once
+#include "PoolObject.h"
 
 class ChatUserData;
 
-class ChatRoom
+class ChatRoom : public PoolObject
 {
 private:
 	std::string strRoomName;
@@ -13,15 +14,18 @@ private:
 
 	bool bBaseRoom = false;
 public:
-	ChatRoom(const std::string& inStrRoomName);
+	ChatRoom();
 	virtual ~ChatRoom();
+
+	virtual void OnActiveObject() override;
+	virtual void OnUnActiveObject() override;
 
 	bool AddUserInRoom(ChatUserData* inLpChatUserData);
 	void DeleteUser(ChatUserData* inLpChatUserData);
 
-
 	void SendMessageInUsers(PacketHandler * inHandler);
 	void SetBaseRoom() { bBaseRoom = true; };
+	void SetRoomName(const std::string& strInRoomName) { strRoomName = strInRoomName; }
 	
 	int GetRoomUserCount() { return sChatUserData.size(); }
 	bool GetBaseRoom() { return bBaseRoom; }
