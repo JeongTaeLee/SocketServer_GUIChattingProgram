@@ -413,7 +413,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::JIGAPPacket::_EmptyPacket_default_instance_),
 };
 
-const char descriptor_table_protodef_JIGAPPacket_2eproto[] =
+const char descriptor_table_protodef_JIGAPPacket_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021JIGAPPacket.proto\022\013JIGAPPacket\"$\n\010User"
   "Data\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"J\n\rSingUp"
   "Request\022\'\n\010userData\030\001 \001(\0132\025.JIGAPPacket."
@@ -543,14 +543,9 @@ bool LoginFailedReason_IsValid(int value) {
 
 void UserData::InitAsDefaultInstance() {
 }
-class UserData::HasBitSetters {
+class UserData::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int UserData::kIdFieldNumber;
-const int UserData::kNameFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 UserData::UserData()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -562,11 +557,11 @@ UserData::UserData(const UserData& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.id().size() > 0) {
+  if (!from.id().empty()) {
     id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
   }
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
+  if (!from.name().empty()) {
     name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.UserData)
@@ -862,10 +857,6 @@ bool UserData::IsInitialized() const {
   return true;
 }
 
-void UserData::Swap(UserData* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void UserData::InternalSwap(UserData* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -886,20 +877,15 @@ void SingUpRequest::InitAsDefaultInstance() {
   ::JIGAPPacket::_SingUpRequest_default_instance_._instance.get_mutable()->userdata_ = const_cast< ::JIGAPPacket::UserData*>(
       ::JIGAPPacket::UserData::internal_default_instance());
 }
-class SingUpRequest::HasBitSetters {
+class SingUpRequest::_Internal {
  public:
   static const ::JIGAPPacket::UserData& userdata(const SingUpRequest* msg);
 };
 
 const ::JIGAPPacket::UserData&
-SingUpRequest::HasBitSetters::userdata(const SingUpRequest* msg) {
+SingUpRequest::_Internal::userdata(const SingUpRequest* msg) {
   return *msg->userdata_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SingUpRequest::kUserDataFieldNumber;
-const int SingUpRequest::kPasswardFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 SingUpRequest::SingUpRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -910,7 +896,7 @@ SingUpRequest::SingUpRequest(const SingUpRequest& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   passward_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.passward().size() > 0) {
+  if (!from.passward().empty()) {
     passward_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.passward_);
   }
   if (from.has_userdata()) {
@@ -1068,7 +1054,7 @@ void SingUpRequest::SerializeWithCachedSizes(
   // .JIGAPPacket.UserData userData = 1;
   if (this->has_userdata()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::userdata(this), output);
+      1, _Internal::userdata(this), output);
   }
 
   // string passward = 2;
@@ -1098,7 +1084,7 @@ void SingUpRequest::SerializeWithCachedSizes(
   if (this->has_userdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::userdata(this), target);
+        1, _Internal::userdata(this), target);
   }
 
   // string passward = 2;
@@ -1201,10 +1187,6 @@ bool SingUpRequest::IsInitialized() const {
   return true;
 }
 
-void SingUpRequest::Swap(SingUpRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SingUpRequest::InternalSwap(SingUpRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -1222,14 +1204,9 @@ void SingUpRequest::InternalSwap(SingUpRequest* other) {
 
 void SingUpAnswer::InitAsDefaultInstance() {
 }
-class SingUpAnswer::HasBitSetters {
+class SingUpAnswer::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SingUpAnswer::kSuccessFieldNumber;
-const int SingUpAnswer::kSingUpReasonFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SingUpAnswer::SingUpAnswer()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -1508,10 +1485,6 @@ bool SingUpAnswer::IsInitialized() const {
   return true;
 }
 
-void SingUpAnswer::Swap(SingUpAnswer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SingUpAnswer::InternalSwap(SingUpAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -1528,14 +1501,9 @@ void SingUpAnswer::InternalSwap(SingUpAnswer* other) {
 
 void LoginRequest::InitAsDefaultInstance() {
 }
-class LoginRequest::HasBitSetters {
+class LoginRequest::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int LoginRequest::kIdFieldNumber;
-const int LoginRequest::kPasswardFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 LoginRequest::LoginRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -1547,11 +1515,11 @@ LoginRequest::LoginRequest(const LoginRequest& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.id().size() > 0) {
+  if (!from.id().empty()) {
     id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
   }
   passward_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.passward().size() > 0) {
+  if (!from.passward().empty()) {
     passward_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.passward_);
   }
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.LoginRequest)
@@ -1847,10 +1815,6 @@ bool LoginRequest::IsInitialized() const {
   return true;
 }
 
-void LoginRequest::Swap(LoginRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void LoginRequest::InternalSwap(LoginRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -1871,21 +1835,15 @@ void LoginAnswer::InitAsDefaultInstance() {
   ::JIGAPPacket::_LoginAnswer_default_instance_._instance.get_mutable()->userdata_ = const_cast< ::JIGAPPacket::UserData*>(
       ::JIGAPPacket::UserData::internal_default_instance());
 }
-class LoginAnswer::HasBitSetters {
+class LoginAnswer::_Internal {
  public:
   static const ::JIGAPPacket::UserData& userdata(const LoginAnswer* msg);
 };
 
 const ::JIGAPPacket::UserData&
-LoginAnswer::HasBitSetters::userdata(const LoginAnswer* msg) {
+LoginAnswer::_Internal::userdata(const LoginAnswer* msg) {
   return *msg->userdata_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int LoginAnswer::kUserDataFieldNumber;
-const int LoginAnswer::kLoginReasonFieldNumber;
-const int LoginAnswer::kSuccessFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 LoginAnswer::LoginAnswer()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -2075,7 +2033,7 @@ void LoginAnswer::SerializeWithCachedSizes(
   // .JIGAPPacket.UserData userData = 1;
   if (this->has_userdata()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::userdata(this), output);
+      1, _Internal::userdata(this), output);
   }
 
   // .JIGAPPacket.LoginFailedReason loginReason = 2;
@@ -2106,7 +2064,7 @@ void LoginAnswer::SerializeWithCachedSizes(
   if (this->has_userdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::userdata(this), target);
+        1, _Internal::userdata(this), target);
   }
 
   // .JIGAPPacket.LoginFailedReason loginReason = 2;
@@ -2215,10 +2173,6 @@ bool LoginAnswer::IsInitialized() const {
   return true;
 }
 
-void LoginAnswer::Swap(LoginAnswer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void LoginAnswer::InternalSwap(LoginAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2236,13 +2190,9 @@ void LoginAnswer::InternalSwap(LoginAnswer* other) {
 
 void RoomInfo::InitAsDefaultInstance() {
 }
-class RoomInfo::HasBitSetters {
+class RoomInfo::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RoomInfo::kRoomnameFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RoomInfo::RoomInfo()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -2254,7 +2204,7 @@ RoomInfo::RoomInfo(const RoomInfo& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   roomname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.roomname().size() > 0) {
+  if (!from.roomname().empty()) {
     roomname_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.roomname_);
   }
   // @@protoc_insertion_point(copy_constructor:JIGAPPacket.RoomInfo)
@@ -2493,10 +2443,6 @@ bool RoomInfo::IsInitialized() const {
   return true;
 }
 
-void RoomInfo::Swap(RoomInfo* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void RoomInfo::InternalSwap(RoomInfo* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2515,20 +2461,15 @@ void CreateRoomAnswer::InitAsDefaultInstance() {
   ::JIGAPPacket::_CreateRoomAnswer_default_instance_._instance.get_mutable()->roominfo_ = const_cast< ::JIGAPPacket::RoomInfo*>(
       ::JIGAPPacket::RoomInfo::internal_default_instance());
 }
-class CreateRoomAnswer::HasBitSetters {
+class CreateRoomAnswer::_Internal {
  public:
   static const ::JIGAPPacket::RoomInfo& roominfo(const CreateRoomAnswer* msg);
 };
 
 const ::JIGAPPacket::RoomInfo&
-CreateRoomAnswer::HasBitSetters::roominfo(const CreateRoomAnswer* msg) {
+CreateRoomAnswer::_Internal::roominfo(const CreateRoomAnswer* msg) {
   return *msg->roominfo_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CreateRoomAnswer::kRoomInfoFieldNumber;
-const int CreateRoomAnswer::kSuccessFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 CreateRoomAnswer::CreateRoomAnswer()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -2692,7 +2633,7 @@ void CreateRoomAnswer::SerializeWithCachedSizes(
   // .JIGAPPacket.RoomInfo roomInfo = 1;
   if (this->has_roominfo()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::roominfo(this), output);
+      1, _Internal::roominfo(this), output);
   }
 
   // bool success = 2;
@@ -2717,7 +2658,7 @@ void CreateRoomAnswer::SerializeWithCachedSizes(
   if (this->has_roominfo()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::roominfo(this), target);
+        1, _Internal::roominfo(this), target);
   }
 
   // bool success = 2;
@@ -2811,10 +2752,6 @@ bool CreateRoomAnswer::IsInitialized() const {
   return true;
 }
 
-void CreateRoomAnswer::Swap(CreateRoomAnswer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void CreateRoomAnswer::InternalSwap(CreateRoomAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2833,19 +2770,15 @@ void JoinRoomRequest::InitAsDefaultInstance() {
   ::JIGAPPacket::_JoinRoomRequest_default_instance_._instance.get_mutable()->roominfo_ = const_cast< ::JIGAPPacket::RoomInfo*>(
       ::JIGAPPacket::RoomInfo::internal_default_instance());
 }
-class JoinRoomRequest::HasBitSetters {
+class JoinRoomRequest::_Internal {
  public:
   static const ::JIGAPPacket::RoomInfo& roominfo(const JoinRoomRequest* msg);
 };
 
 const ::JIGAPPacket::RoomInfo&
-JoinRoomRequest::HasBitSetters::roominfo(const JoinRoomRequest* msg) {
+JoinRoomRequest::_Internal::roominfo(const JoinRoomRequest* msg) {
   return *msg->roominfo_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int JoinRoomRequest::kRoomInfoFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 JoinRoomRequest::JoinRoomRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -2985,7 +2918,7 @@ void JoinRoomRequest::SerializeWithCachedSizes(
   // .JIGAPPacket.RoomInfo roomInfo = 1;
   if (this->has_roominfo()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::roominfo(this), output);
+      1, _Internal::roominfo(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3005,7 +2938,7 @@ void JoinRoomRequest::SerializeWithCachedSizes(
   if (this->has_roominfo()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::roominfo(this), target);
+        1, _Internal::roominfo(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3086,10 +3019,6 @@ bool JoinRoomRequest::IsInitialized() const {
   return true;
 }
 
-void JoinRoomRequest::Swap(JoinRoomRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void JoinRoomRequest::InternalSwap(JoinRoomRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -3107,20 +3036,15 @@ void JoinRoomAnswer::InitAsDefaultInstance() {
   ::JIGAPPacket::_JoinRoomAnswer_default_instance_._instance.get_mutable()->roominfo_ = const_cast< ::JIGAPPacket::RoomInfo*>(
       ::JIGAPPacket::RoomInfo::internal_default_instance());
 }
-class JoinRoomAnswer::HasBitSetters {
+class JoinRoomAnswer::_Internal {
  public:
   static const ::JIGAPPacket::RoomInfo& roominfo(const JoinRoomAnswer* msg);
 };
 
 const ::JIGAPPacket::RoomInfo&
-JoinRoomAnswer::HasBitSetters::roominfo(const JoinRoomAnswer* msg) {
+JoinRoomAnswer::_Internal::roominfo(const JoinRoomAnswer* msg) {
   return *msg->roominfo_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int JoinRoomAnswer::kRoomInfoFieldNumber;
-const int JoinRoomAnswer::kSuccessFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 JoinRoomAnswer::JoinRoomAnswer()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -3284,7 +3208,7 @@ void JoinRoomAnswer::SerializeWithCachedSizes(
   // .JIGAPPacket.RoomInfo roomInfo = 1;
   if (this->has_roominfo()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::roominfo(this), output);
+      1, _Internal::roominfo(this), output);
   }
 
   // bool success = 2;
@@ -3309,7 +3233,7 @@ void JoinRoomAnswer::SerializeWithCachedSizes(
   if (this->has_roominfo()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::roominfo(this), target);
+        1, _Internal::roominfo(this), target);
   }
 
   // bool success = 2;
@@ -3403,10 +3327,6 @@ bool JoinRoomAnswer::IsInitialized() const {
   return true;
 }
 
-void JoinRoomAnswer::Swap(JoinRoomAnswer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void JoinRoomAnswer::InternalSwap(JoinRoomAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -3423,13 +3343,9 @@ void JoinRoomAnswer::InternalSwap(JoinRoomAnswer* other) {
 
 void RoomListAnswer::InitAsDefaultInstance() {
 }
-class RoomListAnswer::HasBitSetters {
+class RoomListAnswer::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RoomListAnswer::kRoomCountFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RoomListAnswer::RoomListAnswer()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -3661,10 +3577,6 @@ bool RoomListAnswer::IsInitialized() const {
   return true;
 }
 
-void RoomListAnswer::Swap(RoomListAnswer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void RoomListAnswer::InternalSwap(RoomListAnswer* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -3682,19 +3594,15 @@ void RoomListElement::InitAsDefaultInstance() {
   ::JIGAPPacket::_RoomListElement_default_instance_._instance.get_mutable()->roominfo_ = const_cast< ::JIGAPPacket::RoomInfo*>(
       ::JIGAPPacket::RoomInfo::internal_default_instance());
 }
-class RoomListElement::HasBitSetters {
+class RoomListElement::_Internal {
  public:
   static const ::JIGAPPacket::RoomInfo& roominfo(const RoomListElement* msg);
 };
 
 const ::JIGAPPacket::RoomInfo&
-RoomListElement::HasBitSetters::roominfo(const RoomListElement* msg) {
+RoomListElement::_Internal::roominfo(const RoomListElement* msg) {
   return *msg->roominfo_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RoomListElement::kRoomInfoFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 RoomListElement::RoomListElement()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -3834,7 +3742,7 @@ void RoomListElement::SerializeWithCachedSizes(
   // .JIGAPPacket.RoomInfo roomInfo = 1;
   if (this->has_roominfo()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::roominfo(this), output);
+      1, _Internal::roominfo(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3854,7 +3762,7 @@ void RoomListElement::SerializeWithCachedSizes(
   if (this->has_roominfo()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::roominfo(this), target);
+        1, _Internal::roominfo(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3935,10 +3843,6 @@ bool RoomListElement::IsInitialized() const {
   return true;
 }
 
-void RoomListElement::Swap(RoomListElement* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void RoomListElement::InternalSwap(RoomListElement* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -3956,20 +3860,15 @@ void ChatRequest::InitAsDefaultInstance() {
   ::JIGAPPacket::_ChatRequest_default_instance_._instance.get_mutable()->userdata_ = const_cast< ::JIGAPPacket::UserData*>(
       ::JIGAPPacket::UserData::internal_default_instance());
 }
-class ChatRequest::HasBitSetters {
+class ChatRequest::_Internal {
  public:
   static const ::JIGAPPacket::UserData& userdata(const ChatRequest* msg);
 };
 
 const ::JIGAPPacket::UserData&
-ChatRequest::HasBitSetters::userdata(const ChatRequest* msg) {
+ChatRequest::_Internal::userdata(const ChatRequest* msg) {
   return *msg->userdata_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ChatRequest::kUserDataFieldNumber;
-const int ChatRequest::kStrMessageFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 ChatRequest::ChatRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -3980,7 +3879,7 @@ ChatRequest::ChatRequest(const ChatRequest& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   strmessage_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.strmessage().size() > 0) {
+  if (!from.strmessage().empty()) {
     strmessage_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.strmessage_);
   }
   if (from.has_userdata()) {
@@ -4138,7 +4037,7 @@ void ChatRequest::SerializeWithCachedSizes(
   // .JIGAPPacket.UserData userData = 1;
   if (this->has_userdata()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::userdata(this), output);
+      1, _Internal::userdata(this), output);
   }
 
   // string strMessage = 2;
@@ -4168,7 +4067,7 @@ void ChatRequest::SerializeWithCachedSizes(
   if (this->has_userdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::userdata(this), target);
+        1, _Internal::userdata(this), target);
   }
 
   // string strMessage = 2;
@@ -4271,10 +4170,6 @@ bool ChatRequest::IsInitialized() const {
   return true;
 }
 
-void ChatRequest::Swap(ChatRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void ChatRequest::InternalSwap(ChatRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -4294,20 +4189,15 @@ void ChatData::InitAsDefaultInstance() {
   ::JIGAPPacket::_ChatData_default_instance_._instance.get_mutable()->userdata_ = const_cast< ::JIGAPPacket::UserData*>(
       ::JIGAPPacket::UserData::internal_default_instance());
 }
-class ChatData::HasBitSetters {
+class ChatData::_Internal {
  public:
   static const ::JIGAPPacket::UserData& userdata(const ChatData* msg);
 };
 
 const ::JIGAPPacket::UserData&
-ChatData::HasBitSetters::userdata(const ChatData* msg) {
+ChatData::_Internal::userdata(const ChatData* msg) {
   return *msg->userdata_;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ChatData::kUserDataFieldNumber;
-const int ChatData::kStrMessageFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
 ChatData::ChatData()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -4318,7 +4208,7 @@ ChatData::ChatData(const ChatData& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   strmessage_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from.strmessage().size() > 0) {
+  if (!from.strmessage().empty()) {
     strmessage_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.strmessage_);
   }
   if (from.has_userdata()) {
@@ -4476,7 +4366,7 @@ void ChatData::SerializeWithCachedSizes(
   // .JIGAPPacket.UserData userData = 1;
   if (this->has_userdata()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, HasBitSetters::userdata(this), output);
+      1, _Internal::userdata(this), output);
   }
 
   // string strMessage = 2;
@@ -4506,7 +4396,7 @@ void ChatData::SerializeWithCachedSizes(
   if (this->has_userdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, HasBitSetters::userdata(this), target);
+        1, _Internal::userdata(this), target);
   }
 
   // string strMessage = 2;
@@ -4609,10 +4499,6 @@ bool ChatData::IsInitialized() const {
   return true;
 }
 
-void ChatData::Swap(ChatData* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void ChatData::InternalSwap(ChatData* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -4630,13 +4516,9 @@ void ChatData::InternalSwap(ChatData* other) {
 
 void EmptyPacket::InitAsDefaultInstance() {
 }
-class EmptyPacket::HasBitSetters {
+class EmptyPacket::_Internal {
  public:
 };
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EmptyPacket::kTypeFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EmptyPacket::EmptyPacket()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -4871,10 +4753,6 @@ bool EmptyPacket::IsInitialized() const {
   return true;
 }
 
-void EmptyPacket::Swap(EmptyPacket* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void EmptyPacket::InternalSwap(EmptyPacket* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);

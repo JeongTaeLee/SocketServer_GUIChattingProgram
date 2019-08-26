@@ -150,9 +150,6 @@
     <ClInclude Include="ChatRoomAdmin.h">
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
     </ClInclude>
-    <ClInclude Include="JIGAPPacket.pb.h">
-      <Filter>JIGAPPacket</Filter>
-    </ClInclude>
     <ClInclude Include="iniReader.h">
       <Filter>ServerEngine\IniReader</Filter>
     </ClInclude>
@@ -161,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="ExceptionLoger.h">
       <Filter>ExceptionLoger</Filter>
+    </ClInclude>
+    <ClInclude Include="JIGAPPacket.pb.h">
+      <Filter>JIGAPPacket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +224,6 @@
     <ClCompile Include="ChatRoomAdmin.cpp">
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
     </ClCompile>
-    <ClCompile Include="JIGAPPacket.pb.cc">
-      <Filter>JIGAPPacket</Filter>
-    </ClCompile>
     <ClCompile Include="iniReader.cpp">
       <Filter>ServerEngine\IniReader</Filter>
     </ClCompile>
@@ -235,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="ExceptionLoger.cpp">
       <Filter>ExceptionLoger</Filter>
+    </ClCompile>
+    <ClCompile Include="JIGAPPacket.pb.cc">
+      <Filter>JIGAPPacket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -58,21 +58,21 @@ namespace JIGAPPacket {
             "EAESEwoPZU92ZXJsYXBDb25uZWN0EAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), typeof(global::JIGAPPacket.SingUpFailedReason), typeof(global::JIGAPPacket.LoginFailedReason), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.UserData), global::JIGAPPacket.UserData.Parser, new[]{ "Id", "Name" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpRequest), global::JIGAPPacket.SingUpRequest.Parser, new[]{ "UserData", "Passward" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpAnswer), global::JIGAPPacket.SingUpAnswer.Parser, new[]{ "Success", "SingUpReason" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequest), global::JIGAPPacket.LoginRequest.Parser, new[]{ "Id", "Passward" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "UserData", "LoginReason", "Success" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomRequest), global::JIGAPPacket.JoinRoomRequest.Parser, new[]{ "RoomInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswer), global::JIGAPPacket.JoinRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswer), global::JIGAPPacket.RoomListAnswer.Parser, new[]{ "RoomCount" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListElement), global::JIGAPPacket.RoomListElement.Parser, new[]{ "RoomInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatRequest), global::JIGAPPacket.ChatRequest.Parser, new[]{ "UserData", "StrMessage" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatData), global::JIGAPPacket.ChatData.Parser, new[]{ "UserData", "StrMessage" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.EmptyPacket), global::JIGAPPacket.EmptyPacket.Parser, new[]{ "Type" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::JIGAPPacket.Type), typeof(global::JIGAPPacket.SingUpFailedReason), typeof(global::JIGAPPacket.LoginFailedReason), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.UserData), global::JIGAPPacket.UserData.Parser, new[]{ "Id", "Name" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpRequest), global::JIGAPPacket.SingUpRequest.Parser, new[]{ "UserData", "Passward" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.SingUpAnswer), global::JIGAPPacket.SingUpAnswer.Parser, new[]{ "Success", "SingUpReason" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginRequest), global::JIGAPPacket.LoginRequest.Parser, new[]{ "Id", "Passward" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.LoginAnswer), global::JIGAPPacket.LoginAnswer.Parser, new[]{ "UserData", "LoginReason", "Success" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomInfo), global::JIGAPPacket.RoomInfo.Parser, new[]{ "Roomname" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.CreateRoomAnswer), global::JIGAPPacket.CreateRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomRequest), global::JIGAPPacket.JoinRoomRequest.Parser, new[]{ "RoomInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.JoinRoomAnswer), global::JIGAPPacket.JoinRoomAnswer.Parser, new[]{ "RoomInfo", "Success" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListAnswer), global::JIGAPPacket.RoomListAnswer.Parser, new[]{ "RoomCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.RoomListElement), global::JIGAPPacket.RoomListElement.Parser, new[]{ "RoomInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatRequest), global::JIGAPPacket.ChatRequest.Parser, new[]{ "UserData", "StrMessage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.ChatData), global::JIGAPPacket.ChatData.Parser, new[]{ "UserData", "StrMessage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::JIGAPPacket.EmptyPacket), global::JIGAPPacket.EmptyPacket.Parser, new[]{ "Type" }, null, null, null, null)
           }));
     }
     #endregion
@@ -480,7 +480,7 @@ namespace JIGAPPacket {
 
     /// <summary>Field number for the "singUpReason" field.</summary>
     public const int SingUpReasonFieldNumber = 2;
-    private global::JIGAPPacket.SingUpFailedReason singUpReason_ = 0;
+    private global::JIGAPPacket.SingUpFailedReason singUpReason_ = global::JIGAPPacket.SingUpFailedReason.EDuplicateId;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::JIGAPPacket.SingUpFailedReason SingUpReason {
       get { return singUpReason_; }
@@ -511,7 +511,7 @@ namespace JIGAPPacket {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
-      if (SingUpReason != 0) hash ^= SingUpReason.GetHashCode();
+      if (SingUpReason != global::JIGAPPacket.SingUpFailedReason.EDuplicateId) hash ^= SingUpReason.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -529,7 +529,7 @@ namespace JIGAPPacket {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (SingUpReason != 0) {
+      if (SingUpReason != global::JIGAPPacket.SingUpFailedReason.EDuplicateId) {
         output.WriteRawTag(16);
         output.WriteEnum((int) SingUpReason);
       }
@@ -544,7 +544,7 @@ namespace JIGAPPacket {
       if (Success != false) {
         size += 1 + 1;
       }
-      if (SingUpReason != 0) {
+      if (SingUpReason != global::JIGAPPacket.SingUpFailedReason.EDuplicateId) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) SingUpReason);
       }
       if (_unknownFields != null) {
@@ -561,7 +561,7 @@ namespace JIGAPPacket {
       if (other.Success != false) {
         Success = other.Success;
       }
-      if (other.SingUpReason != 0) {
+      if (other.SingUpReason != global::JIGAPPacket.SingUpFailedReason.EDuplicateId) {
         SingUpReason = other.SingUpReason;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -795,7 +795,7 @@ namespace JIGAPPacket {
 
     /// <summary>Field number for the "loginReason" field.</summary>
     public const int LoginReasonFieldNumber = 2;
-    private global::JIGAPPacket.LoginFailedReason loginReason_ = 0;
+    private global::JIGAPPacket.LoginFailedReason loginReason_ = global::JIGAPPacket.LoginFailedReason.EDontMatchId;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::JIGAPPacket.LoginFailedReason LoginReason {
       get { return loginReason_; }
@@ -838,7 +838,7 @@ namespace JIGAPPacket {
     public override int GetHashCode() {
       int hash = 1;
       if (userData_ != null) hash ^= UserData.GetHashCode();
-      if (LoginReason != 0) hash ^= LoginReason.GetHashCode();
+      if (LoginReason != global::JIGAPPacket.LoginFailedReason.EDontMatchId) hash ^= LoginReason.GetHashCode();
       if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -857,7 +857,7 @@ namespace JIGAPPacket {
         output.WriteRawTag(10);
         output.WriteMessage(UserData);
       }
-      if (LoginReason != 0) {
+      if (LoginReason != global::JIGAPPacket.LoginFailedReason.EDontMatchId) {
         output.WriteRawTag(16);
         output.WriteEnum((int) LoginReason);
       }
@@ -876,7 +876,7 @@ namespace JIGAPPacket {
       if (userData_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserData);
       }
-      if (LoginReason != 0) {
+      if (LoginReason != global::JIGAPPacket.LoginFailedReason.EDontMatchId) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LoginReason);
       }
       if (Success != false) {
@@ -899,7 +899,7 @@ namespace JIGAPPacket {
         }
         UserData.MergeFrom(other.UserData);
       }
-      if (other.LoginReason != 0) {
+      if (other.LoginReason != global::JIGAPPacket.LoginFailedReason.EDontMatchId) {
         LoginReason = other.LoginReason;
       }
       if (other.Success != false) {
@@ -2153,7 +2153,7 @@ namespace JIGAPPacket {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::JIGAPPacket.Type type_ = 0;
+    private global::JIGAPPacket.Type type_ = global::JIGAPPacket.Type.ESingUpRequest;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::JIGAPPacket.Type Type {
       get { return type_; }
@@ -2182,7 +2182,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != 0) hash ^= Type.GetHashCode();
+      if (Type != global::JIGAPPacket.Type.ESingUpRequest) hash ^= Type.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2196,7 +2196,7 @@ namespace JIGAPPacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Type != 0) {
+      if (Type != global::JIGAPPacket.Type.ESingUpRequest) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -2208,7 +2208,7 @@ namespace JIGAPPacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Type != 0) {
+      if (Type != global::JIGAPPacket.Type.ESingUpRequest) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       if (_unknownFields != null) {
@@ -2222,7 +2222,7 @@ namespace JIGAPPacket {
       if (other == null) {
         return;
       }
-      if (other.Type != 0) {
+      if (other.Type != global::JIGAPPacket.Type.ESingUpRequest) {
         Type = other.Type;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);

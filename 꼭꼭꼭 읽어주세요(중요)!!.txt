@@ -12,7 +12,7 @@ Server의 실행 파일과 같은 위치에 "ServerConfiguration.ini" 파일로 데이터베이스 �
 id char(50) NOT NULL,
 password char(50) NOT NULL,
 name char(50) NOT NULL,
-PRIMARY KEY(name)
+PRIMARY KEY(id)
 
 --------------------------------Client-----------------------------------------------------------
 기본적으로 클라이언트는 Aws에 올려져있는 서버로 연결 설정이 되어있습니다
