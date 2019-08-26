@@ -47,7 +47,7 @@ int TCPSocket::SYNCSocket()
 int TCPSocket::Bind(const char* szInPortAddr)
 {
 	sockAddr.SetAddress(szInPortAddr);
-
+	
 	int iBindResult = bind(hSock, sockAddr.GetAsSockAddr(), sockAddr.GetSize());
 	if (iBindResult >= 0)
 		return NO_ERROR;

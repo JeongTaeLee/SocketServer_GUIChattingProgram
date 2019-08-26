@@ -2,12 +2,13 @@
 #include "JIGAPServer.h"
 #include "JIGAPChatProcess.h"
 #include "MySqlDB.h"
-#include "ExceptionLoger.h"
+
+#include "LogManager.h"
 
 JIGAPServer::JIGAPServer()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(342898);
+	//_CrtSetBreakAlloc(2811);
 }
 
 JIGAPServer::~JIGAPServer()
@@ -26,7 +27,7 @@ bool JIGAPServer::CreateServerSocket()
 
 		lpServerSocket = new TCPSocket();
 		if ((errorCode = lpServerSocket->IOCPSocket()) != 0)
-			throw "IOCPSocket ErrorCode - %d";
+			throw std::exception("ServerSocket fail create socket");
 
 		LINGER LingerStruct;
 		LingerStruct.l_onoff = 1;
@@ -34,34 +35,28 @@ bool JIGAPServer::CreateServerSocket()
 		::setsockopt(lpServerSocket->GetSocket(), SOL_SOCKET, SO_LINGER, (char*)& LingerStruct, sizeof(LingerStruct));
 
 		if ((errorCode = lpServerSocket->Bind(serverData.GetPortAddress().c_str())) != 0)
-			throw "Bind ErrorCode - %d";
+			throw std::exception("ServerSocket fail bind");
 
 		hCompletionHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 		if (hCompletionHandle == nullptr)
-			throw "CreateIoCompletionPort ErrorCode - %d";
+			throw std::exception("ServerSocket fail connect iocp");
 
 		if ((errorCode = lpServerSocket->Listen(100)) != 0)
-			throw "Listen ErrorCode - %d";
+			throw std::exception("ServerSocket fail listen");
 	}
-	catch (const char* functionName)
+	catch (std::exception & ex)
 	{
-		ServerRelease();
-		
-		char ch[256];
-		sprintf(ch, functionName, WSAGetLastError());
-		throw std::exception(ch);
+		LOGMANAGER.LogError(__FILEW__, __LINE__, ex.what());
 
+		ServerRelease();
 		return false;
 	}
 
-	RegisterServerLog("Success to Start Server");
 	return true;
 }
 
 bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 {
-	lpExceptionLogger = new ExceptionLoger("ExceptionLogger");
-
 	lpServerProcess = new JIGAPChatProcess(this);
 	lpServerProcess->OnInitialize();
 	
@@ -69,6 +64,8 @@ bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 	
 	if (CreateServerSocket() == false)
 		return false;
+
+	LOGMANAGER.Log(__FILEW__, __LINE__, "Start Server");
 	
 	hConnectThread = std::thread([&]() { OnConnectTask(); });
 	Sleep(100);
@@ -97,9 +94,7 @@ void JIGAPServer::ServerRelease()
 
 	SAFE_DELETE(lpServerProcess);
 	SAFE_DELETE(lpServerSocket);
-	SAFE_DELETE(lpExceptionLogger);
 	
-	RegisterServerLog("Success End Server");
 }
 
 bool JIGAPServer::StartServer(const std::string& inPortAddress)
@@ -111,11 +106,12 @@ bool JIGAPServer::StartServer(const std::string& inPortAddress)
 void JIGAPServer::CloseServer()
 {
 	ServerRelease();
+	LOGMANAGER.Log(__FILEW__, __LINE__, "End Server");
 }
 
 void JIGAPServer::OnConnectTask()
 {
-	RegisterServerLog("Success To Start ConnectTask");
+	LOGMANAGER.Log(__FILEW__, __LINE__, "Start connect thread");
 
 	while (true)
 	{
@@ -133,8 +129,6 @@ void JIGAPServer::OnConnectTask()
 			if (acceptSocket->IOCPRecv() != 0)
 				throw std::exception("[JIGAPServer.OnConnectTask] Fail Start IOCPRecv");
 
-			RegisterServerLog("Success To Connect Client (Socket : %d)", acceptSocket->GetSocket());
-
 			if (lpServerProcess)
 				lpServerProcess->OnConnect(acceptSocket);
 		}
@@ -149,20 +143,18 @@ void JIGAPServer::OnConnectTask()
 			if (!bServerOn)
 				break;
 
-			lpExceptionLogger->ExceptionLog(__FILE__, __LINE__, e.what());
-			
+			LOGMANAGER.LogError(__FILEW__, __LINE__, e.what());
 			continue;
-
 		}
 
 	}
 
-	RegisterServerLog("Success To End ConnectTask");
+	LOGMANAGER.Log(__FILEW__, __LINE__, "End connect thread");
 }
 
 void JIGAPServer::OnRecvPacketTask()
 {
-	RegisterServerLog("Success To Start RecvTask");
+	LOGMANAGER.Log(__FILEW__, __LINE__, "Start recv thread");
 
 	PacketHandler *packetHandler = new PacketHandler();
 
@@ -184,12 +176,16 @@ void JIGAPServer::OnRecvPacketTask()
 			if (iRecvByte == 0)
 			{
 				lpTCPSocket->DownReferenceCount();
-				if (lpTCPSocket->GetReferenceCount() <= 0)
-				{
+				
+				if (lpTCPSocket->GetReferenceCount() == 0)
 					lpServerProcess->OnDisconnect(lpTCPSocket);
-					RegisterServerLog("Disconnect Client Socket(SOCKET : %d)", lpTCPSocket->GetSocket());
-				}
+
+				continue;
 			}
+			else if (iRecvByte <= 4 && lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
+				throw std::exception("The packet is not normal.");
+			else if (iRecvByte >= 1024 && lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
+				throw std::exception("Allowed packet communication size exceeded.");
 			else
 			{
 				if (lpTCPSocket->GetIOMode() == IOMODE::E_IOMODE_RECV)
@@ -198,6 +194,10 @@ void JIGAPServer::OnRecvPacketTask()
 					lpTCPSocket->OffRecvingFlag();
 
 					int iRealRecvSize = packetHandler->ParsingBufferSize(lpTCPSocket->GetBufferData());
+
+					if (iRealRecvSize >= 1024)
+						throw std::exception("Allowed packet communication size exceeded.");
+		
 					packetHandler->ClearParsingBuffer(lpTCPSocket->GetBufferData(), iRealRecvSize);
 					packetHandler->ClearSerializeBuffer();
 
@@ -212,31 +212,18 @@ void JIGAPServer::OnRecvPacketTask()
 		}
 		catch (std::exception& ex)
 		{
-			lpExceptionLogger->ExceptionLog(__FILE__, __LINE__, ex.what());
+			lpTCPSocket->DownReferenceCount();
+			lpTCPSocket->IOCPRecv();
+			LOGMANAGER.Log(__FILEW__, __LINE__, ex.what());
 		}
 	
 	}
 
 	SAFE_DELETE(packetHandler);
-	RegisterServerLog("Success To End RecvTask");
-}
-
-void JIGAPServer::RegisterServerLog(const char* fmt, ...)
-{
-	char buf[1024] = { 0 };
-	va_list ap;
-	
-	va_start(ap, fmt);
-	vsprintf(buf, fmt, ap);
-	va_end(ap);
-
-	wchar_t tBuf[1024];
-	MultiByteToWideChar(CP_ACP, 0, buf, -1, tBuf, 1024);
-
-	lpLogFunc((int*)tBuf);
+	LOGMANAGER.Log(__FILEW__, __LINE__, "End recv thread");
 }
 
 void JIGAPServer::RegisterLogFunc(void* lpFuncPointer)
 {
-	 lpLogFunc = (LogFunc)lpFuncPointer;
+	LOGMANAGER.Initialize((LogFunc)lpFuncPointer);
 }

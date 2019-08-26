@@ -3,9 +3,6 @@
 template<class T>
 class singleton
 {
-private:
-	static T* lpInst;
-
 protected:
 	singleton() {}
 	virtual ~singleton() {}
@@ -13,19 +10,8 @@ protected:
 public:
 	static T& GetInst()
 	{
-		if (lpInst == nullptr)
-			lpInst = new T;
-
-		return *lpInst;
+		static T inst;
+		return inst;
 	}
-	static void ReleaseInst()
-	{
-		if (lpInst)
-			delete lpInst;
 
-		lpInst = nullptr;
-	}
 };
-
-template<class T>
-T* singleton<T>::lpInst = nullptr;

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SharpDX;
-using SharpDX.Direct3D9;
-using SharpDX.Windows;
-using SharpDX.Multimedia;
 using JIGAPClientDXGUI.Engine;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace JIGAPClientDXGUI
 {
@@ -22,6 +19,8 @@ namespace JIGAPClientDXGUI
                 if(mainGame.Initialize())
                     mainGame.Run();
             }
+
+            
         }
     }
 }

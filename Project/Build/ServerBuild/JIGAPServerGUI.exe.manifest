@@ -42,26 +42,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JIGAPServerCLR.dll" size="711168">
-      <assemblyIdentity name="JIGAPServerCLR" version="1.0.7177.17859" language="neutral" processorArchitecture="amd64" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JIGAPServerCLR.dll" size="696832">
+      <assemblyIdentity name="JIGAPServerCLR" version="1.0.7177.36515" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/lGnvedXe6e+VwVUSVUaiGlXRxDto+MZZczcrvt/H50=</dsig:DigestValue>
+        <dsig:DigestValue>xnvGRM7Hk5ajdqJDjaL+WHdbSRt6k1UNdqBDtIWagEY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JIGAPServerGUI.exe" size="10720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JIGAPServerGUI.exe" size="11232">
       <assemblyIdentity name="JIGAPServerGUI" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mxlrkOLncVhLYNP7F9xBvVpsBKnuDxwYT2ePs0T7gHA=</dsig:DigestValue>
+        <dsig:DigestValue>aESVyhtvqNiXVDJxnygMr/RjljaPgI9lADo7aFxUsCE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -31,9 +31,6 @@
     <Filter Include="ServerEngine\Entity\TCPSocket">
       <UniqueIdentifier>{41945770-95a3-4c02-bcd2-d7720c6abb6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\Mananger">
-      <UniqueIdentifier>{969dd818-1f61-46fb-b742-ccc9d4dcdc5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ServerEngine\Entity\BaseUserData">
       <UniqueIdentifier>{4abc8bc7-8ba3-4066-a869-d355481a1c69}</UniqueIdentifier>
     </Filter>
@@ -52,20 +49,8 @@
     <Filter Include="JIGAPChattingServer\ChatRoom">
       <UniqueIdentifier>{a6f2e9ca-4374-4b0f-a5e6-d90e92a2ed0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\Entity\PoolObject">
-      <UniqueIdentifier>{24d77cb2-26f2-467e-b9e8-08566ad2e265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ServerEngine\BaseDB">
-      <UniqueIdentifier>{55dcdca2-07cd-4743-89b5-9c4d2cb2627e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ServerEngine\MySqlDB">
-      <UniqueIdentifier>{6e501eaa-dcda-4f4a-955b-23d887b5e83c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JIGAPChattingServer\ChatQuery">
       <UniqueIdentifier>{dc32d7a8-2e6d-481c-8289-008a16593234}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ServerEngine\BaseQuery">
-      <UniqueIdentifier>{9c6ff740-e76a-4e1a-848b-d18d8ca10daa}</UniqueIdentifier>
     </Filter>
     <Filter Include="JIGAPChattingServer\ChatUserData">
       <UniqueIdentifier>{88063311-fc21-4392-bca8-958f22bcb832}</UniqueIdentifier>
@@ -73,17 +58,38 @@
     <Filter Include="JIGAPChattingServer\ChatRoomAdmin">
       <UniqueIdentifier>{f5656c0c-e067-479f-8530-2e74d745329b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerEngine\IniReader">
-      <UniqueIdentifier>{512a0bb8-f651-4fb4-a084-649587c6458a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ServerEngine\iniWriter">
-      <UniqueIdentifier>{11e0d005-4a11-4506-abf1-e342b4ff1438}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ExceptionLoger">
-      <UniqueIdentifier>{fc9e2676-2049-4c3a-a283-f07ef342186e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ServerEngine\UserAdmin">
       <UniqueIdentifier>{a8a3551d-395f-4442-8d32-a2e1199555c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Database">
+      <UniqueIdentifier>{f5627ae6-cbfd-4303-80a7-5d25548163f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Database\BaseQuery">
+      <UniqueIdentifier>{9c6ff740-e76a-4e1a-848b-d18d8ca10daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Database\BaseDB">
+      <UniqueIdentifier>{55dcdca2-07cd-4743-89b5-9c4d2cb2627e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Database\MySqlDB">
+      <UniqueIdentifier>{6e501eaa-dcda-4f4a-955b-23d887b5e83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Info">
+      <UniqueIdentifier>{762d5ae6-7bd5-40ec-9395-dd1d9cb12ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Info\IniReader">
+      <UniqueIdentifier>{512a0bb8-f651-4fb4-a084-649587c6458a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\Info\iniWriter">
+      <UniqueIdentifier>{11e0d005-4a11-4506-abf1-e342b4ff1438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerEngine\PoolObject">
+      <UniqueIdentifier>{24d77cb2-26f2-467e-b9e8-08566ad2e265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mananger">
+      <UniqueIdentifier>{969dd818-1f61-46fb-b742-ccc9d4dcdc5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mananger\LogManager">
+      <UniqueIdentifier>{2c310e29-d3ee-438a-9e5d-6219f0215be5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +118,7 @@
       <Filter>ServerEngine\Entity\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="singleton.h">
-      <Filter>ServerEngine\Mananger</Filter>
+      <Filter>Mananger</Filter>
     </ClInclude>
     <ClInclude Include="UserDataAdmin.h">
       <Filter>ServerEngine\UserAdmin</Filter>
@@ -133,16 +139,16 @@
       <Filter>JIGAPChattingServer\ChatRoom</Filter>
     </ClInclude>
     <ClInclude Include="PoolObject.h">
-      <Filter>ServerEngine\Entity\PoolObject</Filter>
+      <Filter>ServerEngine\PoolObject</Filter>
     </ClInclude>
     <ClInclude Include="BaseDB.h">
-      <Filter>ServerEngine\BaseDB</Filter>
+      <Filter>ServerEngine\Database\BaseDB</Filter>
     </ClInclude>
     <ClInclude Include="MySqlDB.h">
-      <Filter>ServerEngine\MySqlDB</Filter>
+      <Filter>ServerEngine\Database\MySqlDB</Filter>
     </ClInclude>
     <ClInclude Include="BaseQuery.h">
-      <Filter>ServerEngine\BaseQuery</Filter>
+      <Filter>ServerEngine\Database\BaseQuery</Filter>
     </ClInclude>
     <ClInclude Include="ChatQuery.h">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
@@ -151,16 +157,16 @@
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
     </ClInclude>
     <ClInclude Include="iniReader.h">
-      <Filter>ServerEngine\IniReader</Filter>
+      <Filter>ServerEngine\Info\IniReader</Filter>
     </ClInclude>
     <ClInclude Include="iniWriter.h">
-      <Filter>ServerEngine\iniWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="ExceptionLoger.h">
-      <Filter>ExceptionLoger</Filter>
+      <Filter>ServerEngine\Info\iniWriter</Filter>
     </ClInclude>
     <ClInclude Include="JIGAPPacket.pb.h">
       <Filter>JIGAPPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="LogManager.h">
+      <Filter>Mananger\LogManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,16 +213,16 @@
       <Filter>JIGAPChattingServer\ChatRoom</Filter>
     </ClCompile>
     <ClCompile Include="PoolObject.cpp">
-      <Filter>ServerEngine\Entity\PoolObject</Filter>
+      <Filter>ServerEngine\PoolObject</Filter>
     </ClCompile>
     <ClCompile Include="BaseDB.cpp">
-      <Filter>ServerEngine\BaseDB</Filter>
+      <Filter>ServerEngine\Database\BaseDB</Filter>
     </ClCompile>
     <ClCompile Include="MySqlDB.cpp">
-      <Filter>ServerEngine\MySqlDB</Filter>
+      <Filter>ServerEngine\Database\MySqlDB</Filter>
     </ClCompile>
     <ClCompile Include="BaseQuery.cpp">
-      <Filter>ServerEngine\BaseQuery</Filter>
+      <Filter>ServerEngine\Database\BaseQuery</Filter>
     </ClCompile>
     <ClCompile Include="ChatQuery.cpp">
       <Filter>JIGAPChattingServer\ChatQuery</Filter>
@@ -225,16 +231,16 @@
       <Filter>JIGAPChattingServer\ChatRoomAdmin</Filter>
     </ClCompile>
     <ClCompile Include="iniReader.cpp">
-      <Filter>ServerEngine\IniReader</Filter>
+      <Filter>ServerEngine\Info\IniReader</Filter>
     </ClCompile>
     <ClCompile Include="iniWriter.cpp">
-      <Filter>ServerEngine\iniWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="ExceptionLoger.cpp">
-      <Filter>ExceptionLoger</Filter>
+      <Filter>ServerEngine\Info\iniWriter</Filter>
     </ClCompile>
     <ClCompile Include="JIGAPPacket.pb.cc">
       <Filter>JIGAPPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="LogManager.cpp">
+      <Filter>Mananger\LogManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

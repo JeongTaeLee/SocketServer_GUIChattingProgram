@@ -242,7 +242,6 @@
     <ClInclude Include="ChatQuery.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
-    <ClInclude Include="ExceptionLoger.h" />
     <ClInclude Include="iniReader.h" />
     <ClInclude Include="iniWriter.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
@@ -250,6 +249,7 @@
     <ClInclude Include="JIGAPBaserProcess.h" />
     <ClInclude Include="JIGAPChatProcess.h" />
     <ClInclude Include="JIGAPStructure.h" />
+    <ClInclude Include="LogManager.h" />
     <ClInclude Include="MySqlDB.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h" />
@@ -269,7 +269,6 @@
     <ClCompile Include="ChatQuery.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
-    <ClCompile Include="ExceptionLoger.cpp" />
     <ClCompile Include="iniReader.cpp" />
     <ClCompile Include="iniWriter.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />
@@ -277,6 +276,7 @@
     <ClCompile Include="JIGAPBaserProcess.cpp" />
     <ClCompile Include="JIGAPChatProcess.cpp" />
     <ClCompile Include="JIGAPStructure.cpp" />
+    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="MySqlDB.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PacketHandler.cpp" />

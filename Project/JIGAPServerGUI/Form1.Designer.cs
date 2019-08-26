@@ -47,15 +47,15 @@
             // 
             this.PortTextBox.Location = new System.Drawing.Point(69, 12);
             this.PortTextBox.Name = "PortTextBox";
-            this.PortTextBox.Size = new System.Drawing.Size(239, 21);
+            this.PortTextBox.Size = new System.Drawing.Size(356, 21);
             this.PortTextBox.TabIndex = 3;
             this.PortTextBox.Text = "9199";
             // 
             // ServerSwitch
             // 
-            this.ServerSwitch.Location = new System.Drawing.Point(12, 39);
+            this.ServerSwitch.Location = new System.Drawing.Point(431, 12);
             this.ServerSwitch.Name = "ServerSwitch";
-            this.ServerSwitch.Size = new System.Drawing.Size(297, 23);
+            this.ServerSwitch.Size = new System.Drawing.Size(307, 23);
             this.ServerSwitch.TabIndex = 4;
             this.ServerSwitch.Text = "Open";
             this.ServerSwitch.UseVisualStyleBackColor = true;
@@ -63,17 +63,20 @@
             // 
             // LogTextBox
             // 
-            this.LogTextBox.Location = new System.Drawing.Point(12, 68);
+            this.LogTextBox.BackColor = System.Drawing.SystemColors.WindowText;
+            this.LogTextBox.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LogTextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.LogTextBox.Location = new System.Drawing.Point(12, 39);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.Size = new System.Drawing.Size(296, 370);
+            this.LogTextBox.Size = new System.Drawing.Size(1007, 540);
             this.LogTextBox.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 450);
+            this.ClientSize = new System.Drawing.Size(1031, 591);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.ServerSwitch);
             this.Controls.Add(this.PortTextBox);

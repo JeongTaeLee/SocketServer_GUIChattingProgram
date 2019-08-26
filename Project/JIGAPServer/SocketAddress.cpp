@@ -8,10 +8,6 @@ sockaddr* SocketAddress::GetAsSockAddr()
 	return reinterpret_cast<sockaddr*>(&sockAddrIn);
 }
 
-SocketAddress::SocketAddress()
-{
-}
-
 SocketAddress::~SocketAddress()
 {
 }
