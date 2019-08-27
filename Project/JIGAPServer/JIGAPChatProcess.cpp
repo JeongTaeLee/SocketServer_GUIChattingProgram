@@ -18,13 +18,29 @@ const char* baseRoom04 = "Public04";
 const char* baseRoom05 = "Public05";
 
 
-void JIGAPChatProcess::OnInitialize()
+bool JIGAPChatProcess::OnInitialize()
 {
-	lpUserAdmin = new UserDataAdmin<ChatUserData>();
-	lpUserAdmin->InitializeAdmin(100000);
+	try
+	{
+		lpUserAdmin = new UserDataAdmin<ChatUserData>();
+		lpUserAdmin->InitializeAdmin(100000);
 
-	lpChatRoomAdmin = new ChatRoomAdmin();
-	lpChatRoomAdmin->Initialize(100000);
+		lpChatRoomAdmin = new ChatRoomAdmin();
+		lpChatRoomAdmin->Initialize(100000);
+
+		lpQuery = new ChatQuery();
+		lpQuery->InitializeQuery();
+	}
+	catch(CustomException & ex)
+	{
+		LOGMANAGER.LogError(ex.WhatPath().c_str(), ex.WhatLine(), ex.what());
+		return false;
+	}
+	catch (std::exception& ex)
+	{
+		LOGMANAGER.LogError(__FILEW__, __LINE__, ex.what());
+		return false;
+	}
 
 	lpChatRoomAdmin->CreateLobby(lobbyName);
 	lpChatRoomAdmin->CreateRoom(baseRoom01, true);
@@ -33,8 +49,7 @@ void JIGAPChatProcess::OnInitialize()
 	lpChatRoomAdmin->CreateRoom(baseRoom04, true);
 	lpChatRoomAdmin->CreateRoom(baseRoom05, true);
 
-	lpQuery = new ChatQuery();
-	lpQuery->InitializeQuery();
+	return true;
 }
 
 void JIGAPChatProcess::OnRelease()
@@ -52,7 +67,7 @@ void JIGAPChatProcess::OnRelease()
 void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
 {
 	ChatUserData * data = lpUserAdmin->AddUser(lpInSocket);
-	LOGMANAGER.Log(__FILEW__, __LINE__, "User(%d) connect in server.", data->GetTCPSocket()->GetSocket());
+	LOGMANAGER.Log("User(%d) connect in server.", data->GetTCPSocket()->GetSocket());
 }
 
 void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
@@ -62,7 +77,7 @@ void JIGAPChatProcess::OnDisconnect(TCPSocket* lpInSocket)
 	if (data)
 		ExitRoom(lpInSocket);
 
-	LOGMANAGER.Log(__FILEW__, __LINE__, "User(%d) disconnect in server.", data->GetTCPSocket()->GetSocket());
+	LOGMANAGER.Log("User(%d) disconnect in server.", data->GetTCPSocket()->GetSocket());
 	lpUserAdmin->DeleteUser(lpInSocket);
 }
 
@@ -116,7 +131,7 @@ bool JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 	JIGAPPacket::SingUpAnswer singUpAnswer;
 	lpHandler->NextParsingPacket(singUpRequest, header.iSize);
 	
-	LOGMANAGER.Log(__FILEW__, __LINE__, "User(%s) start sign up to server", singUpRequest.userdata().name());
+	LOGMANAGER.Log("User(%s) start sign up to server", singUpRequest.userdata().name());
 
 	TYPE_ROW row;
 	TYPE_ROW nameRow;
@@ -128,7 +143,7 @@ bool JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		singUpAnswer.set_success(false);
 		singUpAnswer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDontCondition);
 	}
-	else if (lpQuery->FindUserDataToDB(singUpRequest.userdata().id(), row))
+	else if (lpQuery->FindUserDataInDB(singUpRequest.userdata().id(), row))
 	{
 		singUpAnswer.set_success(false);
 		singUpAnswer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
@@ -138,7 +153,7 @@ bool JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		singUpAnswer.set_success(false);
 		singUpAnswer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateName);
 	}
-	else if (lpQuery->InsertUserDataToDB(singUpRequest.userdata().id(), singUpRequest.passward(), singUpRequest.userdata().name()) == false)
+	else if (lpQuery->InsertUserDataInDB(singUpRequest.userdata().id(), singUpRequest.passward(), singUpRequest.userdata().name()) == false)
 	{
 		singUpAnswer.set_success(false);
 		singUpAnswer.set_singupreason(JIGAPPacket::SingUpFailedReason::eDuplicateId);
@@ -147,9 +162,9 @@ bool JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		singUpAnswer.set_success(true);
 
 	if (singUpAnswer.success())
-		LOGMANAGER.Log(__FILEW__, __LINE__, "User(%s) sign up successed to server", singUpRequest.userdata().name().c_str());
+		LOGMANAGER.Log("User(%s) sign up successed to server", singUpRequest.userdata().name().c_str());
 	else
-		LOGMANAGER.Log(__FILEW__, __LINE__, "User(%s) sign up failed to server", singUpRequest.userdata().name().c_str());
+		LOGMANAGER.Log("User(%s) sign up failed to server", singUpRequest.userdata().name().c_str());
 
 	lpHandler->SerializePacket(JIGAPPacket::eSingUpAnswer, singUpAnswer);
 	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
@@ -173,7 +188,7 @@ bool JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 	JIGAPPacket::LoginAnswer loginAnswer;
 	JIGAPPacket::UserData* answerUserData = loginAnswer.mutable_userdata();
 	
-	LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) start login to server", loginRequest.id().c_str());
+	LOGMANAGER.Log("Id(%s) start login to server", loginRequest.id().c_str());
 
 	TYPE_ROW row;
 
@@ -183,7 +198,7 @@ bool JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 		loginAnswer.set_loginreason(JIGAPPacket::LoginFailedReason::eOverlapConnect);
 	}
 
-	else if (lpQuery->FindUserDataToDB(loginRequest.id(), row) == false)
+	else if (lpQuery->FindUserDataInDB(loginRequest.id(), row) == false)
 	{
 		loginAnswer.set_success(false);
 		loginAnswer.set_loginreason(JIGAPPacket::LoginFailedReason::eDontMatchId);
@@ -212,10 +227,10 @@ bool JIGAPChatProcess::OnLoginRequest(TCPSocket* lpInTCPSocket, PacketHandler* l
 
 		PutUserIntoRoom(lpHandler, find, lobbyName);
 		
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) login successed to server", loginRequest.id().c_str());
+		LOGMANAGER.Log("Id(%s) login successed to server", loginRequest.id().c_str());
 	}
 	else
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) login failed to server", loginRequest.id().c_str());
+		LOGMANAGER.Log("Id(%s) login failed to server", loginRequest.id().c_str());
 
 	return true;
 }
@@ -234,7 +249,7 @@ bool JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	JIGAPPacket::JoinRoomAnswer joinRoomAnswer;
 	JIGAPPacket::RoomInfo * answerRoomInfo =  joinRoomAnswer.mutable_roominfo();
 	
-	LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) start join to Room(%s)", find->GetUserID().c_str(), joinRoomRequest.roominfo().roomname().c_str());
+	LOGMANAGER.Log("Id(%s) start join to Room(%s)", find->GetUserID().c_str(), joinRoomRequest.roominfo().roomname().c_str());
 
 	if (find->GetCurrentRoom())
 		ExitRoom(lpInTCPSocket);
@@ -246,7 +261,7 @@ bool JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 		joinRoomAnswer.set_success(false);
 		answerRoomInfo->set_roomname("Null");
 
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) join failed to Room(%s)", find->GetUserID().c_str(), joinRoomRequest.roominfo().roomname());
+		LOGMANAGER.Log("Id(%s) join failed to Room(%s)", find->GetUserID().c_str(), joinRoomRequest.roominfo().roomname());
 	}
 	else
 	{
@@ -256,7 +271,7 @@ bool JIGAPChatProcess::OnJoinRoomRequest(TCPSocket* lpInTCPSocket, PacketHandler
 		joinRoomAnswer.set_success(true);
 		answerRoomInfo->set_roomname(findRoom->GetRoomName());
 
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) join success to Room(%s)", find->GetUserID().c_str(), answerRoomInfo->roomname().c_str());
+		LOGMANAGER.Log("Id(%s) join success to Room(%s)", find->GetUserID().c_str(), answerRoomInfo->roomname().c_str());
 	}
 	
 	lpHandler->SerializePacket(JIGAPPacket::Type::eJoinRoomAnswer, joinRoomAnswer);
@@ -275,7 +290,7 @@ bool JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	if (find->GetCurrentRoom() == nullptr)
 		return false;
 
-	LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) start Send RoomList", find->GetUserID().c_str());
+	LOGMANAGER.Log("Id(%s) start Send RoomList", find->GetUserID().c_str());
 	
 	JIGAPPacket::EmptyPacket RoomListRequest;
 	lpHandler->NextParsingPacket(RoomListRequest, header.iSize);
@@ -283,7 +298,7 @@ bool JIGAPChatProcess::OnRoomListRequest(TCPSocket* lpInTCPSocket, PacketHandler
 	if (RoomListRequest.type() == JIGAPPacket::Type::eRoomListRequest)
 		lpChatRoomAdmin->SerialieRoomList(lpHandler);
 
-	LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) success Send RoomList", find->GetUserID().c_str());
+	LOGMANAGER.Log("Id(%s) success Send RoomList", find->GetUserID().c_str());
 
 	lpInTCPSocket->IOCPSend(lpHandler->GetSerializeBufferData(), lpHandler->GetSerializeRealSize());
 
@@ -306,7 +321,7 @@ bool JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandl
 	JIGAPPacket::CreateRoomAnswer createRoomAnswer;
 	JIGAPPacket::RoomInfo * answerRoomInfo = createRoomAnswer.mutable_roominfo();
 
-	LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) start create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
+	LOGMANAGER.Log("Id(%s) start create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
 
 	ChatRoom* findRoom = lpChatRoomAdmin->FindRoom(createRoomRequest.roomname());
 
@@ -315,7 +330,7 @@ bool JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandl
 		createRoomAnswer.set_success(false);
 		answerRoomInfo->set_roomname("None");
 
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) failed create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
+		LOGMANAGER.Log("Id(%s) failed create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
 	}
 	else
 	{
@@ -324,7 +339,7 @@ bool JIGAPChatProcess::OnCreateRoomRequest(TCPSocket* lpInTCPSocket, PacketHandl
 		createRoomAnswer.set_success(true);
 		answerRoomInfo->set_roomname(createRoomRequest.roomname());
 
-		LOGMANAGER.Log(__FILEW__, __LINE__, "Id(%s) success create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
+		LOGMANAGER.Log("Id(%s) success create room(%s)", find->GetUserID().c_str(), createRoomRequest.roomname().c_str());
 	}
 
 	lpHandler->SerializePacket(JIGAPPacket::Type::eCreateRoomAnswer, createRoomAnswer);

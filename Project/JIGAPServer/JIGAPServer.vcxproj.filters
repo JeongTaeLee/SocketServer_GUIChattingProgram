@@ -91,6 +91,9 @@
     <Filter Include="Mananger\LogManager">
       <UniqueIdentifier>{2c310e29-d3ee-438a-9e5d-6219f0215be5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CustomException">
+      <UniqueIdentifier>{b5d1025f-c9ff-4000-843c-e9b978891e59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="LogManager.h">
       <Filter>Mananger\LogManager</Filter>
     </ClInclude>
+    <ClInclude Include="CustomException.h">
+      <Filter>CustomException</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -241,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="LogManager.cpp">
       <Filter>Mananger\LogManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomException.cpp">
+      <Filter>CustomException</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

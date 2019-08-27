@@ -9,6 +9,7 @@ bool ChatQuery::InitializeQuery()
 	iniReader reader;
 	reader.Open("./ServerConfiguration.ini");
 
+	
 	if (reader.Failed())
 	{
 		char port[256];
@@ -46,7 +47,7 @@ bool ChatQuery::InitializeQuery()
 
 	if (User == "null" || Host == "null" || Port == "null" || Database == "null" || Password == "null" || Table == "null")
 	{
-		throw std::exception("Server Configuration File Error");
+		throw CustomException(__LINE__, __FILEW__, "Server Configuration File Error");
 		return false;
 	}
 
@@ -61,33 +62,27 @@ void ChatQuery::ReleaseQuery()
 	SAFE_DELETE(lpDB);
 }
 
-bool ChatQuery::CheckUserDataToDB(const std::string& strInId)
+bool ChatQuery::CheckUserDataInDB(const std::string& strInId)
 {
 	char ch[256];
 	sprintf(ch, "select * from %s where id='%s'", lpDB->GetTable().c_str(), strInId.c_str());
 
 	QUERYRESULT result = lpDB->WriteQuery(ch);
 
-	if (result == QUERYRESULT::FAILE)
-		return false;
-
-	if (result == QUERYRESULT::EMPTY)
+	if (result == QUERYRESULT::FAILE || result == QUERYRESULT::EMPTY)
 		return false;
 
 	return true;
 }
 
-bool ChatQuery::FindUserDataToDB(const std::string& strInId, TYPE_ROW & row)
+bool ChatQuery::FindUserDataInDB(const std::string& strInId, TYPE_ROW & row)
 {
 	char ch[256];
 	sprintf(ch, "select * from %s where id='%s'", lpDB->GetTable().c_str(), strInId.c_str());
 	
 	QUERYRESULT result = lpDB->ReadRow(ch, row);
 
-	if (result == QUERYRESULT::FAILE)
-		return false;
-
-	if (result == QUERYRESULT::EMPTY)
+	if (result == QUERYRESULT::FAILE || result == QUERYRESULT::EMPTY)
 		return false;
 
 	return true;
@@ -100,18 +95,15 @@ bool ChatQuery::CheckDuplicationUserName(const std::string& strInId)
 
 	QUERYRESULT result = lpDB->WriteQuery(ch);
 
-	if (result == QUERYRESULT::FAILE)
-		return false;
-
-	if (result == QUERYRESULT::EMPTY)
+	if (result == QUERYRESULT::FAILE || result == QUERYRESULT::EMPTY)
 		return false;
 
 	return true;
 }
 
-bool ChatQuery::InsertUserDataToDB(const std::string& strInId, const std::string & strInPassword, const std::string & strInName)
+bool ChatQuery::InsertUserDataInDB(const std::string& strInId, const std::string & strInPassword, const std::string & strInName)
 {
-	if (CheckUserDataToDB(strInId)) {
+	if (CheckUserDataInDB(strInId)) {
 		return false;
 	}
 

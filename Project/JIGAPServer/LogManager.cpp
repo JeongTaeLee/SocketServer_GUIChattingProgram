@@ -6,7 +6,7 @@ void LogManager::Initialize(void * inLogFunc)
 	lpLogFunc = (LogFunc)inLogFunc;
 }
 
-void LogManager::Log(const wchar_t* fileName, int line, const char* fmt, ...)
+void LogManager::Log(const char* fmt, ...)
 {
 	char buf[1024] = { 0 };
 	va_list ap;

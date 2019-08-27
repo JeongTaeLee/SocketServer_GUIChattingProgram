@@ -163,8 +163,6 @@ namespace JIGAPClientDXGUI
                 obj.Release();
             _objectsList.Clear();
 
-            
-
             GC.SuppressFinalize(this);
         }
 

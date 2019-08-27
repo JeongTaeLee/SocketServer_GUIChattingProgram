@@ -27,12 +27,16 @@ namespace JIGAPClientDXGUI
             GameObject backGround = ObjectManager.Instance.RegisterObject();
             backGround.AddComponent<UIRenderer>().Texture = ResourceManager.Instance.LoadTexture("LoginBackGround");
 
+            TextField loginField = null;
+            TextField passwordField = null;
+
             GameObject fieldObject = ObjectManager.Instance.RegisterObject();
-            TextField loginField = fieldObject.AddComponent<TextField>();
+            loginField = fieldObject.AddComponent<TextField>();
             CreateLoginTextBox(fieldObject, loginField, new SharpDX.Vector3(340, 268, 0f));
 
             fieldObject = ObjectManager.Instance.RegisterObject();
-            TextField passwordField = fieldObject.AddComponent<TextField>();
+            passwordField = fieldObject.AddComponent<TextField>();
+            passwordField.enterBehavior = (string str) => { OnLoginRequest(loginField.textComponent.str, str); };
             CreateLoginTextBox(fieldObject, passwordField, new SharpDX.Vector3(340, 410, 0f));
 
             Button loginButton = ObjectManager.Instance.RegisterObject().AddComponent<Button>();
@@ -55,13 +59,16 @@ namespace JIGAPClientDXGUI
 
         private void OnLoginRequest(string inid, string inpassword)
         {
+            if (string.IsNullOrEmpty(inid) || string.IsNullOrEmpty(inpassword))
+                return;
+
             NetworkManager.Instance.SendProcess.SendLoginRequest(inid, inpassword);
         }
 
         private void CreateLoginTextBox(GameObject inObject, TextField inField, SharpDX.Vector3 v3)
         {
             inField.texture = ResourceManager.Instance.LoadTexture("LoginTextBox");
-            inField.textComponent.SetString("Empty");
+            inField.textComponent.SetString("");
             inObject.transform.position = v3;
 
         }

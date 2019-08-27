@@ -30,13 +30,13 @@ public:
 	inline T * AddUser(TCPSocket * lpInTCPSocket)
 	{
 		if (auto Iter = hmUsers.find(lpInTCPSocket->GetSocket()); Iter != hmUsers.end())
-			throw std::exception("The Client tried to access abnormally");
+			throw CustomException(__LINE__, __FILEW__, "The Client tried to access abnormally");
 
 		T* addObject = dataPool.GetItem();	
 		addObject->SetTCPSock(lpInTCPSocket);
 
 		if (!addObject)
-			throw std::exception("Over UserData Count in server");
+			throw CustomException(__LINE__, __FILEW__, "Over UserData Count in server");
 
 		userDataMutex.lock();
 		T* t = hmUsers.insert(std::hash_map<SOCKET, T*>::value_type(lpInTCPSocket->GetSocket(), addObject)).first->second;

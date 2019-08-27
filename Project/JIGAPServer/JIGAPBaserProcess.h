@@ -14,7 +14,7 @@ public:
 	JIGAPBaserProcess(JIGAPServer* inLpJIGAPServer) { lpJIGAPServer = inLpJIGAPServer; };
 	virtual ~JIGAPBaserProcess() {};
 
-	virtual void OnInitialize() PURE;
+	virtual bool OnInitialize() PURE;
 	virtual void OnRelease()						 PURE;
 	virtual void OnConnect(TCPSocket * lpInSocket)	 PURE;
 	virtual void OnDisconnect(TCPSocket* lpInSocket) PURE;

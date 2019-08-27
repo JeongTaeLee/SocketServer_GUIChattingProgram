@@ -242,6 +242,7 @@
     <ClInclude Include="ChatQuery.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="ChatUserData.h" />
+    <ClInclude Include="CustomException.h" />
     <ClInclude Include="iniReader.h" />
     <ClInclude Include="iniWriter.h" />
     <ClInclude Include="JIGAPPacket.pb.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="ChatQuery.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatUserData.cpp" />
+    <ClCompile Include="CustomException.cpp" />
     <ClCompile Include="iniReader.cpp" />
     <ClCompile Include="iniWriter.cpp" />
     <ClCompile Include="JIGAPPacket.pb.cc" />

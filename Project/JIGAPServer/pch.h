@@ -45,6 +45,8 @@
 #pragma comment(lib, "libprotobuf-lite.lib")
 #endif
 
+#include "CustomException.h"
+
 #include "JIGAPPacket.pb.h"
 #include "JIGAPStructure.h"
 #include "TCPSocket.h"

@@ -10,14 +10,13 @@ class ChatQuery :
 public:
 	virtual bool InitializeQuery() override;
 	virtual void ReleaseQuery() override;
-
 	
 	/*유저가 DB에 저장되어있는지 확인합니다.
 	TRUE : 유저가 존재합니다
 	FALSE : 유저가 존재하지 않습니다*/
-	bool CheckUserDataToDB(const std::string & strInId);
-	bool FindUserDataToDB(const std::string& strInId, TYPE_ROW& row);
+	bool CheckUserDataInDB(const std::string & strInId);
+	bool FindUserDataInDB(const std::string& strInId, TYPE_ROW& row);
 	bool CheckDuplicationUserName(const std::string& strInId);
-	bool InsertUserDataToDB(const std::string& strInId, const std::string& strInPassword, const std::string& strInName);
+	bool InsertUserDataInDB(const std::string& strInId, const std::string& strInPassword, const std::string& strInName);
 };
 

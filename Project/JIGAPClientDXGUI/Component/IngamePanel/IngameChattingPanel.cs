@@ -31,7 +31,7 @@ namespace JIGAPClientDXGUI
             button.transform.Parent = transform;
             button.transform.position = new SharpDX.Vector3(916f, 672f, 0f);
             button.SetButton(ResourceManager.Instance.LoadTexture("SendButton"), 
-                () => { SendChatting(_chattingInputField.textComponent.ToString()); });
+                () => { SendChatting(_chattingInputField.textComponent.str); });
 
             _chatView = ObjectManager.Instance.RegisterObject().AddComponent<ChatView>();
             _chatView.Initialize(10, 55, 620, 10, 35f, 980, 35);
@@ -39,7 +39,7 @@ namespace JIGAPClientDXGUI
 
         private void SendChatting(string inMessage)
         {
-            if (inMessage.Length <= 0)
+            if (string.IsNullOrEmpty(inMessage))
                 return;
 
             NetworkManager.Instance.SendProcess.SendChatRequest(

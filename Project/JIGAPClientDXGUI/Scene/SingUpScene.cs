@@ -51,7 +51,7 @@ namespace JIGAPClientDXGUI
         private void CreateLoginTextBox(GameObject inObject, TextField inField, SharpDX.Vector3 v3)
         {
             inField.texture = ResourceManager.Instance.LoadTexture("SingUpTextBox");
-            inField.textComponent.SetString("Empty");
+            inField.textComponent.SetString("");
             inObject.transform.position = v3;
         }
 

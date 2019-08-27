@@ -13,7 +13,7 @@ private:
 public:
 	void Initialize(void* inLogFunc);
 
-	void Log(const wchar_t* fileName, int line, const char* fmt, ...);
+	void Log(const char* fmt, ...);
 	void LogError(const wchar_t* fileName, int line, const char* fmt, ...);
 };
 
