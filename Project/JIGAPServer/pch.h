@@ -23,6 +23,7 @@
 #include <crtdbg.h>
 #include <atlconv.h>
 #include <exception>
+#include <functional>
 #include <mysql.h>
 #include <hash_map>
 #include <io.h>

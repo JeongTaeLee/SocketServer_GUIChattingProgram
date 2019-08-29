@@ -6,6 +6,7 @@ class TCPSocket;
 class ChatRoomAdmin;
 class ChatUserData;
 class ChatQuery;
+class ThreadPool;
 
 template<typename _Ty> class UserDataAdmin;
 
@@ -17,6 +18,7 @@ private:
 	UserDataAdmin<ChatUserData>* lpUserAdmin = nullptr;
 	ChatRoomAdmin* lpChatRoomAdmin = nullptr;
 	ChatQuery* lpQuery = nullptr;
+	ThreadPool* lpThreadPool = nullptr;
 
 private:
 	JIGAPChatProcess()

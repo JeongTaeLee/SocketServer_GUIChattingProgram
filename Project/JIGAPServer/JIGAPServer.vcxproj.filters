@@ -94,6 +94,9 @@
     <Filter Include="CustomException">
       <UniqueIdentifier>{b5d1025f-c9ff-4000-843c-e9b978891e59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServerEngine\ThreadPool">
+      <UniqueIdentifier>{095eb945-aeb4-47b0-9a3b-e03d51b00d29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="CustomException.h">
       <Filter>CustomException</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>ServerEngine\ThreadPool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -250,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="CustomException.cpp">
       <Filter>CustomException</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>ServerEngine\ThreadPool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

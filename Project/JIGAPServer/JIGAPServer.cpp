@@ -57,6 +57,8 @@ bool JIGAPServer::CreateServerSocket()
 
 bool JIGAPServer::ServerInitialize(const std::string& inPortAddress)
 {
+	
+
 	lpServerProcess = new JIGAPChatProcess(this);
 	lpServerProcess->OnInitialize();
 	

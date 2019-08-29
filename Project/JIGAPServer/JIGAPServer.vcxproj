@@ -260,6 +260,7 @@
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="TCPIOData.h" />
     <ClInclude Include="TCPSocket.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="UserDataAdmin.h" />
     <ClInclude Include="BaseUserData.h" />
   </ItemGroup>
@@ -294,6 +295,7 @@
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="TCPIOData.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="UserDataAdmin.cpp" />
     <ClCompile Include="BaseUserData.cpp" />
   </ItemGroup>

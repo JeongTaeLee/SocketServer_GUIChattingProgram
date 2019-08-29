@@ -6,6 +6,7 @@
 #include "ChatUserData.h"
 #include "ChatRoomAdmin.h"
 #include "ChatQuery.h"
+#include "ThreadPool.h"
 
 #include "LogManager.h"
 
@@ -30,6 +31,11 @@ bool JIGAPChatProcess::OnInitialize()
 
 		lpQuery = new ChatQuery();
 		lpQuery->InitializeQuery();
+
+		SYSTEM_INFO systemInfo;
+		GetSystemInfo(&systemInfo);
+		
+		lpThreadPool = new ThreadPool(systemInfo.dwNumberOfProcessors * 2 + 2);
 	}
 	catch(CustomException & ex)
 	{
@@ -62,6 +68,8 @@ void JIGAPChatProcess::OnRelease()
 
 	lpQuery->ReleaseQuery();
 	SAFE_DELETE(lpQuery);
+
+	SAFE_DELETE(lpThreadPool);
 }
 
 void JIGAPChatProcess::OnConnect(TCPSocket* lpInSocket)
@@ -128,9 +136,11 @@ bool JIGAPChatProcess::OnSingUpRequest(TCPSocket* lpInTCPSocket, PacketHandler* 
 		return false;
 
 	JIGAPPacket::SingUpRequest singUpRequest;
-	JIGAPPacket::SingUpAnswer singUpAnswer;
 	lpHandler->NextParsingPacket(singUpRequest, header.iSize);
-	
+
+
+	JIGAPPacket::SingUpAnswer singUpAnswer;
+
 	LOGMANAGER.Log("User(%s) start sign up to server", singUpRequest.userdata().name());
 
 	TYPE_ROW row;
