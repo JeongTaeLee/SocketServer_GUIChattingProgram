@@ -32,10 +32,6 @@ bool JIGAPChatProcess::OnInitialize()
 		lpQuery = new ChatQuery();
 		lpQuery->InitializeQuery();
 
-		SYSTEM_INFO systemInfo;
-		GetSystemInfo(&systemInfo);
-		
-		lpThreadPool = new ThreadPool(systemInfo.dwNumberOfProcessors * 2 + 2);
 	}
 	catch(CustomException & ex)
 	{

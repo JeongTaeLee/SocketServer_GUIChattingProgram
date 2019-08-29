@@ -13,7 +13,7 @@ ThreadPool::ThreadPool(int inPoolSize)
 				std::unique_lock lock(threadsMutex);
 
 				if (qFunction.empty() && bDestroy) return;
-				if (qFunction.empty() || bPause) return;
+				if (qFunction.empty() || bPause) continue;
 				
 				auto behaviors = std::move(qFunction.front());
 				qFunction.pop();

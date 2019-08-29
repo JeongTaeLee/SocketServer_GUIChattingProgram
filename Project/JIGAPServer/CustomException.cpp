@@ -1,3 +1,4 @@
+
 #include "pch.h"
 #include "CustomException.h"
 
@@ -7,6 +8,7 @@ CustomException::CustomException(int inLine, const std::wstring& inFilePath, con
 	iLine = inLine;
 	strFilePath = inFilePath;
 }
+
 
 CustomException::~CustomException()
 {

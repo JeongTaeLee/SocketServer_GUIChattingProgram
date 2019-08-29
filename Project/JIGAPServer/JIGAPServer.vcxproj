@@ -112,8 +112,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Build\ServerBuild\</OutDir>
-    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Tools\protobuf-3.9.0\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\Debug\;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\Develop\External\protobuf\protobuf-3.9.0\src;C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Tools\protobuf-3.9.0\src;$(IncludePath)</IncludePath>
+    <LibraryPath>&amp;(SolutionDir)\Library\libd\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,8 +125,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Build\ReleaseServer\</OutDir>
-    <IncludePath>C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Tools\protobuf-3.9.0\src;E:\Develop\External\protobuf\protobuf-3.8.0-rc-1\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\Release\;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\Develop\External\protobuf\protobuf-3.9.0\src;C:\Program Files\MySQL\MySQL Server 8.0\include;E:\Tools\protobuf-3.9.0\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Library\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
