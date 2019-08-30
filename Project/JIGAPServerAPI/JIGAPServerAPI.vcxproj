@@ -151,11 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseDataBase.h" />
     <ClInclude Include="BaseProcess.h" />
     <ClInclude Include="BaseSocket.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="IOCPIOData.h" />
     <ClInclude Include="IOCPSocket.h" />
+    <ClInclude Include="MySqlDataBase.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PathException.h" />
     <ClInclude Include="pch.h" />
@@ -164,11 +166,13 @@
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseDataBase.cpp" />
     <ClCompile Include="BaseProcess.cpp" />
     <ClCompile Include="BaseSocket.cpp" />
     <ClCompile Include="IOCPIOData.cpp" />
     <ClCompile Include="IOCPSocket.cpp" />
     <ClCompile Include="JIGAPServerAPI.cpp" />
+    <ClCompile Include="MySqlDataBase.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PathException.cpp" />
     <ClCompile Include="pch.cpp">

@@ -42,6 +42,7 @@ QUERYRESULT MySqlDB::ReadTables(const std::string& query, TYPE_ROWS& inResult)
 
 			int fieldCount = mysql_num_fields(sqlRes);
 			int rowCount = mysql_num_rows(sqlRes);
+			
 
 			if (sqlRow == nullptr)
 			{

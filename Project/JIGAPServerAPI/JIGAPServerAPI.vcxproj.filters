@@ -44,6 +44,15 @@
     <Filter Include="Entity\ObjectPool">
       <UniqueIdentifier>{90f58dc6-8dce-4f0b-ab2e-4ba34e189466}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataBase">
+      <UniqueIdentifier>{6258a2fd-e313-46a1-bca8-c31abb4e6f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataBase\BaseDataBase">
+      <UniqueIdentifier>{b481a577-afbf-4055-9f40-7d3c5e959540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataBase\MySqlDataBase">
+      <UniqueIdentifier>{594a296e-d086-494a-b159-f615f369bde9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -77,6 +86,10 @@
     <ClInclude Include="ObjectPool.h">
       <Filter>Entity\ObjectPool</Filter>
     </ClInclude>
+    <ClInclude Include="BaseDataBase.h">
+      <Filter>DataBase\BaseDataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="MySqlDataBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JIGAPServerAPI.cpp" />
@@ -110,5 +123,9 @@
     <ClCompile Include="ObjectPool.cpp">
       <Filter>Entity\ObjectPool</Filter>
     </ClCompile>
+    <ClCompile Include="BaseDataBase.cpp">
+      <Filter>DataBase\BaseDataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MySqlDataBase.cpp" />
   </ItemGroup>
 </Project>
